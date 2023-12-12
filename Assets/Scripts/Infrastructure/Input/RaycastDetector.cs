@@ -13,10 +13,7 @@ namespace Gameplay.Units
 
             return new ContactInfo
             {
-                IsContacted = hit,
-                Point = hitInfo.point,
                 Collider = hitInfo.collider,
-                Transform = hitInfo.transform
             };
         }
     }

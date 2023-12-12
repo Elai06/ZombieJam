@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Gameplay.Enums;
 using Infrastructure.Input;
 using UnityEngine;
@@ -7,27 +9,55 @@ namespace Gameplay.Units
 {
     public class UserInput : MonoBehaviour
     {
-        public event Action<ESwipeSide> Swipe;
-
         private Vector3 _startPosition;
-        private RaycastDetector _raycastDetector = new();
+        private readonly RaycastDetector _raycastDetector = new();
+
+        private ISwiped _swipedObject;
+
+        private bool _isWasSwipe;
+
+        private int _trashHold;
 
         private void Update()
         {
             if (Input.GetMouseButtonDown(0))
             {
                 _startPosition = Input.mousePosition;
+                SetSwipedObject();
             }
 
             if (Input.GetMouseButton(0))
             {
-                var contactInfo = _raycastDetector.RayCast(3);
-                if (contactInfo.Transform != null)
+                DetectSwipe();
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                _swipedObject = null;
+                _isWasSwipe = false;
+            }
+        }
+
+        private void DetectSwipe()
+        {
+            if (_swipedObject != null && !_isWasSwipe)
+            {
+                var swipe = DefineSwipe();
+
+                if (swipe != ESwipeSide.None)
                 {
-                    var swipe = DefineSwipe();
-                    contactInfo.Transform.GetComponent<ISwiped>().Swipe(swipe);
+                    _isWasSwipe = true;
+                    _swipedObject.Swipe(swipe);
                 }
             }
+        }
+
+        private void SetSwipedObject()
+        {
+            var contactInfo = _raycastDetector.RayCast(3);
+            if (contactInfo.Collider == null) return;
+
+            _swipedObject = contactInfo.Collider.GetComponent<ISwiped>();
         }
 
         private ESwipeSide DefineSwipe()
@@ -36,21 +66,22 @@ namespace Gameplay.Units
             if (_startPosition != currentPosition)
             {
                 var deltaPosition = _startPosition - currentPosition;
+                var deltaHorizontalSwipe = Math.Abs(_startPosition.x - currentPosition.x);
+                var deltaVerticalSwipe = Math.Abs(_startPosition.y - currentPosition.y);
 
-                if (deltaPosition.x != 0)
+                if (deltaPosition.x != 0 && deltaHorizontalSwipe > deltaVerticalSwipe)
                 {
                     var swipeSide = deltaPosition.x > 0 ? ESwipeSide.Left : ESwipeSide.Right;
-                    Swipe?.Invoke(swipeSide);
                     return swipeSide;
                 }
 
                 if (deltaPosition.y != 0)
                 {
                     var swipeSide = deltaPosition.y > 0 ? ESwipeSide.Back : ESwipeSide.Forward;
-                    Swipe?.Invoke(swipeSide);
                     return swipeSide;
                 }
             }
+
 
             return ESwipeSide.None;
         }

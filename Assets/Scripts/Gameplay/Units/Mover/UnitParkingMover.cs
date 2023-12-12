@@ -6,10 +6,12 @@ namespace Gameplay.Units.Mover
 {
     public class UnitParkingMover : MonoBehaviour, ISwiped
     {
+        [SerializeField] private ArrowDirection _arrowDirection;
+
         [SerializeField] private float _speed = 0.5f;
         [SerializeField] private float _bashBackWard = 0.25f;
-        [SerializeField] private ESwipeDirection _eSwipeDirection;
 
+        private ESwipeDirection _eSwipeDirection;
         private bool _isMove;
         private bool _inParking = true;
 
@@ -17,9 +19,9 @@ namespace Gameplay.Units.Mover
 
         private void FixedUpdate()
         {
-            if (_isMove)
+            if (_isMove && _inParking)
             {
-                Move(_eSwipeSide, _speed);
+                SelectDirection(_eSwipeSide, _speed);
             }
         }
 
@@ -34,25 +36,30 @@ namespace Gameplay.Units.Mover
         private void OnCollisionEnter(Collision other)
         {
             if (!_isMove) return;
+            _isMove = false;
 
             if (other.gameObject.layer == 3 || other.gameObject.layer == 6)
             {
-                _isMove = false;
                 Bash(_eSwipeSide, _bashBackWard);
+            }
+
+            if (other.gameObject.layer == 7)
+            {
+                _inParking = false;
             }
         }
 
-        private void Move(ESwipeSide eSwipeSide, float speed)
+        private void SelectDirection(ESwipeSide eSwipeSide, float speed)
         {
             if (_eSwipeDirection == ESwipeDirection.Vertical)
             {
                 switch (eSwipeSide)
                 {
                     case ESwipeSide.Back:
-                        transform.position += Vector3.back * speed;
+                        Move(Vector3.back);
                         return;
                     case ESwipeSide.Forward:
-                        transform.position += Vector3.forward * speed;
+                        Move(Vector3.forward);
                         return;
                 }
             }
@@ -62,10 +69,10 @@ namespace Gameplay.Units.Mover
                 switch (eSwipeSide)
                 {
                     case ESwipeSide.Left:
-                        transform.position += Vector3.left * speed;
+                        Move(Vector3.left);
                         return;
                     case ESwipeSide.Right:
-                        transform.position += Vector3.right * speed;
+                        Move(Vector3.right);
                         return;
                 }
             }
@@ -103,9 +110,15 @@ namespace Gameplay.Units.Mover
             }
         }
 
+        private void Move(Vector3 targetPosition)
+        {
+            transform.position += targetPosition * Time.fixedDeltaTime * _speed;
+        }
+
         public void SetSwipeDirection(ESwipeDirection swipeDirection)
         {
             _eSwipeDirection = swipeDirection;
+            _arrowDirection.SetArrowDirection(swipeDirection);
         }
     }
 }
