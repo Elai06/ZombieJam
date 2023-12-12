@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using Gameplay.Enums;
-using Infrastructure.Input;
+using Gameplay.Units;
 using UnityEngine;
 
-namespace Gameplay.Units
+namespace Infrastructure.Input
 {
-    public class UserInput : MonoBehaviour
+    public class InputManager : MonoBehaviour
     {
         private Vector3 _startPosition;
         private readonly RaycastDetector _raycastDetector = new();
@@ -20,18 +18,18 @@ namespace Gameplay.Units
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (UnityEngine.Input.GetMouseButtonDown(0))
             {
-                _startPosition = Input.mousePosition;
+                _startPosition = UnityEngine.Input.mousePosition;
                 SetSwipedObject();
             }
 
-            if (Input.GetMouseButton(0))
+            if (UnityEngine.Input.GetMouseButton(0))
             {
                 DetectSwipe();
             }
 
-            if (Input.GetMouseButtonUp(0))
+            if (UnityEngine.Input.GetMouseButtonUp(0))
             {
                 _swipedObject = null;
                 _isWasSwipe = false;
@@ -62,7 +60,7 @@ namespace Gameplay.Units
 
         private ESwipeSide DefineSwipe()
         {
-            var currentPosition = Input.mousePosition;
+            var currentPosition = UnityEngine.Input.mousePosition;
             if (_startPosition != currentPosition)
             {
                 var deltaPosition = _startPosition - currentPosition;
