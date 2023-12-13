@@ -1,5 +1,4 @@
-﻿using System;
-using Gameplay.Units;
+﻿using Gameplay.Units.Mover;
 using UnityEngine;
 using Utils.CurveBezier;
 

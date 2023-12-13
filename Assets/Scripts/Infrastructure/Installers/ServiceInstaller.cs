@@ -3,6 +3,7 @@ using _Project.Scripts.Infrastructure.SaveLoads;
 using _Project.Scripts.Infrastructure.StateMachine;
 using _Project.Scripts.Infrastructure.StateMachine.States;
 using _Project.Scripts.Infrastructure.StaticData;
+using Gameplay.Units.Mover;
 using Infrastructure.SaveLoads;
 using Infrastructure.SceneManagement;
 using Infrastructure.StaticData;
@@ -59,7 +60,6 @@ namespace _Project.Scripts.Infrastructure.Installers
 
         private void BindModels()
         {
-            
         }
     }
 }

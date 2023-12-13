@@ -1,21 +1,27 @@
 ﻿using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using Utils.CurveBezier;
+using Task = System.Threading.Tasks.Task;
 
-namespace Gameplay.Units
+namespace Gameplay.Units.Mover
 {
     public class CurveMover : MonoBehaviour
     {
-        private float _timePath;
+        private const int UNIT_LAYER = 3;
 
-        private float _t = 0f;
+        [SerializeField] private UnitParkingMover _unitParkingMover;
+
         private BezierCurve _curve;
 
         private bool _isMove;
 
         private float _deltaTime;
         private float _offsetDurationTime;
-        private float _timeDurationForOneUnit = 1f;
+        private float _t;
+        private float _timePath;
+
+        public bool IsOnRoad { get; private set; }
 
         private void FixedUpdate()
         {
@@ -25,17 +31,44 @@ namespace Gameplay.Units
             }
         }
 
-        public Vector3 Direction()
+        private async void OnCollisionEnter(Collision other)
         {
-            try
+            if (other.gameObject.layer == UNIT_LAYER)
             {
-                var value = _curve.GetPointAt(_t + 0.01f);
-                return value;
+                var collision = other.gameObject.GetComponent<CurveMover>();
+                if (collision == null) return;
+
+                if (collision.IsOnRoad && !IsOnRoad)
+                {
+                    MoveAfterBash();
+                    return;
+                }
+
+                if(_curve == null) return;
+                
+                var collistionDistance = Vector3.Distance(_curve.GetPointAt(1), other.transform.position);
+                var distance = Vector3.Distance(transform.position, _curve.GetPointAt(1));
+
+                if (collistionDistance < distance && collision.IsOnRoad)
+                {
+                    await Bash();
+                }
             }
-            catch (Exception e)
+        }
+
+        private async void MoveAfterBash()
+        {
+            await Task.Delay(500);
+            _unitParkingMover.MoveAfterBash();
+        }
+
+        private async Task Bash()
+        {
+            if (_isMove)
             {
-                Debug.Log(e);
-                return Vector3.zero;
+                _isMove = false;
+                await Task.Delay(500);
+                _isMove = true;
             }
         }
 
@@ -49,7 +82,21 @@ namespace Gameplay.Units
             _offsetDurationTime = GetCurrentPositionOnCurve();
             _timePath = (distance + offsetDistance) / 4.5f;
             _isMove = true;
+            IsOnRoad = true;
+        }
 
+        private Vector3 Direction()
+        {
+            try
+            {
+                var value = _curve.GetPointAt(_t + 0.01f);
+                return value;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                return Vector3.zero;
+            }
         }
 
         private void SetTime()
@@ -62,6 +109,7 @@ namespace Gameplay.Units
             {
                 _isMove = false;
                 _deltaTime = 0f;
+                IsOnRoad = false;
             }
         }
 
@@ -72,15 +120,14 @@ namespace Gameplay.Units
             var deltaDistance = Vector3.Distance(point, transform.position);
             for (int i = 0; i < 100; i++)
             {
-                if (deltaDistance > 0.6f)
+                if (!(deltaDistance > 0.6f))
                 {
-                    time -= 0.01f;
-                    point = _curve.GetPointAt(time);
-                    deltaDistance = Vector3.Distance(point, transform.position);
-                    continue;
+                    return time;
                 }
 
-                return time;
+                time -= 0.01f;
+                point = _curve.GetPointAt(time);
+                deltaDistance = Vector3.Distance(point, transform.position);
             }
 
 

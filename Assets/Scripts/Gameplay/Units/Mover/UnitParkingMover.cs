@@ -1,3 +1,4 @@
+using System;
 using Gameplay.Enums;
 using Infrastructure.Input;
 using UnityEngine;
@@ -6,9 +7,10 @@ namespace Gameplay.Units.Mover
 {
     public class UnitParkingMover : MonoBehaviour, ISwiped
     {
+
         [SerializeField] private ArrowDirection _arrowDirection;
 
-        [SerializeField] private float _speed = 0.5f;
+        [SerializeField] private float _speed = 1.75f;
         [SerializeField] private float _bashBackWard = 0.25f;
 
         private ESwipeDirection _eSwipeDirection;
@@ -119,6 +121,14 @@ namespace Gameplay.Units.Mover
         {
             _eSwipeDirection = swipeDirection;
             _arrowDirection.SetArrowDirection(swipeDirection);
+        }
+
+        public void MoveAfterBash()
+        {
+            if (_inParking)
+            {
+                _isMove = true;
+            }
         }
     }
 }
