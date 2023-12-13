@@ -2,8 +2,6 @@ using _Project.Scripts.Infrastructure.PersistenceProgress;
 using _Project.Scripts.Infrastructure.SaveLoads;
 using _Project.Scripts.Infrastructure.StateMachine;
 using _Project.Scripts.Infrastructure.StateMachine.States;
-using _Project.Scripts.Infrastructure.StaticData;
-using Gameplay.Units.Mover;
 using Infrastructure.SaveLoads;
 using Infrastructure.SceneManagement;
 using Infrastructure.StaticData;
@@ -13,10 +11,9 @@ using SirGames.Scripts.Infrastructure.StateMachine;
 using SirGames.Scripts.Infrastructure.Windows;
 using SirGames.Scripts.Windows;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
-namespace _Project.Scripts.Infrastructure.Installers
+namespace Infrastructure.Installers
 {
     public class ServiceInstaller : MonoInstaller
     {

@@ -1,9 +1,9 @@
-﻿namespace _Project.Scripts.Infrastructure.Windows
+﻿namespace Infrastructure.Windows
 {
     public enum WindowType
     {
         MainMenu,
-        Pause,
+        Victory,
         Died
     }
 }

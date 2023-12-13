@@ -1,6 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using Infrastructure;
+using Infrastructure.Windows;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Gameplay.Windows
 {
@@ -8,9 +12,17 @@ namespace Gameplay.Windows
     {
         private Button _button;
 
+        [Inject] private IWindowService _windowService;
+
+
         private void Awake()
         {
             _button = gameObject.GetComponent<Button>();
+        }
+
+        private void Start()
+        {
+            InjectService.Instance.Inject(this);
         }
 
         private void OnEnable()
@@ -26,6 +38,11 @@ namespace Gameplay.Windows
         private void Restart()
         {
             SceneManager.LoadScene($"Gameplay");
+
+            if (_windowService.IsOpen(WindowType.Victory))
+            {
+                _windowService.Close(WindowType.Victory);
+            }
         }
     }
 }

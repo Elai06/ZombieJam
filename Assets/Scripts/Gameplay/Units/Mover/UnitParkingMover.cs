@@ -23,7 +23,7 @@ namespace Gameplay.Units.Mover
         {
             if (_isMove && _inParking)
             {
-                SelectDirection(_eSwipeSide, _speed);
+                SelectDirection(_eSwipeSide);
             }
         }
 
@@ -51,8 +51,14 @@ namespace Gameplay.Units.Mover
             }
         }
 
-        private void SelectDirection(ESwipeSide eSwipeSide, float speed)
+        private void SelectDirection(ESwipeSide eSwipeSide)
         {
+            if (eSwipeSide == ESwipeSide.None)
+            {
+                _isMove = false;
+                return;
+            }
+            
             if (_eSwipeDirection == ESwipeDirection.Vertical)
             {
                 switch (eSwipeSide)

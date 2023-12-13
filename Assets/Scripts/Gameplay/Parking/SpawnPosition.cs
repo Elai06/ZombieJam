@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Gameplay;
 using Gameplay.Enums;
 using UnityEngine;
 
@@ -5,6 +7,8 @@ public class SpawnPosition : MonoBehaviour
 {
     [SerializeField] private bool _isAvailable = true;
     [SerializeField] private ESwipeDirection _eSwipeDirection;
+    public EZombieType ZombieType;
+    [SerializeField] private List<SpawnPosition> _cooperativePosition = new();
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
@@ -22,5 +26,15 @@ public class SpawnPosition : MonoBehaviour
     public ESwipeDirection GetSwipeDirection()
     {
         return _eSwipeDirection;
+    }
+
+    public Vector3 GetSpawnPosition()
+    {
+        if (_cooperativePosition.Count != 0)
+        {
+            return (transform.position + _cooperativePosition[^1].transform.position ) / 2;
+        }
+
+        return transform.position;
     }
 }

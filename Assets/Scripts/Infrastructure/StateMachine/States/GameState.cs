@@ -23,7 +23,7 @@ namespace _Project.Scripts.Infrastructure.StateMachine.States
 
         public void Enter()
         {
-            _windowService.Open(WindowType.MainMenu);
+           // _windowService.Open(WindowType.MainMenu);
            Debug.Log($"OpenWindow MainMenu");
         }
 

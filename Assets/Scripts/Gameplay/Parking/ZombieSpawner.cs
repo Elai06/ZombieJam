@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Gameplay.Configs;
 using Gameplay.Units.Mover;
 using UnityEngine;
@@ -9,6 +10,10 @@ namespace Gameplay.Parking
         [SerializeField] private PositionSpawner _positionSpawner;
         [SerializeField] private ZombieConfig _zombieConfig;
         [SerializeField] private Transform _spawnPosition;
+
+        [SerializeField] private List<GameObject> _zombies = new();
+
+        public List<GameObject> Zombies => _zombies;
 
         private void Start()
         {
@@ -22,10 +27,12 @@ namespace Gameplay.Parking
             foreach (var spawnPosition in positions)
             {
                 if (!spawnPosition.IsAvailablePosition()) continue;
-               var prefab = Instantiate(_zombieConfig.GetZombieConfig()[0].Prefab, spawnPosition.transform.position,
+                var config = _zombieConfig.GetZombieConfig().Find(x => x.Type == spawnPosition.ZombieType);
+                var prefab = Instantiate(config.Prefab, spawnPosition.GetSpawnPosition(),
                     Quaternion.identity, _spawnPosition);
-               prefab.transform.localPosition = spawnPosition.transform.localPosition;
-               prefab.GetComponent<UnitParkingMover>().SetSwipeDirection(spawnPosition.GetSwipeDirection());
+                prefab.transform.localPosition = spawnPosition.GetSpawnPosition();
+                prefab.GetComponent<UnitParkingMover>().SetSwipeDirection(spawnPosition.GetSwipeDirection());
+                _zombies.Add(prefab);
             }
         }
     }

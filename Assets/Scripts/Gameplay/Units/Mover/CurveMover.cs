@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Gameplay.Workspaces.Workers.Path;
 using UnityEngine;
 using Utils.CurveBezier;
 using Task = System.Threading.Tasks.Task;
@@ -11,6 +12,7 @@ namespace Gameplay.Units.Mover
         private const int UNIT_LAYER = 3;
 
         [SerializeField] private UnitParkingMover _unitParkingMover;
+        [SerializeField] private RotateObject _rotateObject;
 
         private BezierCurve _curve;
 
@@ -44,8 +46,8 @@ namespace Gameplay.Units.Mover
                     return;
                 }
 
-                if(_curve == null) return;
-                
+                if (_curve == null) return;
+
                 var collistionDistance = Vector3.Distance(_curve.GetPointAt(1), other.transform.position);
                 var distance = Vector3.Distance(transform.position, _curve.GetPointAt(1));
 
@@ -85,20 +87,6 @@ namespace Gameplay.Units.Mover
             IsOnRoad = true;
         }
 
-        private Vector3 Direction()
-        {
-            try
-            {
-                var value = _curve.GetPointAt(_t + 0.01f);
-                return value;
-            }
-            catch (Exception e)
-            {
-                Debug.Log(e);
-                return Vector3.zero;
-            }
-        }
-
         private void SetTime()
         {
             _deltaTime += Time.fixedDeltaTime;
@@ -117,54 +105,29 @@ namespace Gameplay.Units.Mover
         {
             var time = 1f;
             var point = _curve.GetPointAt(time);
+            var tempTime = 1f;
             var deltaDistance = Vector3.Distance(point, transform.position);
             for (int i = 0; i < 100; i++)
             {
-                if (!(deltaDistance > 0.6f))
-                {
-                    return time;
-                }
-
                 time -= 0.01f;
                 point = _curve.GetPointAt(time);
-                deltaDistance = Vector3.Distance(point, transform.position);
+                
+                if (deltaDistance > Vector3.Distance(point, transform.position))
+                {
+                    deltaDistance = Vector3.Distance(point, transform.position);
+                    tempTime = time;
+                }
             }
 
 
-            return time;
+            return tempTime;
         }
 
         private void Move(float t)
         {
             _t = t;
             transform.localPosition = _curve.GetPointAt(t);
-            RotateObject();
-        }
-
-        private void RotateObject()
-        {
-            var direction = Direction();
-            var deltaX = direction.x - transform.position.x;
-            switch (deltaX)
-            {
-                case > 0.05f:
-                    transform.eulerAngles = Vector3.up * 90;
-                    return;
-                case < -0.05f:
-                    transform.eulerAngles = Vector3.down * 90;
-                    return;
-            }
-
-            var deltaZ = direction.z - transform.position.z;
-            switch (deltaZ)
-            {
-                case > 0.05f:
-                    transform.eulerAngles = Vector3.zero;
-                    return;
-                case < -0.05f:
-                    transform.eulerAngles = Vector3.up * 180;
-                    return;
-            }
+            _rotateObject.Rotate(_curve, _t);
         }
 
         private float GetDistanceCurvePoints()

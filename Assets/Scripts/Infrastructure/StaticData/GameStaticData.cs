@@ -1,5 +1,6 @@
 ﻿using _Project.Scripts.Infrastructure.StaticData;
 using _Project.Scripts.Infrastructure.Windows;
+using Infrastructure.Windows;
 using UnityEngine;
 using Zenject;
 
