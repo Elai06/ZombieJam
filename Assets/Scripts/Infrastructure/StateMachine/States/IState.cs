@@ -1,6 +1,6 @@
 ﻿using SirGames.Scripts.Infrastructure.StateMachine;
 
-namespace Infrastructure.StateMachine.Sates
+namespace Infrastructure.StateMachine.States
 {
     public interface IState: IExitableState
     {

@@ -4,6 +4,7 @@ using Infrastructure.Windows;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Utils.ZenjectInstantiateUtil;
 using Zenject;
 
 namespace Gameplay.Windows

@@ -1,9 +1,8 @@
-﻿using System;
-using _Project.Scripts.Infrastructure.Windows;
-using Gameplay.Parking;
+﻿using Gameplay.Parking;
 using Infrastructure;
 using Infrastructure.Windows;
 using UnityEngine;
+using Utils.ZenjectInstantiateUtil;
 using Zenject;
 
 namespace Gameplay.Units

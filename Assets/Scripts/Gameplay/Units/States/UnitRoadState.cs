@@ -1,0 +1,163 @@
+﻿using System.Collections;
+using System.Threading.Tasks;
+using Gameplay.Enums;
+using Gameplay.Units.Mover;
+using Infrastructure.StateMachine.States;
+using Infrastructure.UnityBehaviours;
+using SirGames.Scripts.Infrastructure.StateMachine;
+using UnityEngine;
+using Utils.CurveBezier;
+
+namespace Gameplay.Units.States
+{
+    public class UnitRoadState : IState
+    {
+        private const int UNIT_LAYER = 3;
+
+        private IStateMachine _stateMachine;
+        private Unit _unit;
+        private RotateObject _rotateObject;
+        private ICoroutineService _coroutineService;
+
+        private bool _isMove;
+
+        private float _deltaTime;
+        private float _offsetDurationTime;
+        private float _t;
+        private float _timePath;
+        
+        public UnitRoadState(Unit unit, ICoroutineService coroutineService, RotateObject rotateObject)
+        {
+            _unit = unit;
+            _coroutineService = coroutineService;
+            _rotateObject = rotateObject;
+        }
+
+        public void Initialize(IStateMachine stateMachine)
+        {
+            _stateMachine = stateMachine;
+        }
+
+        public void Enter()
+        {
+            InitializePath();
+            _unit.CurrentState = EUnitState.Road;
+
+            _unit.OnCollision += OnCollisionEnter;
+        }
+
+        public void Exit()
+        {
+            _unit.OnCollision -= OnCollisionEnter;
+        }
+
+        private IEnumerator StartMove()
+        {
+            while (_isMove)
+            {
+                yield return new WaitForFixedUpdate();
+                SetTime();
+            }
+        }
+        
+        private void InitializePath()
+        {
+            if (_unit.Curve == null) return;
+
+            var distance = GetDistanceCurvePoints();
+            var offsetDistance = Vector3.Distance(_unit.transform.position, _unit.Curve.GetPointAt(1));
+            _offsetDurationTime = GetCurrentPositionOnCurve();
+            _timePath = (distance + offsetDistance) / 4.5f;
+            _isMove = true;
+            
+            _coroutineService.StartCoroutine(StartMove());
+        }
+
+        private async void OnCollisionEnter(GameObject other)
+        {
+            if (other.gameObject.layer == UNIT_LAYER)
+            {
+                var collision = other.gameObject.GetComponent<Unit>();
+                if (collision == null) return;
+
+                if (_unit.Curve == null) return;
+
+                var collistionDistance = Vector3.Distance(_unit.Curve.GetPointAt(1), other.transform.position);
+                var distance = Vector3.Distance(_unit.transform.position, _unit.Curve.GetPointAt(1));
+
+                if (collistionDistance < distance && collision.CurrentState == EUnitState.Road)
+                {
+                    await Bash();
+                }
+            }
+        }
+
+        private async Task Bash()
+        {
+            if (_isMove)
+            {
+                _isMove = false;
+                await Task.Delay(500);
+                _isMove = true;
+                _coroutineService.StartCoroutine(StartMove());
+            }
+        }
+
+        private void SetTime()
+        {
+            _deltaTime += Time.fixedDeltaTime;
+            var lerp = Mathf.Lerp(0f, 0.99f, _deltaTime / _timePath + _offsetDurationTime);
+            Move(lerp);
+
+            if (lerp >= 0.99f)
+            {
+                _isMove = false;
+                _deltaTime = 0f;
+            }
+        }
+
+        private float GetCurrentPositionOnCurve()
+        {
+            var time = 1f;
+            var point = _unit.Curve.GetPointAt(time);
+            var tempTime = 1f;
+            var deltaDistance = Vector3.Distance(point, _unit.transform.position);
+            for (int i = 0; i < 100; i++)
+            {
+                time -= 0.01f;
+                point = _unit.Curve.GetPointAt(time);
+
+                if (deltaDistance > Vector3.Distance(point, _unit.transform.position))
+                {
+                    deltaDistance = Vector3.Distance(point, _unit.transform.position);
+                    tempTime = time;
+                }
+            }
+
+
+            return tempTime;
+        }
+
+        private void Move(float t)
+        {
+            if(_unit == null) return;
+            _t = t;
+            _unit.transform.localPosition = _unit.Curve.GetPointAt(t);
+            _rotateObject.Rotate(_unit.Curve, _t);
+        }
+
+        private float GetDistanceCurvePoints()
+        {
+            var distance = 0f;
+            for (int i = 0; i < _unit.Curve.GetAnchorPoints().Length - 1; i++)
+            {
+                var currentPoint = _unit.Curve.GetAnchorPoints()[0];
+
+                distance +=
+                    Vector3.Distance(currentPoint.position, _unit.Curve.GetAnchorPoints()[i + 1].position);
+            }
+
+            return distance;
+        }
+    }
+}

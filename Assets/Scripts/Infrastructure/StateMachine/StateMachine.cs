@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Infrastructure.StateMachine.Sates;
+using Infrastructure.StateMachine.States;
+using SirGames.Scripts.Infrastructure.StateMachine;
 
-namespace SirGames.Scripts.Infrastructure.StateMachine
+namespace Infrastructure.StateMachine
 {
     public class StateMachine : IStateMachine
     {

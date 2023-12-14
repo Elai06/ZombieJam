@@ -1,10 +1,8 @@
-﻿using _Project.Scripts.Infrastructure.Windows;
-using Infrastructure.StateMachine.Sates;
-using Infrastructure.Windows;
+﻿using Infrastructure.Windows;
 using SirGames.Scripts.Infrastructure.StateMachine;
 using UnityEngine;
 
-namespace _Project.Scripts.Infrastructure.StateMachine.States
+namespace Infrastructure.StateMachine.States
 {
     public class GameState : IState
     {

@@ -9,8 +9,7 @@ namespace Infrastructure.SceneManagement
     public class SceneLoader : ISceneLoader
     {
         private ICoroutineService _coroutineService;
-
-
+        
         public SceneLoader(ICoroutineService coroutineService)
         {
             _coroutineService = coroutineService;

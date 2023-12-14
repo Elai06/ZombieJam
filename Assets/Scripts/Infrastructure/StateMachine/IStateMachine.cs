@@ -1,4 +1,4 @@
-﻿using Infrastructure.StateMachine.Sates;
+﻿using Infrastructure.StateMachine.States;
 
 namespace SirGames.Scripts.Infrastructure.StateMachine
 {

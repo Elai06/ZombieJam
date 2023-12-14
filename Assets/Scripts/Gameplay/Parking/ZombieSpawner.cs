@@ -1,7 +1,12 @@
 using System.Collections.Generic;
 using Gameplay.Configs;
+using Gameplay.Units;
 using Gameplay.Units.Mover;
+using Infrastructure;
+using Infrastructure.UnityBehaviours;
 using UnityEngine;
+using Utils.ZenjectInstantiateUtil;
+using Zenject;
 
 namespace Gameplay.Parking
 {
@@ -10,13 +15,15 @@ namespace Gameplay.Parking
         [SerializeField] private PositionSpawner _positionSpawner;
         [SerializeField] private ZombieConfig _zombieConfig;
         [SerializeField] private Transform _spawnPosition;
+        [Inject] private ICoroutineService _coroutineService;
 
-        [SerializeField] private List<GameObject> _zombies = new();
+        [SerializeField] private List<Unit> _zombies = new();
 
-        public List<GameObject> Zombies => _zombies;
+        public List<Unit> Zombies => _zombies;
 
         private void Start()
         {
+            InjectService.Instance.Inject(this);
             Spawn();
         }
 
@@ -31,7 +38,8 @@ namespace Gameplay.Parking
                 var prefab = Instantiate(config.Prefab, spawnPosition.GetSpawnPosition(),
                     Quaternion.identity, _spawnPosition);
                 prefab.transform.localPosition = spawnPosition.GetSpawnPosition();
-                prefab.GetComponent<UnitParkingMover>().SetSwipeDirection(spawnPosition.GetSwipeDirection());
+                prefab.SetSwipeDirection(spawnPosition.GetSwipeDirection());
+                prefab.Initialize(config.Parameters, _coroutineService);
                 _zombies.Add(prefab);
             }
         }

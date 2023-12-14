@@ -14,8 +14,6 @@ namespace Infrastructure.Input
 
         private bool _isWasSwipe;
 
-        private int _trashHold;
-
         private void Update()
         {
             if (UnityEngine.Input.GetMouseButtonDown(0))

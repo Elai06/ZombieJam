@@ -1,5 +1,5 @@
 using Infrastructure.SaveLoads;
-using Infrastructure.StateMachine.Sates;
+using Infrastructure.StateMachine.States;
 using SirGames.Scripts.Infrastructure.StateMachine;
 
 namespace _Project.Scripts.Infrastructure.StateMachine.States

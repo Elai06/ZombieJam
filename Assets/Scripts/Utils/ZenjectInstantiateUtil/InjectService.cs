@@ -1,6 +1,4 @@
-﻿using Utils.ZenjectInstantiateUtil;
-
-namespace Infrastructure
+﻿namespace Utils.ZenjectInstantiateUtil
 {
     public class InjectService
     {
