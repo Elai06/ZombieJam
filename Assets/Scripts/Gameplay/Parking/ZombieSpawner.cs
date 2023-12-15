@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Gameplay.Battle;
 using Gameplay.Configs;
 using Gameplay.Units;
 using Gameplay.Units.Mover;
@@ -15,10 +16,11 @@ namespace Gameplay.Parking
         [SerializeField] private PositionSpawner _positionSpawner;
         [SerializeField] private ZombieConfig _zombieConfig;
         [SerializeField] private Transform _spawnPosition;
-        [Inject] private ICoroutineService _coroutineService;
-
         [SerializeField] private List<Unit> _zombies = new();
-
+        [SerializeField] private BattleManager _battleManager;
+        
+        [Inject] private ICoroutineService _coroutineService;
+        
         public List<Unit> Zombies => _zombies;
 
         private void Start()
@@ -39,7 +41,7 @@ namespace Gameplay.Parking
                     Quaternion.identity, _spawnPosition);
                 prefab.transform.localPosition = spawnPosition.GetSpawnPosition();
                 prefab.SetSwipeDirection(spawnPosition.GetSwipeDirection());
-                prefab.Initialize(config.Parameters, _coroutineService);
+                prefab.Initialize(config.Parameters, _coroutineService, _battleManager);
                 _zombies.Add(prefab);
             }
         }

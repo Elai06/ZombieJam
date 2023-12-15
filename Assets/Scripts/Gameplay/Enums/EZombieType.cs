@@ -1,4 +1,4 @@
-﻿namespace Gameplay
+﻿namespace Gameplay.Enums
 {
     public enum EZombieType
     {

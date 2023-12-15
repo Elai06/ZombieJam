@@ -23,6 +23,8 @@ namespace Gameplay.Units.States
 
         private bool _isMove;
 
+        private Coroutine _coroutine;
+
         public UnitParkingState(Unit unit, ESwipeDirection swipeDirection, ParametersConfig parametersConfig,
             ICoroutineService coroutineService)
         {
@@ -48,6 +50,18 @@ namespace Gameplay.Units.States
         {
             _unit.OnSwipe -= Swipe;
             _unit.OnCollision -= OnCollisionEnter;
+            _coroutineService.StopCoroutine(_coroutine);
+            _isMove = false;
+            _eSwipeDirection = ESwipeDirection.None;
+        }
+
+        private IEnumerator StartMove()
+        {
+            while (_isMove)
+            {
+                yield return new WaitForFixedUpdate();
+                SelectDirection(_eSwipeSide);
+            }
         }
 
         private void Swipe(ESwipeSide swipe)
@@ -57,16 +71,7 @@ namespace Gameplay.Units.States
             _eSwipeSide = swipe;
             _isMove = true;
 
-            _coroutineService.StartCoroutine(Move());
-        }
-
-        private IEnumerator Move()
-        {
-            while (_isMove)
-            {
-                yield return new WaitForFixedUpdate();
-                SelectDirection(_eSwipeSide);
-            }
+            _coroutine = _coroutineService.StartCoroutine(StartMove());
         }
 
         private void OnCollisionEnter(GameObject other)
@@ -74,14 +79,12 @@ namespace Gameplay.Units.States
             if (!_isMove) return;
             _isMove = false;
 
+            var collision = other.GetComponent<Unit>();
 
-            if (other.layer == 3)
+            if (collision != null && collision.CurrentState == EUnitState.Road)
             {
-                var collision = other.GetComponent<Unit>();
-                if (collision.CurrentState == EUnitState.Road)
-                {
-                    MoveAfterBash();
-                }
+                _coroutineService.StartCoroutine(MoveAfterBash(collision.transform));
+                return;
             }
 
             if (other.layer == 3 || other.layer == 6)
@@ -162,11 +165,19 @@ namespace Gameplay.Units.States
             _unit.gameObject.transform.position += targetPosition * Time.fixedDeltaTime * _speed;
         }
 
-        private async void MoveAfterBash()
+        private IEnumerator MoveAfterBash(Transform collision)
         {
-            await Task.Delay(500);
+            _isMove = false;
+
+            var distanceToCollision = Vector3.Distance(_unit.transform.position, collision.position);
+            while (distanceToCollision < 1f)
+            {
+                distanceToCollision = Vector3.Distance(_unit.transform.position, collision.position);
+                yield return new WaitForFixedUpdate();
+            }
+
             _isMove = true;
-            _coroutineService.StartCoroutine(Move());
+            _coroutineService.StartCoroutine(StartMove());
         }
     }
 }

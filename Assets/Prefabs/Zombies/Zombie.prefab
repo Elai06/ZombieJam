@@ -104,6 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _arrowDirection: {fileID: 4910581554360232078}
   _rotateObject: {fileID: 231923325547379665}
+  _healthBar: {fileID: 2082069901274693432}
 --- !u!114 &231923325547379665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,7 +153,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -276,6 +277,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2660106941522714047, guid: d3246ca82d6da5c4b8e9a29b7925845b, type: 3}
   m_PrefabInstance: {fileID: 2660106940091585958}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2082069901274693432 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4039278754046372510, guid: d3246ca82d6da5c4b8e9a29b7925845b, type: 3}
+  m_PrefabInstance: {fileID: 2660106940091585958}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1dac05e12bf4a77b4ef623038669109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7884821872644393097
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,7 +6,6 @@ using Infrastructure.StateMachine.States;
 using Infrastructure.UnityBehaviours;
 using SirGames.Scripts.Infrastructure.StateMachine;
 using UnityEngine;
-using Utils.CurveBezier;
 
 namespace Gameplay.Units.States
 {
@@ -15,9 +14,9 @@ namespace Gameplay.Units.States
         private const int UNIT_LAYER = 3;
 
         private IStateMachine _stateMachine;
-        private Unit _unit;
-        private RotateObject _rotateObject;
-        private ICoroutineService _coroutineService;
+        private readonly Unit _unit;
+        private readonly RotateObject _rotateObject;
+        private readonly ICoroutineService _coroutineService;
 
         private bool _isMove;
 
@@ -25,7 +24,7 @@ namespace Gameplay.Units.States
         private float _offsetDurationTime;
         private float _t;
         private float _timePath;
-        
+
         public UnitRoadState(Unit unit, ICoroutineService coroutineService, RotateObject rotateObject)
         {
             _unit = unit;
@@ -53,13 +52,13 @@ namespace Gameplay.Units.States
 
         private IEnumerator StartMove()
         {
-            while (_isMove)
+            while (true)
             {
                 yield return new WaitForFixedUpdate();
                 SetTime();
             }
         }
-        
+
         private void InitializePath()
         {
             if (_unit.Curve == null) return;
@@ -69,42 +68,48 @@ namespace Gameplay.Units.States
             _offsetDurationTime = GetCurrentPositionOnCurve();
             _timePath = (distance + offsetDistance) / 4.5f;
             _isMove = true;
-            
+
             _coroutineService.StartCoroutine(StartMove());
         }
 
-        private async void OnCollisionEnter(GameObject other)
+        private void OnCollisionEnter(GameObject other)
         {
             if (other.gameObject.layer == UNIT_LAYER)
             {
                 var collision = other.gameObject.GetComponent<Unit>();
-                if (collision == null) return;
+                if (collision == null || collision.CurrentState == EUnitState.Parking)
+                {
+                    return;
+                }
 
-                if (_unit.Curve == null) return;
-
-                var collistionDistance = Vector3.Distance(_unit.Curve.GetPointAt(1), other.transform.position);
+                var collisionDistance = Vector3.Distance(other.transform.position, _unit.Curve.GetPointAt(1));
                 var distance = Vector3.Distance(_unit.transform.position, _unit.Curve.GetPointAt(1));
 
-                if (collistionDistance < distance && collision.CurrentState == EUnitState.Road)
+                if (distance > collisionDistance)
                 {
-                    await Bash();
+                    _coroutineService.StartCoroutine(Bash(collision.transform));
                 }
             }
         }
 
-        private async Task Bash()
+        private IEnumerator Bash(Transform collision)
         {
-            if (_isMove)
+            _isMove = false;
+
+            var distanceToCollision = Vector3.Distance(_unit.transform.position, collision.position);
+            while (distanceToCollision < 1f)
             {
-                _isMove = false;
-                await Task.Delay(500);
-                _isMove = true;
-                _coroutineService.StartCoroutine(StartMove());
+                distanceToCollision = Vector3.Distance(_unit.transform.position, collision.position);
+                yield return new WaitForFixedUpdate();
             }
+
+            _isMove = true;
         }
 
         private void SetTime()
         {
+            if (!_isMove) return;
+
             _deltaTime += Time.fixedDeltaTime;
             var lerp = Mathf.Lerp(0f, 0.99f, _deltaTime / _timePath + _offsetDurationTime);
             Move(lerp);
@@ -113,6 +118,7 @@ namespace Gameplay.Units.States
             {
                 _isMove = false;
                 _deltaTime = 0f;
+                _stateMachine.Enter<UnitBattleState>();
             }
         }
 
@@ -140,7 +146,7 @@ namespace Gameplay.Units.States
 
         private void Move(float t)
         {
-            if(_unit == null) return;
+            if (_unit == null) return;
             _t = t;
             _unit.transform.localPosition = _unit.Curve.GetPointAt(t);
             _rotateObject.Rotate(_unit.Curve, _t);

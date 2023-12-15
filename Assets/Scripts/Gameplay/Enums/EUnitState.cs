@@ -3,6 +3,7 @@
     public enum EUnitState
     {
         Parking,
-        Road
+        Road,
+        Battle
     }
 }

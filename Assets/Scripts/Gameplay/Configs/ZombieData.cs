@@ -1,4 +1,5 @@
 ﻿using System;
+using Gameplay.Enums;
 using Gameplay.Parameters;
 using Gameplay.Units;
 using UnityEngine;

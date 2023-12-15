@@ -1,4 +1,5 @@
-﻿using Gameplay.Units;
+﻿using Gameplay.Enums;
+using Gameplay.Units;
 using UnityEngine;
 using Utils.CurveBezier;
 
@@ -14,7 +15,11 @@ namespace Gameplay.Road
         {
             if (other.gameObject.layer == UNIT_LAYER)
             {
-                other.gameObject.GetComponent<Unit>().InitializePath(_bezierCurve);
+                var unit = other.gameObject.GetComponent<Unit>();
+                if (unit.CurrentState != EUnitState.Road)
+                {
+                    unit.InitializePath(_bezierCurve);
+                }
             }
         }
     }
