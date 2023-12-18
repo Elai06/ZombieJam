@@ -1,5 +1,4 @@
 ﻿using Infrastructure.Windows;
-using SirGames.Scripts.Infrastructure.StateMachine;
 using UnityEngine;
 
 namespace Infrastructure.StateMachine.States

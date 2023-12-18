@@ -43,6 +43,12 @@ namespace Gameplay.Windows
             if (_windowService.IsOpen(WindowType.Victory))
             {
                 _windowService.Close(WindowType.Victory);
+                return;
+            }
+
+            if (_windowService.IsOpen(WindowType.Died))
+            {
+                _windowService.Close(WindowType.Died);
             }
         }
     }

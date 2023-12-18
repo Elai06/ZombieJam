@@ -1,5 +1,5 @@
 using _Project.Scripts.Infrastructure.StateMachine.States;
-using SirGames.Scripts.Infrastructure.StateMachine;
+using Infrastructure.StateMachine;
 using UnityEngine;
 using Zenject;
 

@@ -15,8 +15,11 @@ namespace Gameplay.Units
 {
     public abstract class Unit : MonoBehaviour, ISwiped
     {
+        public event Action Died; 
         public event Action<ESwipeSide> OnSwipe;
         public event Action<GameObject> OnCollision;
+
+        public event Action OnInitializePath; 
 
         [SerializeField] private ArrowDirection _arrowDirection;
         [SerializeField] private RotateObject _rotateObject;
@@ -27,7 +30,7 @@ namespace Gameplay.Units
         private ICoroutineService _coroutineService;
         private ParametersConfig _parametersConfig;
         private ESwipeDirection _eSwipeDirection;
-        private BattleManager _battleManager;
+        private ITargetManager _targetManager;
 
         public EUnitState CurrentState { get; set; }
         public BezierCurve Curve { get; private set; }
@@ -35,15 +38,16 @@ namespace Gameplay.Units
         public ParametersConfig Parameters => _parametersConfig;
 
         public float Health { get; private set; }
+        public bool IsDied { get; private set; }
 
 
         public void Initialize(ParametersConfig parametersConfig, ICoroutineService coroutineService,
-            BattleManager battleManager)
+            ITargetManager targetManager)
         {
             _parametersConfig = parametersConfig;
             _coroutineService = coroutineService;
-            _battleManager = battleManager;
-            
+            _targetManager = targetManager;
+
             Health = _parametersConfig.GetDictionary()[EParameter.Health];
 
             _healthBar.Initialize(Health);
@@ -54,11 +58,13 @@ namespace Gameplay.Units
         {
             var parkingState = new UnitParkingState(this, _eSwipeDirection, _parametersConfig, _coroutineService);
             var roadState = new UnitRoadState(this, _coroutineService, _rotateObject);
-            var battleState = new UnitBattleState(this, _battleManager, _coroutineService);
+            var battleState = new UnitBattleState(this, _targetManager, _coroutineService);
+            var diedState = new UnitDiedState(this);
 
             _stateMachine.AddState(parkingState);
             _stateMachine.AddState(roadState);
             _stateMachine.AddState(battleState);
+            _stateMachine.AddState(diedState);
             _stateMachine.Enter<UnitParkingState>();
         }
 
@@ -80,10 +86,11 @@ namespace Gameplay.Units
 
         public void InitializePath(BezierCurve bezierCurve)
         {
-            if (CurrentState == EUnitState.Road) return;
+            if (CurrentState == EUnitState.Road || IsDied) return;
 
             Curve = bezierCurve;
-            _stateMachine.Enter<UnitRoadState>();
+            
+            OnInitializePath?.Invoke();
         }
 
         public void DamageToTarget(Enemy enemy)
@@ -94,8 +101,18 @@ namespace Gameplay.Units
 
         public void GetDamage(float damage)
         {
+            if (Health <= 0) return;
+
             Health -= damage;
-            _healthBar.ChangeHealth(Health);
+            _healthBar.ChangeHealth(Health, (int)damage);
+
+            if (Health <= 0)
+            {
+                Health = 0;
+                IsDied = true;
+                Died?.Invoke();
+                _stateMachine.Enter<UnitDiedState>();
+            }
         }
     }
 }

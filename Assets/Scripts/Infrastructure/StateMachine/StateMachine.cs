@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Infrastructure.StateMachine.States;
-using SirGames.Scripts.Infrastructure.StateMachine;
 
 namespace Infrastructure.StateMachine
 {

@@ -1,6 +1,6 @@
 using Infrastructure.SaveLoads;
+using Infrastructure.StateMachine;
 using Infrastructure.StateMachine.States;
-using SirGames.Scripts.Infrastructure.StateMachine;
 
 namespace _Project.Scripts.Infrastructure.StateMachine.States
 {

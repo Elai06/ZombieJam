@@ -1,49 +1,50 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
 using Gameplay.Battle;
 using Gameplay.Enemies;
 using Gameplay.Enums;
-using Gameplay.Parameters;
-using Infrastructure.StateMachine.States;
 using Infrastructure.UnityBehaviours;
-using SirGames.Scripts.Infrastructure.StateMachine;
 using UnityEngine;
 
 namespace Gameplay.Units.States
 {
-    public class UnitBattleState : IState
+    public class UnitBattleState : UnitState
     {
-        private Unit _unit;
-        private IStateMachine _stateMachine;
-        private BattleManager _battleManager;
+        private ITargetManager _targetManager;
         private Enemy _enemy;
         private ICoroutineService _coroutineService;
         private Dictionary<EParameter, float> _parametersConfig;
 
-        public UnitBattleState(Unit unit, BattleManager battleManager, ICoroutineService coroutineService)
+        public UnitBattleState(Unit unit, ITargetManager targetManager, ICoroutineService coroutineService) : base(
+            EUnitState.Battle, unit)
         {
             _unit = unit;
-            _battleManager = battleManager;
+            _targetManager = targetManager;
             _parametersConfig = unit.Parameters.GetDictionary();
             _coroutineService = coroutineService;
         }
 
-        public void Initialize(IStateMachine stateMachine)
+        public override void Enter()
         {
-            _stateMachine = stateMachine;
+            base.Enter();
+
+            InitializeTarget();
         }
 
-        public void Enter()
+        public override void Exit()
         {
+            base.Exit();
+        }
+
+        private void InitializeTarget()
+        {
+            if (_unit.IsDied || _unit == null) return;
+
             var radiusAttack = _parametersConfig[EParameter.RadiusAttack];
-            _enemy = _battleManager.GetTargetEnemy();
-            _coroutineService.StartCoroutine(MoveToTarget(_enemy.GetPositionForUnit(_unit, radiusAttack)));
-            _unit.CurrentState = EUnitState.Battle;
-        }
+            _enemy = _targetManager.GetTargetEnemy(_unit.transform);
+            if (_enemy == null) return;
 
-        public void Exit()
-        {
+            _coroutineService.StartCoroutine(MoveToTarget(_enemy.GetPositionForUnit(_unit, radiusAttack)));
         }
 
         private IEnumerator MoveToTarget(Vector3 target)
@@ -52,14 +53,39 @@ namespace Gameplay.Units.States
 
             while (distance > 0.1f)
             {
-                distance = Vector3.Distance(target, _unit.transform.position);
-                _unit.transform.position = Vector3.MoveTowards(_unit.transform.position,
-                    target, Time.fixedDeltaTime * _parametersConfig[EParameter.TravelSpeed]);
+                if (_unit == null || _unit.IsDied) yield break;
+
+                var position = _unit.transform.position;
+                distance = Vector3.Distance(target, position);
+                position = Vector3.MoveTowards(position, target,
+                    Time.fixedDeltaTime * _parametersConfig[EParameter.TravelSpeed]);
+                _unit.transform.position = position;
 
                 yield return new WaitForFixedUpdate();
             }
 
-            _unit.DamageToTarget(_enemy);
+            _coroutineService.StartCoroutine(Damage());
+        }
+
+        private IEnumerator Damage()
+        {
+            if (_enemy == null) yield break;
+
+            var attackRate = _parametersConfig[EParameter.AttackRate];
+
+            while (true)
+            {
+                yield return new WaitForSeconds(attackRate);
+                if (_unit.IsDied) yield break;
+
+                _unit.DamageToTarget(_enemy);
+                
+                if (_enemy.IsDead)
+                {
+                    InitializeTarget();
+                    yield break;
+                }
+            }
         }
     }
 }

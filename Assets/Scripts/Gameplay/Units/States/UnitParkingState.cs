@@ -1,18 +1,15 @@
 ﻿using System.Collections;
-using System.Threading.Tasks;
 using Gameplay.Enums;
 using Gameplay.Parameters;
-using Infrastructure.StateMachine.States;
+using Infrastructure.StateMachine;
 using Infrastructure.UnityBehaviours;
-using SirGames.Scripts.Infrastructure.StateMachine;
 using UnityEngine;
+using Utils.CurveBezier;
 
 namespace Gameplay.Units.States
 {
-    public class UnitParkingState : IState
+    public class UnitParkingState : UnitState
     {
-        private Unit _unit;
-        private IStateMachine _stateMachine;
         private ICoroutineService _coroutineService;
 
         private ESwipeDirection _eSwipeDirection;
@@ -26,7 +23,7 @@ namespace Gameplay.Units.States
         private Coroutine _coroutine;
 
         public UnitParkingState(Unit unit, ESwipeDirection swipeDirection, ParametersConfig parametersConfig,
-            ICoroutineService coroutineService)
+            ICoroutineService coroutineService) : base(EUnitState.Parking, unit)
         {
             _unit = unit;
             _eSwipeDirection = swipeDirection;
@@ -34,25 +31,31 @@ namespace Gameplay.Units.States
             _coroutineService = coroutineService;
         }
 
-        public void Initialize(IStateMachine stateMachine)
+        public override void Enter()
         {
-            _stateMachine = stateMachine;
-        }
+            base.Enter();
 
-        public void Enter()
-        {
             _unit.OnSwipe += Swipe;
             _unit.OnCollision += OnCollisionEnter;
-            _unit.CurrentState = EUnitState.Parking;
+            _unit.OnInitializePath += InitializePath;
         }
 
-        public void Exit()
+        public override void Exit()
         {
+            base.Exit();
+
             _unit.OnSwipe -= Swipe;
             _unit.OnCollision -= OnCollisionEnter;
+            _unit.OnInitializePath -= InitializePath;
+
             _coroutineService.StopCoroutine(_coroutine);
             _isMove = false;
             _eSwipeDirection = ESwipeDirection.None;
+        }
+
+        private void InitializePath()
+        {
+            _stateMachine.Enter<UnitRoadState>();
         }
 
         private IEnumerator StartMove()

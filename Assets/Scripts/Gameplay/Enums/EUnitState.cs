@@ -4,6 +4,7 @@
     {
         Parking,
         Road,
-        Battle
+        Battle,
+        Died
     }
 }

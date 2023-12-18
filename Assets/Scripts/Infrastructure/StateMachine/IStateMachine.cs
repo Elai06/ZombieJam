@@ -1,6 +1,6 @@
 ﻿using Infrastructure.StateMachine.States;
 
-namespace SirGames.Scripts.Infrastructure.StateMachine
+namespace Infrastructure.StateMachine
 {
     public interface IStateMachine
     {

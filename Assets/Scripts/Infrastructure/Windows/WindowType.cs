@@ -4,6 +4,6 @@
     {
         MainMenu,
         Victory,
-        Died
+        Died,
     }
 }

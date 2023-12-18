@@ -1,20 +1,15 @@
 ﻿using System.Collections;
-using System.Threading.Tasks;
 using Gameplay.Enums;
 using Gameplay.Units.Mover;
-using Infrastructure.StateMachine.States;
 using Infrastructure.UnityBehaviours;
-using SirGames.Scripts.Infrastructure.StateMachine;
 using UnityEngine;
 
 namespace Gameplay.Units.States
 {
-    public class UnitRoadState : IState
+    public class UnitRoadState : UnitState
     {
         private const int UNIT_LAYER = 3;
 
-        private IStateMachine _stateMachine;
-        private readonly Unit _unit;
         private readonly RotateObject _rotateObject;
         private readonly ICoroutineService _coroutineService;
 
@@ -26,37 +21,24 @@ namespace Gameplay.Units.States
         private float _timePath;
 
         public UnitRoadState(Unit unit, ICoroutineService coroutineService, RotateObject rotateObject)
+            : base(EUnitState.Road, unit)
         {
             _unit = unit;
             _coroutineService = coroutineService;
             _rotateObject = rotateObject;
         }
 
-        public void Initialize(IStateMachine stateMachine)
+        public override void Enter()
         {
-            _stateMachine = stateMachine;
-        }
-
-        public void Enter()
-        {
+            base.Enter();
             InitializePath();
-            _unit.CurrentState = EUnitState.Road;
 
             _unit.OnCollision += OnCollisionEnter;
         }
 
-        public void Exit()
+        public override void Exit()
         {
             _unit.OnCollision -= OnCollisionEnter;
-        }
-
-        private IEnumerator StartMove()
-        {
-            while (true)
-            {
-                yield return new WaitForFixedUpdate();
-                SetTime();
-            }
         }
 
         private void InitializePath()
@@ -70,6 +52,15 @@ namespace Gameplay.Units.States
             _isMove = true;
 
             _coroutineService.StartCoroutine(StartMove());
+        }
+
+        private IEnumerator StartMove()
+        {
+            while (true)
+            {
+                yield return new WaitForFixedUpdate();
+                SetTime();
+            }
         }
 
         private void OnCollisionEnter(GameObject other)
