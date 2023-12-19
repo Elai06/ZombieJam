@@ -3,6 +3,7 @@
     public enum EEnemyState
     {
         Idle,
-        Battle
+        Battle,
+        Died
     }
 }

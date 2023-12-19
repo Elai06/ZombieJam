@@ -24,6 +24,8 @@ namespace Gameplay.Units
         [SerializeField] private ArrowDirection _arrowDirection;
         [SerializeField] private RotateObject _rotateObject;
         [SerializeField] private HealthBar _healthBar;
+        [SerializeField] private Rigidbody _rigidbody;
+        [SerializeField] private Animator _animator;
 
         private readonly StateMachine _stateMachine = new();
 
@@ -39,6 +41,8 @@ namespace Gameplay.Units
 
         public float Health { get; private set; }
         public bool IsDied { get; private set; }
+
+        public Rigidbody Rigidbody => _rigidbody;
 
 
         public void Initialize(ParametersConfig parametersConfig, ICoroutineService coroutineService,
@@ -58,7 +62,7 @@ namespace Gameplay.Units
         {
             var parkingState = new UnitParkingState(this, _eSwipeDirection, _parametersConfig, _coroutineService);
             var roadState = new UnitRoadState(this, _coroutineService, _rotateObject);
-            var battleState = new UnitBattleState(this, _targetManager, _coroutineService);
+            var battleState = new UnitBattleState(this, _targetManager, _coroutineService, _rotateObject);
             var diedState = new UnitDiedState(this);
 
             _stateMachine.AddState(parkingState);
@@ -113,6 +117,11 @@ namespace Gameplay.Units
                 Died?.Invoke();
                 _stateMachine.Enter<UnitDiedState>();
             }
+        }
+
+        public void PlatAttackAnimation()
+        {
+            _animator.SetTrigger("Attack");
         }
     }
 }

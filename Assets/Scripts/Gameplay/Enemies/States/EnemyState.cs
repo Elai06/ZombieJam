@@ -1,4 +1,5 @@
-﻿using Infrastructure.StateMachine;
+﻿using Gameplay.Enums;
+using Infrastructure.StateMachine;
 using Infrastructure.StateMachine.States;
 
 namespace Gameplay.Enemies.States
@@ -8,9 +9,10 @@ namespace Gameplay.Enemies.States
         protected Enemy _enemy;
         protected IStateMachine _stateMachine;
 
-        public EnemyState(Enemy enemy)
+        public EnemyState(Enemy enemy, EEnemyState eEnemyState)
         {
             _enemy = enemy;
+            _enemy.CurrentState = eEnemyState;
         }
 
         public void Initialize(IStateMachine stateMachine)

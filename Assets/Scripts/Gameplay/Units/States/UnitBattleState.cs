@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Gameplay.Battle;
 using Gameplay.Enemies;
 using Gameplay.Enums;
+using Gameplay.Units.Mover;
 using Infrastructure.UnityBehaviours;
 using UnityEngine;
 
@@ -14,14 +15,17 @@ namespace Gameplay.Units.States
         private Enemy _enemy;
         private ICoroutineService _coroutineService;
         private Dictionary<EParameter, float> _parametersConfig;
+        private Coroutine _coroutine;
+        private RotateObject _rotateObject;
 
-        public UnitBattleState(Unit unit, ITargetManager targetManager, ICoroutineService coroutineService) : base(
-            EUnitState.Battle, unit)
+        public UnitBattleState(Unit unit, ITargetManager targetManager, ICoroutineService coroutineService, RotateObject rotateObject) 
+            : base(EUnitState.Battle, unit)
         {
             _unit = unit;
             _targetManager = targetManager;
             _parametersConfig = unit.Parameters.GetDictionary();
             _coroutineService = coroutineService;
+            _rotateObject = rotateObject;
         }
 
         public override void Enter()
@@ -34,6 +38,11 @@ namespace Gameplay.Units.States
         public override void Exit()
         {
             base.Exit();
+
+            if (_coroutine != null)
+            {
+                _coroutineService.StopCoroutine(_coroutine);
+            }
         }
 
         private void InitializeTarget()
@@ -54,32 +63,32 @@ namespace Gameplay.Units.States
             while (distance > 0.1f)
             {
                 if (_unit == null || _unit.IsDied) yield break;
-
-                var position = _unit.transform.position;
-                distance = Vector3.Distance(target, position);
-                position = Vector3.MoveTowards(position, target,
+                var position = Vector3.MoveTowards(_unit.transform.position, target,
                     Time.fixedDeltaTime * _parametersConfig[EParameter.TravelSpeed]);
-                _unit.transform.position = position;
+                distance = Vector3.Distance(target, position);
 
-                yield return new WaitForFixedUpdate();
+                _unit.transform.position = position;
+                _rotateObject.Rotate(target);
+                    yield return new WaitForFixedUpdate();
             }
 
-            _coroutineService.StartCoroutine(Damage());
+            _coroutine = _coroutineService.StartCoroutine(Damage());
         }
 
         private IEnumerator Damage()
         {
-            if (_enemy == null) yield break;
-
             var attackRate = _parametersConfig[EParameter.AttackRate];
 
             while (true)
             {
+                if (_enemy == null || _unit.IsDied) yield break;
+
+                _unit.PlatAttackAnimation();
+
                 yield return new WaitForSeconds(attackRate);
-                if (_unit.IsDied) yield break;
 
                 _unit.DamageToTarget(_enemy);
-                
+
                 if (_enemy.IsDead)
                 {
                     InitializeTarget();

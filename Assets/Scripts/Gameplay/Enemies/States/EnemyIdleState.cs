@@ -13,8 +13,10 @@ namespace Gameplay.Enemies.States
         private ICoroutineService _coroutineService;
         private ParametersConfig _parametersConfig;
 
+        private Coroutine _coroutine;
+
         public EnemyIdleState(Enemy enemy, ITargetManager targetManager, ICoroutineService coroutineService,
-            ParametersConfig parametersConfig) : base(enemy)
+            ParametersConfig parametersConfig) : base(enemy, EEnemyState.Idle)
         {
             _targetManager = targetManager;
             _coroutineService = coroutineService;
@@ -25,13 +27,17 @@ namespace Gameplay.Enemies.States
         public override void Exit()
         {
             base.Exit();
+
+            if (_coroutine != null)
+            {
+                _coroutineService.StopCoroutine(_coroutine);
+            }
         }
 
         public override void Enter()
         {
             base.Enter();
-            _enemy.CurrentState = EEnemyState.Idle;
-            _coroutineService.StartCoroutine(FindTarget());
+            _coroutine = _coroutineService.StartCoroutine(FindTarget());
         }
 
         private IEnumerator FindTarget()

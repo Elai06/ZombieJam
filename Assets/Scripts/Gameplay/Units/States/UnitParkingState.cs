@@ -48,7 +48,11 @@ namespace Gameplay.Units.States
             _unit.OnCollision -= OnCollisionEnter;
             _unit.OnInitializePath -= InitializePath;
 
-            _coroutineService.StopCoroutine(_coroutine);
+            if (_coroutine != null)
+            {
+                _coroutineService.StopCoroutine(_coroutine);
+            }
+
             _isMove = false;
             _eSwipeDirection = ESwipeDirection.None;
         }
@@ -86,7 +90,7 @@ namespace Gameplay.Units.States
 
             if (collision != null && collision.CurrentState == EUnitState.Road)
             {
-                _coroutineService.StartCoroutine(MoveAfterBash(collision.transform));
+                _coroutine = _coroutineService.StartCoroutine(MoveAfterBash(collision.transform));
                 return;
             }
 

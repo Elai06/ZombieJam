@@ -1,13 +1,14 @@
-﻿using UnityEngine;
+﻿using Gameplay.Enums;
+using UnityEngine;
 
 namespace Gameplay.Enemies.States
 {
     public class EnemyDiedState : EnemyState
     {
-        public EnemyDiedState(Enemy enemy) : base(enemy)
+        public EnemyDiedState(Enemy enemy) : base(enemy, EEnemyState.Died)
         {
         }
-        
+
         public override void Exit()
         {
             base.Exit();
@@ -16,7 +17,7 @@ namespace Gameplay.Enemies.States
         public override void Enter()
         {
             base.Enter();
-            _enemy.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            _enemy.gameObject.SetActive(false);
         }
     }
 }

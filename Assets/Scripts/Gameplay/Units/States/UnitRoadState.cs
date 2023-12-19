@@ -45,7 +45,7 @@ namespace Gameplay.Units.States
         {
             if (_unit.Curve == null) return;
 
-            var distance = GetDistanceCurvePoints();
+            var distance = GetFullDistanceCurvePoints();
             var offsetDistance = Vector3.Distance(_unit.transform.position, _unit.Curve.GetPointAt(1));
             _offsetDurationTime = GetCurrentPositionOnCurve();
             _timePath = (distance + offsetDistance) / 4.5f;
@@ -139,11 +139,13 @@ namespace Gameplay.Units.States
         {
             if (_unit == null) return;
             _t = t;
-            _unit.transform.localPosition = _unit.Curve.GetPointAt(t);
+            _unit.transform.localPosition = Vector3.MoveTowards(_unit.transform.localPosition,
+                _unit.Curve.GetPointAt(t),
+                Time.fixedDeltaTime * _unit.Parameters.GetDictionary()[EParameter.TravelSpeed]);
             _rotateObject.Rotate(_unit.Curve, _t);
         }
 
-        private float GetDistanceCurvePoints()
+        private float GetFullDistanceCurvePoints()
         {
             var distance = 0f;
             for (int i = 0; i < _unit.Curve.GetAnchorPoints().Length - 1; i++)

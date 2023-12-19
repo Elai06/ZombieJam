@@ -43,39 +43,45 @@ namespace Gameplay.Battle
         public Enemy GetTargetEnemy(Transform unitTransform)
         {
             var distance = Vector3.Distance(unitTransform.position, _enemyInitializer.Enemies[0].transform.position);
-            var enemy = _enemyInitializer.Enemies.Find(x => !x.IsDead);
-            foreach (var value in _enemyInitializer.Enemies)
+            var target = _enemyInitializer.Enemies.Find(x => !x.IsDead);
+            foreach (var enemy in _enemyInitializer.Enemies)
             {
-                if (value.IsDead) continue;
+                if (enemy.IsDead) continue;
 
-                var nextEnemyDistance = Vector3.Distance(unitTransform.position, value.transform.position);
+                var nextEnemyDistance = Vector3.Distance(unitTransform.position, enemy.transform.position);
 
                 if (distance < nextEnemyDistance)
                 {
-                    distance = Vector3.Distance(unitTransform.position, value.transform.position);
-                    enemy = value;
+                    distance = Vector3.Distance(unitTransform.position, enemy.transform.position);
+                    target = enemy;
                 }
             }
 
-            return enemy == null ? null : enemy;
+            return target == null ? null : target;
         }
 
         public Unit GetTargetUnit(Transform buildingTransform, float radiusAttack)
         {
+            if (_zombieSpawner.Zombies.Count == 0) return null;
+            
+         
             var zombies = _zombieSpawner.Zombies;
+            var target = zombies.Find(x => !x.IsDied);
+            var distance = Vector3.Distance(buildingTransform.position, target.transform.position);
+
             foreach (var zombie in zombies)
             {
-                if (zombie.CurrentState != EUnitState.Battle || zombie.IsDied) continue;
+                if (zombie.CurrentState == EUnitState.Parking || zombie.IsDied) continue;
 
-                var distance = Vector3.Distance(buildingTransform.position, zombie.transform.position);
-
-                if (distance <= radiusAttack + 0.1f)
+                var nextZombieDistance = Vector3.Distance(buildingTransform.position, zombie.transform.position);
+                if (distance > nextZombieDistance)
                 {
-                    return zombie;
+                    distance = nextZombieDistance;
+                    target = zombie;
                 }
             }
 
-            return null;
+            return distance <= radiusAttack ? target : null;
         }
 
         private void OnDiedEnemy()

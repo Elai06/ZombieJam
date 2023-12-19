@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Gameplay.Enums
+﻿namespace Gameplay.Enums
 {
     public enum EParameter
     {
@@ -8,6 +6,7 @@ namespace Gameplay.Enums
         Attack,
         RadiusAttack,
         AttackRate,
-        TravelSpeed
+        TravelSpeed,
+        AttackSpeed
     }
 }

@@ -17,17 +17,18 @@ namespace Gameplay.Enemies
 
         [SerializeField] private EBuildingType _type;
         [SerializeField] private HealthBar _healthBar;
+        [SerializeField] private CircleRenderer _circleRenderer;
         [SerializeField] private int _unitsCount = 12;
+        [SerializeField] private Animator _animator;
+        [SerializeField] private Bullet _bullet;
 
         private ParametersConfig _parametersConfig;
         private ICoroutineService _coroutineService;
         private ITargetManager _targetManager;
-        private readonly StateMachine _stateMachine = new StateMachine();
+        private readonly StateMachine _stateMachine = new();
 
         public Unit Target { get; set; }
-
         private readonly List<Unit> _attackedUnits = new();
-
 
         public float Health { get; private set; }
         public bool IsDead { get; private set; }
@@ -42,9 +43,12 @@ namespace Gameplay.Enemies
             _coroutineService = coroutineService;
             _targetManager = targetManager;
             InitializeStates();
+            _circleRenderer.Initialize(_parametersConfig.GetDictionary()[EParameter.RadiusAttack]);
 
             Health = _parametersConfig.GetDictionary()[EParameter.Health];
             _healthBar.Initialize(Health);
+
+            _bullet.Hit += OnHit;
         }
 
         private void InitializeStates()
@@ -62,8 +66,8 @@ namespace Gameplay.Enemies
 
         public void GetDamage(float damage)
         {
-            if(Health <= 0) return;
-            
+            if (Health <= 0) return;
+
             Health -= damage;
             _healthBar.ChangeHealth(Health, (int)damage);
 
@@ -86,8 +90,22 @@ namespace Gameplay.Enemies
 
         public void DamageToTarget(Unit unit)
         {
+            if (unit == null) return;
             var attack = _parametersConfig.GetDictionary()[EParameter.Attack];
             unit.GetDamage(attack);
+        }
+
+        public void ShoteBullet(Transform target, float speedAttack)
+        {
+            if (Target.IsDied) return;
+
+            _animator.SetTrigger("Attack");
+            _bullet.Shote(target, speedAttack);
+        }
+
+        private void OnHit()
+        {
+            DamageToTarget(Target);
         }
     }
 }
