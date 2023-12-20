@@ -107,5 +107,10 @@ namespace Gameplay.Enemies
         {
             DamageToTarget(Target);
         }
+
+        public void RemoveAttackingUnit(Unit unit)
+        {
+            _attackedUnits.Remove(unit);
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace Gameplay
     public class DamageText : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] private Canvas _canvas;
 
         private Tween _tween;
 
@@ -14,22 +15,19 @@ namespace Gameplay
 
         private void Start()
         {
-            _text.enabled = false;
+            _canvas.enabled = false;
             _startPosition = transform.localPosition;
         }
 
         public void Damage(int damage)
         {
-            transform.localPosition = _startPosition;
+            /*transform.localPosition = _startPosition;
 
-            _text.enabled = true;
+            _canvas.enabled = true;
             _text.text = $"{damage}";
             _tween?.Kill();
-            _tween = transform.DOLocalMoveY(transform.localPosition.y + 1, 1)
-                .OnComplete(() =>
-                {
-                    _text.enabled = false;
-                });
+            _tween = transform.DOLocalMoveY(transform.localPosition.y + 1, 0.5f);
+            _tween = DOVirtual.DelayedCall(0.5f, () => _canvas.enabled = true);*/
         }
     }
 }

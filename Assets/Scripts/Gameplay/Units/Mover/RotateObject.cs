@@ -24,7 +24,7 @@ namespace Gameplay.Units.Mover
                     return;
             }
 
-            var deltaZ = direction.z - transform.parent.position.z;
+            var deltaZ = direction.z - transform.position.z;
             switch (deltaZ)
             {
                 case > 0.05f:
@@ -42,7 +42,7 @@ namespace Gameplay.Units.Mover
         {
             try
             {
-                var value = curve.GetPointAt(t + 0.015f);
+                var value = curve.GetPointAt(t + 0.01f);
                 return value;
             }
             catch (Exception e)

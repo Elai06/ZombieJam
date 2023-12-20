@@ -15,16 +15,14 @@ namespace Gameplay.Units
 {
     public abstract class Unit : MonoBehaviour, ISwiped
     {
-        public event Action Died; 
+        public event Action Died;
         public event Action<ESwipeSide> OnSwipe;
         public event Action<GameObject> OnCollision;
-
-        public event Action OnInitializePath; 
+        public event Action OnInitializePath;
 
         [SerializeField] private ArrowDirection _arrowDirection;
         [SerializeField] private RotateObject _rotateObject;
         [SerializeField] private HealthBar _healthBar;
-        [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Animator _animator;
 
         private readonly StateMachine _stateMachine = new();
@@ -36,14 +34,12 @@ namespace Gameplay.Units
 
         public EUnitState CurrentState { get; set; }
         public BezierCurve Curve { get; private set; }
+        public Enemy Target { get; set; }
 
         public ParametersConfig Parameters => _parametersConfig;
 
         public float Health { get; private set; }
         public bool IsDied { get; private set; }
-
-        public Rigidbody Rigidbody => _rigidbody;
-
 
         public void Initialize(ParametersConfig parametersConfig, ICoroutineService coroutineService,
             ITargetManager targetManager)
@@ -93,7 +89,7 @@ namespace Gameplay.Units
             if (CurrentState == EUnitState.Road || IsDied) return;
 
             Curve = bezierCurve;
-            
+
             OnInitializePath?.Invoke();
         }
 

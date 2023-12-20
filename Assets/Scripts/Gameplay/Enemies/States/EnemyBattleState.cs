@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using Gameplay.Enums;
 using Gameplay.Parameters;
-using Infrastructure.StateMachine;
-using Infrastructure.StateMachine.States;
 using Infrastructure.UnityBehaviours;
 using UnityEngine;
 
@@ -26,7 +24,6 @@ namespace Gameplay.Enemies.States
         public override void Enter()
         {
             base.Enter();
-            _enemy.CurrentState = EEnemyState.Battle;
             var attackRate = _parametersConfig[EParameter.AttackRate];
             _coroutine = _coroutineService.StartCoroutine(Attack(attackRate));
         }

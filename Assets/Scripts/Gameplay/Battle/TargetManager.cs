@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Gameplay.Enemies;
 using Gameplay.Enums;
 using Gameplay.Parking;
@@ -64,7 +62,6 @@ namespace Gameplay.Battle
         {
             if (_zombieSpawner.Zombies.Count == 0) return null;
             
-         
             var zombies = _zombieSpawner.Zombies;
             var target = zombies.Find(x => !x.IsDied);
             var distance = Vector3.Distance(buildingTransform.position, target.transform.position);

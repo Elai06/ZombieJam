@@ -12,7 +12,6 @@ namespace Gameplay.Units.States
     public class UnitBattleState : UnitState
     {
         private ITargetManager _targetManager;
-        private Enemy _enemy;
         private ICoroutineService _coroutineService;
         private Dictionary<EParameter, float> _parametersConfig;
         private Coroutine _coroutine;
@@ -50,10 +49,10 @@ namespace Gameplay.Units.States
             if (_unit.IsDied || _unit == null) return;
 
             var radiusAttack = _parametersConfig[EParameter.RadiusAttack];
-            _enemy = _targetManager.GetTargetEnemy(_unit.transform);
-            if (_enemy == null) return;
+            _unit.Target = _targetManager.GetTargetEnemy(_unit.transform);
+            if (_unit.Target == null) return;
 
-            _coroutineService.StartCoroutine(MoveToTarget(_enemy.GetPositionForUnit(_unit, radiusAttack)));
+            _coroutineService.StartCoroutine(MoveToTarget(_unit.Target.GetPositionForUnit(_unit, radiusAttack)));
         }
 
         private IEnumerator MoveToTarget(Vector3 target)
@@ -68,7 +67,7 @@ namespace Gameplay.Units.States
                 distance = Vector3.Distance(target, position);
 
                 _unit.transform.position = position;
-                _rotateObject.Rotate(target);
+                _rotateObject.Rotate(_unit.Target.transform.position);
                     yield return new WaitForFixedUpdate();
             }
 
@@ -81,15 +80,15 @@ namespace Gameplay.Units.States
 
             while (true)
             {
-                if (_enemy == null || _unit.IsDied) yield break;
+                if (_unit.Target == null || _unit.IsDied) yield break;
 
                 _unit.PlatAttackAnimation();
 
                 yield return new WaitForSeconds(attackRate);
 
-                _unit.DamageToTarget(_enemy);
+                _unit.DamageToTarget(_unit.Target);
 
-                if (_enemy.IsDead)
+                if (_unit.Target.IsDead)
                 {
                     InitializeTarget();
                     yield break;

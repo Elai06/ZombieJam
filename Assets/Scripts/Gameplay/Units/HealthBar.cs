@@ -41,7 +41,7 @@ namespace Gameplay.Units
 
         private void SwitchDisplay(bool isActive)
         {
-            _canvas.enabled = isActive;
+            //_canvas.enabled = isActive;
         }
     }
 }

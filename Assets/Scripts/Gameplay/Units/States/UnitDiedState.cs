@@ -1,5 +1,4 @@
 ﻿using Gameplay.Enums;
-using UnityEngine;
 
 namespace Gameplay.Units.States
 {
@@ -14,6 +13,10 @@ namespace Gameplay.Units.States
             base.Enter();
 
             _unit.gameObject.SetActive(false);
+            if (_unit.Target != null)
+            {
+                _unit.Target.RemoveAttackingUnit(_unit);
+            }
         }
     }
 }
