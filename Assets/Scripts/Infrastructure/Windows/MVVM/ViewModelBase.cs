@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using _Project.Scripts.Infrastructure.Windows.MVVM;
 using UnityEngine;
 
 namespace Infrastructure.Windows.MVVM
@@ -15,12 +14,12 @@ namespace Infrastructure.Windows.MVVM
             View = view;
         }
 
-        public abstract Task Show();
+        public abstract void Show();
 
         protected virtual void OnClicked() { }
 
-        public virtual async Task Initialize() =>
-            await Show();
+        public virtual void Initialize() =>
+             Show();
 
         public virtual void Subscribe()
         {

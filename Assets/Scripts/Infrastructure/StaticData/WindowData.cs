@@ -1,9 +1,8 @@
 using System;
-using _Project.Scripts.Infrastructure.Windows;
 using Infrastructure.Windows;
 using MVVMLibrary.Enums;
 
-namespace _Project.Scripts.Infrastructure.StaticData
+namespace Infrastructure.StaticData
 {
     [Serializable]
     public class WindowData

@@ -1,14 +1,11 @@
 ﻿using System.Collections.Generic;
-using _Project.Scripts.Infrastructure.StaticData;
-using _Project.Scripts.Infrastructure.Windows;
 using Infrastructure.StaticData;
-using Infrastructure.Windows;
 using MVVMLibrary.Enums;
 using SirGames.Scripts.Infrastructure.Windows;
 using UnityEngine;
 using Utils.ZenjectInstantiateUtil;
 
-namespace SirGames.Scripts.Windows
+namespace Infrastructure.Windows
 {
     public class WindowFactory : IWindowFactory
     {

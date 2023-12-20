@@ -1,5 +1,4 @@
-﻿using _Project.Scripts.Infrastructure.Windows;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace Infrastructure.Windows

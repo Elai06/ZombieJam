@@ -1,8 +1,11 @@
 ﻿using System.Linq;
+using _Project.Scripts.Infrastructure.PersistenceProgress;
 using Gameplay.Enemies;
 using Gameplay.Enums;
 using Gameplay.Parking;
 using Gameplay.Units;
+using Gameplay.Windows.Gameplay;
+using Infrastructure.PersistenceProgress;
 using Infrastructure.Windows;
 using UnityEngine;
 using Utils.ZenjectInstantiateUtil;
@@ -14,7 +17,7 @@ namespace Gameplay.Battle
     {
         [SerializeField] private ZombieSpawner _zombieSpawner;
         [SerializeField] private EnemyInitializer _enemyInitializer;
-
+        [Inject] private IGameplayModel _gameplayModel;
         [Inject] private IWindowService _windowService;
 
         private void Start()
@@ -40,15 +43,17 @@ namespace Gameplay.Battle
 
         public Enemy GetTargetEnemy(Transform unitTransform)
         {
-            var distance = Vector3.Distance(unitTransform.position, _enemyInitializer.Enemies[0].transform.position);
             var target = _enemyInitializer.Enemies.Find(x => !x.IsDead);
+            if (target == null) return null;
+            var distance = Vector3.Distance(unitTransform.position, target.transform.position);
+
             foreach (var enemy in _enemyInitializer.Enemies)
             {
                 if (enemy.IsDead) continue;
 
                 var nextEnemyDistance = Vector3.Distance(unitTransform.position, enemy.transform.position);
 
-                if (distance < nextEnemyDistance)
+                if (distance > nextEnemyDistance)
                 {
                     distance = Vector3.Distance(unitTransform.position, enemy.transform.position);
                     target = enemy;
@@ -61,7 +66,7 @@ namespace Gameplay.Battle
         public Unit GetTargetUnit(Transform buildingTransform, float radiusAttack)
         {
             if (_zombieSpawner.Zombies.Count == 0) return null;
-            
+
             var zombies = _zombieSpawner.Zombies;
             var target = zombies.Find(x => !x.IsDied);
             var distance = Vector3.Distance(buildingTransform.position, target.transform.position);
@@ -89,6 +94,7 @@ namespace Gameplay.Battle
             }
 
             _windowService.Open(WindowType.Victory);
+            _gameplayModel.SetNextWave();
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using System.Threading.Tasks;
 
-namespace _Project.Scripts.Infrastructure.Windows.MVVM
+namespace Infrastructure.Windows.MVVM
 {
     public interface IViewModel
     {
-        Task Initialize();
+        void Initialize();
         void Subscribe();
         void Unsubscribe();
         void Cleanup();
-        Task Show();
+        void Show();
     }
 }

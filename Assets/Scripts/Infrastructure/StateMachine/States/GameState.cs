@@ -1,4 +1,7 @@
-﻿using Infrastructure.Windows;
+﻿using Infrastructure.PersistenceProgress;
+using Infrastructure.StaticData;
+using Infrastructure.UnityBehaviours;
+using Infrastructure.Windows;
 using UnityEngine;
 
 namespace Infrastructure.StateMachine.States
@@ -20,8 +23,8 @@ namespace Infrastructure.StateMachine.States
 
         public void Enter()
         {
-           // _windowService.Open(WindowType.MainMenu);
-           Debug.Log($"OpenWindow MainMenu");
+            _windowService.Open(WindowType.MainMenu);
+            _windowService.Open(WindowType.Gameplay);
         }
 
         public void Exit()

@@ -1,5 +1,4 @@
-﻿using System;
-using Infrastructure;
+﻿using Infrastructure.PersistenceProgress;
 using Infrastructure.Windows;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,7 +13,6 @@ namespace Gameplay.Windows
         private Button _button;
 
         [Inject] private IWindowService _windowService;
-
 
         private void Awake()
         {
@@ -43,13 +41,14 @@ namespace Gameplay.Windows
             if (_windowService.IsOpen(WindowType.Victory))
             {
                 _windowService.Close(WindowType.Victory);
-                return;
             }
 
             if (_windowService.IsOpen(WindowType.Died))
             {
                 _windowService.Close(WindowType.Died);
             }
+
+            _windowService.Open(WindowType.MainMenu);
         }
     }
 }

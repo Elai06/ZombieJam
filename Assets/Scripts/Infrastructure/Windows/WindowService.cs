@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using _Project.Scripts.Infrastructure.Windows;
 using MVVMLibrary.Enums;
 using UnityEngine;
 

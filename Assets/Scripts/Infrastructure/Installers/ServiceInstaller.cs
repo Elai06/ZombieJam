@@ -2,6 +2,8 @@ using _Project.Scripts.Infrastructure.PersistenceProgress;
 using _Project.Scripts.Infrastructure.SaveLoads;
 using _Project.Scripts.Infrastructure.StateMachine;
 using _Project.Scripts.Infrastructure.StateMachine.States;
+using Gameplay.Windows.Gameplay;
+using Infrastructure.PersistenceProgress;
 using Infrastructure.SaveLoads;
 using Infrastructure.SceneManagement;
 using Infrastructure.StateMachine;
@@ -32,6 +34,7 @@ namespace Infrastructure.Installers
 
         private void BindViewModelFactory()
         {
+            Container.BindInterfacesTo<GameplayViewModelFactory>().AsSingle();
         }
 
         private void BindGameStates()
@@ -58,6 +61,8 @@ namespace Infrastructure.Installers
 
         private void BindModels()
         {
+            Container.Bind<IGameplayModel>().To<GameplayModel>().AsSingle();
+
         }
     }
 }

@@ -1,8 +1,6 @@
 using Infrastructure.SceneManagement;
-using Infrastructure.StateMachine;
-using Infrastructure.StateMachine.States;
 
-namespace _Project.Scripts.Infrastructure.StateMachine.States
+namespace Infrastructure.StateMachine.States
 {
     public class LoadLevelState : IState
     {
@@ -10,7 +8,7 @@ namespace _Project.Scripts.Infrastructure.StateMachine.States
 
         private IStateMachine _stateMachine;
         private readonly ISceneLoader _sceneLoader;
-        
+
         public LoadLevelState(ISceneLoader sceneLoader)
         {
             _sceneLoader = sceneLoader;
@@ -34,6 +32,5 @@ namespace _Project.Scripts.Infrastructure.StateMachine.States
         public void Exit()
         {
         }
-        
     }
 }

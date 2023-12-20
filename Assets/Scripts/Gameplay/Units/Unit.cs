@@ -95,6 +95,8 @@ namespace Gameplay.Units
 
         public void DamageToTarget(Enemy enemy)
         {
+            if (enemy == null) return;
+
             var attack = _parametersConfig.GetDictionary()[EParameter.Attack];
             enemy.GetDamage(attack);
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Infrastructure.PersistenceProgress;
 
 namespace _Project.Scripts.Infrastructure.PersistenceProgress
 {

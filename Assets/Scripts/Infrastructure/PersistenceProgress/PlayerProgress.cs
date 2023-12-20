@@ -1,11 +1,12 @@
 using System;
 
-namespace _Project.Scripts.Infrastructure.PersistenceProgress
+namespace Infrastructure.PersistenceProgress
 {
     [Serializable]
     public class PlayerProgress
     {
-
+        public int WaveIndexProgress;
+        
         public PlayerProgress()
         {
         }

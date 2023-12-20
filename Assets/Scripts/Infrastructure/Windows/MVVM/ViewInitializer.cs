@@ -1,8 +1,7 @@
-﻿using Infrastructure.Windows.MVVM;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
-namespace _Project.Scripts.Infrastructure.Windows.MVVM
+namespace Infrastructure.Windows.MVVM
 {
     public abstract class ViewInitializer<TViewModel, TView, TModel> : MonoBehaviour
         where TViewModel : IViewModel

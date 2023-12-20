@@ -1,6 +1,4 @@
-﻿using _Project.Scripts.Infrastructure.StaticData;
-using _Project.Scripts.Infrastructure.Windows;
-using Infrastructure.Windows;
+﻿using Infrastructure.Windows;
 using UnityEngine;
 using Zenject;
 
@@ -10,6 +8,9 @@ namespace Infrastructure.StaticData
     public class GameStaticData : ScriptableObjectInstaller
     {
         [SerializeField] private WindowsStaticData _windowsStaticData;
+        [SerializeField] private ParkingConfig parkingParking;
+
+        public ParkingConfig Parking => parkingParking;
 
         public WindowData GetWindowData(WindowType windowType)
         {
