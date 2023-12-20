@@ -100,7 +100,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2660106941288061695}
-  m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1.0000001, z: 1}
   m_ConstrainProportionsScale: 0
@@ -108,11 +108,11 @@ RectTransform:
   - {fileID: 2660106941473913332}
   m_Father: {fileID: 2660106941522714047}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.75}
-  m_SizeDelta: {x: 1.5, y: 0.75}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1.25, y: 0.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2660106941288061693
 MonoBehaviour:
@@ -269,6 +269,7 @@ GameObject:
   - component: {fileID: 2660106941522714041}
   - component: {fileID: 8020687965681067475}
   - component: {fileID: 4039278754046372510}
+  - component: {fileID: 7130520908569349348}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -341,7 +342,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &8020687965681067475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,6 +371,18 @@ MonoBehaviour:
   _slider: {fileID: 2660106941288061693}
   _canvas: {fileID: 2660106941522714046}
   _damageText: {fileID: 2274248895288135590}
+--- !u!114 &7130520908569349348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2660106941522714040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e35d818e4ca4605a03333b5d1bdd964, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5669468751946632536
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -377,6 +390,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2660106941522714047}
     m_Modifications:
+    - target: {fileID: 252288592953990130, guid: 45524c465b6905848a9c5555341e55ea, type: 3}
+      propertyPath: m_fontSize
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2660106941522714040, guid: 45524c465b6905848a9c5555341e55ea, type: 3}
       propertyPath: m_Name
       value: DamageText
@@ -435,15 +452,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2660106941522714047, guid: 45524c465b6905848a9c5555341e55ea, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2660106941522714047, guid: 45524c465b6905848a9c5555341e55ea, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2660106941522714047, guid: 45524c465b6905848a9c5555341e55ea, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2660106941522714047, guid: 45524c465b6905848a9c5555341e55ea, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -451,7 +468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2660106941522714047, guid: 45524c465b6905848a9c5555341e55ea, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.9
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2660106941522714047, guid: 45524c465b6905848a9c5555341e55ea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -464,6 +481,14 @@ PrefabInstance:
     - target: {fileID: 2660106941522714047, guid: 45524c465b6905848a9c5555341e55ea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6112444790765439930, guid: 45524c465b6905848a9c5555341e55ea, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6112444790765439930, guid: 45524c465b6905848a9c5555341e55ea, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45524c465b6905848a9c5555341e55ea, type: 3}

@@ -21,13 +21,13 @@ namespace Gameplay
 
         public void Damage(int damage)
         {
-            /*transform.localPosition = _startPosition;
+            transform.localPosition = _startPosition;
 
             _canvas.enabled = true;
             _text.text = $"{damage}";
             _tween?.Kill();
-            _tween = transform.DOLocalMoveY(transform.localPosition.y + 1, 0.5f);
-            _tween = DOVirtual.DelayedCall(0.5f, () => _canvas.enabled = true);*/
+            _tween = transform.DOLocalMoveY(transform.localPosition.y + 0.25f, 0.5f)
+                .OnComplete(() => _canvas.enabled = false);
         }
     }
 }
