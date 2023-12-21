@@ -9,10 +9,12 @@ namespace Gameplay.Enemies.States
         protected Enemy _enemy;
         protected IStateMachine _stateMachine;
 
+        private EEnemyState _enemyState;
+
         public EnemyState(Enemy enemy, EEnemyState eEnemyState)
         {
             _enemy = enemy;
-            _enemy.CurrentState = eEnemyState;
+            _enemyState = eEnemyState;
         }
 
         public void Initialize(IStateMachine stateMachine)
@@ -26,6 +28,7 @@ namespace Gameplay.Enemies.States
 
         public virtual void Enter()
         {
+            _enemy.CurrentState = _enemyState;
         }
     }
 }

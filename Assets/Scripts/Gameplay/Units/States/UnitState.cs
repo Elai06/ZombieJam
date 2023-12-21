@@ -8,7 +8,7 @@ namespace Gameplay.Units.States
     {
         protected IStateMachine _stateMachine;
         protected Unit _unit;
-        protected EUnitState _eUnitState;
+        private EUnitState _eUnitState;
 
         public UnitState(EUnitState unitState, Unit unit)
         {

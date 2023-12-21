@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Gameplay.Enums;
+using TMPro;
 using UnityEngine;
 
 namespace Gameplay.Windows.Gameplay
@@ -7,9 +8,9 @@ namespace Gameplay.Windows.Gameplay
     {
         [SerializeField] private TextMeshProUGUI _waveText;
 
-        public void SetWave(int index)
+        public void SetWave(ERegionType regionType, int index)
         {
-            _waveText.text = $"Кладбище: Волна {index}";
+            _waveText.text = $"{regionType.ToString()}: Wave {index}";
         }
     }
 }

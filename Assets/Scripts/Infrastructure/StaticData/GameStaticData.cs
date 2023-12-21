@@ -1,4 +1,5 @@
-﻿using Infrastructure.Windows;
+﻿using Gameplay.Configs.Region;
+using Infrastructure.Windows;
 using UnityEngine;
 using Zenject;
 
@@ -8,9 +9,9 @@ namespace Infrastructure.StaticData
     public class GameStaticData : ScriptableObjectInstaller
     {
         [SerializeField] private WindowsStaticData _windowsStaticData;
-        [SerializeField] private ParkingConfig parkingParking;
+        [SerializeField] private RegionConfig _regionConfig;
 
-        public ParkingConfig Parking => parkingParking;
+        public RegionConfig RegionConfig => _regionConfig;
 
         public WindowData GetWindowData(WindowType windowType)
         {

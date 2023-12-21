@@ -31,7 +31,7 @@ namespace Gameplay.Enemies
         private readonly List<Unit> _attackedUnits = new();
 
         public float Health { get; private set; }
-        public bool IsDead { get; private set; }
+        public bool IsDead { get; set; }
         public EEnemyState CurrentState { get; set; }
 
         public EBuildingType BuildingType => _type;
@@ -73,10 +73,9 @@ namespace Gameplay.Enemies
 
             if (Health <= 0)
             {
-                IsDead = true;
                 Health = 0;
-                Died?.Invoke();
                 _stateMachine.Enter<EnemyDiedState>();
+                Died?.Invoke();
             }
         }
 

@@ -69,6 +69,12 @@ namespace Gameplay.Units.States
                 _unit.transform.position = position;
                 _rotateObject.Rotate(_unit.Target.transform.position);
                     yield return new WaitForFixedUpdate();
+                    
+                    if (_unit.Target.IsDead)
+                    {
+                        InitializeTarget();
+                        yield break;
+                    }
             }
 
             _coroutine = _coroutineService.StartCoroutine(Damage());

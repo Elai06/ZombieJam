@@ -1,4 +1,5 @@
-﻿using Gameplay.Windows.Gameplay;
+﻿using Gameplay.Enums;
+using Gameplay.Windows.Gameplay;
 using TMPro;
 using UnityEngine;
 using Utils.ZenjectInstantiateUtil;
@@ -9,8 +10,9 @@ namespace Gameplay.Windows
     public class VictoryView : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _waveText;
+        [SerializeField] private TextMeshProUGUI _regionName;
 
-        [Inject] private IGameplayModel _gameplayWindow;
+        [Inject] private IGameplayModel _gameplayModel;
 
         public void Start()
         {
@@ -19,13 +21,15 @@ namespace Gameplay.Windows
 
         public void OnEnable()
         {
-            var waveIndex = _gameplayWindow.GetCurrentWaveIndex() == 0 ? 0 : _gameplayWindow.GetCurrentWaveIndex() - 1;
-            SetWave(waveIndex);
+            var progress = _gameplayModel.GetCurrentRegionProgress();
+            var waveIndex = progress.CurrentWaweIndex == 0 ? 0 : progress.CurrentWaweIndex - 1;
+            SetWave(progress.CurrentRegionType, waveIndex);
         }
 
-        private void SetWave(int index)
+        private void SetWave(ERegionType regionType, int index)
         {
-            _waveText.text = $"Волна {index}";
+            _waveText.text = $"Wave {index}";
+            _regionName.text = regionType.ToString();
         }
     }
 }

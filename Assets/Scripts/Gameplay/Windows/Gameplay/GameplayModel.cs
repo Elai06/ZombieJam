@@ -1,28 +1,30 @@
 ﻿using System;
-using Infrastructure.PersistenceProgress;
+using Gameplay.Configs.Region;
+using Gameplay.Enums;
 
 namespace Gameplay.Windows.Gameplay
 {
     public class GameplayModel : IGameplayModel
     {
-        public event Action<int> UpdateWave;
+        public event Action<ERegionType, int> UpdateWave;
 
-        private IProgressService _progressService;
+        private readonly IRegionManager _regionManager;
 
-        public GameplayModel(IProgressService progressService)
+        public GameplayModel(IRegionManager regionManager)
         {
-            _progressService = progressService;
+            _regionManager = regionManager;
         }
 
         public void SetNextWave()
         {
-            _progressService.PlayerProgress.WaveIndexProgress++;
-            UpdateWave?.Invoke(_progressService.PlayerProgress.WaveIndexProgress);
+            var progress = GetCurrentRegionProgress();
+            _regionManager.NextWave();
+            UpdateWave?.Invoke(progress.CurrentRegionType, progress.CurrentWaweIndex);
         }
 
-        public int GetCurrentWaveIndex()
+        public RegionProgress GetCurrentRegionProgress()
         {
-            return _progressService.PlayerProgress.WaveIndexProgress;
+            return _regionManager.Progress;
         }
     }
 }

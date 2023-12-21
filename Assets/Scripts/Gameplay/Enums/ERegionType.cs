@@ -1,7 +1,12 @@
 ﻿namespace Gameplay.Enums
 {
-    public class ERegionType
+    public enum ERegionType
     {
-        
+        SurvivorsHaven,
+        SafeOasis,
+        ResistanceStronghold, 
+        HopeSettlement,
+        SurvivorShelter,
+        RescueBase
     }
 }

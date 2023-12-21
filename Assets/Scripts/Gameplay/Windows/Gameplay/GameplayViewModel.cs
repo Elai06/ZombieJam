@@ -1,4 +1,5 @@
-﻿using Infrastructure.Windows.MVVM;
+﻿using Gameplay.Enums;
+using Infrastructure.Windows.MVVM;
 
 namespace Gameplay.Windows.Gameplay
 {
@@ -10,7 +11,8 @@ namespace Gameplay.Windows.Gameplay
 
         public override void Initialize()
         {
-            View.SetWave(Model.GetCurrentWaveIndex());
+            var progress = Model.GetCurrentRegionProgress();
+            View.SetWave(progress.CurrentRegionType, progress.CurrentWaweIndex);
         }
 
         public override void Show()
@@ -27,9 +29,9 @@ namespace Gameplay.Windows.Gameplay
             Model.UpdateWave -= OnUpdateWave;
         }
 
-        private void OnUpdateWave(int index)
+        private void OnUpdateWave(ERegionType regionType, int index)
         {
-            View.SetWave(index);
+            View.SetWave(regionType, index);
         }
 
         public override void Cleanup()

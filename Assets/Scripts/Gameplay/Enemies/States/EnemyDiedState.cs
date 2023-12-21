@@ -17,6 +17,8 @@ namespace Gameplay.Enemies.States
         public override void Enter()
         {
             base.Enter();
+            
+            _enemy.IsDead = true;
             _enemy.gameObject.SetActive(false);
         }
     }

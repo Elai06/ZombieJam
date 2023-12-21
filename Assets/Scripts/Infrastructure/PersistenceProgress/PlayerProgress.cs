@@ -1,11 +1,12 @@
 using System;
+using Gameplay.Configs.Region;
 
 namespace Infrastructure.PersistenceProgress
 {
     [Serializable]
     public class PlayerProgress
     {
-        public int WaveIndexProgress;
+        public RegionProgress RegionProgress;
         
         public PlayerProgress()
         {
