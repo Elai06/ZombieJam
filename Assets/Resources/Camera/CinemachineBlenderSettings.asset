@@ -14,7 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CustomBlends:
   - m_From: CM Intro
-    m_To: MainCamera
+    m_To: CM Park
+    m_Blend:
+      m_Style: 1
+      m_Time: 1.5
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: CM Park
+    m_To: CM Enemies
     m_Blend:
       m_Style: 1
       m_Time: 1.5

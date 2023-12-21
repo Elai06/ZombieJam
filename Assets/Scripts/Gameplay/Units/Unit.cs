@@ -41,6 +41,8 @@ namespace Gameplay.Units
         public float Health { get; private set; }
         public bool IsDied { get; private set; }
 
+        public StateMachine StateMachine => _stateMachine;
+
         public void Initialize(ParametersConfig parametersConfig, ICoroutineService coroutineService,
             ITargetManager targetManager)
         {

@@ -5,11 +5,11 @@ namespace Gameplay.Windows.Gameplay
 {
     public class GameplayView : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI _waveIndex;
+        [SerializeField] private TextMeshProUGUI _waveText;
 
         public void SetWave(int index)
         {
-            _waveIndex.text = $"Wave {index}";
+            _waveText.text = $"Кладбище: Волна {index}";
         }
     }
 }

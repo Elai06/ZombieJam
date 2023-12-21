@@ -3,6 +3,7 @@
     public enum ECameraType
     {
         Intro,
-        Gameplay
+        Park,
+        Enemies
     }
 }

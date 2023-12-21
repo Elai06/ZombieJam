@@ -75,7 +75,6 @@ namespace Gameplay.Units.States
 
                 var collisionDistance = Vector3.Distance(other.transform.position, _unit.Curve.GetPointAt(1));
                 var distance = Vector3.Distance(_unit.transform.position, _unit.Curve.GetPointAt(1));
-
                 if (distance > collisionDistance)
                 {
                     _coroutineService.StartCoroutine(Bash(collision.transform));

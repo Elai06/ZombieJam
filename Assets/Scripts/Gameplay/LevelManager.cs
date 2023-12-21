@@ -1,8 +1,5 @@
-﻿using System;
-using Infrastructure.PersistenceProgress;
+﻿using Infrastructure.PersistenceProgress;
 using Infrastructure.StaticData;
-using Infrastructure.UnityBehaviours;
-using Unity.Mathematics;
 using UnityEngine;
 using Utils.ZenjectInstantiateUtil;
 using Zenject;
@@ -38,7 +35,7 @@ namespace Gameplay
             }
 
             var levelIndex = _progressService.PlayerProgress.WaveIndexProgress % _gameStatic.Parking.Parkings.Count;
-            _currentLevel = Instantiate(_gameStatic.Parking.Parkings[levelIndex], Vector3.zero, quaternion.identity);
+            _currentLevel = Instantiate(_gameStatic.Parking.Parkings[levelIndex], Vector3.zero, Quaternion.identity);
         }
     }
 }
