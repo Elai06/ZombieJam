@@ -15,12 +15,10 @@ namespace Gameplay.Units.Mover
             switch (deltaX)
             {
                 case > 0.05f:
-                    transform.eulerAngles = Vector3.up * 90;
-                    _arrow.transform.eulerAngles = Vector3.up * 90;
+                    transform.parent.eulerAngles = Vector3.up * 90;
                     break;
                 case < -0.05f:
-                    transform.eulerAngles = Vector3.down * 90;
-                    _arrow.transform.eulerAngles = Vector3.down * 90;
+                    transform.parent.eulerAngles = Vector3.up * 90;
                     return;
             }
 
@@ -28,12 +26,10 @@ namespace Gameplay.Units.Mover
             switch (deltaZ)
             {
                 case > 0.05f:
-                    transform.eulerAngles = Vector3.zero;
-                    _arrow.transform.eulerAngles = Vector3.zero;
+                    transform.parent.eulerAngles = Vector3.zero;
                     break;
                 case < -0.05f:
-                    transform.eulerAngles = Vector3.zero;
-                    _arrow.transform.eulerAngles = Vector3.zero;
+                    transform.parent.eulerAngles = Vector3.zero;
                     return;
             }
         }
@@ -57,7 +53,7 @@ namespace Gameplay.Units.Mover
             Vector3 directionToTarget = target - transform.position;
             Quaternion rotationToTarget = Quaternion.LookRotation(directionToTarget);
             var rotation = Quaternion.Lerp(transform.rotation, rotationToTarget, 10 * Time.fixedDeltaTime);
-            transform.rotation = rotation;
+            transform.parent.rotation = rotation;
         }
     }
 }

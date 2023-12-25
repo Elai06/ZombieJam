@@ -6,7 +6,7 @@ namespace Infrastructure.PersistenceProgress
     [Serializable]
     public class PlayerProgress
     {
-        public RegionProgress RegionProgress;
+        public RegionProgress RegionProgress = new();
         
         public PlayerProgress()
         {

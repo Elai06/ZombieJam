@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Infrastructure.Input
 {
-    public class InputManager : MonoBehaviour
+    public class SwipeManager : MonoBehaviour
     {
         private Vector3 _startPosition;
         private readonly RaycastDetector _raycastDetector = new();

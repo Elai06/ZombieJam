@@ -22,6 +22,8 @@ namespace Gameplay.Enemies
         [SerializeField] private Animator _animator;
         [SerializeField] private Bullet _bullet;
 
+        [SerializeField] private bool _isSafe;
+
         private ParametersConfig _parametersConfig;
         private ICoroutineService _coroutineService;
         private ITargetManager _targetManager;
@@ -35,6 +37,8 @@ namespace Gameplay.Enemies
         public EEnemyState CurrentState { get; set; }
 
         public EBuildingType BuildingType => _type;
+
+        public bool IsSafe => _isSafe;
 
         public void Initialize(ParametersConfig parametersConfig, ICoroutineService coroutineService,
             ITargetManager targetManager)

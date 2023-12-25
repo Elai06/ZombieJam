@@ -1,11 +1,10 @@
 ﻿using System.Linq;
-using _Project.Scripts.Infrastructure.PersistenceProgress;
+using DG.Tweening;
 using Gameplay.Enemies;
 using Gameplay.Enums;
 using Gameplay.Parking;
 using Gameplay.Units;
 using Gameplay.Windows.Gameplay;
-using Infrastructure.PersistenceProgress;
 using Infrastructure.Windows;
 using UnityEngine;
 using Utils.ZenjectInstantiateUtil;
@@ -45,6 +44,7 @@ namespace Gameplay.Battle
         {
             var target = _enemyInitializer.Enemies.Find(x => !x.IsDead);
             if (target == null) return null;
+
             var distance = Vector3.Distance(unitTransform.position, target.transform.position);
 
             foreach (var enemy in _enemyInitializer.Enemies)
@@ -65,7 +65,10 @@ namespace Gameplay.Battle
 
         public Unit GetTargetUnit(Transform buildingTransform, float radiusAttack)
         {
-            if (_zombieSpawner.Zombies.Count == 0) return null;
+            if (_zombieSpawner.Zombies.Count == 0)
+            {
+                return null;
+            }
 
             var zombies = _zombieSpawner.Zombies;
             var target = zombies.Find(x => !x.IsDied);
@@ -93,8 +96,10 @@ namespace Gameplay.Battle
                 return;
             }
 
-            _windowService.Open(WindowType.Victory);
-            _gameplayModel.SetNextWave();
+            DOVirtual.DelayedCall(1, () =>
+            {
+                _windowService.Open(WindowType.Victory);
+            });
         }
     }
 }

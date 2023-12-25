@@ -1,8 +1,4 @@
-﻿using Infrastructure.PersistenceProgress;
-using Infrastructure.StaticData;
-using Infrastructure.UnityBehaviours;
-using Infrastructure.Windows;
-using UnityEngine;
+﻿using Infrastructure.Windows;
 
 namespace Infrastructure.StateMachine.States
 {

@@ -24,6 +24,7 @@ namespace Gameplay.Units
         [SerializeField] private RotateObject _rotateObject;
         [SerializeField] private HealthBar _healthBar;
         [SerializeField] private Animator _animator;
+        [SerializeField] private Transform _prefab;
 
         private readonly StateMachine _stateMachine = new();
 
@@ -42,6 +43,8 @@ namespace Gameplay.Units
         public bool IsDied { get; private set; }
 
         public StateMachine StateMachine => _stateMachine;
+
+        public Transform Prefab => _prefab;
 
         public void Initialize(ParametersConfig parametersConfig, ICoroutineService coroutineService,
             ITargetManager targetManager)
@@ -119,7 +122,7 @@ namespace Gameplay.Units
             }
         }
 
-        public void PlatAttackAnimation()
+        public void PlayAttackAnimation()
         {
             _animator.SetTrigger("Attack");
         }

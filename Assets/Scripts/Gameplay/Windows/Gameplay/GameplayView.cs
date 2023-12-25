@@ -10,7 +10,7 @@ namespace Gameplay.Windows.Gameplay
 
         public void SetWave(ERegionType regionType, int index)
         {
-            _waveText.text = $"{regionType.ToString()}: Wave {index}";
+            _waveText.text = $"{regionType.ToString()}: Wave {index+1}";
         }
     }
 }

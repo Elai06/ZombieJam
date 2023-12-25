@@ -63,7 +63,7 @@ namespace Gameplay.Units.States
             {
                 if (_unit == null || _unit.IsDied) yield break;
                 var position = Vector3.MoveTowards(_unit.transform.position, target,
-                    Time.fixedDeltaTime * _parametersConfig[EParameter.TravelSpeed]);
+                    Time.fixedDeltaTime * _parametersConfig[EParameter.SpeedOnPark]);
                 distance = Vector3.Distance(target, position);
 
                 _unit.transform.position = position;
@@ -88,9 +88,11 @@ namespace Gameplay.Units.States
             {
                 if (_unit.Target == null || _unit.IsDied) yield break;
 
-                _unit.PlatAttackAnimation();
+                _unit.PlayAttackAnimation();
 
                 yield return new WaitForSeconds(attackRate);
+                
+                if (_unit.Target == null || _unit.IsDied) yield break;
 
                 _unit.DamageToTarget(_unit.Target);
 

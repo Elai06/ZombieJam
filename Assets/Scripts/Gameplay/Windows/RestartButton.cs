@@ -1,5 +1,4 @@
-﻿using Infrastructure.PersistenceProgress;
-using Infrastructure.Windows;
+﻿using Infrastructure.Windows;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

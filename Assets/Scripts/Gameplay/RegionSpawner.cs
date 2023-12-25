@@ -1,7 +1,5 @@
 ﻿using Gameplay.Configs.Region;
-using Gameplay.Enums;
 using Infrastructure.PersistenceProgress;
-using Infrastructure.StaticData;
 using UnityEngine;
 using Utils.ZenjectInstantiateUtil;
 using Zenject;
@@ -37,7 +35,6 @@ namespace Gameplay
             }
 
             var progress = _progressService.PlayerProgress.RegionProgress;
-
             var regionConfig = _regionManager.GetActualRegion(progress.CurrentRegionType);
             var waveIndex = progress.CurrentWaweIndex;
             _currentLevel = Instantiate(regionConfig.WavePrefabs[waveIndex], Vector3.zero, Quaternion.identity);

@@ -6,7 +6,9 @@
         Attack,
         RadiusAttack,
         AttackRate,
-        TravelSpeed,
+        SpeedOnPark,
+        SpeedToTarget,
+        SpeedOnRoad,
         AttackSpeed
     }
 }

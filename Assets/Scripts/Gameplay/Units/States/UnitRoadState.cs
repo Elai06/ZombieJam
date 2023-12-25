@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using DG.Tweening;
 using Gameplay.Enums;
 using Gameplay.Units.Mover;
 using Infrastructure.UnityBehaviours;
@@ -45,13 +46,17 @@ namespace Gameplay.Units.States
         {
             if (_unit.Curve == null) return;
 
-            var distance = GetFullDistanceCurvePoints();
-            var offsetDistance = Vector3.Distance(_unit.transform.position, _unit.Curve.GetPointAt(1));
+            var speed = _unit.Parameters.GetDictionary()[EParameter.SpeedOnRoad];
+            var fullDistance = GetFullDistanceCurvePoints();
+            var distanceToFinish = Vector3.Distance(_unit.transform.position, _unit.Curve.GetPointAt(1));
             _offsetDurationTime = GetCurrentPositionOnCurve();
-            _timePath = (distance + offsetDistance) / 4.5f;
+            _timePath = (fullDistance + distanceToFinish) / speed;
             _isMove = true;
 
-            _coroutineService.StartCoroutine(StartMove());
+            var position = _unit.Curve.GetPointAt(_offsetDurationTime);
+            var distanceToCurve = Vector3.Distance(_unit.transform.position, position);
+            _unit.transform.DOLocalMove(position, distanceToCurve / speed / 0.3f)
+                .OnComplete(() => { _coroutineService.StartCoroutine(StartMove()); });
         }
 
         private IEnumerator StartMove()
@@ -85,10 +90,11 @@ namespace Gameplay.Units.States
         private IEnumerator Bash(Transform collision)
         {
             _isMove = false;
-
+            if (_unit == null) yield break;
             var distanceToCollision = Vector3.Distance(_unit.transform.position, collision.position);
-            while (distanceToCollision < 1f)
+            while (distanceToCollision < 1f + _unit.Prefab.transform.localScale.z)
             {
+                if (_unit == null || _unit.Prefab == null) yield break;
                 distanceToCollision = Vector3.Distance(_unit.transform.position, collision.position);
                 yield return new WaitForFixedUpdate();
             }
@@ -130,7 +136,6 @@ namespace Gameplay.Units.States
                 }
             }
 
-
             return tempTime;
         }
 
@@ -138,9 +143,8 @@ namespace Gameplay.Units.States
         {
             if (_unit == null) return;
             _t = t;
-            _unit.transform.localPosition = Vector3.MoveTowards(_unit.transform.localPosition,
-                _unit.Curve.GetPointAt(t),
-                Time.fixedDeltaTime * _unit.Parameters.GetDictionary()[EParameter.TravelSpeed]);
+            _unit.transform.localPosition = _unit.Curve.GetPointAt(t);
+
             _rotateObject.Rotate(_unit.Curve, _t);
         }
 

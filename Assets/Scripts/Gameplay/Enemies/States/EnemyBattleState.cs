@@ -46,7 +46,7 @@ namespace Gameplay.Enemies.States
                     yield break;
                 }
 
-                if (time >= attackRate)
+                if (time >= attackRate && !_enemy.IsSafe)
                 {
                     var speedAttack = _parametersConfig[EParameter.AttackSpeed];
                     var distanceToTarget =

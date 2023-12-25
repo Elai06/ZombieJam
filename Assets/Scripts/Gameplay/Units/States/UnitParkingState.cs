@@ -27,7 +27,7 @@ namespace Gameplay.Units.States
         {
             _unit = unit;
             _eSwipeDirection = swipeDirection;
-            _speed = parametersConfig.GetDictionary()[EParameter.TravelSpeed];
+            _speed = parametersConfig.GetDictionary()[EParameter.SpeedOnPark];
             _coroutineService = coroutineService;
         }
 
@@ -177,7 +177,7 @@ namespace Gameplay.Units.States
             _isMove = false;
 
             var distanceToCollision = Vector3.Distance(_unit.transform.position, collision.position);
-            while (distanceToCollision < 1f)
+            while (distanceToCollision < 1f + _unit.Prefab.localScale.z)
             {
                 distanceToCollision = Vector3.Distance(_unit.transform.position, collision.position);
                 yield return new WaitForFixedUpdate();

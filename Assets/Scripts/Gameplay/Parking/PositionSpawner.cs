@@ -22,7 +22,7 @@ namespace Gameplay.Parking
 
                 if (i == 0) continue;
 
-                if (i % 5 == 0)
+                if (i % 6 == 0)
                 {
                     startPosition.x = _startPosition.position.x;
                     startPosition -= new Vector3(0, 0, 1f);
@@ -41,6 +41,23 @@ namespace Gameplay.Parking
             {
                 var element = _spawnGrid[i].gameObject;
                 DestroyImmediate(element);
+            }
+
+            _spawnGrid.Clear();
+        }
+
+        [Button("ClearNotAvailablePositions")]
+        private void ClearNotAvailablePositions()
+        {
+            for (int i = 0; i < _spawnGrid.Count; i++)
+            {
+                var positionSpawner = _spawnGrid[i];
+                if (!positionSpawner.IsAvailablePosition() && !positionSpawner.IsCooperative)
+                {
+                    var element = _spawnGrid[i].gameObject;
+                    _spawnGrid.Remove(positionSpawner);
+                    DestroyImmediate(element);
+                }
             }
 
             _spawnGrid.Clear();
