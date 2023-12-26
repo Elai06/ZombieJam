@@ -5,6 +5,6 @@
         MainMenu,
         Victory,
         Died,
-        Gameplay
+        Gameplay,
     }
 }

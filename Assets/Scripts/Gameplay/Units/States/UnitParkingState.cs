@@ -1,10 +1,8 @@
 ﻿using System.Collections;
 using Gameplay.Enums;
 using Gameplay.Parameters;
-using Infrastructure.StateMachine;
 using Infrastructure.UnityBehaviours;
 using UnityEngine;
-using Utils.CurveBezier;
 
 namespace Gameplay.Units.States
 {
@@ -12,7 +10,6 @@ namespace Gameplay.Units.States
     {
         private ICoroutineService _coroutineService;
 
-        private ESwipeDirection _eSwipeDirection;
         private ESwipeSide _eSwipeSide = ESwipeSide.None;
 
         private float _bashBackWard = 0.25f;
@@ -22,11 +19,10 @@ namespace Gameplay.Units.States
 
         private Coroutine _coroutine;
 
-        public UnitParkingState(Unit unit, ESwipeDirection swipeDirection, ParametersConfig parametersConfig,
+        public UnitParkingState(Unit unit, ParametersConfig parametersConfig,
             ICoroutineService coroutineService) : base(EUnitState.Parking, unit)
         {
             _unit = unit;
-            _eSwipeDirection = swipeDirection;
             _speed = parametersConfig.GetDictionary()[EParameter.SpeedOnPark];
             _coroutineService = coroutineService;
         }
@@ -38,6 +34,7 @@ namespace Gameplay.Units.States
             _unit.OnSwipe += Swipe;
             _unit.OnCollision += OnCollisionEnter;
             _unit.OnInitializePath += InitializePath;
+            _unit.ResetMoving += OnResetMoving;
         }
 
         public override void Exit()
@@ -47,6 +44,7 @@ namespace Gameplay.Units.States
             _unit.OnSwipe -= Swipe;
             _unit.OnCollision -= OnCollisionEnter;
             _unit.OnInitializePath -= InitializePath;
+            _unit.ResetMoving -= OnResetMoving;
 
             if (_coroutine != null)
             {
@@ -54,7 +52,7 @@ namespace Gameplay.Units.States
             }
 
             _isMove = false;
-            _eSwipeDirection = ESwipeDirection.None;
+            _unit.ResetSwipeDirection();
         }
 
         private void InitializePath()
@@ -108,7 +106,7 @@ namespace Gameplay.Units.States
                 return;
             }
 
-            if (_eSwipeDirection == ESwipeDirection.Vertical)
+            if (_unit.SwipeDirection == ESwipeDirection.Vertical)
             {
                 switch (eSwipeSide)
                 {
@@ -121,7 +119,7 @@ namespace Gameplay.Units.States
                 }
             }
 
-            if (_eSwipeDirection == ESwipeDirection.Horizontal)
+            if (_unit.SwipeDirection == ESwipeDirection.Horizontal)
             {
                 switch (eSwipeSide)
                 {
@@ -156,7 +154,7 @@ namespace Gameplay.Units.States
 
         private bool IsAvailableSwipe(ESwipeSide eSwipeSide)
         {
-            switch (_eSwipeDirection)
+            switch (_unit.SwipeDirection)
             {
                 case ESwipeDirection.Horizontal:
                     return eSwipeSide == ESwipeSide.Left || eSwipeSide == ESwipeSide.Right;
@@ -185,6 +183,12 @@ namespace Gameplay.Units.States
 
             _isMove = true;
             _coroutineService.StartCoroutine(StartMove());
+        }
+        
+        private void OnResetMoving()
+        {
+            _isMove = false;
+            _eSwipeSide = ESwipeSide.None;
         }
     }
 }

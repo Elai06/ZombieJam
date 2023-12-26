@@ -20,7 +20,6 @@ namespace Infrastructure.StateMachine.States
         public void Enter()
         {
             _windowService.Open(WindowType.MainMenu);
-            _windowService.Open(WindowType.Gameplay);
         }
 
         public void Exit()

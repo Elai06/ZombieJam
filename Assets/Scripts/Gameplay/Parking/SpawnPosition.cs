@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Gameplay;
 using Gameplay.Enums;
 using UnityEngine;
 
@@ -11,6 +10,8 @@ public class SpawnPosition : MonoBehaviour
     [SerializeField] private List<SpawnPosition> _cooperativePosition = new();
 
     public bool IsCooperative { get; private set; }
+
+    public List<SpawnPosition> CooperativePositions => _cooperativePosition;
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()

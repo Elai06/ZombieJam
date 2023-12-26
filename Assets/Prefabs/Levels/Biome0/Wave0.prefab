@@ -96,6 +96,52 @@ MonoBehaviour:
   _eSwipeDirection: 0
   ZombieType: 2
   _cooperativePosition: []
+--- !u!1 &432632242506189708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3689619525095045937}
+  - component: {fileID: 5983129835288711972}
+  m_Layer: 0
+  m_Name: Relocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3689619525095045937
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432632242506189708}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 241726347339374034}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5983129835288711972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432632242506189708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b282d4b20f2f44a08025749d203ed5b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _zombieSpawner: {fileID: 7037340587007066257}
+  _swapButton: {fileID: 0}
 --- !u!1 &1020597295391607246
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,7 +334,7 @@ MonoBehaviour:
   _eSwipeDirection: 2
   ZombieType: 2
   _cooperativePosition:
-  - {fileID: 6173304532607899215}
+  - {fileID: 4953477295348236327}
 --- !u!1 &1752962437121776737
 GameObject:
   m_ObjectHideFlags: 0
@@ -1348,6 +1394,38 @@ MonoBehaviour:
   _eSwipeDirection: 0
   ZombieType: 2
   _cooperativePosition: []
+--- !u!1 &6462171206600909180
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 241726347339374034}
+  m_Layer: 0
+  m_Name: '[Boosters]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &241726347339374034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6462171206600909180}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3689619525095045937}
+  m_Father: {fileID: 7037340587007066262}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6939439255273249585
 GameObject:
   m_ObjectHideFlags: 0
@@ -3583,6 +3661,7 @@ Transform:
   - {fileID: 7037340586256201247}
   - {fileID: 7037340586712135455}
   - {fileID: 2702354536330592588}
+  - {fileID: 241726347339374034}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

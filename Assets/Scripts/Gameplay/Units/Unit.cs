@@ -15,6 +15,7 @@ namespace Gameplay.Units
 {
     public abstract class Unit : MonoBehaviour, ISwiped
     {
+        public event Action ResetMoving;
         public event Action Died;
         public event Action<ESwipeSide> OnSwipe;
         public event Action<GameObject> OnCollision;
@@ -25,15 +26,16 @@ namespace Gameplay.Units
         [SerializeField] private HealthBar _healthBar;
         [SerializeField] private Animator _animator;
         [SerializeField] private Transform _prefab;
+        [SerializeField] private ESwipeDirection _eSwipeDirection;
 
         private readonly StateMachine _stateMachine = new();
 
         private ICoroutineService _coroutineService;
         private ParametersConfig _parametersConfig;
-        private ESwipeDirection _eSwipeDirection;
         private ITargetManager _targetManager;
 
         public EUnitState CurrentState { get; set; }
+        public EZombieType ZombieType { get; set; }
         public BezierCurve Curve { get; private set; }
         public Enemy Target { get; set; }
 
@@ -46,12 +48,15 @@ namespace Gameplay.Units
 
         public Transform Prefab => _prefab;
 
+        public ESwipeDirection SwipeDirection => _eSwipeDirection;
+
         public void Initialize(ParametersConfig parametersConfig, ICoroutineService coroutineService,
-            ITargetManager targetManager)
+            ITargetManager targetManager, EZombieType type)
         {
             _parametersConfig = parametersConfig;
             _coroutineService = coroutineService;
             _targetManager = targetManager;
+            ZombieType = type;
 
             Health = _parametersConfig.GetDictionary()[EParameter.Health];
 
@@ -61,7 +66,7 @@ namespace Gameplay.Units
 
         private void InitializeStates()
         {
-            var parkingState = new UnitParkingState(this, _eSwipeDirection, _parametersConfig, _coroutineService);
+            var parkingState = new UnitParkingState(this, _parametersConfig, _coroutineService);
             var roadState = new UnitRoadState(this, _coroutineService, _rotateObject);
             var battleState = new UnitBattleState(this, _targetManager, _coroutineService, _rotateObject);
             var diedState = new UnitDiedState(this);
@@ -125,6 +130,16 @@ namespace Gameplay.Units
         public void PlayAttackAnimation()
         {
             _animator.SetTrigger("Attack");
+        }
+
+        public void ResetSwipeDirection()
+        {
+            _eSwipeDirection = ESwipeDirection.None;
+        }
+
+        public void ResetMovingAfterBooster()
+        {
+            ResetMoving?.Invoke();
         }
     }
 }

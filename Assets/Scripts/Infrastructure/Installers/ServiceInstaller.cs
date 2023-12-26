@@ -2,7 +2,9 @@ using _Project.Scripts.Infrastructure.PersistenceProgress;
 using _Project.Scripts.Infrastructure.SaveLoads;
 using _Project.Scripts.Infrastructure.StateMachine;
 using _Project.Scripts.Infrastructure.StateMachine.States;
+using Gameplay.Boosters;
 using Gameplay.Configs.Region;
+using Gameplay.Windows.Boosters;
 using Gameplay.Windows.Gameplay;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.SaveLoads;
@@ -36,6 +38,7 @@ namespace Infrastructure.Installers
         private void BindViewModelFactory()
         {
             Container.BindInterfacesTo<GameplayViewModelFactory>().AsSingle();
+            Container.BindInterfacesTo<BoostersViewModelFactory>().AsSingle();
         }
 
         private void BindGameStates()
@@ -64,6 +67,7 @@ namespace Infrastructure.Installers
         {
             Container.Bind<IGameplayModel>().To<GameplayModel>().AsSingle();
             Container.Bind<IRegionManager>().To<RegionManager>().AsSingle();
+            Container.Bind<IBoostersManager>().To<BoostersManager>().AsSingle();
 
         }
     }

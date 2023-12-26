@@ -38,7 +38,7 @@ namespace Gameplay.Windows
         {
             _cameraSelector = FindObjectOfType<CameraSelector>();
             _cameraSelector.ChangeCamera(ECameraType.Park);
-            _windowService.Close(WindowType.MainMenu);
+            _windowService.Open(WindowType.Gameplay);
         }
     }
 }

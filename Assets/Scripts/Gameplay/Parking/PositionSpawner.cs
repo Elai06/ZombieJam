@@ -19,6 +19,11 @@ namespace Gameplay.Parking
             {
                 var spawnPrefab = Instantiate(_spawnPositionPrefab, startPosition, Quaternion.identity, transform);
                 _spawnGrid.Add(spawnPrefab);
+                
+                if (spawnPrefab.IsCooperative && spawnPrefab.CooperativePositions.Count == 0)
+                {
+                    _spawnGrid.Remove(spawnPrefab);
+                }
 
                 if (i == 0) continue;
 
@@ -46,21 +51,17 @@ namespace Gameplay.Parking
             _spawnGrid.Clear();
         }
 
-        [Button("ClearNotAvailablePositions")]
-        private void ClearNotAvailablePositions()
+        [Button("ClearCoopPosition")]
+        private void ClearCoopPosition()
         {
             for (int i = 0; i < _spawnGrid.Count; i++)
             {
                 var positionSpawner = _spawnGrid[i];
-                if (!positionSpawner.IsAvailablePosition() && !positionSpawner.IsCooperative)
+                if (positionSpawner.CooperativePositions.Count == 0 && positionSpawner.IsCooperative)
                 {
-                    var element = _spawnGrid[i].gameObject;
                     _spawnGrid.Remove(positionSpawner);
-                    DestroyImmediate(element);
                 }
             }
-
-            _spawnGrid.Clear();
         }
 
         public List<SpawnPosition> GetSpawnPositions()
