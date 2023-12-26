@@ -38,6 +38,7 @@ namespace Gameplay.Windows
             SceneManager.LoadScene($"Region");
             
             _windowService.Close(WindowType.MainMenu);
+            _windowService.Close(WindowType.Gameplay);
         }
     }
 }

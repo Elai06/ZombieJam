@@ -9,7 +9,6 @@ namespace Gameplay.Configs.Region
     public class RegionProgress
     {
         public ERegionType CurrentRegionType;
-        public int CurrentWaweIndex;
         public int RegionIndex;
 
         public List<RegionProgressData> RegionProgressData = new();
@@ -25,6 +24,17 @@ namespace Gameplay.Configs.Region
             RegionProgressData.Add(progress);
 
             return progress;
+        }
+
+        public RegionProgressData GetCurrentRegion()
+        {
+            var progressData = RegionProgressData.Find(x => x.ERegionType == CurrentRegionType);
+            if (!progressData.IsOpen)
+            {
+                progressData.IsOpen = true;
+            }
+
+            return progressData;
         }
     }
 }

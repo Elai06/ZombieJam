@@ -11,6 +11,7 @@ namespace Gameplay.RegionMap
     {
         private const int REGION_LAYER = 9;
 
+        [SerializeField] private RegionTooltipView _regionTooltipView;
         [SerializeField] private List<Region> _regions = new();
 
         [Inject] private IProgressService _progressService;
@@ -19,7 +20,7 @@ namespace Gameplay.RegionMap
         private void Start()
         {
             InjectService.Instance.Inject(this);
-            
+
             InitializeRegions();
         }
 
@@ -36,7 +37,9 @@ namespace Gameplay.RegionMap
             var contactInfo = _raycastDetector.RayCast(REGION_LAYER);
             if (contactInfo.Collider == null) return;
 
-            var region = contactInfo.Collider.GetComponent<Region>();
+            var region = contactInfo.Collider.transform.parent.GetComponent<Region>();
+            var progressData = _progressService.PlayerProgress.RegionProgress.GetOrCreate(region.RegionType);
+            _regionTooltipView.Initialize(progressData);
         }
 
         private void InitializeRegions()

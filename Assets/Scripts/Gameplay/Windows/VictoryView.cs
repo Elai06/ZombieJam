@@ -30,9 +30,9 @@ namespace Gameplay.Windows
         {
             _lobbyButton.onClick?.AddListener(EnterLobby);
             _rewardButton.onClick?.AddListener(EnterLobby);
-            var progress = _gameplayModel.GetCurrentRegionProgress();
+            var progress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
             var waveIndex = progress.CurrentWaweIndex + 1;
-            SetWave(progress.CurrentRegionType, waveIndex);
+            SetWave(progress.ERegionType, waveIndex);
         }
 
         public void OnDisable()

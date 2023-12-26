@@ -7,6 +7,7 @@ namespace Gameplay.Configs.Region
         RegionConfigData GetActualRegion(ERegionType regionType);
         void ChangeRegion();
         void NextWave();
+        RegionProgressData ProgressData { get; }
         RegionProgress Progress { get; }
     }
 }

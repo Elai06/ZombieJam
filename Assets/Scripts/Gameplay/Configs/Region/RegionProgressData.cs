@@ -8,6 +8,8 @@ namespace Gameplay.Configs.Region
     {
         public ERegionType ERegionType;
         public bool IsCompleted;
+        public int CurrentWaweIndex;
+        public bool IsOpen;
 
         public RegionProgressData(ERegionType regionType)
         {

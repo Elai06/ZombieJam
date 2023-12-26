@@ -22,9 +22,9 @@ namespace Gameplay.Windows
 
         public void OnEnable()
         {
-            var progress = _gameplayWindow.GetCurrentRegionProgress();
+            var progress = _gameplayWindow.GetCurrentRegionProgress().GetCurrentRegion();
             var waveIndex = progress.CurrentWaweIndex == 0 ? 0 : progress.CurrentWaweIndex - 1;
-            SetWave(progress.CurrentRegionType, waveIndex);
+            SetWave(progress.ERegionType, waveIndex);
         }
 
         private void SetWave(ERegionType regionType, int index)

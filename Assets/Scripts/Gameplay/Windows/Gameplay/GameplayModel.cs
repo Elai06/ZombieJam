@@ -19,7 +19,7 @@ namespace Gameplay.Windows.Gameplay
         {
             var progress = GetCurrentRegionProgress();
             _regionManager.NextWave();
-            UpdateWave?.Invoke(progress.CurrentRegionType, progress.CurrentWaweIndex);
+            UpdateWave?.Invoke(progress.CurrentRegionType, progress.GetCurrentRegion().CurrentWaweIndex);
         }
 
         public RegionProgress GetCurrentRegionProgress()

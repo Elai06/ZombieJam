@@ -47,6 +47,8 @@ namespace Gameplay.Windows
                 _windowService.Close(WindowType.Died);
             }
 
+            _windowService.Open(WindowType.Gameplay);
+
             _windowService.Open(WindowType.MainMenu);
         }
     }

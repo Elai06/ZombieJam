@@ -13,15 +13,19 @@ namespace Gameplay.Configs.Region
         private readonly RegionProgress _regionProgress;
         private readonly RegionConfigData _regionConfig;
         private readonly IWindowService _windowService;
+        private RegionProgressData _regionProgressData;
 
         public RegionManager(IProgressService progressService, GameStaticData gameStaticData,
             IWindowService windowService)
         {
             _gameStaticData = gameStaticData;
+            _regionProgressData = progressService.PlayerProgress.RegionProgress.GetCurrentRegion();
+            _regionConfig = gameStaticData.RegionConfig.GetRegionConfig(_regionProgressData.ERegionType);
             _regionProgress = progressService.PlayerProgress.RegionProgress;
-            _regionConfig = gameStaticData.RegionConfig.GetRegionConfig(_regionProgress.CurrentRegionType);
             _windowService = windowService;
         }
+
+        public RegionProgressData ProgressData => _regionProgressData;
 
         public RegionProgress Progress => _regionProgress;
 
@@ -33,15 +37,17 @@ namespace Gameplay.Configs.Region
         public void ChangeRegion()
         {
             _regionProgress.RegionIndex++;
+            _regionProgressData.IsCompleted = true;
+            _regionProgressData.IsOpen = false;
 
             if (_regionProgress.RegionIndex >= _gameStaticData.RegionConfig.GetConfig().Count)
             {
                 _regionProgress.RegionIndex = 0;
             }
 
-            _regionProgress.CurrentWaweIndex = 0;
             _regionProgress.CurrentRegionType = _gameStaticData.RegionConfig
                 .GetConfig()[_regionProgress.RegionIndex].RegionType;
+            _regionProgressData = _regionProgress.GetCurrentRegion();
 
             if (_windowService.IsOpen(WindowType.Gameplay))
             {
@@ -53,13 +59,11 @@ namespace Gameplay.Configs.Region
 
         public void NextWave()
         {
-            _regionProgress.CurrentWaweIndex++;
+            _regionProgressData.CurrentWaweIndex++;
 
-            if (_regionProgress.CurrentWaweIndex >= _regionConfig.WavePrefabs.Count)
+            if (_regionProgressData.CurrentWaweIndex >= _regionConfig.WavePrefabs.Count)
             {
-                _regionProgress.RegionProgressData
-                    .Find(x => x.ERegionType == _regionProgress.CurrentRegionType)
-                    .IsCompleted = true;
+                _regionProgressData.IsCompleted = true;
                 ChangeRegion();
                 return;
             }

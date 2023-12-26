@@ -15,6 +15,7 @@ namespace Gameplay.Units.States
         private readonly ICoroutineService _coroutineService;
 
         private bool _isMove;
+        private bool _isBash;
 
         private float _deltaTime;
         private float _offsetDurationTime;
@@ -89,32 +90,33 @@ namespace Gameplay.Units.States
 
         private IEnumerator Bash(Transform collision)
         {
-            _isMove = false;
+            _isBash = true;
             if (_unit == null) yield break;
             var distanceToCollision = Vector3.Distance(_unit.transform.position, collision.position);
-            while (distanceToCollision < 1f + _unit.Prefab.transform.localScale.z)
+            while (distanceToCollision < 1f + _unit.Prefab.transform.localScale.z / 2)
             {
-                if (_unit == null || _unit.Prefab == null) yield break;
+                if (_unit == null || _unit.Prefab == null) continue;
                 distanceToCollision = Vector3.Distance(_unit.transform.position, collision.position);
                 yield return new WaitForFixedUpdate();
             }
 
-            _isMove = true;
+            _isBash = false;
         }
 
         private void SetTime()
         {
-            if (!_isMove) return;
-
-            _deltaTime += Time.fixedDeltaTime;
-            var lerp = Mathf.Lerp(0f, 0.99f, _deltaTime / _timePath + _offsetDurationTime);
-            Move(lerp);
-
-            if (lerp >= 0.99f)
+            if (_isMove && !_isBash)
             {
-                _isMove = false;
-                _deltaTime = 0f;
-                _stateMachine.Enter<UnitBattleState>();
+                _deltaTime += Time.fixedDeltaTime;
+                var lerp = Mathf.Lerp(0f, 0.99f, _deltaTime / _timePath + _offsetDurationTime);
+                Move(lerp);
+
+                if (lerp >= 0.99f)
+                {
+                    _isMove = false;
+                    _deltaTime = 0f;
+                    _stateMachine.Enter<UnitBattleState>();
+                }
             }
         }
 

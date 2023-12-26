@@ -12,7 +12,7 @@ namespace Gameplay.Windows.Gameplay
         public override void Initialize()
         {
             var progress = Model.GetCurrentRegionProgress();
-            View.SetWave(progress.CurrentRegionType, progress.CurrentWaweIndex);
+            View.SetWave(progress.CurrentRegionType, progress.GetCurrentRegion().CurrentWaweIndex);
         }
 
         public override void Show()
