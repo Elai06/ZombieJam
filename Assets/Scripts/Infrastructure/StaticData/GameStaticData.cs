@@ -1,4 +1,5 @@
 ﻿using Gameplay.Configs.Region;
+using Gameplay.Configs.Sprites;
 using Infrastructure.Windows;
 using UnityEngine;
 using Zenject;
@@ -10,8 +11,11 @@ namespace Infrastructure.StaticData
     {
         [SerializeField] private WindowsStaticData _windowsStaticData;
         [SerializeField] private RegionConfig _regionConfig;
+        [SerializeField] private SpritesConfig spritesSpritesConfig;
 
         public RegionConfig RegionConfig => _regionConfig;
+
+        public SpritesConfig SpritesConfig => spritesSpritesConfig;
 
         public WindowData GetWindowData(WindowType windowType)
         {

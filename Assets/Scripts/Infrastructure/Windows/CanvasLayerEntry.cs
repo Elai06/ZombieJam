@@ -1,4 +1,5 @@
 ﻿using System;
+using Infrastructure.Windows.Enums;
 using MVVMLibrary.Enums;
 using UnityEngine;
 

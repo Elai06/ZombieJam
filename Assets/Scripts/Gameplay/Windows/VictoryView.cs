@@ -1,4 +1,5 @@
 ﻿using System;
+using Gameplay.Configs.Region;
 using Gameplay.Enums;
 using Gameplay.Windows.Gameplay;
 using Infrastructure.Windows;
@@ -15,6 +16,8 @@ namespace Gameplay.Windows
     {
         [SerializeField] private TextMeshProUGUI _waveText;
         [SerializeField] private TextMeshProUGUI _regionName;
+        [SerializeField] private TextMeshProUGUI _rewardValueText;
+
         [SerializeField] private Button _lobbyButton;
         [SerializeField] private Button _rewardButton;
 
@@ -33,6 +36,7 @@ namespace Gameplay.Windows
             var progress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
             var waveIndex = progress.CurrentWaweIndex + 1;
             SetWave(progress.ERegionType, waveIndex);
+            SetRewardValue(_gameplayModel.GetRegionConfig(), progress);
         }
 
         public void OnDisable()
@@ -43,7 +47,7 @@ namespace Gameplay.Windows
 
         private void EnterLobby()
         {
-            _gameplayModel.SetNextWave();
+            _gameplayModel.WaveCompleted();
             _windowService.Close(WindowType.Victory);
         }
 
@@ -51,6 +55,12 @@ namespace Gameplay.Windows
         {
             _waveText.text = $"Wave {index}";
             _regionName.text = regionType.ToString();
+        }
+
+        private void SetRewardValue(RegionConfigData configData, RegionProgressData regionProgressData)
+        {
+            var rewardConfig = configData.Waves[regionProgressData.CurrentWaweIndex].RewardConfig;
+            _rewardValueText.text = $"+{rewardConfig.Rewards[0].Value}";
         }
     }
 }

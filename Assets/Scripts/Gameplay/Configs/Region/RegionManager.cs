@@ -1,4 +1,6 @@
-﻿using Gameplay.Enums;
+﻿using Gameplay.Configs.Rewards;
+using Gameplay.Curencies;
+using Gameplay.Enums;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.StaticData;
 using Infrastructure.Windows;
@@ -11,18 +13,21 @@ namespace Gameplay.Configs.Region
         private readonly GameStaticData _gameStaticData;
 
         private readonly RegionProgress _regionProgress;
-        private readonly RegionConfigData _regionConfig;
         private readonly IWindowService _windowService;
+        private readonly ICurrenciesModel _currenciesModel;
         private RegionProgressData _regionProgressData;
 
+        public RegionConfigData RegionConfig =>
+            _gameStaticData.RegionConfig.GetRegionConfig(_regionProgressData.ERegionType);
+
         public RegionManager(IProgressService progressService, GameStaticData gameStaticData,
-            IWindowService windowService)
+            IWindowService windowService, ICurrenciesModel currenciesModel)
         {
             _gameStaticData = gameStaticData;
             _regionProgressData = progressService.PlayerProgress.RegionProgress.GetCurrentRegion();
-            _regionConfig = gameStaticData.RegionConfig.GetRegionConfig(_regionProgressData.ERegionType);
             _regionProgress = progressService.PlayerProgress.RegionProgress;
             _windowService = windowService;
+            _currenciesModel = currenciesModel;
         }
 
         public RegionProgressData ProgressData => _regionProgressData;
@@ -40,13 +45,13 @@ namespace Gameplay.Configs.Region
             _regionProgressData.IsCompleted = true;
             _regionProgressData.IsOpen = false;
 
-            if (_regionProgress.RegionIndex >= _gameStaticData.RegionConfig.GetConfig().Count)
+            if (_regionProgress.RegionIndex >= _gameStaticData.RegionConfig.ConfigData.Count)
             {
                 _regionProgress.RegionIndex = 0;
             }
 
             _regionProgress.CurrentRegionType = _gameStaticData.RegionConfig
-                .GetConfig()[_regionProgress.RegionIndex].RegionType;
+                .ConfigData[_regionProgress.RegionIndex].RegionType;
             _regionProgressData = _regionProgress.GetCurrentRegion();
 
             if (_windowService.IsOpen(WindowType.Gameplay))
@@ -59,9 +64,7 @@ namespace Gameplay.Configs.Region
 
         public void NextWave()
         {
-            _regionProgressData.CurrentWaweIndex++;
-
-            if (_regionProgressData.CurrentWaweIndex >= _regionConfig.WavePrefabs.Count)
+            if (_regionProgressData.CurrentWaweIndex >= RegionConfig.Waves.Count)
             {
                 _regionProgressData.IsCompleted = true;
                 ChangeRegion();
@@ -70,6 +73,22 @@ namespace Gameplay.Configs.Region
 
             SceneManager.LoadScene($"Gameplay");
             _windowService.Open(WindowType.MainMenu);
+        }
+
+        public void WaveCompleted()
+        {
+            var rewardConfig = RegionConfig.Waves[_regionProgressData.CurrentWaweIndex].RewardConfig;
+            GetReward(rewardConfig);
+            _regionProgressData.CurrentWaweIndex++;
+            NextWave();
+        }
+
+        private void GetReward(RewardConfig rewardConfig)
+        {
+            foreach (var reward in rewardConfig.Rewards)
+            {
+                _currenciesModel.Add(reward.CurrencyType, reward.Value);
+            }
         }
     }
 }

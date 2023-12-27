@@ -1,5 +1,6 @@
 using System;
 using Infrastructure.Windows;
+using Infrastructure.Windows.Enums;
 using MVVMLibrary.Enums;
 
 namespace Infrastructure.StaticData

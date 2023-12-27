@@ -15,16 +15,21 @@ namespace Gameplay.Windows.Gameplay
             _regionManager = regionManager;
         }
 
-        public void SetNextWave()
+        public void WaveCompleted()
         {
             var progress = GetCurrentRegionProgress();
-            _regionManager.NextWave();
+            _regionManager.WaveCompleted();
             UpdateWave?.Invoke(progress.CurrentRegionType, progress.GetCurrentRegion().CurrentWaweIndex);
         }
 
         public RegionProgress GetCurrentRegionProgress()
         {
             return _regionManager.Progress;
+        }
+
+        public RegionConfigData GetRegionConfig()
+        {
+            return _regionManager.RegionConfig;
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Gameplay.RegionMap
         private void Initialize()
         {
             var regionProgress = _progressService.PlayerProgress.RegionProgress;
-            foreach (var data in _gameStaticData.RegionConfig.GetConfig())
+            foreach (var data in _gameStaticData.RegionConfig.ConfigData)
             {
                 regionProgress.GetOrCreate(data.RegionType);
             }

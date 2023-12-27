@@ -90,12 +90,18 @@ namespace Gameplay.Units.States
 
         private IEnumerator Bash(Transform collision)
         {
-            _isBash = true;
             if (_unit == null) yield break;
+
+            _isBash = true;
             var distanceToCollision = Vector3.Distance(_unit.transform.position, collision.position);
             while (distanceToCollision < 1f + _unit.Prefab.transform.localScale.z / 2)
             {
-                if (_unit == null || _unit.Prefab == null) continue;
+                if (_unit == null || _unit.Prefab == null)
+                {
+                    _isBash = false;
+                    yield break;
+                }
+                
                 distanceToCollision = Vector3.Distance(_unit.transform.position, collision.position);
                 yield return new WaitForFixedUpdate();
             }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Gameplay.Enums;
-using UnityEngine;
 
 namespace Gameplay.Configs.Region
 {
@@ -9,6 +8,6 @@ namespace Gameplay.Configs.Region
     public struct RegionConfigData
     {
         public ERegionType RegionType;
-        public List<GameObject> WavePrefabs;
+        public List<WaveConfigData> Waves;
     }
 }

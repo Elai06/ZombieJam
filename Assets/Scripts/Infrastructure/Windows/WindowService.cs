@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Infrastructure.Windows.Enums;
 using MVVMLibrary.Enums;
 using UnityEngine;
 

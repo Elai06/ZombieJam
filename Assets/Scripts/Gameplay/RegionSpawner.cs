@@ -37,7 +37,7 @@ namespace Gameplay
             var progress = _progressService.PlayerProgress.RegionProgress.GetCurrentRegion();
             var regionConfig = _regionManager.GetActualRegion(progress.ERegionType);
             var waveIndex = progress.CurrentWaweIndex;
-            _currentLevel = Instantiate(regionConfig.WavePrefabs[waveIndex], Vector3.zero, Quaternion.identity);
+            _currentLevel = Instantiate(regionConfig.Waves[waveIndex].Prefab, Vector3.zero, Quaternion.identity);
         }
     }
 }

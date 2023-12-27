@@ -6,8 +6,9 @@ namespace Gameplay.Windows.Gameplay
 {
     public interface IGameplayModel
     {
-        void SetNextWave();
+        void WaveCompleted();
         event Action<ERegionType, int> UpdateWave;
         RegionProgress GetCurrentRegionProgress();
+        RegionConfigData GetRegionConfig();
     }
 }

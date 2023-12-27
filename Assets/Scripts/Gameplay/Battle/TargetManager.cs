@@ -95,7 +95,12 @@ namespace Gameplay.Battle
             {
                 return;
             }
+            
+            WaveCompleted();
+        }
 
+        private void WaveCompleted()
+        {
             DOVirtual.DelayedCall(1, () =>
             {
                 _windowService.Open(WindowType.Victory);

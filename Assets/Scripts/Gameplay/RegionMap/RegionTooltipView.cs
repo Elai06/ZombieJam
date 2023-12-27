@@ -3,6 +3,7 @@ using DG.Tweening;
 using Gameplay.Configs.Region;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Gameplay.RegionMap
 {
@@ -13,8 +14,19 @@ namespace Gameplay.RegionMap
         [SerializeField] private TextMeshProUGUI _waveText;
         [SerializeField] private TextMeshProUGUI _completeText;
         [SerializeField] private Canvas _canvas;
+        [SerializeField] private Button _closeButton;
 
         private Tween _tween;
+
+        private void OnEnable()
+        {
+            _closeButton.onClick.AddListener(Close);
+        }
+
+        private void OnDisable()
+        {
+            _closeButton.onClick.RemoveListener(Close);
+        }
 
         private void Start()
         {
@@ -32,6 +44,11 @@ namespace Gameplay.RegionMap
 
             _tween?.Kill();
             _tween = DOVirtual.DelayedCall(3, () => { _canvas.enabled = false; });
+        }
+
+        private void Close()
+        {
+            _canvas.enabled = false;
         }
     }
 }

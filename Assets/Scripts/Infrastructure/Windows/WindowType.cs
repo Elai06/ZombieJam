@@ -6,5 +6,6 @@
         Victory,
         Died,
         Gameplay,
+        Header
     }
 }

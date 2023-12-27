@@ -67,7 +67,7 @@ namespace Gameplay.Boosters
                 var randomSwipeDirection = randomUnit.SwipeDirection;
 
                 // Меняем позиции местами между текущим объектом и случайно выбранным объектом
-                zombies[i].transform.position = randomUnit.transform.position;
+                zombiesInParking[i].transform.position = randomUnit.transform.position;
                 zombies[randomIndex].transform.position = currentPosition;
 
                 //Устанавливаем вектор направления
