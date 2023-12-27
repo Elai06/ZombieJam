@@ -77,15 +77,15 @@ namespace Gameplay.Configs.Region
 
         public void WaveCompleted()
         {
-            var rewardConfig = RegionConfig.Waves[_regionProgressData.CurrentWaweIndex].RewardConfig;
+            var rewardConfig = RegionConfig.Waves[_regionProgressData.CurrentWaweIndex].currencyRewardConfig;
             GetReward(rewardConfig);
             _regionProgressData.CurrentWaweIndex++;
             NextWave();
         }
 
-        private void GetReward(RewardConfig rewardConfig)
+        private void GetReward(CurrencyRewardConfig currencyRewardConfig)
         {
-            foreach (var reward in rewardConfig.Rewards)
+            foreach (var reward in currencyRewardConfig.CurrencyRewards)
             {
                 _currenciesModel.Add(reward.CurrencyType, reward.Value);
             }

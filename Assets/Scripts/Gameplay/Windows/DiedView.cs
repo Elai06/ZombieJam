@@ -13,7 +13,7 @@ namespace Gameplay.Windows
         [SerializeField] private TextMeshProUGUI _waveText;
         [SerializeField] private TextMeshProUGUI _regionName;
 
-        [Inject] private IGameplayModel _gameplayWindow;
+        [Inject] private IGameplayModel _gameplayModel;
 
         public void Start()
         {
@@ -22,9 +22,10 @@ namespace Gameplay.Windows
 
         public void OnEnable()
         {
-            var progress = _gameplayWindow.GetCurrentRegionProgress().GetCurrentRegion();
+            var progress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
             var waveIndex = progress.CurrentWaweIndex == 0 ? 0 : progress.CurrentWaweIndex - 1;
             SetWave(progress.ERegionType, waveIndex);
+            _gameplayModel.LooseWave();
         }
 
         private void SetWave(ERegionType regionType, int index)

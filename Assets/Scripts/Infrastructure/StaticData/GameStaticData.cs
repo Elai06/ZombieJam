@@ -1,4 +1,5 @@
-﻿using Gameplay.Configs.Region;
+﻿using Gameplay.Configs.Level;
+using Gameplay.Configs.Region;
 using Gameplay.Configs.Sprites;
 using Infrastructure.Windows;
 using UnityEngine;
@@ -12,10 +13,13 @@ namespace Infrastructure.StaticData
         [SerializeField] private WindowsStaticData _windowsStaticData;
         [SerializeField] private RegionConfig _regionConfig;
         [SerializeField] private SpritesConfig spritesSpritesConfig;
+        [SerializeField] private LevelConfig _levelConfig;
 
         public RegionConfig RegionConfig => _regionConfig;
 
         public SpritesConfig SpritesConfig => spritesSpritesConfig;
+
+        public LevelConfig LevelConfig => _levelConfig;
 
         public WindowData GetWindowData(WindowType windowType)
         {

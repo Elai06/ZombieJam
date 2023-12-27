@@ -8,5 +8,6 @@ namespace Gameplay.Boosters
         BoosterProgressData GetBoosterProgressData(EBoosterType eBoosterType);
         event Action<EBoosterType> Activate;
         void ConsumeBooster(EBoosterType boosterType, int value);
+        void AddBooster(EBoosterType boosterType, int value);
     }
 }

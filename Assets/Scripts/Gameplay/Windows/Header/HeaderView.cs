@@ -5,7 +5,11 @@ namespace Gameplay.Windows.Header
 {
     public class HeaderView : MonoBehaviour
     {
+        [SerializeField] private LevelView _levelView;
+
         public CurrenciesSubViewContainer CurrenciesSubViewContainer;
+
+        public LevelView LevelView => _levelView;
 
         public void InitializeCurrencies(List<CurrencySubViewData> currencySubViewData)
         {

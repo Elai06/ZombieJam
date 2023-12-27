@@ -8,6 +8,6 @@ namespace Gameplay.Configs.Region
     public struct WaveConfigData
     {
         public GameObject Prefab;
-        public RewardConfig RewardConfig;
+        public CurrencyRewardConfig currencyRewardConfig;
     }
 }

@@ -1,12 +1,12 @@
 ﻿using System;
-using Gameplay.Enums;
+using Gameplay.Boosters;
 
 namespace Gameplay.Configs.Rewards
 {
     [Serializable]
-    public struct RewardConfigData
+    public struct BoosterRewardConfigData
     {
-        public ECurrencyType CurrencyType;
+        public EBoosterType BoosterType;
         public int Value;
     }
 }

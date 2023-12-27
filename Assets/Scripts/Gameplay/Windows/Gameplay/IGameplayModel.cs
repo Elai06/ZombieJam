@@ -10,5 +10,6 @@ namespace Gameplay.Windows.Gameplay
         event Action<ERegionType, int> UpdateWave;
         RegionProgress GetCurrentRegionProgress();
         RegionConfigData GetRegionConfig();
+        void LooseWave();
     }
 }

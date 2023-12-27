@@ -3,7 +3,7 @@ using Infrastructure.Windows.MVVM;
 
 namespace Gameplay.Windows.Header
 {
-    public class HeaderViewInitializer : ViewInitializer<HeaderViewModel, HeaderView, ICurrenciesModel>
+    public class HeaderViewInitializer : ViewInitializer<HeaderViewModel, HeaderView, IHeaderUIModel>
     {
     }
 }

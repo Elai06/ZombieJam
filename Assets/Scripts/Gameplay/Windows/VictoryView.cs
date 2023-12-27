@@ -59,8 +59,8 @@ namespace Gameplay.Windows
 
         private void SetRewardValue(RegionConfigData configData, RegionProgressData regionProgressData)
         {
-            var rewardConfig = configData.Waves[regionProgressData.CurrentWaweIndex].RewardConfig;
-            _rewardValueText.text = $"+{rewardConfig.Rewards[0].Value}";
+            var rewardConfig = configData.Waves[regionProgressData.CurrentWaweIndex].currencyRewardConfig;
+            _rewardValueText.text = $"+{rewardConfig.CurrencyRewards[0].Value}";
         }
     }
 }

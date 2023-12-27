@@ -5,6 +5,7 @@ using _Project.Scripts.Infrastructure.StateMachine.States;
 using Gameplay.Boosters;
 using Gameplay.Configs.Region;
 using Gameplay.Curencies;
+using Gameplay.Level;
 using Gameplay.Windows.Boosters;
 using Gameplay.Windows.Gameplay;
 using Gameplay.Windows.Header;
@@ -72,6 +73,8 @@ namespace Infrastructure.Installers
             Container.Bind<IRegionManager>().To<RegionManager>().AsSingle();
             Container.Bind<IBoostersManager>().To<BoostersManager>().AsSingle();
             Container.Bind<ICurrenciesModel>().To<CurrenciesModel>().AsSingle();
+            Container.Bind<ILevelModel>().To<LevelModel>().AsSingle();
+            Container.Bind<IHeaderUIModel>().To<HeaderUIModel>().AsSingle();
         }
     }
 }

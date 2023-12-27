@@ -1,5 +1,4 @@
-﻿using Gameplay.Curencies;
-using Infrastructure.Windows;
+﻿using Infrastructure.Windows;
 using UnityEngine;
 using Zenject;
 
@@ -9,7 +8,7 @@ namespace Gameplay.Windows.Header
     {
         [SerializeField] private HeaderViewInitializer _headerViewInitializer;
 
-        [Inject] private ICurrenciesModel _currenciesModel;
+        [Inject] private IHeaderUIModel _currenciesModel;
 
         private void OnEnable()
         {

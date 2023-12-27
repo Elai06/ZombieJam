@@ -1,45 +1,55 @@
 ﻿using System.Collections.Generic;
 using Gameplay.Curencies;
 using Gameplay.Enums;
+using Gameplay.Level;
 using Infrastructure.StaticData;
 using Infrastructure.Windows.MVVM;
 
 namespace Gameplay.Windows.Header
 {
-    public class HeaderViewModel : ViewModelBase<ICurrenciesModel, HeaderView>
+    public class HeaderViewModel : ViewModelBase<IHeaderUIModel, HeaderView>
     {
         private readonly GameStaticData _gameStaticData;
+        private readonly ICurrenciesModel _currenciesModel;
+        private readonly ILevelModel _levelModel;
 
-        public HeaderViewModel(ICurrenciesModel model, HeaderView view, GameStaticData gameStaticData)
+        public HeaderViewModel(IHeaderUIModel model, HeaderView view, GameStaticData gameStaticData,
+            ICurrenciesModel currenciesModel, ILevelModel levelModel)
             : base(model, view)
         {
             _gameStaticData = gameStaticData;
+            _currenciesModel = currenciesModel;
+            _levelModel = levelModel;
         }
 
         public override void Show()
         {
             InitializeCurrencies();
+            View.LevelView.Initialize(_levelModel.CurrentLevel, _levelModel.CurrentExperience,
+                _levelModel.ReqiredExperienceForUp);
         }
 
         public override void Subscribe()
         {
             base.Subscribe();
 
-            Model.Update += OnUpdateCurrency;
+            _currenciesModel.Update += OnUpdateCurrency;
+            _levelModel.Update += OnLevelUpdate;
         }
 
         public override void Unsubscribe()
         {
             base.Unsubscribe();
 
-            Model.Update -= OnUpdateCurrency;
+            _currenciesModel.Update -= OnUpdateCurrency;
+            _levelModel.Update -= OnLevelUpdate;
         }
 
         private void InitializeCurrencies()
         {
             var currenciesSubViewData = new List<CurrencySubViewData>();
 
-            foreach (var currency in Model.GetCurrencyProgress().CurrenciesProgresses)
+            foreach (var currency in _currenciesModel.GetCurrencyProgress().CurrenciesProgresses)
             {
                 var viewData = new CurrencySubViewData()
                 {
@@ -57,6 +67,11 @@ namespace Gameplay.Windows.Header
         private void OnUpdateCurrency(ECurrencyType type, int value)
         {
             View.CurrenciesSubViewContainer.SubViews[type.ToString()].SetValue(value);
+        }
+
+        private void OnLevelUpdate(LevelProgress progress)
+        {
+            View.LevelView.Initialize(progress.Level, progress.Experience, _levelModel.ReqiredExperienceForUp);
         }
     }
 }
