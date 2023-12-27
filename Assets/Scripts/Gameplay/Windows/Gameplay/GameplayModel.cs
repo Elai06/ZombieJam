@@ -31,6 +31,11 @@ namespace Gameplay.Windows.Gameplay
             _levelModel.AddExperience(false);
         }
 
+        public int GetExperience(bool isWin)
+        {
+            return _levelModel.GetExperience(isWin);
+        }
+
         public RegionProgress GetCurrentRegionProgress()
         {
             return _regionManager.Progress;

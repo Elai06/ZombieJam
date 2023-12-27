@@ -6,6 +6,7 @@ using Gameplay.Boosters;
 using Gameplay.Configs.Region;
 using Gameplay.Curencies;
 using Gameplay.Level;
+using Gameplay.Reward;
 using Gameplay.Windows.Boosters;
 using Gameplay.Windows.Gameplay;
 using Gameplay.Windows.Header;
@@ -75,6 +76,7 @@ namespace Infrastructure.Installers
             Container.Bind<ICurrenciesModel>().To<CurrenciesModel>().AsSingle();
             Container.Bind<ILevelModel>().To<LevelModel>().AsSingle();
             Container.Bind<IHeaderUIModel>().To<HeaderUIModel>().AsSingle();
+            Container.Bind<IRewardModel>().To<RewardModel>().AsSingle();
         }
     }
 }

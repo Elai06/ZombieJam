@@ -11,5 +11,6 @@ namespace Gameplay.Windows.Gameplay
         RegionProgress GetCurrentRegionProgress();
         RegionConfigData GetRegionConfig();
         void LooseWave();
+        int GetExperience(bool isWin);
     }
 }

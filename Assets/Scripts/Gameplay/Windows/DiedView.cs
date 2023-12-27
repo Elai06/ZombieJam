@@ -12,6 +12,7 @@ namespace Gameplay.Windows
     {
         [SerializeField] private TextMeshProUGUI _waveText;
         [SerializeField] private TextMeshProUGUI _regionName;
+        [SerializeField] private TextMeshProUGUI _experienceText;
 
         [Inject] private IGameplayModel _gameplayModel;
 
@@ -26,6 +27,7 @@ namespace Gameplay.Windows
             var waveIndex = progress.CurrentWaweIndex == 0 ? 0 : progress.CurrentWaweIndex - 1;
             SetWave(progress.ERegionType, waveIndex);
             _gameplayModel.LooseWave();
+            _experienceText.text = $"Experience: +{_gameplayModel.GetExperience(false)}";
         }
 
         private void SetWave(ERegionType regionType, int index)

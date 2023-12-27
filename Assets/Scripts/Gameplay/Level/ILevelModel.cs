@@ -9,5 +9,6 @@ namespace Gameplay.Level
         int CurrentExperience { get; }
         int ReqiredExperienceForUp { get; }
         void AddExperience(bool isWin);
+        int GetExperience(bool isWin);
     }
 }

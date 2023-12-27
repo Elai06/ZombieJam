@@ -32,10 +32,10 @@ namespace Gameplay.Level
         public int ReqiredExperienceForUp => (int)(_levelConfig.ReqiredExperienceForUp + (CurrentLevel + 1) *
             _levelConfig.MultiplierExperience);
 
+
         public void AddExperience(bool isWin)
         {
-            var value = (isWin ? _levelConfig.ExperienceForWin : _levelConfig.ExperienceForLoose) *
-                        _levelConfig.MultiplierExperience;
+            var value = GetExperience(isWin);
 
             _levelProgress.Experience += (int)value;
 
@@ -56,6 +56,12 @@ namespace Gameplay.Level
 
             _boostersManager.AddBooster(EBoosterType.Relocation, 1);
             _currenciesModel.Add(ECurrencyType.HardCurrency, 10);
+        }
+
+        public int GetExperience(bool isWin)
+        {
+            return (int)((isWin ? _levelConfig.ExperienceForWin : _levelConfig.ExperienceForLoose)
+                         * _levelConfig.MultiplierExperience);
         }
     }
 }

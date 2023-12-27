@@ -17,6 +17,7 @@ namespace Gameplay.Windows
         [SerializeField] private TextMeshProUGUI _waveText;
         [SerializeField] private TextMeshProUGUI _regionName;
         [SerializeField] private TextMeshProUGUI _rewardValueText;
+        [SerializeField] private TextMeshProUGUI _experienceText;
 
         [SerializeField] private Button _lobbyButton;
         [SerializeField] private Button _rewardButton;
@@ -35,6 +36,8 @@ namespace Gameplay.Windows
             _rewardButton.onClick?.AddListener(EnterLobby);
             var progress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
             var waveIndex = progress.CurrentWaweIndex + 1;
+            _experienceText.text = $"Experience: +{_gameplayModel.GetExperience(true)}";
+            
             SetWave(progress.ERegionType, waveIndex);
             SetRewardValue(_gameplayModel.GetRegionConfig(), progress);
         }
