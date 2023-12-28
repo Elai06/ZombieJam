@@ -96,7 +96,7 @@ namespace Gameplay.Units.States
             var distanceToCollision = Vector3.Distance(_unit.transform.position, collision.position);
             while (distanceToCollision < 1f + _unit.Prefab.transform.localScale.z / 2)
             {
-                if (_unit == null || _unit.Prefab == null)
+                if (_unit == null || _unit.Prefab == null || !collision.gameObject.activeSelf)
                 {
                     _isBash = false;
                     yield break;
