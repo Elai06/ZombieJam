@@ -3,8 +3,10 @@ using Gameplay.Boosters;
 using Gameplay.Configs.Level;
 using Gameplay.Curencies;
 using Gameplay.Enums;
+using Gameplay.Reward;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.StaticData;
+using Infrastructure.Windows;
 
 namespace Gameplay.Level
 {
@@ -14,16 +16,16 @@ namespace Gameplay.Level
 
         private readonly LevelProgress _levelProgress;
         private readonly LevelConfig _levelConfig;
-        private readonly IBoostersManager _boostersManager;
-        private readonly ICurrenciesModel _currenciesModel;
+        private readonly IRewardModel _rewardModel;
+        private readonly IWindowService _windowService;
 
-        public LevelModel(IProgressService progressService, GameStaticData gameStaticData,
-            IBoostersManager boostersManager, ICurrenciesModel currenciesModel)
+        public LevelModel(IProgressService progressService, GameStaticData gameStaticData, IRewardModel rewardModel,
+            IWindowService windowService)
         {
             _levelProgress = progressService.PlayerProgress.LevelProgress;
             _levelConfig = gameStaticData.LevelConfig;
-            _boostersManager = boostersManager;
-            _currenciesModel = currenciesModel;
+            _rewardModel = rewardModel;
+            _windowService = windowService;
         }
 
         public int CurrentLevel => _levelProgress.Level;
@@ -54,8 +56,16 @@ namespace Gameplay.Level
             _levelProgress.Level++;
             _levelProgress.Experience = 0;
 
-            _boostersManager.AddBooster(EBoosterType.Relocation, 1);
-            _currenciesModel.Add(ECurrencyType.HardCurrency, 10);
+            CreateRewards();
+        }
+
+        private void CreateRewards()
+        {
+            _rewardModel.CreateRewards();
+            _rewardModel.AdditionalRewards(EResourceType.Currency, ECurrencyType.HardCurrency.ToString(), 10);
+            _rewardModel.AdditionalRewards(EResourceType.Booster, EBoosterType.Relocation.ToString(), 1);
+            _rewardModel.Description = $"Level Up {CurrentLevel + 1}";
+            _windowService.Open(WindowType.Reward);
         }
 
         public int GetExperience(bool isWin)

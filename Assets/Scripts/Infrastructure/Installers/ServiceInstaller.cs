@@ -10,6 +10,7 @@ using Gameplay.Reward;
 using Gameplay.Windows.Boosters;
 using Gameplay.Windows.Gameplay;
 using Gameplay.Windows.Header;
+using Gameplay.Windows.Rewards;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.SaveLoads;
 using Infrastructure.SceneManagement;
@@ -44,6 +45,7 @@ namespace Infrastructure.Installers
             Container.BindInterfacesTo<GameplayViewModelFactory>().AsSingle();
             Container.BindInterfacesTo<BoostersViewModelFactory>().AsSingle();
             Container.BindInterfacesTo<HeaderViewModelFactory>().AsSingle();
+            Container.BindInterfacesTo<RewardViewModelFactory>().AsSingle();
         }
 
         private void BindGameStates()

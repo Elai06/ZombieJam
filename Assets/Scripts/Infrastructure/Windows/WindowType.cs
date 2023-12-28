@@ -6,6 +6,7 @@
         Victory,
         Died,
         Gameplay,
-        Header
+        Header,
+        Reward
     }
 }
