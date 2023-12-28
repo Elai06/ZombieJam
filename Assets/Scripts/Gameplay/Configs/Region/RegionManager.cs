@@ -54,16 +54,13 @@ namespace Gameplay.Configs.Region
                 .ConfigData[_regionProgress.RegionIndex].RegionType;
             _regionProgressData = _regionProgress.GetCurrentRegion();
 
-            if (_windowService.IsOpen(WindowType.Gameplay))
-            {
-                _windowService.Close(WindowType.Gameplay);
-            }
-
-            SceneManager.LoadScene($"Region");
+            _windowService.Open(WindowType.Region);
         }
 
-        public void NextWave()
+        private void NextWave()
         {
+            _windowService.Open(WindowType.Footer);
+
             if (_regionProgressData.CurrentWaweIndex >= RegionConfig.Waves.Count)
             {
                 _regionProgressData.IsCompleted = true;

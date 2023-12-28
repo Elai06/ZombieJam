@@ -5,6 +5,8 @@
         MainScreen,
         Gameplay,
         Overlay,
-        Header
+        Header,
+        Footer,
+        Others
     }
 }

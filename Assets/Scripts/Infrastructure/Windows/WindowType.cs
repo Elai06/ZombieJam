@@ -7,6 +7,9 @@
         Died,
         Gameplay,
         Header,
-        Reward
+        Reward,
+        Footer,
+        Region,
+        Lobby
     }
 }
