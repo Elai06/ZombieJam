@@ -10,6 +10,7 @@
         Reward,
         Footer,
         Region,
-        Lobby
+        Lobby,
+        Cards
     }
 }

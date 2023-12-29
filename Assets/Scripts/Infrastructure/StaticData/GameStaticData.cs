@@ -1,4 +1,6 @@
-﻿using Gameplay.Configs.Level;
+﻿using Gameplay.Configs;
+using Gameplay.Configs.Cards;
+using Gameplay.Configs.Level;
 using Gameplay.Configs.Region;
 using Gameplay.Configs.Sprites;
 using Infrastructure.Windows;
@@ -14,12 +16,18 @@ namespace Infrastructure.StaticData
         [SerializeField] private RegionConfig _regionConfig;
         [SerializeField] private SpritesConfig spritesSpritesConfig;
         [SerializeField] private LevelConfig _levelConfig;
+        [SerializeField] private ZombieConfig _zombieConfig;
+        [SerializeField] private CardsConfig _cardsConfig;
 
         public RegionConfig RegionConfig => _regionConfig;
 
         public SpritesConfig SpritesConfig => spritesSpritesConfig;
 
         public LevelConfig LevelConfig => _levelConfig;
+
+        public ZombieConfig ZombieConfig => _zombieConfig;
+
+        public CardsConfig CardsConfig => _cardsConfig;
 
         public WindowData GetWindowData(WindowType windowType)
         {

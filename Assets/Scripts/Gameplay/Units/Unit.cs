@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Gameplay.Battle;
+using Gameplay.Cards;
 using Gameplay.Enemies;
 using Gameplay.Enums;
 using Gameplay.Parameters;
@@ -28,19 +30,18 @@ namespace Gameplay.Units
         [SerializeField] private Transform _prefab;
         [SerializeField] private ESwipeDirection _eSwipeDirection;
 
+        private CardModel _cardModel;
+
         private readonly StateMachine _stateMachine = new();
 
         private ICoroutineService _coroutineService;
-        private ParametersConfig _parametersConfig;
         private ITargetManager _targetManager;
 
         public EUnitState CurrentState { get; set; }
         public EZombieType ZombieType { get; set; }
         public BezierCurve Curve { get; private set; }
         public Enemy Target { get; set; }
-
-        public ParametersConfig Parameters => _parametersConfig;
-
+        
         public float Health { get; private set; }
         public bool IsDied { get; private set; }
 
@@ -50,23 +51,25 @@ namespace Gameplay.Units
 
         public ESwipeDirection SwipeDirection => _eSwipeDirection;
 
-        public void Initialize(ParametersConfig parametersConfig, ICoroutineService coroutineService,
+        public void Initialize(CardModel cardModel, ICoroutineService coroutineService,
             ITargetManager targetManager, EZombieType type)
         {
-            _parametersConfig = parametersConfig;
+            _cardModel = cardModel;
             _coroutineService = coroutineService;
             _targetManager = targetManager;
             ZombieType = type;
 
-            Health = _parametersConfig.GetDictionary()[EParameter.Health];
+            Health = Parameters[EParameter.Health];
 
             _healthBar.Initialize(Health);
             InitializeStates();
         }
+        
+        public Dictionary<EParameter, float> Parameters => _cardModel.Parameters;
 
         private void InitializeStates()
         {
-            var parkingState = new UnitParkingState(this, _parametersConfig, _coroutineService);
+            var parkingState = new UnitParkingState(this, Parameters, _coroutineService);
             var roadState = new UnitRoadState(this, _coroutineService, _rotateObject);
             var battleState = new UnitBattleState(this, _targetManager, _coroutineService, _rotateObject);
             var diedState = new UnitDiedState(this);
@@ -107,7 +110,7 @@ namespace Gameplay.Units
         {
             if (enemy == null) return;
 
-            var attack = _parametersConfig.GetDictionary()[EParameter.Attack];
+            var attack = Parameters[EParameter.Attack];
             enemy.GetDamage(attack);
         }
 

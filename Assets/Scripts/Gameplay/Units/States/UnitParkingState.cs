@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Gameplay.Enums;
 using Gameplay.Parameters;
 using Infrastructure.UnityBehaviours;
@@ -19,11 +20,11 @@ namespace Gameplay.Units.States
 
         private Coroutine _coroutine;
 
-        public UnitParkingState(Unit unit, ParametersConfig parametersConfig,
+        public UnitParkingState(Unit unit, Dictionary<EParameter, float> parametersConfig,
             ICoroutineService coroutineService) : base(EUnitState.Parking, unit)
         {
             _unit = unit;
-            _speed = parametersConfig.GetDictionary()[EParameter.SpeedOnPark];
+            _speed = parametersConfig[EParameter.SpeedOnPark];
             _coroutineService = coroutineService;
         }
 

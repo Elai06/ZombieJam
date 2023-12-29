@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Gameplay.Battle;
+using Gameplay.Cards;
 using Gameplay.CinemachineCamera;
 using Gameplay.Configs;
 using Gameplay.Enums;
@@ -23,14 +24,29 @@ namespace Gameplay.Parking
 
         private readonly List<Unit> _zombies = new();
 
-        [Inject] private ICoroutineService _coroutineService;
-        [Inject] private IWindowService _windowService;
+        private ICoroutineService _coroutineService;
+        private IWindowService _windowService;
+        private ICardsModel _cardsModel;
+
+        [Inject]
+        public void Construct(ICoroutineService coroutineService, IWindowService windowService, ICardsModel cardsModel)
+        {
+            _coroutineService = coroutineService;
+            _windowService = windowService;
+            _cardsModel = cardsModel;
+        }
 
         public List<Unit> Zombies => _zombies;
 
         private void Start()
         {
             InjectService.Instance.Inject(this);
+
+            Initialize();
+        }
+
+        private void Initialize()
+        {
             Spawn();
 
             foreach (var unit in Zombies)
@@ -39,7 +55,7 @@ namespace Gameplay.Parking
                 unit.StateMachine.OnStateChange += OnZombieStateChanged;
             }
         }
-        
+
         private void Spawn()
         {
             var positions = _positionSpawner.GetSpawnPositions();
@@ -47,12 +63,13 @@ namespace Gameplay.Parking
             foreach (var spawnPosition in positions)
             {
                 if (!spawnPosition.IsAvailablePosition()) continue;
-                var config = _zombieConfig.GetZombieConfig().Find(x => x.Type == spawnPosition.ZombieType);
+                var config = _zombieConfig.Config.Find(x => x.Type == spawnPosition.ZombieType);
                 var prefab = Instantiate(config.Prefab, spawnPosition.GetSpawnPosition(),
                     Quaternion.identity, _spawnPosition);
                 prefab.transform.localPosition = spawnPosition.GetSpawnPosition();
                 prefab.SetSwipeDirection(spawnPosition.GetSwipeDirection());
-                prefab.Initialize(config.Parameters, _coroutineService, _targetManager, config.Type);
+                prefab.Initialize(_cardsModel.CardModels[config.Type], _coroutineService, _targetManager,
+                    config.Type);
                 _zombies.Add(prefab);
             }
         }
@@ -66,16 +83,15 @@ namespace Gameplay.Parking
 
             _windowService.Open(WindowType.Died);
         }
-        
+
         private void OnZombieStateChanged()
         {
             if (_zombies.Any(zombie => zombie.CurrentState != EUnitState.Battle))
             {
                 return;
             }
-            
+
             _cameraSelector.ChangeCamera(ECameraType.Enemies);
         }
-
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Gameplay.Battle;
 using Gameplay.Enemies;
 using Gameplay.Enums;
+using Gameplay.Parameters;
 using Gameplay.Units.Mover;
 using Infrastructure.UnityBehaviours;
 using UnityEngine;
@@ -22,7 +23,7 @@ namespace Gameplay.Units.States
         {
             _unit = unit;
             _targetManager = targetManager;
-            _parametersConfig = unit.Parameters.GetDictionary();
+            _parametersConfig = unit.Parameters;
             _coroutineService = coroutineService;
             _rotateObject = rotateObject;
         }

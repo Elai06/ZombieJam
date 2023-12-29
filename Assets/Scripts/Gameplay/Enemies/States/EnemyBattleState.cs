@@ -10,7 +10,7 @@ namespace Gameplay.Enemies.States
     public class EnemyBattleState : EnemyState
     {
         private readonly ICoroutineService _coroutineService;
-        private readonly Dictionary<EParameter, float> _parametersConfig;
+        private readonly Dictionary<EParameter, ParameterData> _parametersConfig;
         private Coroutine _coroutine;
 
         public EnemyBattleState(Enemy enemy, ICoroutineService coroutineService, ParametersConfig parametersConfig)
@@ -24,7 +24,7 @@ namespace Gameplay.Enemies.States
         public override void Enter()
         {
             base.Enter();
-            var attackRate = _parametersConfig[EParameter.AttackRate];
+            var attackRate = _parametersConfig[EParameter.AttackRate].Value;
             _coroutine = _coroutineService.StartCoroutine(Attack(attackRate));
         }
 
@@ -48,7 +48,7 @@ namespace Gameplay.Enemies.States
 
                 if (time >= attackRate && !_enemy.IsSafe)
                 {
-                    var speedAttack = _parametersConfig[EParameter.AttackSpeed];
+                    var speedAttack = _parametersConfig[EParameter.AttackSpeed].Value;
                     var distanceToTarget =
                         Vector3.Distance(_enemy.transform.position, _enemy.Target.transform.position);
                     if (IsAvailableDistance(distanceToTarget))
@@ -71,7 +71,7 @@ namespace Gameplay.Enemies.States
 
         private bool IsAvailableDistance(float distance)
         {
-            var radiusAttack = _parametersConfig[EParameter.RadiusAttack];
+            var radiusAttack = _parametersConfig[EParameter.RadiusAttack].Value;
             if (distance > radiusAttack)
             {
                 _stateMachine.Enter<EnemyIdleState>();

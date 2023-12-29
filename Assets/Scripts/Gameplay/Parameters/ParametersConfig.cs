@@ -10,9 +10,11 @@ namespace Gameplay.Parameters
     {
         [SerializeField] private List<ParameterData> _datas;
 
-        public Dictionary<EParameter, float> GetDictionary()
+        public List<ParameterData> Parameters => _datas;
+
+        public Dictionary<EParameter, ParameterData> GetDictionary()
         {
-            return _datas.ToDictionary(data => data.Type, data => data.Value);
+            return _datas.ToDictionary(data => data.Type, data => data);
         }
     }
 }

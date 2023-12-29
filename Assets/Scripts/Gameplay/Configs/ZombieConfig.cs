@@ -8,9 +8,6 @@ namespace Gameplay.Configs
     {
         [SerializeField] private List<ZombieData> _config;
 
-        public List<ZombieData> GetZombieConfig()
-        {
-            return _config;
-        }
+        public List<ZombieData> Config => _config;
     }
 }

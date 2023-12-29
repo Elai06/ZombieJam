@@ -47,9 +47,9 @@ namespace Gameplay.Enemies
             _coroutineService = coroutineService;
             _targetManager = targetManager;
             InitializeStates();
-            _circleRenderer.Initialize(_parametersConfig.GetDictionary()[EParameter.RadiusAttack]);
+            _circleRenderer.Initialize(_parametersConfig.GetDictionary()[EParameter.RadiusAttack].Value);
 
-            Health = _parametersConfig.GetDictionary()[EParameter.Health];
+            Health = _parametersConfig.GetDictionary()[EParameter.Health].Value;
             _healthBar.Initialize(Health);
 
             _bullet.Hit += OnHit;
@@ -94,7 +94,7 @@ namespace Gameplay.Enemies
         public void DamageToTarget(Unit unit)
         {
             if (unit == null) return;
-            var attack = _parametersConfig.GetDictionary()[EParameter.Attack];
+            var attack = _parametersConfig.GetDictionary()[EParameter.Attack].Value;
             unit.GetDamage(attack);
         }
 

@@ -42,7 +42,7 @@ namespace Gameplay.Enemies.States
 
         private IEnumerator FindTarget()
         {
-            var radiusAttack = _parametersConfig.GetDictionary()[EParameter.RadiusAttack];
+            var radiusAttack = _parametersConfig.GetDictionary()[EParameter.RadiusAttack].Value;
             while (true)
             {
                 if (_enemy == null) yield break;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Gameplay.Boosters;
+using Gameplay.Cards;
 using Gameplay.Configs.Region;
 using Gameplay.Curencies;
 using Gameplay.Enums;
@@ -15,6 +16,7 @@ namespace Infrastructure.PersistenceProgress
         public BoostersProgress BoostersProgress = new();
         public CurrenciesProgress CurrenciesProgress = new();
         public LevelProgress LevelProgress = new();
+        public CardsProgress CardsProgress = new();
 
         public PlayerProgress()
         {

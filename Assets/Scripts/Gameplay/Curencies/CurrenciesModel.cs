@@ -8,11 +8,20 @@ namespace Gameplay.Curencies
     {
         public event Action<ECurrencyType, int> Update;
 
-        private readonly CurrenciesProgress _currenciesProgress;
+        private CurrenciesProgress _currenciesProgress;
+        private readonly IProgressService _progressService;
 
         public CurrenciesModel(IProgressService progressService)
         {
-            _currenciesProgress = progressService.PlayerProgress.CurrenciesProgress;
+            _progressService = progressService;
+            progressService.OnLoaded += Loaded;
+        }
+
+        private void Loaded()
+        {
+            _progressService.OnLoaded -= Loaded;
+            
+            _currenciesProgress = _progressService.PlayerProgress.CurrenciesProgress;
         }
 
         public void Add(ECurrencyType currencyType, int value)

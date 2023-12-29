@@ -3,11 +3,13 @@ using _Project.Scripts.Infrastructure.SaveLoads;
 using _Project.Scripts.Infrastructure.StateMachine;
 using _Project.Scripts.Infrastructure.StateMachine.States;
 using Gameplay.Boosters;
+using Gameplay.Cards;
 using Gameplay.Configs.Region;
 using Gameplay.Curencies;
 using Gameplay.Level;
 using Gameplay.Reward;
 using Gameplay.Windows.Boosters;
+using Gameplay.Windows.Cards;
 using Gameplay.Windows.Gameplay;
 using Gameplay.Windows.Header;
 using Gameplay.Windows.Rewards;
@@ -46,6 +48,7 @@ namespace Infrastructure.Installers
             Container.BindInterfacesTo<BoostersViewModelFactory>().AsSingle();
             Container.BindInterfacesTo<HeaderViewModelFactory>().AsSingle();
             Container.BindInterfacesTo<RewardViewModelFactory>().AsSingle();
+            Container.BindInterfacesTo<CardsViewModelFactory>().AsSingle();
         }
 
         private void BindGameStates()
@@ -79,6 +82,7 @@ namespace Infrastructure.Installers
             Container.Bind<ILevelModel>().To<LevelModel>().AsSingle();
             Container.Bind<IHeaderUIModel>().To<HeaderUIModel>().AsSingle();
             Container.Bind<IRewardModel>().To<RewardModel>().AsSingle();
+            Container.Bind<ICardsModel>().To<CardsModel>().AsSingle();
         }
     }
 }
