@@ -1,31 +1,33 @@
 ﻿using System;
 using Gameplay.Cards;
 using Gameplay.Enums;
-using Infrastructure.Windows.MVVM.SubView;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Gameplay.Windows.Cards
 {
-    public class CardSubView : SubView<CardSubViewData>
+    public class CardPopUpView : MonoBehaviour
     {
         public event Action<EZombieType> Upgrade;
 
         [SerializeField] private Button _upgradeButton;
+        [SerializeField] private Button _closeButton;
         [SerializeField] private TextMeshProUGUI _nameText;
         [SerializeField] private TextMeshProUGUI _priceValue;
-        [SerializeField] private TextMeshProUGUI _cardsValue;
+        [SerializeField] private TextMeshProUGUI _sliderValue;
+        [SerializeField] private Slider _slider;
         [SerializeField] private ParameterSubViewContainer _parameterSubViewContainer;
 
         private EZombieType _type;
 
-        public override void Initialize(CardSubViewData data)
+        public void Initialize(CardPopUpData data)
         {
-            _nameText.text = $"{data.Type} Level {data.Level + 1}";
+            _nameText.text = $"{data.ProgressData.ZombieType} Level {data.ProgressData.Level + 1}";
             _priceValue.text = $"{data.CardsReqired}";
-            _cardsValue.text = $"{data.CardsValue}";
-            _type = data.Type;
+            _type = data.ProgressData.ZombieType;
+            _slider.value = data.ProgressData.CardsValue / (float)data.CardsReqired;
+            _sliderValue.text = $"{data.ProgressData.CardsValue}/{data.CardsReqired}";
 
             _parameterSubViewContainer.CleanUp();
             foreach (var parameter in data.ParametersConfig)
@@ -43,16 +45,28 @@ namespace Gameplay.Windows.Cards
         private void OnEnable()
         {
             _upgradeButton.onClick.AddListener(UpgradeCard);
+            _closeButton.onClick.AddListener(Close);
+        }
+
+        private void Start()
+        {
+            Close();
         }
 
         private void OnDisable()
         {
             _upgradeButton.onClick.RemoveListener(UpgradeCard);
+            _closeButton.onClick.RemoveListener(Close);
+        }
+
+        private void Close()
+        {
+            gameObject.SetActive(false);
         }
 
         private void UpgradeCard()
         {
             Upgrade?.Invoke(_type);
-        }
+            }
     }
 }

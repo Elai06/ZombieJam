@@ -1,4 +1,5 @@
-﻿using Infrastructure.Windows.MVVM.SubView;
+﻿using Gameplay.Cards;
+using Infrastructure.Windows.MVVM.SubView;
 
 namespace Gameplay.Windows.Cards
 {

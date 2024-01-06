@@ -22,6 +22,7 @@ namespace Gameplay.Windows.Cards
 
             View.Upgrade += OnUpgrade;
             Model.UpgradedCard += UpdateCard;
+            View.OnClickCard += ShowPopUp;
         }
 
         public override void Unsubscribe()
@@ -30,6 +31,7 @@ namespace Gameplay.Windows.Cards
 
             View.Upgrade -= OnUpgrade;
             Model.UpgradedCard -= UpdateCard;
+            View.OnClickCard -= ShowPopUp;
         }
 
         private void InitializeCards()
@@ -38,13 +40,10 @@ namespace Gameplay.Windows.Cards
             foreach (var zombieData in Model.CardsConfig.Cards)
             {
                 var progress = Model.CardsProgress.GetOrCreate(zombieData.ZombieType);
-                var viewData = new CardSubViewData()
+                var viewData = new CardSubViewData
                 {
-                    Type = zombieData.ZombieType,
-                    ParametersConfig = Model.GetParameters(zombieData.ZombieType),
-                    CardsReqired = Model.GetReqiredCardsValue(zombieData.ZombieType),
-                    CardsValue = progress.CardsValue,
-                    Level = progress.Level
+                    ProgressData = progress,
+                    ReqiredCards = Model.GetReqiredCardsValue(zombieData.ZombieType),
                 };
 
                 cardsSubViewData.Add(viewData);
@@ -63,14 +62,27 @@ namespace Gameplay.Windows.Cards
             var progress = Model.CardsProgress.GetOrCreate(type);
             var viewData = new CardSubViewData()
             {
-                Type = type,
-                ParametersConfig = Model.GetParameters(type),
-                CardsReqired = Model.GetReqiredCardsValue(type),
-                CardsValue = progress.CardsValue,
-                Level = progress.Level,
+                ProgressData = progress,
+                ReqiredCards = Model.GetReqiredCardsValue(type),
+                // Icon = sprite
             };
+            
+            ShowPopUp(type);
 
             View.CardsSubViewContainer.UpdateView(viewData, type.ToString());
+        }
+
+        private void ShowPopUp(EZombieType type)
+        {
+            var progress = Model.CardsProgress.GetOrCreate(type);
+            var viewData = new CardPopUpData
+            {
+                ParametersConfig = Model.GetParameters(type),
+                CardsReqired = Model.GetReqiredCardsValue(type),
+                ProgressData = progress,
+            };
+
+            View.ShowPopUp(viewData);
         }
     }
 }

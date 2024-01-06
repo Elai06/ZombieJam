@@ -9,6 +9,7 @@ namespace Gameplay.Cards
         public EZombieType ZombieType;
         public int CardsValue;
         public int Level;
+        public int IsOpen;
 
         public CardProgressData(EZombieType zombieType, int cardsValue)
         {
