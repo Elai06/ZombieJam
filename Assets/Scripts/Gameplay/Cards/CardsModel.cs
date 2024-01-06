@@ -16,19 +16,16 @@ namespace Gameplay.Cards
 
         private readonly IProgressService _progressService;
         private readonly GameStaticData _gameStaticData;
-        private readonly ICurrenciesModel _currenciesModel;
 
         public CardsProgress CardsProgress { get; set; }
         public CardsConfig CardsConfig { get; set; }
 
         public Dictionary<EZombieType, CardModel> CardModels { get; private set; } = new();
 
-        public CardsModel(IProgressService progressService, GameStaticData gameStaticData,
-            ICurrenciesModel currenciesModel)
+        public CardsModel(IProgressService progressService, GameStaticData gameStaticData)
         {
             _progressService = progressService;
             _gameStaticData = gameStaticData;
-            _currenciesModel = currenciesModel;
 
             _progressService.OnLoaded += Loaded;
         }
@@ -58,11 +55,9 @@ namespace Gameplay.Cards
             var progress = CardsProgress.GetOrCreate(zombieType);
             var price = GetReqiredCardsValue(zombieType);
 
-            var currency = _currenciesModel.GetCurrencyProgress().GetOrCreate(ECurrencyType.SoftCurrency);
-
-            if (price <= currency.Value)
+            if (IsCanConsumeCards(progress, price))
             {
-                _currenciesModel.Consume(ECurrencyType.SoftCurrency, price);
+                ConsumeCards(progress, price);
                 CardModels[zombieType].Upgrade();
                 UpgradedCard?.Invoke(zombieType);
             }
@@ -72,19 +67,29 @@ namespace Gameplay.Cards
         {
             var config = CardsConfig.Cards.Find(x => x.ZombieType == type);
             var progress = CardsProgress.GetOrCreate(type);
-            float price = config.UpgradeCards;
 
-            for (int i = 0; i < progress.Level; i++)
-            {
-                price *= config.MultiplierCards;
-            }
-
-            return (int)price;
+            return config.UpgradeCards + progress.Level;
         }
 
         public Dictionary<EParameter, float> GetParameters(EZombieType type)
         {
             return CardModels[type].Parameters;
+        }
+
+        public void AddCards(EZombieType type, int value)
+        {
+            var progress = CardsProgress.GetOrCreate(type);
+            progress.CardsValue += value;
+        }
+
+        private void ConsumeCards(CardProgressData progress, int value)
+        {
+            progress.CardsValue -= value;
+        }
+
+        private bool IsCanConsumeCards(CardProgressData progress, int value)
+        {
+            return progress.CardsValue >= value;
         }
     }
 }

@@ -10,6 +10,12 @@ namespace Gameplay.Curencies
     {
         public List<CurrencyProgressData> CurrenciesProgresses = new();
 
+        public CurrenciesProgress()
+        {
+            CurrenciesProgresses.Add(new CurrencyProgressData(ECurrencyType.SoftCurrency, 0));
+            CurrenciesProgresses.Add(new CurrencyProgressData(ECurrencyType.HardCurrency, 0));
+        }
+        
         public CurrencyProgressData GetOrCreate(ECurrencyType currencyType)
         {
             foreach (var data in CurrenciesProgresses.Where(data => data.CurrencyType == currencyType))

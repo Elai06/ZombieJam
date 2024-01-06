@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Gameplay.Boosters;
+using Gameplay.Cards;
 using Gameplay.Curencies;
 using Gameplay.Enums;
 using Infrastructure.Windows;
@@ -11,14 +12,16 @@ namespace Gameplay.Reward
     {
         private readonly IBoostersManager _boostersManager;
         private readonly ICurrenciesModel _currenciesModel;
+        private readonly ICardsModel _cardsModel;
         private readonly IWindowService _windowService;
 
         public RewardModel(IBoostersManager boostersManager, ICurrenciesModel currenciesModel,
-            IWindowService windowService)
+            IWindowService windowService, ICardsModel cardsModel)
         {
             _boostersManager = boostersManager;
             _currenciesModel = currenciesModel;
             _windowService = windowService;
+            _cardsModel = cardsModel;
         }
 
         public List<RewardData> RewardDatas { get; set; } = new();
@@ -59,10 +62,11 @@ namespace Gameplay.Reward
                     _currenciesModel.Add(currencyType, reward.Value);
                     continue;
                 }
-
+                
                 if (reward.ResourceType == EResourceType.Card)
                 {
-                    //ADd card
+                    Enum.TryParse<EZombieType>(reward.ID, out var currencyType);
+                    _cardsModel.AddCards(currencyType, reward.Value);
                 }
             }
 

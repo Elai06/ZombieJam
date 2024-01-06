@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Gameplay.Curencies;
 using Gameplay.Enums;
 using Gameplay.Level;
@@ -48,7 +49,7 @@ namespace Gameplay.Windows.Header
         private void InitializeCurrencies()
         {
             var currenciesSubViewData = new List<CurrencySubViewData>();
-
+            
             foreach (var currency in _currenciesModel.GetCurrencyProgress().CurrenciesProgresses)
             {
                 var viewData = new CurrencySubViewData()

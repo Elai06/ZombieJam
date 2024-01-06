@@ -14,14 +14,21 @@ namespace Gameplay.Curencies
         public CurrenciesModel(IProgressService progressService)
         {
             _progressService = progressService;
+            
+            if (progressService.IsLoaded)
+            {
+                _currenciesProgress = _progressService.PlayerProgress.CurrenciesProgress;
+            }
+            
             progressService.OnLoaded += Loaded;
         }
 
         private void Loaded()
         {
             _progressService.OnLoaded -= Loaded;
-            
+
             _currenciesProgress = _progressService.PlayerProgress.CurrenciesProgress;
+            
         }
 
         public void Add(ECurrencyType currencyType, int value)

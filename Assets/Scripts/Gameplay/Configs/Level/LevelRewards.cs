@@ -9,5 +9,6 @@ namespace Gameplay.Configs.Level
     {
         [SerializeField] private BoosterRewardConfig _boosterRewardConfig;
         [SerializeField] private CurrencyRewardConfig _currencyRewardConfig;
+        [SerializeField] private CardRewardConfig _cardRewardConfig;
     }
 }

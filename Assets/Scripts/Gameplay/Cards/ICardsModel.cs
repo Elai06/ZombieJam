@@ -17,5 +17,6 @@ namespace Gameplay.Cards
         int GetReqiredCardsValue(EZombieType type);
         void Initialize();
         event Action Initialized;
+        void AddCards(EZombieType type, int value);
     }
 }

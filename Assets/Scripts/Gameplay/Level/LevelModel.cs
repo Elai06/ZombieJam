@@ -64,6 +64,8 @@ namespace Gameplay.Level
             _rewardModel.CreateRewards();
             _rewardModel.AdditionalRewards(EResourceType.Currency, ECurrencyType.HardCurrency.ToString(), 10);
             _rewardModel.AdditionalRewards(EResourceType.Booster, EBoosterType.Relocation.ToString(), 1);
+            _rewardModel.AdditionalRewards(EResourceType.Card, EZombieType.Easy.ToString(), 5);
+            _rewardModel.AdditionalRewards(EResourceType.Card, EZombieType.Hard.ToString(), 3);
             _rewardModel.Description = $"Level Up {CurrentLevel + 1}";
             _windowService.Open(WindowType.Reward);
         }
