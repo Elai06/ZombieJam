@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Gameplay.Configs.Rewards;
+using UnityEngine;
 
 namespace Gameplay.Configs.Level
 {
@@ -11,9 +12,9 @@ namespace Gameplay.Configs.Level
 
         [SerializeField] private float multiplierExperience;
 
-        [SerializeField] private LevelRewards _levelRewards;
+        [SerializeField] private RewardConfig _levelRewards;
 
-        public LevelRewards LevelRewards => _levelRewards;
+        public RewardConfig LevelRewards => _levelRewards;
 
         public float MultiplierExperience => multiplierExperience;
 

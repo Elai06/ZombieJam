@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42c601e606fd4480970b10d6b3e9f855, type: 3}
+  m_Script: {fileID: 11500000, guid: 1262b8d836b04f648b297292a4eea480, type: 3}
   m_Name: SoftCurrency100
   m_EditorClassIdentifier: 
-  _currencyRewards:
-  - CurrencyType: 0
+  _rewardConfig:
+  - RewardType: 1
+    _zombieType: 0
+    _currencyType: 0
+    _boosterType: 0
     Value: 100

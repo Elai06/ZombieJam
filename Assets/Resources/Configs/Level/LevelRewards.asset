@@ -10,16 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1262b8d836b04f648b297292a4eea480, type: 3}
-  m_Name: SoftCurrency150
+  m_Name: LevelRewards
   m_EditorClassIdentifier: 
   _rewardConfig:
   - RewardType: 1
     _zombieType: 0
-    _currencyType: 0
+    _currencyType: 1
     _boosterType: 0
-    Value: 150
-  - RewardType: 0
+    Value: 10
+  - RewardType: 2
     _zombieType: 0
     _currencyType: 0
     _boosterType: 0
     Value: 1
+  - RewardType: 0
+    _zombieType: 2
+    _currencyType: 0
+    _boosterType: 0
+    Value: 3
+  - RewardType: 0
+    _zombieType: 0
+    _currencyType: 0
+    _boosterType: 0
+    Value: 5

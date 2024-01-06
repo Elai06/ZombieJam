@@ -1,4 +1,6 @@
-﻿using Gameplay.Configs.Rewards;
+﻿using System;
+using Gameplay.Boosters;
+using Gameplay.Cards;
 using Gameplay.Curencies;
 using Gameplay.Enums;
 using Infrastructure.PersistenceProgress;
@@ -15,19 +17,25 @@ namespace Gameplay.Configs.Region
         private readonly RegionProgress _regionProgress;
         private readonly IWindowService _windowService;
         private readonly ICurrenciesModel _currenciesModel;
+        private readonly IBoostersManager _boostersManager;
+        private ICardsModel _cardsModel;
+
         private RegionProgressData _regionProgressData;
 
         public RegionConfigData RegionConfig =>
             _gameStaticData.RegionConfig.GetRegionConfig(_regionProgressData.ERegionType);
 
         public RegionManager(IProgressService progressService, GameStaticData gameStaticData,
-            IWindowService windowService, ICurrenciesModel currenciesModel)
+            IWindowService windowService, ICurrenciesModel currenciesModel, IBoostersManager boostersManager,
+            ICardsModel cardsModel)
         {
             _gameStaticData = gameStaticData;
             _regionProgressData = progressService.PlayerProgress.RegionProgress.GetCurrentRegion();
             _regionProgress = progressService.PlayerProgress.RegionProgress;
             _windowService = windowService;
             _currenciesModel = currenciesModel;
+            _boostersManager = boostersManager;
+            _cardsModel = cardsModel;
         }
 
         public RegionProgressData ProgressData => _regionProgressData;
@@ -68,23 +76,43 @@ namespace Gameplay.Configs.Region
                 return;
             }
 
+
             SceneManager.LoadScene($"Gameplay");
             _windowService.Open(WindowType.MainMenu);
         }
 
         public void WaveCompleted()
         {
-            var rewardConfig = RegionConfig.Waves[_regionProgressData.CurrentWaweIndex].currencyRewardConfig;
-            GetReward(rewardConfig);
+            GetReward();
             _regionProgressData.CurrentWaweIndex++;
             NextWave();
         }
 
-        private void GetReward(CurrencyRewardConfig currencyRewardConfig)
+        private void GetReward()
         {
-            foreach (var reward in currencyRewardConfig.CurrencyRewards)
+            var currencyReward = RegionConfig.Waves[_regionProgressData.CurrentWaweIndex];
+
+            foreach (var reward in currencyReward.RewardConfig.Rewards)
             {
-                _currenciesModel.Add(reward.CurrencyType, reward.Value);
+                if (reward.RewardType == EResourceType.Booster)
+                {
+                    Enum.TryParse<EBoosterType>(reward.GetId(), out var boosterType);
+                    _boostersManager.AddBooster(boosterType, reward.Value);
+                    continue;
+                }
+
+                if (reward.RewardType == EResourceType.Currency)
+                {
+                    Enum.TryParse<ECurrencyType>(reward.GetId(), out var currencyType);
+                    _currenciesModel.Add(currencyType, reward.Value);
+                    continue;
+                }
+
+                if (reward.RewardType == EResourceType.Card)
+                {
+                    Enum.TryParse<EZombieType>(reward.GetId(), out var currencyType);
+                    _cardsModel.AddCards(currencyType, reward.Value);
+                }
             }
         }
     }

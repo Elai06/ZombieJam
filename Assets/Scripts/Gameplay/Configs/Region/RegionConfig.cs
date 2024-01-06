@@ -8,7 +8,7 @@ namespace Gameplay.Configs.Region
     public class RegionConfig : ScriptableObject
     {
         [SerializeField] private List<RegionConfigData> _regionConfigData;
-
+        
         public List<RegionConfigData> ConfigData => _regionConfigData;
 
         public RegionConfigData GetRegionConfig(ERegionType regionType)

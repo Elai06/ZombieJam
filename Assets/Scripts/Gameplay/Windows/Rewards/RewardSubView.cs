@@ -10,11 +10,13 @@ namespace Gameplay.Windows.Rewards
         [SerializeField] private Image _sprite;
         [SerializeField] private TextMeshProUGUI _idText;
         [SerializeField] private TextMeshProUGUI _valueText;
-        
+
         public override void Initialize(RewardSubViewData data)
         {
+            _idText.gameObject.SetActive(!data.Sprite);
             _idText.text = data.ID;
             _valueText.text = data.Value.ToString();
+            _sprite.sprite = data.Sprite;
         }
     }
 }

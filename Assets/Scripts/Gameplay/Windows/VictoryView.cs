@@ -2,10 +2,11 @@
 using Gameplay.Configs.Region;
 using Gameplay.Enums;
 using Gameplay.Windows.Gameplay;
+using Gameplay.Windows.Rewards;
+using Infrastructure.StaticData;
 using Infrastructure.Windows;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Utils.ZenjectInstantiateUtil;
 using Zenject;
@@ -16,14 +17,25 @@ namespace Gameplay.Windows
     {
         [SerializeField] private TextMeshProUGUI _waveText;
         [SerializeField] private TextMeshProUGUI _regionName;
-        [SerializeField] private TextMeshProUGUI _rewardValueText;
         [SerializeField] private TextMeshProUGUI _experienceText;
 
         [SerializeField] private Button _lobbyButton;
         [SerializeField] private Button _rewardButton;
 
-        [Inject] private IGameplayModel _gameplayModel;
-        [Inject] private IWindowService _windowService;
+        [SerializeField] private RewardSubViewContainer _rewardSubViewContainer;
+
+        private IGameplayModel _gameplayModel;
+        private IWindowService _windowService;
+        private GameStaticData _gameStaticData;
+
+        [Inject]
+        public void Construct(IGameplayModel gameplayModel, IWindowService windowService,
+            GameStaticData gameStaticData)
+        {
+            _gameplayModel = gameplayModel;
+            _windowService = windowService;
+            _gameStaticData = gameStaticData;
+        }
 
         public void Start()
         {
@@ -37,9 +49,10 @@ namespace Gameplay.Windows
             var progress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
             var waveIndex = progress.CurrentWaweIndex + 1;
             _experienceText.text = $"Experience: +{_gameplayModel.GetExperience(true)}";
-            
+
             SetWave(progress.ERegionType, waveIndex);
-            SetRewardValue(_gameplayModel.GetRegionConfig(), progress);
+
+            CreateRewardSubView();
         }
 
         public void OnDisable()
@@ -60,10 +73,28 @@ namespace Gameplay.Windows
             _regionName.text = regionType.ToString();
         }
 
-        private void SetRewardValue(RegionConfigData configData, RegionProgressData regionProgressData)
+        public void CreateRewardSubView()
         {
-            var rewardConfig = configData.Waves[regionProgressData.CurrentWaweIndex].currencyRewardConfig;
-            _rewardValueText.text = $"+{rewardConfig.CurrencyRewards[0].Value}";
+            _rewardSubViewContainer.CleanUp();
+
+            var progress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
+            var config = _gameplayModel.GetRegionConfig();
+            foreach (var data in config.Waves[progress.CurrentWaweIndex].RewardConfig.Rewards)
+            {
+                var rewardData = new RewardSubViewData
+                {
+                    ID = data.GetId(),
+                    Value = data.Value
+                };
+
+                if (data.RewardType == EResourceType.Currency)
+                {
+                    Enum.TryParse<ECurrencyType>(data.GetId(), out var type);
+                    rewardData.Sprite = _gameStaticData.SpritesConfig.GetCurrencySprite(type);
+                }
+
+                _rewardSubViewContainer.Add(rewardData.ID, rewardData);
+            }
         }
     }
 }

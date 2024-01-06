@@ -62,10 +62,28 @@ namespace Gameplay.Level
         private void CreateRewards()
         {
             _rewardModel.CreateRewards();
-            _rewardModel.AdditionalRewards(EResourceType.Currency, ECurrencyType.HardCurrency.ToString(), 10);
-            _rewardModel.AdditionalRewards(EResourceType.Booster, EBoosterType.Relocation.ToString(), 1);
-            _rewardModel.AdditionalRewards(EResourceType.Card, EZombieType.Easy.ToString(), 5);
-            _rewardModel.AdditionalRewards(EResourceType.Card, EZombieType.Hard.ToString(), 3);
+
+            foreach (var reward in _levelConfig.LevelRewards.Rewards)
+            {
+                switch (reward.RewardType)
+                {
+                    case EResourceType.Booster:
+                        Enum.TryParse<EBoosterType>(reward.GetId(), out var boosterType);
+                        _rewardModel.AdditionalRewards(EResourceType.Booster, boosterType.ToString(), reward.Value);
+                        continue;
+                    case EResourceType.Currency:
+                        Enum.TryParse<ECurrencyType>(reward.GetId(), out var currencyType);
+                        _rewardModel.AdditionalRewards(EResourceType.Currency, currencyType.ToString(), reward.Value);
+                        continue;
+                    case EResourceType.Card:
+                        Enum.TryParse<EZombieType>(reward.GetId(), out var card);
+                        _rewardModel.AdditionalRewards(EResourceType.Card, card.ToString(), reward.Value);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
             _rewardModel.Description = $"Level Up {CurrentLevel + 1}";
             _windowService.Open(WindowType.Reward);
         }
