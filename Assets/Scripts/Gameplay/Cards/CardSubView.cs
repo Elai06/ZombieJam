@@ -12,6 +12,7 @@ namespace Gameplay.Cards
         public event Action<EZombieType> Click;
 
         [SerializeField] private Image _icon;
+        [SerializeField] private Image _indicator;
         [SerializeField] private Slider _cardSlider;
         [SerializeField] private TextMeshProUGUI _valueCardsText;
         [SerializeField] private TextMeshProUGUI _nameText;
@@ -25,7 +26,9 @@ namespace Gameplay.Cards
             _cardSlider.value = (float)data.ProgressData.CardsValue / data.ReqiredCards;
             _valueCardsText.text = $"{data.ProgressData.CardsValue}/{data.ReqiredCards}";
             _type = data.ProgressData.ZombieType;
-            _nameText.text = $"{data.ProgressData.ZombieType}";
+            _nameText.text = $"{data.ProgressData.ZombieType}"
+                ;
+            _indicator.gameObject.SetActive(data.ProgressData.CardsValue >= data.ReqiredCards);
         }
 
         private void OnEnable()

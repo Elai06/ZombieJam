@@ -16,7 +16,8 @@ namespace Gameplay.Cards
         event Action<EZombieType> UpgradedCard;
         int GetReqiredCardsValue(EZombieType type);
         void Initialize();
-        event Action Initialized;
         void AddCards(EZombieType type, int value);
+        event Action<EZombieType> CardValueChanged;
+        bool IsAvailableUpgrade();
     }
 }

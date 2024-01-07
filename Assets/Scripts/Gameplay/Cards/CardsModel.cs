@@ -10,7 +10,7 @@ namespace Gameplay.Cards
 {
     public class CardsModel : ICardsModel
     {
-        public event Action Initialized;
+        public event Action<EZombieType> CardValueChanged;
 
         public event Action<EZombieType> UpgradedCard;
 
@@ -46,8 +46,6 @@ namespace Gameplay.Cards
                 var model = new CardModel(progress, card);
                 CardModels.Add(card.ZombieType, model);
             }
-
-            Initialized?.Invoke();
         }
 
         public void UpgradeZombie(EZombieType zombieType)
@@ -80,16 +78,33 @@ namespace Gameplay.Cards
         {
             var progress = CardsProgress.GetOrCreate(type);
             progress.CardsValue += value;
+            CardValueChanged?.Invoke(type);
         }
 
         private void ConsumeCards(CardProgressData progress, int value)
         {
             progress.CardsValue -= value;
+            CardValueChanged?.Invoke(progress.ZombieType);
         }
 
         private bool IsCanConsumeCards(CardProgressData progress, int value)
         {
             return progress.CardsValue >= value;
+        }
+
+        public bool IsAvailableUpgrade()
+        {
+            foreach (var configData in CardsConfig.Cards)
+            {
+                var progress = CardsProgress.GetOrCreate(configData.ZombieType);
+                var reqiredCards = GetReqiredCardsValue(configData.ZombieType);
+                if (progress.CardsValue >= reqiredCards)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
