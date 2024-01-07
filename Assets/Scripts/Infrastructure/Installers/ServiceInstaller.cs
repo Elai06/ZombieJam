@@ -8,11 +8,13 @@ using Gameplay.Configs.Region;
 using Gameplay.Curencies;
 using Gameplay.Level;
 using Gameplay.Reward;
+using Gameplay.Shop;
 using Gameplay.Windows.Boosters;
 using Gameplay.Windows.Cards;
 using Gameplay.Windows.Gameplay;
 using Gameplay.Windows.Header;
 using Gameplay.Windows.Rewards;
+using Gameplay.Windows.Shop;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.SaveLoads;
 using Infrastructure.SceneManagement;
@@ -49,6 +51,7 @@ namespace Infrastructure.Installers
             Container.BindInterfacesTo<HeaderViewModelFactory>().AsSingle();
             Container.BindInterfacesTo<RewardViewModelFactory>().AsSingle();
             Container.BindInterfacesTo<CardsViewModelFactory>().AsSingle();
+            Container.BindInterfacesTo<ShopViewModelFactory>().AsSingle();
         }
 
         private void BindGameStates()
@@ -83,6 +86,7 @@ namespace Infrastructure.Installers
             Container.Bind<IHeaderUIModel>().To<HeaderUIModel>().AsSingle();
             Container.Bind<IRewardModel>().To<RewardModel>().AsSingle();
             Container.Bind<ICardsModel>().To<CardsModel>().AsSingle();
+            Container.Bind<IShopModel>().To<ShopModel>().AsSingle();
         }
     }
 }

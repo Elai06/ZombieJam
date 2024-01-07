@@ -11,6 +11,7 @@
         Footer,
         Region,
         Lobby,
-        Cards
+        Cards,
+        Shop
     }
 }

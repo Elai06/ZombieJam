@@ -2,6 +2,7 @@
 using Gameplay.Configs.Cards;
 using Gameplay.Configs.Level;
 using Gameplay.Configs.Region;
+using Gameplay.Configs.Shop;
 using Gameplay.Configs.Sprites;
 using Infrastructure.Windows;
 using UnityEngine;
@@ -18,6 +19,7 @@ namespace Infrastructure.StaticData
         [SerializeField] private LevelConfig _levelConfig;
         [SerializeField] private ZombieConfig _zombieConfig;
         [SerializeField] private CardsConfig _cardsConfig;
+        [SerializeField] private ShopConfig _shopConfig;
 
         public RegionConfig RegionConfig => _regionConfig;
 
@@ -28,6 +30,8 @@ namespace Infrastructure.StaticData
         public ZombieConfig ZombieConfig => _zombieConfig;
 
         public CardsConfig CardsConfig => _cardsConfig;
+
+        public ShopConfig ShopConfig => _shopConfig;
 
         public WindowData GetWindowData(WindowType windowType)
         {

@@ -18,22 +18,7 @@ namespace Gameplay.Cards
             InjectService.Instance.Inject(this);
 
             _indicator.gameObject.SetActive(_cardsModel.IsAvailableUpgrade());
-        }
-
-        private void OnEnable()
-        {
-            if (_cardsModel != null)
-            {
-                _cardsModel.CardValueChanged += OnCardValueChanged;
-            }
-        }
-
-        private void OnDisable()
-        {
-            if (_cardsModel != null)
-            {
-                _cardsModel.CardValueChanged -= OnCardValueChanged;
-            }
+            _cardsModel.CardValueChanged += OnCardValueChanged;
         }
 
         private void OnCardValueChanged(EZombieType obj)

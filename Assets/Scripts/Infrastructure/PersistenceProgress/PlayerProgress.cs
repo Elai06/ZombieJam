@@ -6,6 +6,7 @@ using Gameplay.Configs.Region;
 using Gameplay.Curencies;
 using Gameplay.Enums;
 using Gameplay.Level;
+using Gameplay.Shop;
 
 namespace Infrastructure.PersistenceProgress
 {
@@ -17,6 +18,7 @@ namespace Infrastructure.PersistenceProgress
         public CurrenciesProgress CurrenciesProgress = new();
         public LevelProgress LevelProgress = new();
         public CardsProgress CardsProgress = new();
+        public ShopProgress ShopProgress = new();
 
         public PlayerProgress()
         {
