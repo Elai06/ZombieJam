@@ -13,18 +13,21 @@ namespace Gameplay.Windows.Cards
 
         [SerializeField] private Button _upgradeButton;
         [SerializeField] private Button _closeButton;
+        [SerializeField] private Image _currencyImage;
         [SerializeField] private TextMeshProUGUI _nameText;
         [SerializeField] private TextMeshProUGUI _priceValue;
         [SerializeField] private TextMeshProUGUI _sliderValue;
         [SerializeField] private Slider _slider;
+        
         [SerializeField] private ParameterSubViewContainer _parameterSubViewContainer;
 
         private EZombieType _type;
 
         public void Initialize(CardPopUpData data)
         {
+            _currencyImage.sprite = data.CurrencySprite;
             _nameText.text = $"{data.ProgressData.ZombieType} Level {data.ProgressData.Level + 1}";
-            _priceValue.text = $"{data.CardsReqired}";
+            _priceValue.text = $"{data.CurrencyValue}";
             _type = data.ProgressData.ZombieType;
             _slider.value = data.ProgressData.CardsValue / (float)data.CardsReqired;
             _sliderValue.text = $"{data.ProgressData.CardsValue}/{data.CardsReqired}";

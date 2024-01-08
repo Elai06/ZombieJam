@@ -19,5 +19,7 @@ namespace Gameplay.Cards
         void AddCards(EZombieType type, int value);
         event Action<EZombieType> CardValueChanged;
         bool IsAvailableUpgrade();
+        int GetCurrencyPrice(EZombieType zombieType, ECurrencyType currencyType);
+        ECurrencyType GetCurrencyType(EZombieType zombieType);
     }
 }

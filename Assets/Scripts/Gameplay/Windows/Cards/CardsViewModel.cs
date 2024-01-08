@@ -1,14 +1,18 @@
 ﻿using System.Collections.Generic;
 using Gameplay.Cards;
 using Gameplay.Enums;
+using Infrastructure.StaticData;
 using Infrastructure.Windows.MVVM;
 
 namespace Gameplay.Windows.Cards
 {
     public class CardsViewModel : ViewModelBase<ICardsModel, CardsView>
     {
-        public CardsViewModel(ICardsModel model, CardsView view) : base(model, view)
+        private GameStaticData _gameStaticData;
+
+        public CardsViewModel(ICardsModel model, CardsView view, GameStaticData gameStaticData) : base(model, view)
         {
+            _gameStaticData = gameStaticData;
         }
 
         public override void Show()
@@ -66,7 +70,7 @@ namespace Gameplay.Windows.Cards
                 ReqiredCards = Model.GetReqiredCardsValue(type),
                 // Icon = sprite
             };
-            
+
             ShowPopUp(type);
 
             View.CardsSubViewContainer.UpdateView(viewData, type.ToString());
@@ -75,11 +79,14 @@ namespace Gameplay.Windows.Cards
         private void ShowPopUp(EZombieType type)
         {
             var progress = Model.CardsProgress.GetOrCreate(type);
+            var currencyType = Model.GetCurrencyType(type);
             var viewData = new CardPopUpData
             {
                 ParametersConfig = Model.GetParameters(type),
                 CardsReqired = Model.GetReqiredCardsValue(type),
                 ProgressData = progress,
+                CurrencySprite = _gameStaticData.SpritesConfig.GetCurrencySprite(currencyType),
+                CurrencyValue = Model.GetCurrencyPrice(type, currencyType)
             };
 
             View.ShowPopUp(viewData);

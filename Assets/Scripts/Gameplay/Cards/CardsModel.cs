@@ -16,16 +16,19 @@ namespace Gameplay.Cards
 
         private readonly IProgressService _progressService;
         private readonly GameStaticData _gameStaticData;
+        private readonly ICurrenciesModel _currenciesModel;
 
         public CardsProgress CardsProgress { get; set; }
         public CardsConfig CardsConfig { get; set; }
 
         public Dictionary<EZombieType, CardModel> CardModels { get; private set; } = new();
 
-        public CardsModel(IProgressService progressService, GameStaticData gameStaticData)
+        public CardsModel(IProgressService progressService, GameStaticData gameStaticData,
+            ICurrenciesModel currenciesModel)
         {
             _progressService = progressService;
             _gameStaticData = gameStaticData;
+            _currenciesModel = currenciesModel;
 
             _progressService.OnLoaded += Loaded;
         }
@@ -51,12 +54,14 @@ namespace Gameplay.Cards
         public void UpgradeZombie(EZombieType zombieType)
         {
             var progress = CardsProgress.GetOrCreate(zombieType);
-            var price = GetReqiredCardsValue(zombieType);
+            var reqiredCardsValue = GetReqiredCardsValue(zombieType);
+            var currencyType = GetCurrencyType(zombieType);
+            var currencyPrice = GetCurrencyPrice(zombieType, currencyType);
 
-            if (IsCanConsumeCards(progress, price))
+            if (IsCanConsumeCards(progress, reqiredCardsValue) && _currenciesModel.Consume(currencyType, currencyPrice))
             {
-                ConsumeCards(progress, price);
                 CardModels[zombieType].Upgrade();
+                ConsumeCards(progress, reqiredCardsValue);
                 UpgradedCard?.Invoke(zombieType);
             }
         }
@@ -105,6 +110,25 @@ namespace Gameplay.Cards
             }
 
             return false;
+        }
+
+        public int GetCurrencyPrice(EZombieType zombieType, ECurrencyType currencyType)
+        {
+            var config = CardsConfig.Cards.Find(x => x.ZombieType == zombieType);
+            var progress = CardsProgress.GetOrCreate(zombieType);
+
+            return (currencyType == ECurrencyType.SoftCurrency
+                ? config.SoftStartPrice
+                : config.HardStartPrice) * (progress.Level + 1);
+        }
+
+        public ECurrencyType GetCurrencyType(EZombieType zombieType)
+        {
+            var config = CardsConfig.Cards.Find(x => x.ZombieType == zombieType);
+            var progress = CardsProgress.GetOrCreate(zombieType);
+            return (progress.Level + 1) % config.HardCurrencyEveryLevel == 0
+                ? ECurrencyType.HardCurrency
+                : ECurrencyType.SoftCurrency;
         }
     }
 }

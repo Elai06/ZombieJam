@@ -10,6 +10,8 @@ namespace Gameplay.Configs.Cards
         public EZombieType ZombieType;
         public ParametersConfig ParametersConfig;
         public int UpgradeCards;
-        public float MultiplierCards;
+        public int HardCurrencyEveryLevel;
+        public int HardStartPrice;
+        public int SoftStartPrice;
     }
 }

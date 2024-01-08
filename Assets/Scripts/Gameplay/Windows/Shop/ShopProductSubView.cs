@@ -12,7 +12,6 @@ namespace Gameplay.Windows.Shop
         public event Action<EShopProductType> BuyClick;
         public event Action<EShopProductType> ProductClick;
 
-        [SerializeField] private Image _productImage;
         [SerializeField] private Image _priceImage;
         [SerializeField] private TextMeshProUGUI _priceValue;
         [SerializeField] private TextMeshProUGUI _productName;

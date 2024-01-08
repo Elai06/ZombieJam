@@ -41,7 +41,7 @@ namespace Gameplay.Reward
 
         public void AdditionalRewards(EResourceType resourceType, string id, int value)
         {
-            RewardDatas.Add(new RewardData()
+            RewardDatas.Add(new RewardData
             {
                 ResourceType = resourceType,
                 ID = id,

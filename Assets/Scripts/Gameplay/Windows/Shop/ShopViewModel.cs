@@ -68,7 +68,8 @@ namespace Gameplay.Windows.Shop
             var config = _gameStaticData.ShopConfig.ConfigData
                 .Find(x => x.ProductType == productType);
 
-            View.ShowPopUp(config);
+            var priceSprite = _gameStaticData.SpritesConfig.GetCurrencySprite(config.PriceType);
+            View.ShowPopUp(config, priceSprite);
         }
 
         private void OnPurchased(EShopProductType productType)
@@ -94,7 +95,7 @@ namespace Gameplay.Windows.Shop
                 var progress = Model.ShopProgress.GetOrCreate(configData.ProductType);
                 subViewData.IsAvailable = !progress.IsBuy;
             }
-            
+
             View.UpdateSubView(subViewData);
         }
     }

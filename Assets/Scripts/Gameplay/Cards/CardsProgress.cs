@@ -9,7 +9,6 @@ namespace Gameplay.Cards
     public class CardsProgress
     {
         public List<CardProgressData> CardProgressData = new();
-
         public CardProgressData GetOrCreate(EZombieType zombieType)
         {
             foreach (var data in CardProgressData.Where(data => data.ZombieType == zombieType))

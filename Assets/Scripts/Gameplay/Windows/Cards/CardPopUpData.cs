@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Gameplay.Cards;
 using Gameplay.Enums;
 using Gameplay.Parameters;
+using UnityEngine;
 
 namespace Gameplay.Windows.Cards
 {
@@ -12,5 +13,7 @@ namespace Gameplay.Windows.Cards
         public CardProgressData ProgressData;
         public Dictionary<EParameter, float> ParametersConfig;
         public int CardsReqired;
+        public Sprite CurrencySprite;
+        public int CurrencyValue;
     }
 }

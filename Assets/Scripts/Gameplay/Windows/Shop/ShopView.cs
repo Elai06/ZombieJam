@@ -22,16 +22,23 @@ namespace Gameplay.Windows.Shop
             {
                 _container.Add(data.ProductType.ToString(), data);
                 var subView = _container.SubViews[data.ProductType.ToString()];
-                subView.BuyClick += OnBuyClick;
+                subView.BuyClick += OnProductClick;
                 subView.ProductClick += OnProductClick;
             }
         }
 
+        private void OnEnable()
+        {
+            _shopRewardPopUp.Buy += OnBuyClick;
+        }
+
         private void OnDisable()
         {
+            _shopRewardPopUp.Buy -= OnBuyClick;
+            
             foreach (var data in _container.SubViews.Values)
             {
-                data.BuyClick -= OnBuyClick;
+                data.BuyClick -= OnProductClick;
                 data.ProductClick -= OnProductClick;
             }
         }
@@ -43,13 +50,20 @@ namespace Gameplay.Windows.Shop
 
         private void OnProductClick(EShopProductType productType)
         {
-            ProductClick?.Invoke(productType);
+            if (productType.ToString().Contains("Box"))
+            {
+                ProductClick?.Invoke(productType);
+            }
+            else
+            {
+                OnBuyClick(productType);
+            }
         }
 
-        public void ShowPopUp(ShopConfigData shopConfigData)
+        public void ShowPopUp(ShopConfigData shopConfigData, Sprite priceImage)
         {
             _shopRewardPopUp.gameObject.SetActive(true);
-            _shopRewardPopUp.Show(shopConfigData);
+            _shopRewardPopUp.Show(shopConfigData, priceImage);
         }
 
         public void UpdateSubView(ShopProductSubViewData data)
