@@ -7,11 +7,14 @@ namespace Gameplay.Windows.Gameplay
 {
     public class GameplayModel : IGameplayModel
     {
+        public event Action OnRessurection; 
         public event Action<ERegionType, int> UpdateWave;
 
         private readonly IRegionManager _regionManager;
         private readonly ILevelModel _levelModel;
 
+        public bool IsAvailableRessuraction { get; set; } = true;
+        
         public GameplayModel(IRegionManager regionManager, ILevelModel levelModel)
         {
             _regionManager = regionManager;
@@ -23,6 +26,7 @@ namespace Gameplay.Windows.Gameplay
             var progress = GetCurrentRegionProgress();
             _regionManager.WaveCompleted();
             _levelModel.AddExperience(true);
+            IsAvailableRessuraction = true;
             UpdateWave?.Invoke(progress.CurrentRegionType, progress.GetCurrentRegion().CurrentWaweIndex);
         }
 
@@ -44,6 +48,12 @@ namespace Gameplay.Windows.Gameplay
         public RegionConfigData GetRegionConfig()
         {
             return _regionManager.RegionConfig;
+        }
+
+        public void RessurectionUnits()
+        {
+            IsAvailableRessuraction = false;
+            OnRessurection?.Invoke();
         }
     }
 }

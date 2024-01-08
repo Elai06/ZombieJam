@@ -28,8 +28,6 @@ namespace Gameplay.Windows.Rewards
         {
             _getRewardButton.onClick.RemoveListener(GetReward);
             _boxButton.onClick.RemoveListener(ShowRewards);
-            RewardSubViewContainer.Content.gameObject.SetActive(false);
-            _boxView.SetActive(false);
         }
 
         public void InititializeReward(List<RewardSubViewData> rewardSubViewDatas, string desription)
@@ -52,7 +50,6 @@ namespace Gameplay.Windows.Rewards
         private void ShowRewards()
         {
             RewardSubViewContainer.gameObject.SetActive(true);
-            _boxView.SetActive(false);
         }
         
         public void ShowBox(string description)

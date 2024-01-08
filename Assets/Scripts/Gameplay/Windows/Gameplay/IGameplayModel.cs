@@ -12,5 +12,8 @@ namespace Gameplay.Windows.Gameplay
         RegionConfigData GetRegionConfig();
         void LooseWave();
         int GetExperience(bool isWin);
+        event Action OnRessurection;
+        void RessurectionUnits();
+        bool IsAvailableRessuraction { get; set; }
     }
 }

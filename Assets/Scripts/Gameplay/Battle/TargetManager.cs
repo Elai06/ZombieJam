@@ -72,6 +72,8 @@ namespace Gameplay.Battle
 
             var zombies = _zombieSpawner.Zombies;
             var target = zombies.Find(x => !x.IsDied);
+            if (target == null) return null;
+
             var distance = Vector3.Distance(buildingTransform.position, target.transform.position);
 
             foreach (var zombie in zombies)
@@ -86,7 +88,7 @@ namespace Gameplay.Battle
                 }
             }
 
-            return distance <= radiusAttack ? target : null;
+            return distance <= radiusAttack && target.CurrentState != EUnitState.Parking ? target : null;
         }
 
         private void OnDiedEnemy()
@@ -95,16 +97,13 @@ namespace Gameplay.Battle
             {
                 return;
             }
-            
+
             WaveCompleted();
         }
 
         private void WaveCompleted()
         {
-            DOVirtual.DelayedCall(1, () =>
-            {
-                _windowService.Open(WindowType.Victory);
-            });
+            DOVirtual.DelayedCall(1, () => { _windowService.Open(WindowType.Victory); });
         }
     }
 }

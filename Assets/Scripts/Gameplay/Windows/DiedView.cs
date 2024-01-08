@@ -3,6 +3,7 @@ using Gameplay.Enums;
 using Gameplay.Windows.Gameplay;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Utils.ZenjectInstantiateUtil;
 using Zenject;
 
@@ -13,6 +14,7 @@ namespace Gameplay.Windows
         [SerializeField] private TextMeshProUGUI _waveText;
         [SerializeField] private TextMeshProUGUI _regionName;
         [SerializeField] private TextMeshProUGUI _experienceText;
+        [SerializeField] private Button _ressurectionButton;
 
         [Inject] private IGameplayModel _gameplayModel;
 
@@ -28,6 +30,21 @@ namespace Gameplay.Windows
             SetWave(progress.ERegionType, waveIndex);
             _gameplayModel.LooseWave();
             _experienceText.text = $"Experience: +{_gameplayModel.GetExperience(false)}";
+            
+            _ressurectionButton.onClick.AddListener(Ressurection);
+            
+            _ressurectionButton.gameObject.SetActive(_gameplayModel.IsAvailableRessuraction);
+        }
+
+        private void Ressurection()
+        {
+            // Позже сделать через рекламу
+            _gameplayModel.RessurectionUnits();
+        }
+
+        private void OnDisable()
+        {
+            _ressurectionButton.onClick.AddListener(Ressurection);
         }
 
         private void SetWave(ERegionType regionType, int index)

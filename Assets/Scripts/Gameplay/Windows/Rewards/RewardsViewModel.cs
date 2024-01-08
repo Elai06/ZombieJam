@@ -15,11 +15,6 @@ namespace Gameplay.Windows.Rewards
         public override void Show()
         {
             InitializeRewards();
-
-            if (Model.RewardType == ERewardType.Box)
-            {
-                View.ShowBox(Model.Description);
-            }
         }
 
         public override void Subscribe()

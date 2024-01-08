@@ -18,7 +18,7 @@ namespace Gameplay.Units
     public abstract class Unit : MonoBehaviour, ISwiped
     {
         public event Action ResetMoving;
-        public event Action Died;
+        public event Action OnDied;
         public event Action<ESwipeSide> OnSwipe;
         public event Action<GameObject> OnCollision;
         public event Action OnInitializePath;
@@ -41,7 +41,7 @@ namespace Gameplay.Units
         public EZombieType ZombieType { get; set; }
         public BezierCurve Curve { get; private set; }
         public Enemy Target { get; set; }
-        
+
         public float Health { get; private set; }
         public bool IsDied { get; private set; }
 
@@ -64,7 +64,7 @@ namespace Gameplay.Units
             _healthBar.Initialize(Health);
             InitializeStates();
         }
-        
+
         public Dictionary<EParameter, float> Parameters => _cardModel.Parameters;
 
         private void InitializeStates()
@@ -123,10 +123,7 @@ namespace Gameplay.Units
 
             if (Health <= 0)
             {
-                Health = 0;
-                IsDied = true;
-                Died?.Invoke();
-                _stateMachine.Enter<UnitDiedState>();
+                Died();
             }
         }
 
@@ -143,6 +140,23 @@ namespace Gameplay.Units
         public void ResetMovingAfterBooster()
         {
             ResetMoving?.Invoke();
+        }
+
+        public void Ressurection()
+        {
+            IsDied = false;
+            Health = Parameters[EParameter.Health] / 2;
+            gameObject.SetActive(true);
+            _healthBar.ChangeHealth(Health, 0);
+            _stateMachine.Enter<UnitBattleState>();
+        }
+
+        public void Died()
+        {
+            Health = 0;
+            IsDied = true;
+            _stateMachine.Enter<UnitDiedState>();
+            OnDied?.Invoke();
         }
     }
 }

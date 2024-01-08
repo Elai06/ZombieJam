@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Gameplay.Battle;
@@ -6,6 +7,7 @@ using Gameplay.CinemachineCamera;
 using Gameplay.Configs;
 using Gameplay.Enums;
 using Gameplay.Units;
+using Gameplay.Windows.Gameplay;
 using Infrastructure.UnityBehaviours;
 using Infrastructure.Windows;
 using UnityEngine;
@@ -27,13 +29,16 @@ namespace Gameplay.Parking
         private ICoroutineService _coroutineService;
         private IWindowService _windowService;
         private ICardsModel _cardsModel;
+        private IGameplayModel _gameplayModel;
 
         [Inject]
-        public void Construct(ICoroutineService coroutineService, IWindowService windowService, ICardsModel cardsModel)
+        public void Construct(ICoroutineService coroutineService, IWindowService windowService,
+            ICardsModel cardsModel, IGameplayModel gameplayModel)
         {
             _coroutineService = coroutineService;
             _windowService = windowService;
             _cardsModel = cardsModel;
+            _gameplayModel = gameplayModel;
         }
 
         public List<Unit> Zombies => _zombies;
@@ -51,9 +56,16 @@ namespace Gameplay.Parking
 
             foreach (var unit in Zombies)
             {
-                unit.Died += OnUnitDied;
+                unit.OnDied += OnUnitDied;
                 unit.StateMachine.OnStateChange += OnZombieStateChanged;
             }
+
+            _gameplayModel.OnRessurection += RessurectionUnits;
+        }
+
+        private void OnDisable()
+        {
+            _gameplayModel.OnRessurection -= RessurectionUnits;
         }
 
         private void Spawn()
@@ -92,6 +104,17 @@ namespace Gameplay.Parking
             }
 
             _cameraSelector.ChangeCamera(ECameraType.Enemies);
+        }
+
+        private void RessurectionUnits()
+        {
+            foreach (var zombie in _zombies)
+            {
+                zombie.Ressurection();
+            }
+
+            _windowService.Open(WindowType.Gameplay);
+            _windowService.Close(WindowType.Died);
         }
     }
 }
