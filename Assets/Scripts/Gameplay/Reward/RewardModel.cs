@@ -26,9 +26,13 @@ namespace Gameplay.Reward
 
         public List<RewardData> RewardDatas { get; set; } = new();
         public string Description { get; set; }
+        public ERewardType RewardType { get; private set; }
 
-        public void CreateRewards()
+        public void CreateRewards(string desription, ERewardType rewardType)
         {
+            RewardType = rewardType;
+            Description = desription;
+
             if (RewardDatas.Count > 0)
             {
                 RewardDatas.Clear();
@@ -43,6 +47,11 @@ namespace Gameplay.Reward
                 ID = id,
                 Value = value,
             });
+        }
+
+        public void ShowRewardWindow()
+        {
+            _windowService.Open(WindowType.Reward);
         }
 
         public void GetRewards()

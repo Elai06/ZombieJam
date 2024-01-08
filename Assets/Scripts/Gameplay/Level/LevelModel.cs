@@ -61,7 +61,7 @@ namespace Gameplay.Level
 
         private void CreateRewards()
         {
-            _rewardModel.CreateRewards();
+            _rewardModel.CreateRewards($"Level Up {CurrentLevel + 1}", ERewardType.LevelUp);
 
             foreach (var reward in _levelConfig.LevelRewards.Rewards)
             {
@@ -84,7 +84,6 @@ namespace Gameplay.Level
                 }
             }
 
-            _rewardModel.Description = $"Level Up {CurrentLevel + 1}";
             _windowService.Open(WindowType.Reward);
         }
 

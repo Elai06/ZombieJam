@@ -38,6 +38,7 @@ namespace Gameplay.Windows.Cards
             {
                 subView.Click -= OnClick;
             }
+            _popUpView.Close();
         }
 
         private void OnClick(EZombieType type)

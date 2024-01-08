@@ -59,7 +59,7 @@ namespace Gameplay.Windows.Cards
             _closeButton.onClick.RemoveListener(Close);
         }
 
-        private void Close()
+        public void Close()
         {
             gameObject.SetActive(false);
         }

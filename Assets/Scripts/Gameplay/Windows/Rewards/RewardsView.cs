@@ -12,6 +12,8 @@ namespace Gameplay.Windows.Rewards
 
         [SerializeField] private TextMeshProUGUI _descriptionText;
         [SerializeField] private Button _getRewardButton;
+        [SerializeField] private GameObject _boxView;
+        [SerializeField] private Button _boxButton;
 
         public RewardSubViewContainer RewardSubViewContainer;
 
@@ -19,15 +21,20 @@ namespace Gameplay.Windows.Rewards
         private void OnEnable()
         {
             _getRewardButton.onClick.AddListener(GetReward);
+            _boxButton.onClick.AddListener(ShowRewards);
         }
 
         private void OnDisable()
         {
             _getRewardButton.onClick.RemoveListener(GetReward);
+            _boxButton.onClick.RemoveListener(ShowRewards);
+            RewardSubViewContainer.Content.gameObject.SetActive(false);
+            _boxView.SetActive(false);
         }
 
         public void InititializeReward(List<RewardSubViewData> rewardSubViewDatas, string desription)
         {
+            RewardSubViewContainer.Content.gameObject.SetActive(true);
             _descriptionText.text = desription;
 
             RewardSubViewContainer.CleanUp();
@@ -40,6 +47,19 @@ namespace Gameplay.Windows.Rewards
         private void GetReward()
         {
             RewardsClick?.Invoke();
+        }
+
+        private void ShowRewards()
+        {
+            RewardSubViewContainer.gameObject.SetActive(true);
+            _boxView.SetActive(false);
+        }
+        
+        public void ShowBox(string description)
+        {
+            RewardSubViewContainer.gameObject.SetActive(false);
+            _boxView.SetActive(true);
+            _descriptionText.text = $"{description}";
         }
     }
 }
