@@ -34,7 +34,7 @@ namespace Gameplay.Windows.Shop
             base.Unsubscribe();
 
             View.BuyClick -= Model.BuyProduct;
-            View.ProductClick += OnProductClick;
+            View.ProductClick -= OnProductClick;
             Model.Purchased -= OnPurchased;
         }
 

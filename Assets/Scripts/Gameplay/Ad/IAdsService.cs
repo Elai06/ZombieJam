@@ -11,7 +11,9 @@ namespace Gameplay.Ad
         AdsConfig AdsConfig { get; set; }
         bool ShowAds(EAdsType type);
         event Action<int> Tick;
-        void StopAds();
+        void SkipAds();
         event Action Showed;
+        void StopAds();
+        event Action OnSkipAds;
     }
 }

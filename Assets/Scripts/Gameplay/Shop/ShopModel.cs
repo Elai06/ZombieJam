@@ -20,6 +20,8 @@ namespace Gameplay.Shop
         private readonly ICardsModel _cardsModel;
         private readonly IAdsService _adsService;
 
+        private ShopConfigData _currentConfigData;
+
         private ShopModel(GameStaticData gameStaticData, IProgressService progressService,
             ICurrenciesModel currenciesModel, ICardsModel cardsModel, IAdsService adsService)
         {
@@ -35,39 +37,40 @@ namespace Gameplay.Shop
 
         public void BuyProduct(EShopProductType shopProductType)
         {
-            var config = ShopConfig.ConfigData.Find(x => x.ProductType == shopProductType);
+            _currentConfigData = ShopConfig.ConfigData.Find(x => x.ProductType == shopProductType);
 
-            if (config.IsDesposable)
+            if (_currentConfigData.IsDesposable)
             {
-                BuyDisposableProduct(config);
+                BuyDisposableProduct(_currentConfigData);
                 return;
             }
 
-            if (config.IsFree)
+            if (_currentConfigData.IsFree)
             {
                 _adsService.ShowAds(EAdsType.Reward);
-                _adsService.Showed += () => OnAdsShowed(shopProductType, config);
+                _adsService.Showed += OnAdsShowed;
                 return;
             }
 
-            if (!config.IsFree && !config.IsInApp)
+            if (!_currentConfigData.IsFree && !_currentConfigData.IsInApp)
             {
-                if (!_currenciesModel.Consume(config.PriceType, (int)config.PriceValue)) return;
+                if (!_currenciesModel.Consume(_currentConfigData.PriceType, (int)_currentConfigData.PriceValue)) return;
             }
 
-            PurchaseSuccesed(shopProductType, config);
+            PurchaseSuccesed(shopProductType, _currentConfigData);
         }
 
-        private void OnAdsShowed(EShopProductType shopProductType, ShopConfigData config)
+        private void OnAdsShowed()
         {
-            _adsService.Showed -= () => OnAdsShowed(shopProductType, config);
-            PurchaseSuccesed(shopProductType, config);
+            _adsService.Showed -= OnAdsShowed;
+            PurchaseSuccesed(_currentConfigData.ProductType, _currentConfigData);
         }
 
         private void PurchaseSuccesed(EShopProductType shopProductType, ShopConfigData config)
         {
             GetRewards(config.Rewards);
             Purchased?.Invoke(shopProductType);
+            _currentConfigData = null;
         }
 
         private void GetRewards(RewardConfig rewardConfig)

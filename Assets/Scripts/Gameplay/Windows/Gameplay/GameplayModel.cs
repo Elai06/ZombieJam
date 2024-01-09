@@ -34,11 +34,6 @@ namespace Gameplay.Windows.Gameplay
             _levelModel.AddExperience(true);
             IsAvailableRessuraction = true;
             UpdateWave?.Invoke(progress.CurrentRegionType, progress.GetCurrentRegion().CurrentWaweIndex);
-
-            if (progress.RegionIndex >= _gameStaticData.AdsConfig.FromWhatRegionInterstitial)
-            {
-                _adsService.ShowAds(EAdsType.Interstitial);
-            }
         }
 
         public void LooseWave()

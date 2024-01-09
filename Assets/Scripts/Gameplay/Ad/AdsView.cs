@@ -26,18 +26,18 @@ namespace Gameplay.Ad
             Initialize();
 
             _closeButton.gameObject.SetActive(false);
-            _closeButton.onClick.AddListener(CloseAds);
+            _closeButton.onClick.AddListener(SkipAds);
         }
 
         private void OnDisable()
         {
             _adsService.Tick -= OnTick;
-            _closeButton.onClick.RemoveListener(CloseAds);
+            _closeButton.onClick.RemoveListener(SkipAds);
         }
 
-        private void CloseAds()
+        private void SkipAds()
         {
-            _adsService.StopAds();
+            _adsService.SkipAds();
         }
 
         private void Initialize()

@@ -53,6 +53,7 @@ namespace Gameplay.Windows
                 if (_adsService.ShowAds(EAdsType.Interstitial))
                 {
                     _adsService.Showed += OnShowedAds;
+                    _adsService.OnSkipAds += OnShowedAds;
                     return;
                 }
             }
@@ -63,6 +64,7 @@ namespace Gameplay.Windows
         private void OnShowedAds()
         {
             _adsService.Showed -= OnShowedAds;
+            _adsService.OnSkipAds -= OnShowedAds;
 
             StartPlay();
         }
