@@ -9,5 +9,6 @@ namespace Gameplay.Curencies
         bool Consume(ECurrencyType currencyType, int value);
         CurrenciesProgress GetCurrencyProgress();
         event Action<ECurrencyType, int> Update;
+        bool IsCanConsume(CurrencyProgressData currencyProgressData, int value);
     }
 }

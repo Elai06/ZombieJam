@@ -103,7 +103,10 @@ namespace Gameplay.Cards
             {
                 var progress = CardsProgress.GetOrCreate(configData.ZombieType);
                 var reqiredCards = GetReqiredCardsValue(configData.ZombieType);
-                if (progress.CardsValue >= reqiredCards)
+                var currency = _currenciesModel.GetCurrencyProgress().GetOrCreate(GetCurrencyType(progress.ZombieType));
+                var currencyPrice = GetCurrencyPrice(progress.ZombieType, currency.CurrencyType);
+
+                if (progress.CardsValue >= reqiredCards && _currenciesModel.IsCanConsume(currency, currencyPrice))
                 {
                     return true;
                 }

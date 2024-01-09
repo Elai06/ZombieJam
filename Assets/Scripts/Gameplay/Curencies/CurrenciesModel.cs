@@ -51,7 +51,7 @@ namespace Gameplay.Curencies
             return false;
         }
 
-        private bool IsCanConsume(CurrencyProgressData currencyProgressData, int value)
+        public bool IsCanConsume(CurrencyProgressData currencyProgressData, int value)
         {
             return currencyProgressData.Value >= value;
         }

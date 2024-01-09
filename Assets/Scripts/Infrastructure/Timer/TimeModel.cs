@@ -1,6 +1,6 @@
 using System;
 
-namespace _Project.Scripts.Infrastructure.PersistenceProgress
+namespace Infrastructure.Timer
 {
     public class TimeModel
     {
@@ -23,9 +23,9 @@ namespace _Project.Scripts.Infrastructure.PersistenceProgress
             {
                 return;
             }
-            
+
             TimeProgress.Time -= 1;
-            
+
             Tick?.Invoke(TimeProgress.Time);
 
             if (TimeProgress.Time <= 0)
@@ -36,8 +36,8 @@ namespace _Project.Scripts.Infrastructure.PersistenceProgress
 
         public void StopTimer()
         {
-            Stopped?.Invoke(this);
             IsWork = false;
+            Stopped?.Invoke(this);
         }
     }
 }

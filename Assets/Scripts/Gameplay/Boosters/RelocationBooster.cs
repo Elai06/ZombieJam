@@ -22,21 +22,19 @@ namespace Gameplay.Boosters
             _boostersManager.Activate += Activate;
         }
 
-        private void OnDisable()
-        {
-            _boostersManager.Activate -= Activate;
-        }
-
         private void Activate(EBoosterType type)
         {
             if (type == EBoosterType.Relocation)
             {
                 SwapPositions();
+                Debug.Log($"Booster {type} activated");
             }
         }
 
         private void SwapPositions()
         {
+            _zombieSpawner ??= FindObjectOfType<ZombieSpawner>();
+
             var zombiesInParking = _zombieSpawner.Zombies.Where(x => x.CurrentState == EUnitState.Parking).ToList();
 
             if (zombiesInParking.Count < 2)

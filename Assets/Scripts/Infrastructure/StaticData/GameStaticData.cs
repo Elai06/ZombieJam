@@ -20,6 +20,7 @@ namespace Infrastructure.StaticData
         [SerializeField] private ZombieConfig _zombieConfig;
         [SerializeField] private CardsConfig _cardsConfig;
         [SerializeField] private ShopConfig _shopConfig;
+        [SerializeField] private AdsConfig _adsConfig;
 
         public RegionConfig RegionConfig => _regionConfig;
 
@@ -32,6 +33,8 @@ namespace Infrastructure.StaticData
         public CardsConfig CardsConfig => _cardsConfig;
 
         public ShopConfig ShopConfig => _shopConfig;
+
+        public AdsConfig AdsConfig => _adsConfig;
 
         public WindowData GetWindowData(WindowType windowType)
         {

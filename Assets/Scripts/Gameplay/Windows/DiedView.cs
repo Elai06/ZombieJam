@@ -38,7 +38,6 @@ namespace Gameplay.Windows
 
         private void Ressurection()
         {
-            // Позже сделать через рекламу
             _gameplayModel.RessurectionUnits();
         }
 

@@ -12,6 +12,7 @@
         Region,
         Lobby,
         Cards,
-        Shop
+        Shop,
+        Ads
     }
 }

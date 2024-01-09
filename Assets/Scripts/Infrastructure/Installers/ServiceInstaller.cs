@@ -2,6 +2,7 @@ using _Project.Scripts.Infrastructure.PersistenceProgress;
 using _Project.Scripts.Infrastructure.SaveLoads;
 using _Project.Scripts.Infrastructure.StateMachine;
 using _Project.Scripts.Infrastructure.StateMachine.States;
+using Gameplay.Ad;
 using Gameplay.Boosters;
 using Gameplay.Cards;
 using Gameplay.Configs.Region;
@@ -21,6 +22,7 @@ using Infrastructure.SceneManagement;
 using Infrastructure.StateMachine;
 using Infrastructure.StateMachine.States;
 using Infrastructure.StaticData;
+using Infrastructure.Timer;
 using Infrastructure.UnityBehaviours;
 using Infrastructure.Windows;
 using SirGames.Scripts.Infrastructure.Windows;
@@ -35,6 +37,7 @@ namespace Infrastructure.Installers
         [SerializeField] private CoroutineService _coroutineService;
         [SerializeField] private LayersContainer _layersContainer;
         [SerializeField] private GameStaticData _gameStaticData;
+        [SerializeField] private TimerService _timerService;
 
         public override void InstallBindings()
         {
@@ -74,6 +77,7 @@ namespace Infrastructure.Installers
             Container.Bind<LayersContainer>().FromInstance(_layersContainer).AsSingle();
             Container.Bind<GameStaticData>().FromInstance(_gameStaticData).AsSingle();
             Container.Bind<ICoroutineService>().FromInstance(_coroutineService).AsSingle();
+            Container.Bind<TimerService>().FromInstance(_timerService).AsSingle();
         }
 
         private void BindModels()
@@ -87,6 +91,7 @@ namespace Infrastructure.Installers
             Container.Bind<IRewardModel>().To<RewardModel>().AsSingle();
             Container.Bind<ICardsModel>().To<CardsModel>().AsSingle();
             Container.Bind<IShopModel>().To<ShopModel>().AsSingle();
+            Container.Bind<IAdsService>().To<AdsService>().AsSingle();
         }
     }
 }

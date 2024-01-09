@@ -47,13 +47,18 @@ namespace Gameplay.Units.States
             _unit.OnInitializePath -= InitializePath;
             _unit.ResetMoving -= OnResetMoving;
 
+            StopMove();
+
+            _unit.ResetSwipeDirection();
+        }
+
+        private void StopMove()
+        {
+            _isMove = false;
             if (_coroutine != null)
             {
                 _coroutineService.StopCoroutine(_coroutine);
             }
-
-            _isMove = false;
-            _unit.ResetSwipeDirection();
         }
 
         private void InitializePath()
@@ -63,6 +68,7 @@ namespace Gameplay.Units.States
 
         private IEnumerator StartMove()
         {
+            _isMove = true;
             while (_isMove)
             {
                 yield return new WaitForFixedUpdate();
@@ -75,7 +81,6 @@ namespace Gameplay.Units.States
             if (_isMove || swipe == ESwipeSide.None || !IsAvailableSwipe(swipe)) return;
 
             _eSwipeSide = swipe;
-            _isMove = true;
 
             _coroutine = _coroutineService.StartCoroutine(StartMove());
         }
@@ -83,7 +88,7 @@ namespace Gameplay.Units.States
         private void OnCollisionEnter(GameObject other)
         {
             if (!_isMove) return;
-            _isMove = false;
+            StopMove();
 
             var collision = other.GetComponent<Unit>();
 
@@ -103,7 +108,7 @@ namespace Gameplay.Units.States
         {
             if (eSwipeSide == ESwipeSide.None)
             {
-                _isMove = false;
+               StopMove();
                 return;
             }
 
@@ -173,7 +178,7 @@ namespace Gameplay.Units.States
 
         private IEnumerator MoveAfterBash(Transform collision)
         {
-            _isMove = false;
+            StopMove();
 
             var distanceToCollision = Vector3.Distance(_unit.transform.position, collision.position);
             while (distanceToCollision < 1f + _unit.Prefab.localScale.z)
@@ -182,13 +187,12 @@ namespace Gameplay.Units.States
                 yield return new WaitForFixedUpdate();
             }
 
-            _isMove = true;
             _coroutineService.StartCoroutine(StartMove());
         }
-        
+
         private void OnResetMoving()
         {
-            _isMove = false;
+            StopMove();
             _eSwipeSide = ESwipeSide.None;
         }
     }

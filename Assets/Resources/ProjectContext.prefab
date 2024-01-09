@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2110506760069141846}
   - component: {fileID: 4371545928842444103}
   - component: {fileID: 392027836135403500}
+  - component: {fileID: 2050535027944609223}
   m_Layer: 0
   m_Name: ServiceInstaller
   m_TagString: Untagged
@@ -49,6 +50,7 @@ MonoBehaviour:
   _coroutineService: {fileID: 4371545928842444103}
   _layersContainer: {fileID: 4154564681620469496}
   _gameStaticData: {fileID: 11400000, guid: b9e8d3550804a734482640a92c1836fc, type: 2}
+  _timerService: {fileID: 2050535027944609223}
 --- !u!114 &4371545928842444103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,6 +73,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88481e97adb7461e8583f1268ba05bea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2050535027944609223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656102020652410181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7fdc8994f9d49168fd72c0ba7f2508c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4748287849056196389
