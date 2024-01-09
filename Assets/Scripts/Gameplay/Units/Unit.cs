@@ -142,7 +142,7 @@ namespace Gameplay.Units
             ResetMoving?.Invoke();
         }
 
-        public void Ressurection()
+        public void Resurection()
         {
             IsDied = false;
             Health = Parameters[EParameter.Health] / 2;

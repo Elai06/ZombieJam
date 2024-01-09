@@ -9,7 +9,7 @@ namespace Gameplay.Windows.Gameplay
 {
     public class GameplayModel : IGameplayModel
     {
-        public event Action OnRessurection;
+        public event Action OnResurection;
         public event Action<ERegionType, int> UpdateWave;
 
         private readonly IRegionManager _regionManager;
@@ -67,22 +67,18 @@ namespace Gameplay.Windows.Gameplay
             {
                 _adsService.Showed += OnShowedAds;
             }
-            else
-            {
-                Ressurection();
-            }
         }
 
         private void OnShowedAds()
         {
             _adsService.Showed -= OnShowedAds;
-            Ressurection();
+            Resurection();
         }
 
-        private void Ressurection()
+        private void Resurection()
         {
             IsAvailableRessuraction = false;
-            OnRessurection?.Invoke();
+            OnResurection?.Invoke();
         }
     }
 }
