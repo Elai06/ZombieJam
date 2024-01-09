@@ -6,5 +6,11 @@
         RareBox,
         EpicBox,
         NoAds,
+        LittleSoft,
+        MediumSoft,
+        ManySoft,
+        LittleHard,
+        MediumHard,
+        ManyHard,
     }
 }

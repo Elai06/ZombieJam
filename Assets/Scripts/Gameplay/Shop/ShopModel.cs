@@ -1,4 +1,5 @@
 ﻿using System;
+using Gameplay.Ad;
 using Gameplay.Cards;
 using Gameplay.Configs.Rewards;
 using Gameplay.Configs.Shop;
@@ -17,14 +18,16 @@ namespace Gameplay.Shop
         private readonly IProgressService _progressService;
         private readonly ICurrenciesModel _currenciesModel;
         private readonly ICardsModel _cardsModel;
+        private readonly IAdsService _adsService;
 
         private ShopModel(GameStaticData gameStaticData, IProgressService progressService,
-            ICurrenciesModel currenciesModel, ICardsModel cardsModel)
+            ICurrenciesModel currenciesModel, ICardsModel cardsModel, IAdsService adsService)
         {
             _gameStaticData = gameStaticData;
             _progressService = progressService;
             _currenciesModel = currenciesModel;
             _cardsModel = cardsModel;
+            _adsService = adsService;
         }
 
         public ShopProgress ShopProgress => _progressService.PlayerProgress.ShopProgress;
@@ -40,11 +43,29 @@ namespace Gameplay.Shop
                 return;
             }
 
-            if (!config.IsFree)
+            if (config.IsFree)
             {
-                if (!_currenciesModel.Consume(config.PriceType, config.PriceValue)) return;
+                _adsService.ShowAds(EAdsType.Reward);
+                _adsService.Showed += () => OnAdsShowed(shopProductType, config);
+                return;
             }
 
+            if (!config.IsFree && !config.IsInApp)
+            {
+                if (!_currenciesModel.Consume(config.PriceType, (int)config.PriceValue)) return;
+            }
+
+            PurchaseSuccesed(shopProductType, config);
+        }
+
+        private void OnAdsShowed(EShopProductType shopProductType, ShopConfigData config)
+        {
+            _adsService.Showed -= () => OnAdsShowed(shopProductType, config);
+            PurchaseSuccesed(shopProductType, config);
+        }
+
+        private void PurchaseSuccesed(EShopProductType shopProductType, ShopConfigData config)
+        {
             GetRewards(config.Rewards);
             Purchased?.Invoke(shopProductType);
         }
@@ -75,7 +96,7 @@ namespace Gameplay.Shop
 
             if (!config.IsFree)
             {
-                if (!_currenciesModel.Consume(config.PriceType, config.PriceValue)) return;
+                if (!_currenciesModel.Consume(config.PriceType, (int)config.PriceValue)) return;
             }
 
             progress.IsBuy = true;

@@ -25,8 +25,6 @@ using Infrastructure.StaticData;
 using Infrastructure.Timer;
 using Infrastructure.UnityBehaviours;
 using Infrastructure.Windows;
-using SirGames.Scripts.Infrastructure.Windows;
-using SirGames.Scripts.Windows;
 using UnityEngine;
 using Zenject;
 

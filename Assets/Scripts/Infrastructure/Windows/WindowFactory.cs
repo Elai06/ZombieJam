@@ -2,7 +2,6 @@
 using Infrastructure.StaticData;
 using Infrastructure.Windows.Enums;
 using MVVMLibrary.Enums;
-using SirGames.Scripts.Infrastructure.Windows;
 using UnityEngine;
 using Utils.ZenjectInstantiateUtil;
 

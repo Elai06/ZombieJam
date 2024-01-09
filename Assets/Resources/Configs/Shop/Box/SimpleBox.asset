@@ -9,17 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1262b8d836b04f648b297292a4eea480, type: 3}
+  m_Script: {fileID: 11500000, guid: bba0f78cedd54442b7bbdf057c235aeb, type: 3}
   m_Name: SimpleBox
   m_EditorClassIdentifier: 
-  _rewardConfig:
-  - RewardType: 1
-    _zombieType: 0
-    _currencyType: 0
-    _boosterType: 0
-    Value: 100
-  - RewardType: 1
-    _zombieType: 0
-    _currencyType: 1
-    _boosterType: 0
-    Value: 50
+  IsInApp: 0
+  IsFree: 1
+  IsDesposable: 0
+  ProductType: 0
+  Rewards: {fileID: 11400000, guid: 3a3bb9f649135c3459454d93dce8de18, type: 2}
+  PriceType: 0
+  PriceValue: 0

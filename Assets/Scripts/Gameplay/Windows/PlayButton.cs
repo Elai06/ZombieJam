@@ -1,4 +1,6 @@
-﻿using Gameplay.CinemachineCamera;
+﻿using Gameplay.Ad;
+using Gameplay.CinemachineCamera;
+using Gameplay.Configs.Region;
 using Infrastructure.Windows;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +14,17 @@ namespace Gameplay.Windows
         private Button _button;
 
         private CameraSelector _cameraSelector;
-        [Inject] private IWindowService _windowService;
+        private IWindowService _windowService;
+        private IAdsService _adsService;
+        private IRegionManager _regionManager;
+
+        [Inject]
+        private void Construct(IWindowService windowService, IAdsService adsService, IRegionManager regionManager)
+        {
+            _windowService = windowService;
+            _adsService = adsService;
+            _regionManager = regionManager;
+        }
 
         private void Awake()
         {
@@ -35,6 +47,27 @@ namespace Gameplay.Windows
         }
 
         private void Play()
+        {
+            if (_regionManager.Progress.RegionIndex > 0)
+            {
+                if (_adsService.ShowAds(EAdsType.Interstitial))
+                {
+                    _adsService.Showed += OnShowedAds;
+                    return;
+                }
+            }
+
+            StartPlay();
+        }
+
+        private void OnShowedAds()
+        {
+            _adsService.Showed -= OnShowedAds;
+
+            StartPlay();
+        }
+
+        private void StartPlay()
         {
             _cameraSelector = FindObjectOfType<CameraSelector>();
             _cameraSelector.ChangeCamera(ECameraType.Park);

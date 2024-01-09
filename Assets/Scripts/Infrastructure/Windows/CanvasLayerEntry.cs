@@ -1,9 +1,8 @@
 ﻿using System;
 using Infrastructure.Windows.Enums;
-using MVVMLibrary.Enums;
 using UnityEngine;
 
-namespace SirGames.Scripts.Windows
+namespace Infrastructure.Windows
 {
     [Serializable]
     public class CanvasLayerEntry

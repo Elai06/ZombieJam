@@ -9,22 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1262b8d836b04f648b297292a4eea480, type: 3}
+  m_Script: {fileID: 11500000, guid: bba0f78cedd54442b7bbdf057c235aeb, type: 3}
   m_Name: RareBox
   m_EditorClassIdentifier: 
-  _rewardConfig:
-  - RewardType: 1
-    _zombieType: 0
-    _currencyType: 0
-    _boosterType: 0
-    Value: 1000
-  - RewardType: 1
-    _zombieType: 0
-    _currencyType: 1
-    _boosterType: 0
-    Value: 20
-  - RewardType: 0
-    _zombieType: 0
-    _currencyType: 0
-    _boosterType: 0
-    Value: 1
+  IsInApp: 0
+  IsFree: 0
+  IsDesposable: 0
+  ProductType: 1
+  Rewards: {fileID: 11400000, guid: ce1efc40b1cdb194f8f3614e2c021338, type: 2}
+  PriceType: 1
+  PriceValue: 100

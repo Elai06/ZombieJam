@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Gameplay.Configs.Shop;
 using Gameplay.Enums;
+using TMPro;
 using UnityEngine;
 
 namespace Gameplay.Windows.Shop
@@ -12,19 +12,65 @@ namespace Gameplay.Windows.Shop
         public event Action<EShopProductType> BuyClick;
         public event Action<EShopProductType> ProductClick;
 
-        [SerializeField] private ShopProductSubViewContainer _container;
+        [SerializeField] private ShopProductSubViewContainer _noAdsContainer;
+        [SerializeField] private ShopProductSubViewContainer _boxContainer;
+        [SerializeField] private ShopProductSubViewContainer _hardContainer;
+        [SerializeField] private ShopProductSubViewContainer _softContainer;
         [SerializeField] private ShopRewardPopUp _shopRewardPopUp;
+        [SerializeField] private TextMeshProUGUI _noAdsDescription;
 
-        public void InitializeProducts(List<ShopProductSubViewData> productSubViewData)
+        public void InitializeBoxes(List<ShopProductSubViewData> productSubViewData)
         {
-            _container.CleanUp();
+            _boxContainer.CleanUp();
+            _hardContainer.CleanUp();
+            _softContainer.CleanUp();
+            _noAdsContainer.CleanUp();
+
             foreach (var data in productSubViewData)
             {
-                _container.Add(data.ProductType.ToString(), data);
-                var subView = _container.SubViews[data.ProductType.ToString()];
+                ShopProductSubView subView = null;
+
+                if (data.ProductType.ToString().Contains("Box"))
+                {
+                    _boxContainer.Add(data.ProductType.ToString(), data);
+                    subView = _boxContainer.SubViews[data.ProductType.ToString()];
+                }
+                
+                if (data.ProductType.ToString().Contains("Hard"))
+                {
+                    _hardContainer.Add(data.ProductType.ToString(), data);
+                    subView = _hardContainer.SubViews[data.ProductType.ToString()];
+                }
+                
+                if (data.ProductType.ToString().Contains("Soft"))
+                {
+                    _softContainer.Add(data.ProductType.ToString(), data);
+                    subView = _softContainer.SubViews[data.ProductType.ToString()];
+                }
+
+                if (data.ProductType == EShopProductType.NoAds)
+                {
+                    if (!data.IsAvailable)
+                    {
+                        HideNoAds();
+                        continue;
+                    }
+                    
+                    _noAdsContainer.Add(data.ProductType.ToString(), data);
+                    subView = _noAdsContainer.SubViews[data.ProductType.ToString()];
+                }
+
+                if (subView == null) continue;
+
                 subView.BuyClick += OnProductClick;
                 subView.ProductClick += OnProductClick;
             }
+        }
+
+        public void HideNoAds()
+        {
+            _noAdsContainer.gameObject.SetActive(false);
+            _noAdsDescription.gameObject.SetActive(false);
         }
 
         private void OnEnable()
@@ -35,8 +81,8 @@ namespace Gameplay.Windows.Shop
         private void OnDisable()
         {
             _shopRewardPopUp.Buy -= OnBuyClick;
-            
-            foreach (var data in _container.SubViews.Values)
+
+            foreach (var data in _boxContainer.SubViews.Values)
             {
                 data.BuyClick -= OnProductClick;
                 data.ProductClick -= OnProductClick;
@@ -68,9 +114,9 @@ namespace Gameplay.Windows.Shop
 
         public void UpdateSubView(ShopProductSubViewData data)
         {
-            if (_container.SubViews.TryGetValue(data.ProductType.ToString(), out var subView))
+            if (_boxContainer.SubViews.TryGetValue(data.ProductType.ToString(), out var subView))
             {
-                _container.UpdateView(data, data.ProductType.ToString());
+                _boxContainer.UpdateView(data, data.ProductType.ToString());
             }
         }
     }

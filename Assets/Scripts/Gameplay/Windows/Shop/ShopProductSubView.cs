@@ -27,9 +27,9 @@ namespace Gameplay.Windows.Shop
             _priceValue.text = $"{data.PriceValue}";
             _productName.text = $"{data.ProductType}";
 
-            if (data.IsFree)
+            if (data.IsFree || data.IsInApp)
             {
-                _priceValue.text = $"free";
+                _priceValue.text = data.IsInApp ? $"Buy ${data.PriceValue}" : "Free";
                 _priceImage.gameObject.SetActive(false);
             }
             

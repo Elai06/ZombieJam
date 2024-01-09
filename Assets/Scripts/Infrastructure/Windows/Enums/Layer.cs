@@ -7,6 +7,7 @@
         Overlay,
         Header,
         Footer,
-        Others
+        Others,
+        Ads
     }
 }

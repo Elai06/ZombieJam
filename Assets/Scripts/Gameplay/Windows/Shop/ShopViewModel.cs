@@ -8,7 +8,7 @@ namespace Gameplay.Windows.Shop
 {
     public class ShopViewModel : ViewModelBase<IShopModel, ShopView>
     {
-        private GameStaticData _gameStaticData;
+        private readonly GameStaticData _gameStaticData;
 
         public ShopViewModel(IShopModel model, ShopView view, GameStaticData gameStaticData) : base(model, view)
         {
@@ -48,7 +48,8 @@ namespace Gameplay.Windows.Shop
                     ProductType = configData.ProductType,
                     PriceSprite = _gameStaticData.SpritesConfig.GetCurrencySprite(configData.PriceType),
                     PriceValue = configData.PriceValue,
-                    IsFree = configData.IsFree
+                    IsFree = configData.IsFree,
+                    IsInApp = configData.IsInApp
                 };
 
                 if (configData.IsDesposable)
@@ -60,7 +61,7 @@ namespace Gameplay.Windows.Shop
                 subViews.Add(subViewData);
             }
 
-            View.InitializeProducts(subViews);
+            View.InitializeBoxes(subViews);
         }
 
         private void OnProductClick(EShopProductType productType)
@@ -97,6 +98,11 @@ namespace Gameplay.Windows.Shop
             }
 
             View.UpdateSubView(subViewData);
+
+            if (productType == EShopProductType.NoAds)
+            {
+                View.HideNoAds();
+            }
         }
     }
 }

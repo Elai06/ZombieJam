@@ -8,8 +8,9 @@ namespace Gameplay.Windows.Shop
         public EShopProductType ProductType;
         public Sprite ProductSprite;
         public Sprite PriceSprite;
-        public int PriceValue;
+        public float PriceValue;
         public bool IsFree;
         public bool IsAvailable = true;
+        public bool IsInApp;
     }
 }

@@ -1,7 +1,6 @@
-﻿using SirGames.Scripts.Windows;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace SirGames.Scripts.Infrastructure.Windows
+namespace Infrastructure.Windows
 {
     public class LayersContainer : MonoBehaviour
     {

@@ -40,7 +40,7 @@ namespace Gameplay.RegionMap
 
             if (_isSelected)
             {
-                _material.color = Color.white;
+                _material.color = Color.yellow;
             }
         }
     }
