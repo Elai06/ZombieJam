@@ -143,7 +143,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.95}
   m_AnchorMax: {x: 1, y: 0.95}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -175}
   m_SizeDelta: {x: 0, y: 150}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1192221036007546281
@@ -279,11 +279,11 @@ RectTransform:
   m_Father: {fileID: 1775402757950877528}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -15, y: -300}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 15, y: -150}
   m_SizeDelta: {x: 150, y: 150}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &780476159860924876
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -630,7 +630,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1775402757950877528, guid: 3f76b7c6366c4f242b555a56139ae070, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 250
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1775402757950877528, guid: 3f76b7c6366c4f242b555a56139ae070, type: 3}
       propertyPath: m_LocalPosition.x
@@ -684,6 +684,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BoosterWindow
       objectReference: {fileID: 0}
+    - target: {fileID: 2129976378950583317, guid: 3f76b7c6366c4f242b555a56139ae070, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4683197837368578810, guid: 3f76b7c6366c4f242b555a56139ae070, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -704,8 +708,7 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8717771197326840079, guid: 3f76b7c6366c4f242b555a56139ae070, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f76b7c6366c4f242b555a56139ae070, type: 3}
 --- !u!114 &5838141253107622009 stripped
 MonoBehaviour:

@@ -80,13 +80,15 @@ namespace Gameplay.Windows.Cards
         {
             var progress = Model.CardsProgress.GetOrCreate(type);
             var currencyType = Model.GetCurrencyType(type);
+            var config = Model.CardsConfig.Cards.Find(x => x.ZombieType == type);
             var viewData = new CardPopUpData
             {
                 ParametersConfig = Model.GetParameters(type),
                 CardsReqired = Model.GetReqiredCardsValue(type),
                 ProgressData = progress,
                 CurrencySprite = _gameStaticData.SpritesConfig.GetCurrencySprite(currencyType),
-                CurrencyValue = Model.GetCurrencyPrice(type, currencyType)
+                CurrencyValue = Model.GetCurrencyPrice(type, currencyType),
+                ParameterData = config.ParametersConfig.Parameters
             };
 
             View.ShowPopUp(viewData);

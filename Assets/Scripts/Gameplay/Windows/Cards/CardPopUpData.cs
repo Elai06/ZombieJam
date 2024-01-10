@@ -15,5 +15,6 @@ namespace Gameplay.Windows.Cards
         public int CardsReqired;
         public Sprite CurrencySprite;
         public int CurrencyValue;
+        public List<ParameterData> ParameterData;
     }
 }

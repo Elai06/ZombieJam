@@ -9,5 +9,6 @@ namespace Gameplay.Parameters
         public EParameter Type;
         public float Value;
         public float MultiplierForUpgrade;
+        public bool IsShowInUI;
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Gameplay.Cards;
 using Gameplay.Enums;
+using Gameplay.Parameters;
 using UnityEngine;
 
 namespace Gameplay.Windows.Cards

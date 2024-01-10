@@ -32,6 +32,7 @@ namespace Gameplay.Windows.Boosters
         {
             _relocationValueText.text = $"{value}";
             _relocationButton.image.color = value > 0 ? Color.white : Color.yellow;
+            _relocationValueText.text = value <= 0 ? "→" : $"{value}";
         }
     }
 }
