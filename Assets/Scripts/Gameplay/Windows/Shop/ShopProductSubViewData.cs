@@ -11,6 +11,7 @@ namespace Gameplay.Windows.Shop
         public float PriceValue;
         public bool IsFree;
         public bool IsAvailable = true;
+        public bool IsCanBuy;
         public bool IsInApp;
     }
 }

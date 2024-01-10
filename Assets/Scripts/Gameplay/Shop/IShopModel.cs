@@ -10,5 +10,6 @@ namespace Gameplay.Shop
         ShopProgress ShopProgress { get; }
         void BuyProduct(EShopProductType shopProductType);
         event Action<EShopProductType> Purchased;
+        bool IsCanConsume(ECurrencyType currencyType, int price);
     }
 }

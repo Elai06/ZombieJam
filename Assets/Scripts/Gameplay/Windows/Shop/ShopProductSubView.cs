@@ -1,4 +1,5 @@
 ﻿using System;
+using DG.Tweening;
 using Gameplay.Enums;
 using Infrastructure.Windows.MVVM.SubView;
 using TMPro;
@@ -17,8 +18,11 @@ namespace Gameplay.Windows.Shop
         [SerializeField] private TextMeshProUGUI _productName;
         [SerializeField] private Button _buyButton;
         [SerializeField] private Button _productButton;
+        [SerializeField] private TextMeshProUGUI _notCurrencyText;
 
         private EShopProductType _productType;
+
+        private bool _isCanBuy;
 
         public override void Initialize(ShopProductSubViewData data)
         {
@@ -26,15 +30,23 @@ namespace Gameplay.Windows.Shop
             _priceImage.sprite = data.PriceSprite;
             _priceValue.text = $"{data.PriceValue}";
             _productName.text = $"{data.ProductType}";
+            _notCurrencyText.gameObject.SetActive(false);
+
+            _isCanBuy = data.IsCanBuy;
 
             if (data.IsFree || data.IsInApp)
             {
                 _priceValue.text = data.IsInApp ? $"Buy ${data.PriceValue}" : "Free";
                 _priceImage.gameObject.SetActive(false);
             }
-            
+
+            if (!data.IsInApp && !data.IsFree)
+            {
+                _priceValue.color = data.IsCanBuy ? Color.black : Color.red;
+            }
+
             _buyButton.gameObject.SetActive(data.IsAvailable);
-            
+
             _productButton.gameObject.SetActive(data.ProductType.ToString().Contains("Box"));
         }
 
@@ -52,6 +64,15 @@ namespace Gameplay.Windows.Shop
 
         private void OnBuyClick()
         {
+            if (!_isCanBuy && !_productType.ToString().Contains("Box"))
+            {
+                _notCurrencyText.gameObject.SetActive(true);
+                _notCurrencyText.transform.localPosition = Vector3.zero;
+                _notCurrencyText.transform.DOLocalMoveY(50f, 0.5f)
+                    .OnComplete(() => _notCurrencyText.gameObject.SetActive(false));
+                return;
+            }
+
             BuyClick?.Invoke(_productType);
         }
 

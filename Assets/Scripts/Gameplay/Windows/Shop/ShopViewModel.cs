@@ -49,7 +49,8 @@ namespace Gameplay.Windows.Shop
                     PriceSprite = _gameStaticData.SpritesConfig.GetCurrencySprite(configData.PriceType),
                     PriceValue = configData.PriceValue,
                     IsFree = configData.IsFree,
-                    IsInApp = configData.IsInApp
+                    IsInApp = configData.IsInApp,
+                    IsCanBuy = Model.IsCanConsume(configData.PriceType, (int)configData.PriceValue)
                 };
 
                 if (configData.IsDesposable)
@@ -70,39 +71,12 @@ namespace Gameplay.Windows.Shop
                 .Find(x => x.ProductType == productType);
 
             var priceSprite = _gameStaticData.SpritesConfig.GetCurrencySprite(config.PriceType);
-            View.ShowPopUp(config, priceSprite);
+            View.ShowPopUp(config, priceSprite, Model.IsCanConsume(config.PriceType, (int)config.PriceValue));
         }
 
         private void OnPurchased(EShopProductType productType)
         {
-            var configData = Model.ShopConfig.ConfigData.Find(x => x.ProductType == productType);
-
-            var subViewData = new ShopProductSubViewData()
-            {
-                ProductType = configData.ProductType,
-                PriceSprite = _gameStaticData.SpritesConfig.GetCurrencySprite(configData.PriceType),
-                PriceValue = configData.PriceValue,
-                IsFree = configData.IsFree
-            };
-
-            if (configData.IsDesposable)
-            {
-                var progress = Model.ShopProgress.GetOrCreate(configData.ProductType);
-                subViewData.IsAvailable = !progress.IsBuy;
-            }
-
-            if (configData.IsDesposable)
-            {
-                var progress = Model.ShopProgress.GetOrCreate(configData.ProductType);
-                subViewData.IsAvailable = !progress.IsBuy;
-            }
-
-            View.UpdateSubView(subViewData);
-
-            if (productType == EShopProductType.NoAds)
-            {
-                View.HideNoAds();
-            }
+            InitializeProducts();
         }
     }
 }

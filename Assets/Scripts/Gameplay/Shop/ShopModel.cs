@@ -105,5 +105,11 @@ namespace Gameplay.Shop
             progress.IsBuy = true;
             Purchased?.Invoke(config.ProductType);
         }
+
+        public bool IsCanConsume(ECurrencyType currencyType, int price)
+        {
+            var currencyProgress = _currenciesModel.GetCurrencyProgress().GetOrCreate(currencyType);
+            return _currenciesModel.IsCanConsume(currencyProgress, price);
+        }
     }
 }
