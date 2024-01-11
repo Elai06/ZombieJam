@@ -48,6 +48,7 @@ namespace Gameplay.Windows.Cards
                 {
                     ProgressData = progress,
                     ReqiredCards = Model.GetReqiredCardsValue(zombieData.ZombieType),
+                    IsCanUpgrade = Model.IsCanUpgrade(zombieData.ZombieType, progress),
                 };
 
                 cardsSubViewData.Add(viewData);
@@ -88,7 +89,8 @@ namespace Gameplay.Windows.Cards
                 ProgressData = progress,
                 CurrencySprite = _gameStaticData.SpritesConfig.GetCurrencySprite(currencyType),
                 CurrencyValue = Model.GetCurrencyPrice(type, currencyType),
-                ParameterData = config.ParametersConfig.Parameters
+                ParameterData = config.ParametersConfig.Parameters,
+                IsCanUpgrade = Model.IsCanUpgrade(type, progress)
             };
 
             View.ShowPopUp(viewData);

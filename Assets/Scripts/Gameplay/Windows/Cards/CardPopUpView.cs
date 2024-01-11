@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Gameplay.Cards;
 using Gameplay.Enums;
 using Gameplay.Parameters;
@@ -21,10 +22,12 @@ namespace Gameplay.Windows.Cards
         [SerializeField] private TextMeshProUGUI _priceValue;
         [SerializeField] private TextMeshProUGUI _sliderValue;
         [SerializeField] private Slider _slider;
+        [SerializeField] private TextMeshProUGUI _notCurrencyText;
 
         [SerializeField] private ParameterSubViewContainer _parameterSubViewContainer;
 
         private EZombieType _type;
+        private bool _isCanUpgrade;
 
         public void Initialize(CardPopUpData data)
         {
@@ -34,6 +37,10 @@ namespace Gameplay.Windows.Cards
             _type = data.ProgressData.ZombieType;
             _slider.value = data.ProgressData.CardsValue / (float)data.CardsReqired;
             _sliderValue.text = $"{data.ProgressData.CardsValue}/{data.CardsReqired}";
+            _notCurrencyText.gameObject.SetActive(false);
+
+            _priceValue.color = data.IsCanUpgrade ? Color.black : Color.red;
+            _isCanUpgrade = data.IsCanUpgrade;
 
             _parameterSubViewContainer.CleanUp();
             foreach (var parameter in data.ParametersConfig)
@@ -75,6 +82,15 @@ namespace Gameplay.Windows.Cards
 
         private void UpgradeCard()
         {
+            if (!_isCanUpgrade)
+            {
+                _notCurrencyText.gameObject.SetActive(true);
+                _notCurrencyText.transform.localPosition = Vector3.zero;
+                _notCurrencyText.transform.DOLocalMoveY(50f, 0.5f)
+                    .OnComplete(() => _notCurrencyText.gameObject.SetActive(false));
+                return;
+            }
+
             Upgrade?.Invoke(_type);
         }
     }

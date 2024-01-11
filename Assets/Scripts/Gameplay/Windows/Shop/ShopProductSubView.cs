@@ -32,7 +32,7 @@ namespace Gameplay.Windows.Shop
             _productName.text = $"{data.ProductType}";
             _notCurrencyText.gameObject.SetActive(false);
 
-            _isCanBuy = data.IsCanBuy;
+            _isCanBuy = data.IsCanBuy || data.IsInApp;
 
             if (data.IsFree || data.IsInApp)
             {

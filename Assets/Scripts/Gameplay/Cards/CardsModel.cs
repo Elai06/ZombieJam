@@ -55,15 +55,22 @@ namespace Gameplay.Cards
         {
             var progress = CardsProgress.GetOrCreate(zombieType);
             var reqiredCardsValue = GetReqiredCardsValue(zombieType);
-            var currencyType = GetCurrencyType(zombieType);
-            var currencyPrice = GetCurrencyPrice(zombieType, currencyType);
 
-            if (IsCanConsumeCards(progress, reqiredCardsValue) && _currenciesModel.Consume(currencyType, currencyPrice))
+            if (IsCanUpgrade(zombieType, progress))
             {
                 CardModels[zombieType].Upgrade();
                 ConsumeCards(progress, reqiredCardsValue);
                 UpgradedCard?.Invoke(zombieType);
             }
+        }
+
+        public bool IsCanUpgrade(EZombieType zombieType, CardProgressData cardProgressData)
+        {
+            var currencyType = GetCurrencyType(zombieType);
+            var currencyPrice = GetCurrencyPrice(zombieType, currencyType);
+
+            return IsCanConsumeCards(cardProgressData, GetReqiredCardsValue(zombieType)) &&
+                   _currenciesModel.Consume(currencyType, currencyPrice);
         }
 
         public int GetReqiredCardsValue(EZombieType type)

@@ -16,5 +16,6 @@ namespace Gameplay.Windows.Cards
         public Sprite CurrencySprite;
         public int CurrencyValue;
         public List<ParameterData> ParameterData;
+        public bool IsCanUpgrade;
     }
 }

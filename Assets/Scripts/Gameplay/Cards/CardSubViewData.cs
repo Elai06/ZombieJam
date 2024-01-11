@@ -7,5 +7,6 @@ namespace Gameplay.Cards
         public Sprite Icon;
         public CardProgressData ProgressData;
         public int ReqiredCards;
+        public bool IsCanUpgrade;
     }
 }

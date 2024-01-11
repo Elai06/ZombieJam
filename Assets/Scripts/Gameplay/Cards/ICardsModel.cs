@@ -21,5 +21,6 @@ namespace Gameplay.Cards
         bool IsAvailableUpgrade();
         int GetCurrencyPrice(EZombieType zombieType, ECurrencyType currencyType);
         ECurrencyType GetCurrencyType(EZombieType zombieType);
+        bool IsCanUpgrade(EZombieType zombieType, CardProgressData cardProgressData);
     }
 }

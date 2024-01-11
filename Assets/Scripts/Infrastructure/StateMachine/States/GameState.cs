@@ -21,6 +21,7 @@ namespace Infrastructure.StateMachine.States
         {
             _windowService.Open(WindowType.MainMenu);
             _windowService.Open(WindowType.Header);
+            _windowService.Open(WindowType.Lobby);
             _windowService.Open(WindowType.Footer);
         }
 
