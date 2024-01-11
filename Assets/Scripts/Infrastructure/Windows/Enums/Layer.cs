@@ -8,6 +8,7 @@
         Header,
         Footer,
         Others,
-        Ads
+        Ads,
+        InApp
     }
 }

@@ -13,6 +13,7 @@
         Lobby,
         Cards,
         Shop,
-        Ads
+        Ads,
+        InApp
     }
 }

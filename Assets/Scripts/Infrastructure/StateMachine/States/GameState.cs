@@ -23,6 +23,7 @@ namespace Infrastructure.StateMachine.States
             _windowService.Open(WindowType.Header);
             _windowService.Open(WindowType.Lobby);
             _windowService.Open(WindowType.Footer);
+            _windowService.Open(WindowType.InApp);
         }
 
         public void Exit()

@@ -7,6 +7,7 @@ using Gameplay.Boosters;
 using Gameplay.Cards;
 using Gameplay.Configs.Region;
 using Gameplay.Curencies;
+using Gameplay.InApp;
 using Gameplay.Level;
 using Gameplay.Reward;
 using Gameplay.Shop;
@@ -90,6 +91,7 @@ namespace Infrastructure.Installers
             Container.Bind<ICardsModel>().To<CardsModel>().AsSingle();
             Container.Bind<IShopModel>().To<ShopModel>().AsSingle();
             Container.Bind<IAdsService>().To<AdsService>().AsSingle();
+            Container.Bind<IInAppService>().To<InAppService>().AsSingle();
         }
     }
 }

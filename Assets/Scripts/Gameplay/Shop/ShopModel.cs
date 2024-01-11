@@ -5,6 +5,7 @@ using Gameplay.Configs.Rewards;
 using Gameplay.Configs.Shop;
 using Gameplay.Curencies;
 using Gameplay.Enums;
+using Gameplay.InApp;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.StaticData;
 
@@ -19,17 +20,19 @@ namespace Gameplay.Shop
         private readonly ICurrenciesModel _currenciesModel;
         private readonly ICardsModel _cardsModel;
         private readonly IAdsService _adsService;
+        private readonly IInAppService _appService;
 
         private ShopConfigData _currentConfigData;
 
         private ShopModel(GameStaticData gameStaticData, IProgressService progressService,
-            ICurrenciesModel currenciesModel, ICardsModel cardsModel, IAdsService adsService)
+            ICurrenciesModel currenciesModel, ICardsModel cardsModel, IAdsService adsService, IInAppService appService)
         {
             _gameStaticData = gameStaticData;
             _progressService = progressService;
             _currenciesModel = currenciesModel;
             _cardsModel = cardsModel;
             _adsService = adsService;
+            _appService = appService;
         }
 
         public ShopProgress ShopProgress => _progressService.PlayerProgress.ShopProgress;
@@ -39,12 +42,20 @@ namespace Gameplay.Shop
         {
             _currentConfigData = ShopConfig.ConfigData.Find(x => x.ProductType == shopProductType);
 
+            if (_currentConfigData.IsInApp)
+            {
+                _appService.Purchase(_currentConfigData);
+                Purchased?.Invoke(shopProductType);
+                return;
+            }
+
+            
             if (_currentConfigData.IsDesposable)
             {
                 BuyDisposableProduct(_currentConfigData);
                 return;
             }
-
+            
             if (_currentConfigData.IsFree)
             {
                 _adsService.ShowAds(EAdsType.Reward);
@@ -52,11 +63,11 @@ namespace Gameplay.Shop
                 return;
             }
 
-            if (!_currentConfigData.IsFree && !_currentConfigData.IsInApp)
+            if (!_currentConfigData.IsFree)
             {
                 if (!_currenciesModel.Consume(_currentConfigData.PriceType, (int)_currentConfigData.PriceValue)) return;
             }
-
+            
             PurchaseSuccesed(shopProductType, _currentConfigData);
         }
 
