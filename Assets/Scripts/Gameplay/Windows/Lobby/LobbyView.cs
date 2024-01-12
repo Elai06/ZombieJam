@@ -30,7 +30,6 @@ namespace Gameplay.Windows.Lobby
             _windowService.OnOpen += OpenWindow;
         }
 
-
         private void OnEnable()
         {
             if (_windowService != null)
