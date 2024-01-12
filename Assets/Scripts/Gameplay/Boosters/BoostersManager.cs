@@ -10,14 +10,21 @@ namespace Gameplay.Boosters
     {
         public event Action<EBoosterType> Activate;
 
-        private readonly BoostersProgress _boostersProgress;
+        private readonly IProgressService _progressService;
         private readonly IAdsService _adsService;
+        private BoostersProgress _boostersProgress;
 
-        [Inject]
         public BoostersManager(IProgressService progressService, IAdsService adsService)
         {
             _adsService = adsService;
-            _boostersProgress = progressService.PlayerProgress.BoostersProgress;
+            _progressService = progressService;
+            progressService.OnLoaded += Loaded;
+        }
+
+        private void Loaded()
+        {
+            _progressService.OnLoaded -= Loaded;
+            _boostersProgress = _progressService.PlayerProgress.BoostersProgress;
         }
 
         public void ActivateBooster(EBoosterType boosterType)

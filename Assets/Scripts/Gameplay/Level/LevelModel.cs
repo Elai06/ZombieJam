@@ -12,20 +12,31 @@ namespace Gameplay.Level
 {
     public class LevelModel : ILevelModel
     {
-        public event Action<LevelProgress> Update;
+        public event Action<LevelProgress> UpdateExperience;
+        public event Action<int> OnLevelUp;
 
-        private readonly LevelProgress _levelProgress;
         private readonly LevelConfig _levelConfig;
         private readonly IRewardModel _rewardModel;
         private readonly IWindowService _windowService;
+        private readonly IProgressService _progressService;
+
+        private LevelProgress _levelProgress;
 
         public LevelModel(IProgressService progressService, GameStaticData gameStaticData, IRewardModel rewardModel,
             IWindowService windowService)
         {
-            _levelProgress = progressService.PlayerProgress.LevelProgress;
+            _progressService = progressService;
             _levelConfig = gameStaticData.LevelConfig;
             _rewardModel = rewardModel;
             _windowService = windowService;
+
+            _progressService.OnLoaded += Loaded;
+        }
+
+        private void Loaded()
+        {
+            _progressService.OnLoaded -= Loaded;
+            _levelProgress = _progressService.PlayerProgress.LevelProgress;
         }
 
         public int CurrentLevel => _levelProgress.Level;
@@ -48,15 +59,15 @@ namespace Gameplay.Level
                 _levelProgress.Experience += residue;
             }
 
-            Update?.Invoke(_levelProgress);
+            UpdateExperience?.Invoke(_levelProgress);
         }
 
         private void LevelUp()
         {
             _levelProgress.Level++;
             _levelProgress.Experience = 0;
-
             CreateRewards();
+            OnLevelUp?.Invoke(CurrentLevel);
         }
 
         private void CreateRewards()

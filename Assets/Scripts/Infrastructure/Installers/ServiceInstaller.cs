@@ -9,6 +9,7 @@ using Gameplay.Configs.Region;
 using Gameplay.Curencies;
 using Gameplay.InApp;
 using Gameplay.Level;
+using Gameplay.PlayerTimes;
 using Gameplay.Reward;
 using Gameplay.Shop;
 using Gameplay.Windows.Boosters;
@@ -17,6 +18,7 @@ using Gameplay.Windows.Gameplay;
 using Gameplay.Windows.Header;
 using Gameplay.Windows.Rewards;
 using Gameplay.Windows.Shop;
+using Infrastructure.Events;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.SaveLoads;
 using Infrastructure.SceneManagement;
@@ -92,6 +94,8 @@ namespace Infrastructure.Installers
             Container.Bind<IShopModel>().To<ShopModel>().AsSingle();
             Container.Bind<IAdsService>().To<AdsService>().AsSingle();
             Container.Bind<IInAppService>().To<InAppService>().AsSingle();
+            Container.Bind<IPlayerTimesService>().To<PlayerTimesService>().AsSingle();
+            Container.Bind<IEventsManager>().To<EventsManager>().AsSingle();
         }
     }
 }

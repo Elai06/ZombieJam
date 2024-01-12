@@ -14,10 +14,11 @@ namespace Gameplay.Configs.Region
     {
         private readonly GameStaticData _gameStaticData;
 
-        private readonly RegionProgress _regionProgress;
+        private RegionProgress _regionProgress;
         private readonly IWindowService _windowService;
         private readonly ICurrenciesModel _currenciesModel;
         private readonly IBoostersManager _boostersManager;
+        private readonly IProgressService _progressService;
         private ICardsModel _cardsModel;
 
         private RegionProgressData _regionProgressData;
@@ -30,18 +31,27 @@ namespace Gameplay.Configs.Region
             ICardsModel cardsModel)
         {
             _gameStaticData = gameStaticData;
-            _regionProgressData = progressService.PlayerProgress.RegionProgress.GetCurrentRegion();
-            _regionProgress = progressService.PlayerProgress.RegionProgress;
+         
             _windowService = windowService;
             _currenciesModel = currenciesModel;
             _boostersManager = boostersManager;
             _cardsModel = cardsModel;
+
+            _progressService = progressService;
+            _progressService.OnLoaded += Loaded;
         }
 
         public RegionProgressData ProgressData => _regionProgressData;
 
         public RegionProgress Progress => _regionProgress;
 
+        private void Loaded()
+        {
+            _progressService.OnLoaded -= Loaded;
+            _regionProgressData = _progressService.PlayerProgress.RegionProgress.GetCurrentRegion();
+            _regionProgress = _progressService.PlayerProgress.RegionProgress;
+        }
+        
         public RegionConfigData GetActualRegion(ERegionType regionType)
         {
             return _gameStaticData.RegionConfig.GetRegionConfig(regionType);

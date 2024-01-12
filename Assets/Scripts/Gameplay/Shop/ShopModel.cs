@@ -42,6 +42,11 @@ namespace Gameplay.Shop
         {
             _currentConfigData = ShopConfig.ConfigData.Find(x => x.ProductType == shopProductType);
 
+            AppMetrica.Instance.ReportEvent(shopProductType.ToString(),
+                $"productName: {shopProductType}, " +
+                $"Level: {_progressService.PlayerProgress.LevelProgress.Level}, " +
+                $"Day: {_progressService.PlayerProgress.DaysInPlay}");
+
             if (_currentConfigData.IsInApp)
             {
                 _appService.Purchase(_currentConfigData);
@@ -49,13 +54,12 @@ namespace Gameplay.Shop
                 return;
             }
 
-            
             if (_currentConfigData.IsDesposable)
             {
                 BuyDisposableProduct(_currentConfigData);
                 return;
             }
-            
+
             if (_currentConfigData.IsFree)
             {
                 _adsService.ShowAds(EAdsType.Reward);
@@ -67,7 +71,7 @@ namespace Gameplay.Shop
             {
                 if (!_currenciesModel.Consume(_currentConfigData.PriceType, (int)_currentConfigData.PriceValue)) return;
             }
-            
+
             PurchaseSuccesed(shopProductType, _currentConfigData);
         }
 

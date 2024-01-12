@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Gameplay.Boosters;
 using Gameplay.Cards;
 using Gameplay.Configs.Region;
@@ -19,6 +20,9 @@ namespace Infrastructure.PersistenceProgress
         public LevelProgress LevelProgress = new();
         public CardsProgress CardsProgress = new();
         public ShopProgress ShopProgress = new();
+
+        public int DaysInPlay;
+        public string FirstDate = DateTime.Now.Date.ToString(CultureInfo.CurrentCulture);
 
         public PlayerProgress()
         {

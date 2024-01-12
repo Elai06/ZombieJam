@@ -81,8 +81,6 @@ namespace Gameplay.Windows.Gameplay
         {
             IsAvailableRessuraction = false;
             OnResurection?.Invoke();
-            
-            AppMetrica.Instance.eve;
         }
     }
 }

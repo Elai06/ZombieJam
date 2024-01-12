@@ -35,7 +35,7 @@ namespace Gameplay.Windows.Header
             base.Subscribe();
 
             _currenciesModel.Update += OnUpdateCurrency;
-            _levelModel.Update += OnLevelUpdate;
+            _levelModel.UpdateExperience += OnLevelUpdate;
         }
 
         public override void Unsubscribe()
@@ -43,7 +43,7 @@ namespace Gameplay.Windows.Header
             base.Unsubscribe();
 
             _currenciesModel.Update -= OnUpdateCurrency;
-            _levelModel.Update -= OnLevelUpdate;
+            _levelModel.UpdateExperience -= OnLevelUpdate;
         }
 
         private void InitializeCurrencies()
