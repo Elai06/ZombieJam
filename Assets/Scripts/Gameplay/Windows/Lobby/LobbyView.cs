@@ -27,7 +27,9 @@ namespace Gameplay.Windows.Lobby
             var progress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
             UpdateWave(progress.ERegionType, progress.CurrentWaweIndex);
             _gameplayModel.UpdateWave += UpdateWave;
+            _windowService.OnOpen += OpenWindow;
         }
+
 
         private void OnEnable()
         {
@@ -65,9 +67,21 @@ namespace Gameplay.Windows.Lobby
                 _windowService.Close(WindowType.Died);
             }
 
-            _windowService.Open(WindowType.Gameplay);
             _windowService.Open(WindowType.MainMenu);
             _windowService.Open(WindowType.Footer);
+        }
+
+        private void OpenWindow(WindowType windowType)
+        {
+            switch (windowType)
+            {
+                case WindowType.Gameplay:
+                    _slider.gameObject.SetActive(false);
+                    break;
+                case WindowType.MainMenu:
+                    _slider.gameObject.SetActive(true);
+                    break;
+            }
         }
     }
 }

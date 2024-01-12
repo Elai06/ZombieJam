@@ -15,5 +15,7 @@ namespace Gameplay.Windows.Gameplay
         event Action OnResurection;
         void RessurectionUnits();
         bool IsAvailableRessuraction { get; set; }
+        void StartWave();
+        event Action<int> OnStartWave;
     }
 }

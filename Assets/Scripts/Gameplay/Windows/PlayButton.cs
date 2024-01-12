@@ -1,6 +1,7 @@
 ﻿using Gameplay.Ad;
 using Gameplay.CinemachineCamera;
 using Gameplay.Configs.Region;
+using Gameplay.Windows.Gameplay;
 using Infrastructure.Windows;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,14 +17,14 @@ namespace Gameplay.Windows
         private CameraSelector _cameraSelector;
         private IWindowService _windowService;
         private IAdsService _adsService;
-        private IRegionManager _regionManager;
+        private IGameplayModel _gameplayModel;
 
         [Inject]
-        private void Construct(IWindowService windowService, IAdsService adsService, IRegionManager regionManager)
+        private void Construct(IWindowService windowService, IAdsService adsService, IGameplayModel gameplayModel)
         {
             _windowService = windowService;
             _adsService = adsService;
-            _regionManager = regionManager;
+            _gameplayModel = gameplayModel;
         }
 
         private void Awake()
@@ -48,7 +49,7 @@ namespace Gameplay.Windows
 
         private void Play()
         {
-            if (_regionManager.Progress.RegionIndex > 0)
+            if (_gameplayModel.GetCurrentRegionProgress().RegionIndex > 0)
             {
                 if (_adsService.ShowAds(EAdsType.Interstitial))
                 {
@@ -73,8 +74,9 @@ namespace Gameplay.Windows
         {
             _cameraSelector = FindObjectOfType<CameraSelector>();
             _cameraSelector.ChangeCamera(ECameraType.Park);
-            _windowService.Open(WindowType.Gameplay);
             _windowService.Close(WindowType.Footer);
+            _windowService.Open(WindowType.Gameplay);
+            _gameplayModel.StartWave();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Gameplay.Windows.Gameplay
     {
         public event Action OnResurection;
         public event Action<ERegionType, int> UpdateWave;
+        public event Action<int> OnStartWave;
 
         private readonly IRegionManager _regionManager;
         private readonly ILevelModel _levelModel;
@@ -19,7 +20,8 @@ namespace Gameplay.Windows.Gameplay
 
         public bool IsAvailableRessuraction { get; set; } = true;
 
-        public GameplayModel(IRegionManager regionManager, ILevelModel levelModel, IAdsService adsService, GameStaticData gameStaticData)
+        public GameplayModel(IRegionManager regionManager, ILevelModel levelModel, IAdsService adsService,
+            GameStaticData gameStaticData)
         {
             _regionManager = regionManager;
             _levelModel = levelModel;
@@ -34,6 +36,11 @@ namespace Gameplay.Windows.Gameplay
             _levelModel.AddExperience(true);
             IsAvailableRessuraction = true;
             UpdateWave?.Invoke(progress.CurrentRegionType, progress.GetCurrentRegion().CurrentWaweIndex);
+        }
+
+        public void StartWave()
+        {
+            OnStartWave?.Invoke(_regionManager.ProgressData.CurrentWaweIndex);
         }
 
         public void LooseWave()
