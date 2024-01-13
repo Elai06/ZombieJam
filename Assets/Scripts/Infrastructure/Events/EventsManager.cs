@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Gameplay.Enums;
 using Gameplay.Level;
 using Gameplay.PlayerTimes;
@@ -34,21 +35,22 @@ namespace Infrastructure.Events
             _shopModel.Purchased += OnPurchase;
 
             //GameLoaded
-            AppMetrica.Instance.ReportEvent("Game Loaded", $"{_playerTimesService.GetDaysInPlay()}");
+            AppMetrica.Instance.ReportEvent("Game Loaded", $"{{\"day\":\"{_playerTimesService.GetDaysInPlay()}\"}}");
         }
 
         private void OnLevelUp(LevelProgress levelProgress)
         {
             var regionProgress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
-            var parametrs = $"RegionType {regionProgress.ERegionType} / WaveIndex {regionProgress.CurrentWaweIndex}";
-
+            var parametrs =
+                $"{{\"RegionType\":\"{regionProgress.ERegionType}\", " +
+                $"\"WaveIndex\":\"{regionProgress.CurrentWaweIndex}\"}}";
 
             SendEvent("Player levelup", parametrs);
         }
 
         private void SendEvent(string eventName, string parameters = "")
         {
-            parameters += $"/ Level {_levelModel.CurrentLevel} / Day {_playerTimesService.GetDaysInPlay()}";
+            parameters += $"{{\"Level\":\"{_levelModel.CurrentLevel}\", \"Day\":\"{_playerTimesService.GetDaysInPlay()}\"}}";
 
             AppMetrica.Instance.ReportEvent(eventName, parameters);
             Debug.Log($"Send appmetrica event {eventName}");
@@ -75,7 +77,8 @@ namespace Infrastructure.Events
 
         private void OnPurchase(EShopProductType productType)
         {
-            SendEvent(productType.ToString(), $"{productType}");
+            
+            SendEvent(productType.ToString(), $"{{\"ProductType\":\"{productType}\"}}");
         }
     }
 }

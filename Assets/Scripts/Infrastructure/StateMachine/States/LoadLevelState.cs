@@ -39,8 +39,7 @@ namespace Infrastructure.StateMachine.States
             _eventsManager.Initialize();
             _playerTimesService.SetDaysInPlay();
             _cardsModel.Initialize();
-
-            AppMetrica.Instance.ReportEvent("Game started", $"Day {_playerTimesService.GetDaysInPlay()}");
+            AppMetrica.Instance.ReportEvent("Game started", $"{{\"Day\":\"{_playerTimesService.GetDaysInPlay()}\"}}");
 
             _stateMachine.Enter<GameState>();
         }
