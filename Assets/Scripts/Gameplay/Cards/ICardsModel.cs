@@ -13,7 +13,7 @@ namespace Gameplay.Cards
         Dictionary<EZombieType, CardModel> CardModels { get; }
         void UpgradeZombie(EZombieType zombieType);
         Dictionary<EParameter, float> GetParameters(EZombieType type);
-        event Action<EZombieType> UpgradedCard;
+        event Action<EZombieType> UpgradeSucced;
         int GetReqiredCardsValue(EZombieType type);
         void Initialize();
         void AddCards(EZombieType type, int value);
@@ -22,5 +22,6 @@ namespace Gameplay.Cards
         int GetCurrencyPrice(EZombieType zombieType, ECurrencyType currencyType);
         ECurrencyType GetCurrencyType(EZombieType zombieType);
         bool IsCanUpgrade(EZombieType zombieType, CardProgressData cardProgressData);
+        event Action<EZombieType> StartUpgrade;
     }
 }

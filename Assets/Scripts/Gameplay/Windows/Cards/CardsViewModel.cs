@@ -25,7 +25,7 @@ namespace Gameplay.Windows.Cards
             base.Subscribe();
 
             View.Upgrade += OnUpgrade;
-            Model.UpgradedCard += UpdateCard;
+            Model.UpgradeSucced += UpdateCard;
             View.OnClickCard += ShowPopUp;
         }
 
@@ -34,7 +34,7 @@ namespace Gameplay.Windows.Cards
             base.Unsubscribe();
 
             View.Upgrade -= OnUpgrade;
-            Model.UpgradedCard -= UpdateCard;
+            Model.UpgradeSucced -= UpdateCard;
             View.OnClickCard -= ShowPopUp;
         }
 

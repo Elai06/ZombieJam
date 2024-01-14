@@ -42,10 +42,11 @@ namespace Gameplay.Shop
         {
             _currentConfigData = ShopConfig.ConfigData.Find(x => x.ProductType == shopProductType);
 
-            AppMetrica.Instance.ReportEvent(shopProductType.ToString(),
-                $"productName: {shopProductType}, " +
-                $"Level: {_progressService.PlayerProgress.LevelProgress.Level}, " +
-                $"Day: {_progressService.PlayerProgress.DaysInPlay}");
+            var parametrs = $"{{\"productName\":\"{shopProductType}\", " +
+                            $"\"Level\":\"{_progressService.PlayerProgress.LevelProgress.Level}\", " +
+                            $"\"Day\":\"{_progressService.PlayerProgress.DaysInPlay}\"}}";
+
+            AppMetrica.Instance.ReportEvent(shopProductType.ToString(), parametrs);
 
             if (_currentConfigData.IsInApp)
             {

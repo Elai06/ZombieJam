@@ -12,7 +12,8 @@ namespace Gameplay.Cards
     {
         public event Action<EZombieType> CardValueChanged;
 
-        public event Action<EZombieType> UpgradedCard;
+        public event Action<EZombieType> UpgradeSucced;
+        public event Action<EZombieType> StartUpgrade;
 
         private readonly IProgressService _progressService;
         private readonly GameStaticData _gameStaticData;
@@ -56,11 +57,13 @@ namespace Gameplay.Cards
             var progress = CardsProgress.GetOrCreate(zombieType);
             var reqiredCardsValue = GetReqiredCardsValue(zombieType);
 
+            StartUpgrade?.Invoke(zombieType);
+
             if (IsCanUpgrade(zombieType, progress))
             {
                 CardModels[zombieType].Upgrade();
                 ConsumeCards(progress, reqiredCardsValue);
-                UpgradedCard?.Invoke(zombieType);
+                UpgradeSucced?.Invoke(zombieType);
             }
         }
 
