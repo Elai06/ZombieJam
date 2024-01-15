@@ -1,5 +1,6 @@
 ﻿using Infrastructure.StateMachine;
 using Infrastructure.StateMachine.States;
+using Infrastructure.Windows;
 
 namespace Gameplay.Tutorial
 {
@@ -7,13 +8,15 @@ namespace Gameplay.Tutorial
     {
         protected readonly ITutorialService _tutorialService;
         protected IStateMachine _stateMachine;
+        protected IWindowService _windowService;
 
         protected ETutorialState _tutorialState;
 
-        public TutorialState(ITutorialService tutorialService, ETutorialState state)
+        public TutorialState(ITutorialService tutorialService, ETutorialState state, IWindowService windowService)
         {
             _tutorialService = tutorialService;
             _tutorialState = state;
+            _windowService = windowService;
         }
 
         public virtual void Initialize(IStateMachine stateMachine)

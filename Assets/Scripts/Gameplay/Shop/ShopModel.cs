@@ -6,6 +6,7 @@ using Gameplay.Configs.Shop;
 using Gameplay.Curencies;
 using Gameplay.Enums;
 using Gameplay.InApp;
+using Gameplay.Tutorial;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.StaticData;
 
@@ -14,6 +15,7 @@ namespace Gameplay.Shop
     public class ShopModel : IShopModel
     {
         public event Action<EShopProductType> Purchased;
+        public event Action<EShopProductType> OpenBoxPopUp;
 
         private readonly GameStaticData _gameStaticData;
         private readonly IProgressService _progressService;
@@ -61,7 +63,8 @@ namespace Gameplay.Shop
                 return;
             }
 
-            if (_currentConfigData.IsFree)
+            if (_currentConfigData.IsFree &&
+                _progressService.PlayerProgress.CurrentTutorialState != ETutorialState.Shop)
             {
                 _adsService.ShowAds(EAdsType.Reward);
                 _adsService.Showed += OnAdsShowed;
@@ -126,6 +129,18 @@ namespace Gameplay.Shop
         {
             var currencyProgress = _currenciesModel.GetCurrencyProgress().GetOrCreate(currencyType);
             return _currenciesModel.IsCanConsume(currencyProgress, price);
+        }
+
+        public void GetTutorialRewards(EShopProductType shopProductType)
+        {
+            if (shopProductType == EShopProductType.SimpleBox)
+            {
+                OpenBoxPopUp?.Invoke(EShopProductType.SimpleBox);
+            }
+
+            var config = ShopConfig.ConfigData
+                .Find(x => x.ProductType == shopProductType);
+            GetRewards(config.Rewards);
         }
     }
 }

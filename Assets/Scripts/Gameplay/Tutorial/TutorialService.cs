@@ -1,5 +1,7 @@
 ﻿using System;
 using Gameplay.Tutorial.States;
+using Gameplay.Tutorial.States.Shop;
+using Gameplay.Tutorial.States.SwipeState;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.StateMachine;
 using Infrastructure.Windows;
@@ -20,7 +22,7 @@ namespace Gameplay.Tutorial
             _progressService = progressService;
         }
 
-        public ETutorialState CurrentState { get; private set; }
+        public ETutorialState CurrentState => _progressService.PlayerProgress.CurrentTutorialState;
 
 
         public void Initalize()
@@ -33,7 +35,7 @@ namespace Gameplay.Tutorial
         {
             if (tutorialState == CurrentState || tutorialState == ETutorialState.Completed) return;
 
-            CurrentState = tutorialState;
+            _progressService.PlayerProgress.CurrentTutorialState = tutorialState;
             СhangedState?.Invoke(tutorialState);
         }
 
@@ -41,9 +43,9 @@ namespace Gameplay.Tutorial
         {
             if (CurrentState == ETutorialState.Completed) return;
 
-            var swipe = new SwipeTutorialState(this);
-            var shop = new ShopTutorialState(this);
-            var card = new CardTutorialState(this);
+            var swipe = new SwipeTutorialState(this, _windowService);
+            var shop = new ShopTutorialState(this, _windowService);
+            var card = new CardTutorialState(this, _windowService);
             _stateMachine.AddState(swipe);
             _stateMachine.AddState(shop);
             _stateMachine.AddState(card);

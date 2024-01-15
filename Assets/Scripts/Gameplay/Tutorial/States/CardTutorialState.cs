@@ -1,10 +1,12 @@
-﻿namespace Gameplay.Tutorial.States
+﻿using Infrastructure.Windows;
+
+namespace Gameplay.Tutorial.States
 {
     public class CardTutorialState : TutorialState
     {
-        public CardTutorialState(ITutorialService tutorialService,
+        public CardTutorialState(ITutorialService tutorialService,IWindowService windowService,
             ETutorialState state = ETutorialState.Card)
-            : base(tutorialService, state)
+            : base(tutorialService, state, windowService)
         {
         }
 

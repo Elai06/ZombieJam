@@ -1,10 +1,12 @@
-﻿namespace Gameplay.Tutorial.States
+﻿using Infrastructure.Windows;
+
+namespace Gameplay.Tutorial.States.SwipeState
 {
     public class SwipeTutorialState : TutorialState
     {
-        public SwipeTutorialState(ITutorialService tutorialService,
+        public SwipeTutorialState(ITutorialService tutorialService, IWindowService windowService,
             ETutorialState state = ETutorialState.Swipe)
-            : base(tutorialService, state)
+            : base(tutorialService, state, windowService)
         {
         }
 

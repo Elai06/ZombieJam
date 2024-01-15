@@ -9,6 +9,7 @@
         Footer,
         Others,
         Ads,
-        InApp
+        InApp,
+        Tutorial
     }
 }

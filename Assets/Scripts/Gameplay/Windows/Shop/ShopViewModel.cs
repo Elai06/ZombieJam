@@ -27,6 +27,7 @@ namespace Gameplay.Windows.Shop
             View.BuyClick += Model.BuyProduct;
             View.ProductClick += OnProductClick;
             Model.Purchased += OnPurchased;
+            Model.OpenBoxPopUp += OnProductClick;
         }
 
         public override void Unsubscribe()
@@ -36,6 +37,7 @@ namespace Gameplay.Windows.Shop
             View.BuyClick -= Model.BuyProduct;
             View.ProductClick -= OnProductClick;
             Model.Purchased -= OnPurchased;
+            Model.OpenBoxPopUp -= OnProductClick;
         }
 
         private void InitializeProducts()
