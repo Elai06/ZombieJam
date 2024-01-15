@@ -69,7 +69,7 @@ namespace Gameplay.Windows.Cards
             {
                 ProgressData = progress,
                 ReqiredCards = Model.GetReqiredCardsValue(type),
-                // Icon = sprite
+                IsCanUpgrade = Model.IsCanUpgrade(type, progress),
             };
 
             ShowPopUp(type);

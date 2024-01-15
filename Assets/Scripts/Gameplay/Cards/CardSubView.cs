@@ -30,7 +30,7 @@ namespace Gameplay.Cards
             _type = data.ProgressData.ZombieType;
             _nameText.text = $"{data.ProgressData.ZombieType}";
             _leveText.text = $"Level: {data.ProgressData.Level + 1}";
-            _indicator.gameObject.SetActive(data.ProgressData.CardsValue >= data.ReqiredCards);
+            _indicator.gameObject.SetActive(data.IsCanUpgrade);
         }
 
         private void OnEnable()
