@@ -1,5 +1,6 @@
 using Gameplay.Cards;
 using Gameplay.PlayerTimes;
+using Gameplay.Tutorial;
 using Infrastructure.Events;
 using Infrastructure.SceneManagement;
 
@@ -14,14 +15,16 @@ namespace Infrastructure.StateMachine.States
         private readonly ICardsModel _cardsModel;
         private readonly IPlayerTimesService _playerTimesService;
         private readonly IEventsManager _eventsManager;
+        private readonly ITutorialService _tutorialService;
 
         public LoadLevelState(ISceneLoader sceneLoader, ICardsModel cardsModel, IPlayerTimesService playerTimesService,
-            IEventsManager eventsManager)
+            IEventsManager eventsManager, ITutorialService tutorialService)
         {
             _sceneLoader = sceneLoader;
             _cardsModel = cardsModel;
             _playerTimesService = playerTimesService;
             _eventsManager = eventsManager;
+            _tutorialService = tutorialService;
         }
 
         public void Enter()
@@ -39,6 +42,8 @@ namespace Infrastructure.StateMachine.States
             _eventsManager.Initialize();
             _playerTimesService.SetDaysInPlay();
             _cardsModel.Initialize();
+            _tutorialService.Initalize();
+            
             AppMetrica.Instance.ReportEvent("Game started", $"{{\"Day\":\"{_playerTimesService.GetDaysInPlay()}\"}}");
 
             _stateMachine.Enter<GameState>();

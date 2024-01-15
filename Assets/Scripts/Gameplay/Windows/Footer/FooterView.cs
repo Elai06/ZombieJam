@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Gameplay.Tutorial;
 using Infrastructure.Windows;
 using UnityEngine;
 using Utils.ZenjectInstantiateUtil;
@@ -10,11 +12,22 @@ namespace Gameplay.Windows.Footer
     public class FooterView : MonoBehaviour
     {
         [SerializeField] private List<FooterTab> _footerTabs = new();
-        [Inject] private IWindowService _windowService;
+        private IWindowService _windowService;
+        private ITutorialService _tutorialService;
+
+        [Inject]
+        private void Construct(IWindowService windowService, ITutorialService tutorialService)
+        {
+            _windowService = windowService;
+            _tutorialService = tutorialService;
+        }
 
         private void Start()
         {
             InjectService.Instance.Inject(this);
+
+            _tutorialService.СhangedState += OnChangedTutorialState;
+            OnChangedTutorialState(_tutorialService.CurrentState);
         }
 
         private void OnEnable()
@@ -69,6 +82,42 @@ namespace Gameplay.Windows.Footer
                 }
 
                 _windowService.Open(selected.WindowType);
+            }
+        }
+
+        private void OnChangedTutorialState(ETutorialState tutorialState)
+        {
+            foreach (var footerTab in _footerTabs)
+            {
+                footerTab.SetInteractable(false);
+
+                switch (tutorialState)
+                {
+                    case ETutorialState.Completed:
+                        footerTab.SetInteractable(true);
+                        continue;
+
+                    case ETutorialState.Swipe:
+                        continue;
+
+                    case ETutorialState.Shop:
+                        if (footerTab.WindowType == WindowType.Shop)
+                        {
+                            footerTab.SetInteractable(true);
+                        }
+
+                        continue;
+
+                    case ETutorialState.Card:
+                        if (footerTab.WindowType == WindowType.Cards)
+                        {
+                            footerTab.SetInteractable(true);
+                        }
+
+                        continue;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(tutorialState), tutorialState, null);
+                }
             }
         }
     }

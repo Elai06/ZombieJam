@@ -14,6 +14,7 @@
         Cards,
         Shop,
         Ads,
-        InApp
+        InApp,
+        Tutorial
     }
 }

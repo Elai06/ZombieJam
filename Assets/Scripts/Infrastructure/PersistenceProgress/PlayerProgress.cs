@@ -8,6 +8,7 @@ using Gameplay.Curencies;
 using Gameplay.Enums;
 using Gameplay.Level;
 using Gameplay.Shop;
+using Gameplay.Tutorial;
 
 namespace Infrastructure.PersistenceProgress
 {
@@ -20,6 +21,7 @@ namespace Infrastructure.PersistenceProgress
         public LevelProgress LevelProgress = new();
         public CardsProgress CardsProgress = new();
         public ShopProgress ShopProgress = new();
+        public ETutorialState CurrentTutorialState;
 
         public int DaysInPlay;
         public string FirstDate = DateTime.Now.Date.ToString(CultureInfo.CurrentCulture);

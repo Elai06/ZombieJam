@@ -20,12 +20,12 @@ namespace Gameplay.Windows.Footer
         {
             _button = gameObject.GetComponent<Button>();
             _image = gameObject.GetComponent<Image>();
+            
+            _button.interactable = IsInteractable;
         }
 
         private void Start()
         {
-            _button.interactable = IsInteractable;
-
             if (IsSelected)
             {
                 Selected(true);
@@ -61,6 +61,13 @@ namespace Gameplay.Windows.Footer
                 gameObject.transform.localScale = new Vector3(1, 1);
                 _image.color = Color.white;
             }
+        }
+
+        public void SetInteractable(bool isInteractable)
+        {
+            if (IsInteractable == false) return;
+            
+            _button.interactable = isInteractable;
         }
     }
 }

@@ -12,6 +12,7 @@ using Gameplay.Level;
 using Gameplay.PlayerTimes;
 using Gameplay.Reward;
 using Gameplay.Shop;
+using Gameplay.Tutorial;
 using Gameplay.Windows.Boosters;
 using Gameplay.Windows.Cards;
 using Gameplay.Windows.Gameplay;
@@ -19,6 +20,7 @@ using Gameplay.Windows.Header;
 using Gameplay.Windows.Rewards;
 using Gameplay.Windows.Shop;
 using Infrastructure.Events;
+using Infrastructure.Input;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.SaveLoads;
 using Infrastructure.SceneManagement;
@@ -39,6 +41,7 @@ namespace Infrastructure.Installers
         [SerializeField] private LayersContainer _layersContainer;
         [SerializeField] private GameStaticData _gameStaticData;
         [SerializeField] private TimerService _timerService;
+        [SerializeField] private SwipeManager _swipeManager;
 
         public override void InstallBindings()
         {
@@ -79,6 +82,7 @@ namespace Infrastructure.Installers
             Container.Bind<GameStaticData>().FromInstance(_gameStaticData).AsSingle();
             Container.Bind<ICoroutineService>().FromInstance(_coroutineService).AsSingle();
             Container.Bind<TimerService>().FromInstance(_timerService).AsSingle();
+            Container.Bind<SwipeManager>().FromInstance(_swipeManager).AsSingle();
         }
 
         private void BindModels()
@@ -96,6 +100,7 @@ namespace Infrastructure.Installers
             Container.Bind<IInAppService>().To<InAppService>().AsSingle();
             Container.Bind<IPlayerTimesService>().To<PlayerTimesService>().AsSingle();
             Container.Bind<IEventsManager>().To<EventsManager>().AsSingle();
+            Container.Bind<ITutorialService>().To<TutorialService>().AsSingle();
         }
     }
 }
