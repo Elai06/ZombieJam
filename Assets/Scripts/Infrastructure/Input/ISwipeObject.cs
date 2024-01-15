@@ -2,8 +2,9 @@
 
 namespace Infrastructure.Input
 {
-    internal interface ISwiped
+    public interface ISwipeObject
     {
         void Swipe(ESwipeSide swipe);
+        ESwipeDirection SwipeDirection { get;}
     }
 }

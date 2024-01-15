@@ -1,27 +1,108 @@
 ﻿using DG.Tweening;
+using Gameplay.Enums;
 using Gameplay.Tutorial;
-using Infrastructure.Windows;
+using Gameplay.Tutorial.States.SwipeState;
+using Infrastructure.Input;
 using UnityEngine;
 using Utils.ZenjectInstantiateUtil;
 using Zenject;
 
 namespace Gameplay.Windows.Tutorial
 {
+    // ПРОСТИТЕ МЕНЯ, ЕСЛИ КТО УВИДИТ ЭТО
     public class SwipeTutorial : MonoBehaviour
     {
+        [SerializeField] private ArrowTutorial _firstArrow;
+        [SerializeField] private ArrowTutorial _secondArrow;
+
         [Inject] private ITutorialService _tutorialService;
-        [Inject] private IWindowService _windowService;
+        [Inject] private SwipeManager _swipeManager;
+
+        private readonly Vector3 _firstUnitPosition = new(-1.5f, 0, 0);
+        private readonly Vector3 _secondUnitPosition = new(1f, 0, 0.5f);
+
+        private Tween _tween;
 
         private void Start()
         {
             InjectService.Instance.Inject(this);
 
             StartAnimation();
+            _swipeManager.OnSwipe += OnSwipe;
+            _firstArrow.gameObject.SetActive(true);
+            _secondArrow.gameObject.SetActive(false);
         }
 
         private void StartAnimation()
         {
-            transform.DOLocalMoveZ(transform.position.z - 1.5f, 1f).SetLoops(-1, LoopType.Yoyo);
+            _tween = _firstArrow.transform.DOLocalMoveZ(_firstArrow.transform.position.z - 1.5f, 1f)
+                .SetLoops(-1, LoopType.Yoyo);
+        }
+
+        private void OnSwipe(TutorialSwipeInfo swipeObject)
+        {
+            if (swipeObject.SwipeDirection == ESwipeDirection.Vertical)
+            {
+                VerticalSwiped(swipeObject);
+            }
+
+            if (swipeObject.SwipeDirection == ESwipeDirection.Horizontal)
+            {
+                HorizontalSwipe(swipeObject);
+            }
+        }
+
+        private void VerticalSwiped(TutorialSwipeInfo swipeObject)
+        {
+            if (swipeObject.SwipeDirection == ESwipeDirection.Vertical)
+            {
+                if (swipeObject.SwipeSide == ESwipeSide.Forward || swipeObject.SwipeSide == ESwipeSide.Back)
+                {
+                    if (swipeObject.SwipeGameObject.transform.localPosition == _firstUnitPosition)
+                    {
+                        _tween?.Kill();
+                        swipeObject.UnitSwipe.Swipe(swipeObject.SwipeSide);
+
+                        if (_firstArrow == null)
+                        {
+                            _firstArrow = FindFirstObjectByType<ArrowTutorial>();
+                            Destroy(_firstArrow.gameObject);
+                        }
+
+                        if (_secondArrow == null)
+                        {
+                            _secondArrow = FindFirstObjectByType<ArrowTutorial>();
+                        }
+
+                        _secondArrow.gameObject.SetActive(true);
+                        _tween = _secondArrow.transform.DOLocalMoveX(_secondArrow.transform.position.x - 1.5f, 1f)
+                            .SetLoops(-1, LoopType.Yoyo);
+                    }
+                }
+            }
+        }
+
+        private void HorizontalSwipe(TutorialSwipeInfo swipeObject)
+        {
+            if (swipeObject.SwipeDirection == ESwipeDirection.Horizontal)
+            {
+                if (swipeObject.SwipeSide == ESwipeSide.Left || swipeObject.SwipeSide == ESwipeSide.Right)
+                {
+                    if (swipeObject.SwipeGameObject.transform.localPosition == _secondUnitPosition)
+                    {
+                        _tween?.Kill();
+                        
+                        if (_secondArrow == null)
+                        {
+                            _secondArrow = FindFirstObjectByType<ArrowTutorial>();
+                        }
+                        
+                        swipeObject.UnitSwipe.Swipe(swipeObject.SwipeSide);
+                        Destroy(_secondArrow.gameObject);
+                        _tutorialService.SwipeStateCompleted();
+                    }
+                }
+            }
         }
     }
 }

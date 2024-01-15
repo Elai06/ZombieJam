@@ -22,6 +22,7 @@ namespace Gameplay.Tutorial
 
         public ETutorialState CurrentState { get; private set; }
 
+
         public void Initalize()
         {
             SetState(_progressService.PlayerProgress.CurrentTutorialState);
@@ -64,6 +65,11 @@ namespace Gameplay.Tutorial
                     _stateMachine.Enter<CardTutorialState>();
                     break;
             }
+        }
+
+        public void SwipeStateCompleted()
+        {
+            _stateMachine.Enter<ShopTutorialState>();
         }
     }
 }

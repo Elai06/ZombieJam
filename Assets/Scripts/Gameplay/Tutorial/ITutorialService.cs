@@ -1,4 +1,5 @@
 ﻿using System;
+using Infrastructure.StateMachine;
 
 namespace Gameplay.Tutorial
 {
@@ -8,5 +9,6 @@ namespace Gameplay.Tutorial
         ETutorialState CurrentState { get; }
         event Action<ETutorialState> СhangedState;
         void Initalize();
+        void SwipeStateCompleted();
     }
 }

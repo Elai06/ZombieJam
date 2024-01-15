@@ -1,18 +1,36 @@
 ﻿using System;
 using Gameplay.Enums;
+using Gameplay.Tutorial;
 using Gameplay.Units;
 using UnityEngine;
+using Zenject;
 
 namespace Infrastructure.Input
 {
     public class SwipeManager : MonoBehaviour
     {
-        private Vector3 _startPosition;
-        private readonly RaycastDetector _raycastDetector = new();
+        public event Action<TutorialSwipeInfo> OnSwipe;
 
-        private ISwiped _swipedObject;
+        private ITutorialService _tutorialService;
+
+        private Vector3 _startPosition;
+        private RaycastDetector _raycastDetector;
+
+        private ISwipeObject _swipeObject;
+        private TutorialSwipeInfo _tutorialSwipeInfo;
 
         private bool _isWasSwipe;
+
+        [Inject]
+        public void Construct(ITutorialService tutorialService)
+        {
+            _tutorialService = tutorialService;
+        }
+
+        public void Initialize()
+        {
+            _raycastDetector = new RaycastDetector();
+        }
 
         private void Update()
         {
@@ -29,21 +47,31 @@ namespace Infrastructure.Input
 
             if (UnityEngine.Input.GetMouseButtonUp(0))
             {
-                _swipedObject = null;
+                _swipeObject = null;
                 _isWasSwipe = false;
+                _tutorialSwipeInfo.Reset();
             }
         }
 
         private void DetectSwipe()
         {
-            if (_swipedObject != null && !_isWasSwipe)
+            if (_swipeObject != null && !_isWasSwipe)
             {
                 var swipe = DefineSwipe();
 
                 if (swipe != ESwipeSide.None)
                 {
                     _isWasSwipe = true;
-                    _swipedObject.Swipe(swipe);
+
+                    if (_tutorialService.CurrentState == ETutorialState.Swipe)
+                    {
+                        _tutorialSwipeInfo.SwipeSide = swipe;
+                        OnSwipe?.Invoke(_tutorialSwipeInfo);
+                        return;
+                    }
+
+                    _swipeObject.Swipe(swipe);
+                    OnSwipe?.Invoke(_tutorialSwipeInfo);
                 }
             }
         }
@@ -53,7 +81,10 @@ namespace Infrastructure.Input
             var contactInfo = _raycastDetector.RayCast(3);
             if (contactInfo.Collider == null) return;
 
-            _swipedObject = contactInfo.Collider.GetComponent<ISwiped>();
+            _swipeObject = contactInfo.Collider.GetComponent<ISwipeObject>();
+            _tutorialSwipeInfo.SwipeGameObject = contactInfo.Collider.gameObject;
+            _tutorialSwipeInfo.SwipeDirection = _swipeObject.SwipeDirection;
+            _tutorialSwipeInfo.UnitSwipe = _swipeObject;
         }
 
         private ESwipeSide DefineSwipe()

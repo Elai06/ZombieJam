@@ -15,7 +15,7 @@ using Utils.CurveBezier;
 
 namespace Gameplay.Units
 {
-    public abstract class Unit : MonoBehaviour, ISwiped
+    public abstract class Unit : MonoBehaviour, ISwipeObject
     {
         public event Action ResetMoving;
         public event Action OnDied;
