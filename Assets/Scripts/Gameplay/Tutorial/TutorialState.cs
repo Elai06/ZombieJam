@@ -12,7 +12,7 @@ namespace Gameplay.Tutorial
 
         protected ETutorialState _tutorialState;
 
-        public TutorialState(ITutorialService tutorialService, ETutorialState state, IWindowService windowService)
+        public TutorialState(ITutorialService tutorialService, IWindowService windowService, ETutorialState state)
         {
             _tutorialService = tutorialService;
             _tutorialState = state;

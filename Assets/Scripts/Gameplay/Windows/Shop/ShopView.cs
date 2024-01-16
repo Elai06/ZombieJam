@@ -4,6 +4,8 @@ using Gameplay.Configs.Shop;
 using Gameplay.Enums;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 namespace Gameplay.Windows.Shop
 {
@@ -12,6 +14,8 @@ namespace Gameplay.Windows.Shop
         public event Action<EShopProductType> BuyClick;
         public event Action<EShopProductType> ProductClick;
 
+        [SerializeField] private ScrollRect _scrollView;
+        
         [SerializeField] private ShopProductSubViewContainer _noAdsContainer;
         [SerializeField] private ShopProductSubViewContainer _boxContainer;
         [SerializeField] private ShopProductSubViewContainer _hardContainer;
@@ -87,6 +91,8 @@ namespace Gameplay.Windows.Shop
                 data.BuyClick -= OnProductClick;
                 data.ProductClick -= OnProductClick;
             }
+            
+            _shopRewardPopUp.gameObject.SetActive(false);
         }
 
         private void OnBuyClick(EShopProductType productType)
@@ -112,12 +118,9 @@ namespace Gameplay.Windows.Shop
             _shopRewardPopUp.Show(shopConfigData, priceImage, isCanBuy);
         }
 
-        public void UpdateSubView(ShopProductSubViewData data)
+        public void BottomSrollRect()
         {
-            if (_boxContainer.SubViews.TryGetValue(data.ProductType.ToString(), out var subView))
-            {
-                _boxContainer.UpdateView(data, data.ProductType.ToString());
-            }
+            _scrollView.content.anchoredPosition += Vector2.up * 400;
         }
     }
 }

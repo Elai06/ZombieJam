@@ -64,7 +64,8 @@ namespace Gameplay.Shop
             }
 
             if (_currentConfigData.IsFree &&
-                _progressService.PlayerProgress.CurrentTutorialState != ETutorialState.Shop)
+                _progressService.PlayerProgress.CurrentTutorialState != ETutorialState.ShopBox
+                && _progressService.PlayerProgress.CurrentTutorialState != ETutorialState.ShopCurrency)
             {
                 _adsService.ShowAds(EAdsType.Reward);
                 _adsService.Showed += OnAdsShowed;
@@ -85,7 +86,7 @@ namespace Gameplay.Shop
             PurchaseSuccesed(_currentConfigData.ProductType, _currentConfigData);
         }
 
-        private void PurchaseSuccesed(EShopProductType shopProductType, ShopConfigData config)
+        public void PurchaseSuccesed(EShopProductType shopProductType, ShopConfigData config)
         {
             GetRewards(config.Rewards);
             Purchased?.Invoke(shopProductType);
@@ -131,16 +132,17 @@ namespace Gameplay.Shop
             return _currenciesModel.IsCanConsume(currencyProgress, price);
         }
 
-        public void GetTutorialRewards(EShopProductType shopProductType)
+        public void TutorialPurchase(EShopProductType shopProductType)
         {
             if (shopProductType == EShopProductType.SimpleBox)
             {
                 OpenBoxPopUp?.Invoke(EShopProductType.SimpleBox);
+                return;
             }
 
             var config = ShopConfig.ConfigData
                 .Find(x => x.ProductType == shopProductType);
-            GetRewards(config.Rewards);
+            PurchaseSuccesed(shopProductType, config);
         }
     }
 }

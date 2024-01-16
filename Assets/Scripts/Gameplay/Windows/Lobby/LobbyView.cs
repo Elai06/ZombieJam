@@ -26,7 +26,7 @@ namespace Gameplay.Windows.Lobby
 
             var progress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
             UpdateWave(progress.ERegionType, progress.CurrentWaweIndex);
-            _gameplayModel.UpdateWave += UpdateWave;
+            _gameplayModel.OnWaveCompleted += UpdateWave;
             _windowService.OnOpen += OpenWindow;
         }
 

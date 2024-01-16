@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Gameplay.Enums;
 using Gameplay.Shop;
+using Gameplay.Tutorial;
 using Infrastructure.StaticData;
 using Infrastructure.Windows.MVVM;
 
@@ -9,15 +10,24 @@ namespace Gameplay.Windows.Shop
     public class ShopViewModel : ViewModelBase<IShopModel, ShopView>
     {
         private readonly GameStaticData _gameStaticData;
+        private readonly ITutorialService _tutorialService;
 
-        public ShopViewModel(IShopModel model, ShopView view, GameStaticData gameStaticData) : base(model, view)
+        public ShopViewModel(IShopModel model, ShopView view, GameStaticData gameStaticData,
+            ITutorialService tutorialService)
+            : base(model, view)
         {
             _gameStaticData = gameStaticData;
+            _tutorialService = tutorialService;
         }
 
         public override void Show()
         {
             InitializeProducts();
+
+            if (_tutorialService.CurrentState == ETutorialState.ShopCurrency)
+            {
+                View.BottomSrollRect();
+            }
         }
 
         public override void Subscribe()

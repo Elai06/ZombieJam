@@ -56,6 +56,7 @@ namespace Gameplay.Cards
         {
             var progress = CardsProgress.GetOrCreate(zombieType);
             var reqiredCardsValue = GetReqiredCardsValue(zombieType);
+            var currencyType = GetCurrencyType(zombieType);
 
             StartUpgrade?.Invoke(zombieType);
 
@@ -63,6 +64,7 @@ namespace Gameplay.Cards
             {
                 CardModels[zombieType].Upgrade();
                 ConsumeCards(progress, reqiredCardsValue);
+                _currenciesModel.Consume(currencyType, GetCurrencyPrice(zombieType, currencyType));
                 UpgradeSucced?.Invoke(zombieType);
             }
         }
@@ -71,9 +73,10 @@ namespace Gameplay.Cards
         {
             var currencyType = GetCurrencyType(zombieType);
             var currencyPrice = GetCurrencyPrice(zombieType, currencyType);
+            var currencyProgress = _currenciesModel.GetCurrencyProgress().GetOrCreate(currencyType);
 
             return IsCanConsumeCards(cardProgressData, GetReqiredCardsValue(zombieType)) &&
-                   _currenciesModel.Consume(currencyType, currencyPrice);
+                   _currenciesModel.IsCanConsume(currencyProgress, currencyPrice);
         }
 
         public int GetReqiredCardsValue(EZombieType type)

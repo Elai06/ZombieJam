@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Gameplay.Cards;
 using Gameplay.Enums;
+using Gameplay.Tutorial;
 using Infrastructure.StaticData;
 using Infrastructure.Windows.MVVM;
 
@@ -9,10 +10,14 @@ namespace Gameplay.Windows.Cards
     public class CardsViewModel : ViewModelBase<ICardsModel, CardsView>
     {
         private GameStaticData _gameStaticData;
+        private ITutorialService _tutorialService;
 
-        public CardsViewModel(ICardsModel model, CardsView view, GameStaticData gameStaticData) : base(model, view)
+        public CardsViewModel(ICardsModel model, CardsView view, GameStaticData gameStaticData,
+            ITutorialService tutorialService)
+            : base(model, view)
         {
             _gameStaticData = gameStaticData;
+            _tutorialService = tutorialService;
         }
 
         public override void Show()
@@ -27,6 +32,7 @@ namespace Gameplay.Windows.Cards
             View.Upgrade += OnUpgrade;
             Model.UpgradeSucced += UpdateCard;
             View.OnClickCard += ShowPopUp;
+            _tutorialService.OnOpenCardPopUp += ShowPopUp;
         }
 
         public override void Unsubscribe()
@@ -36,6 +42,7 @@ namespace Gameplay.Windows.Cards
             View.Upgrade -= OnUpgrade;
             Model.UpgradeSucced -= UpdateCard;
             View.OnClickCard -= ShowPopUp;
+            _tutorialService.OnOpenCardPopUp -= ShowPopUp;
         }
 
         private void InitializeCards()

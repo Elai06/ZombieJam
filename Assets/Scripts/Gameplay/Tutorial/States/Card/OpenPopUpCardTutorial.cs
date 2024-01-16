@@ -1,17 +1,16 @@
 ﻿using Gameplay.Enums;
-using Gameplay.Shop;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils.ZenjectInstantiateUtil;
 using Zenject;
 
-namespace Gameplay.Tutorial.States.Shop
+namespace Gameplay.Tutorial.States.Card
 {
-    public class GetSimpleBoxTutorialButton : MonoBehaviour
+    public class OpenPopUpCardTutorial : MonoBehaviour
     {
         private Button _button;
 
-        [Inject] private IShopModel _shopModel;
+        [Inject] private ITutorialService _tutorialService;
 
         private void Awake()
         {
@@ -25,17 +24,17 @@ namespace Gameplay.Tutorial.States.Shop
 
         private void OnEnable()
         {
-            _button.onClick.AddListener(GetReward);
+            _button.onClick.AddListener(UpgradeCard);
         }
 
         private void OnDisable()
         {
-            _button.onClick.RemoveListener(GetReward);
+            _button.onClick.RemoveListener(UpgradeCard);
         }
 
-        private void GetReward()
+        private void UpgradeCard()
         {
-            _shopModel.GetTutorialRewards(EShopProductType.SimpleBox);
+            _tutorialService.OpenCardPopUp(EZombieType.Easy);
         }
     }
 }

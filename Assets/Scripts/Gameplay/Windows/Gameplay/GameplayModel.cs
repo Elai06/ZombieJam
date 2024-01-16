@@ -10,7 +10,7 @@ namespace Gameplay.Windows.Gameplay
     public class GameplayModel : IGameplayModel
     {
         public event Action OnResurection;
-        public event Action<ERegionType, int> UpdateWave;
+        public event Action<ERegionType, int> OnWaveCompleted;
         public event Action<int> OnStartWave;
 
         private readonly IRegionManager _regionManager;
@@ -35,7 +35,7 @@ namespace Gameplay.Windows.Gameplay
             _regionManager.WaveCompleted();
             _levelModel.AddExperience(true);
             IsAvailableRessuraction = true;
-            UpdateWave?.Invoke(progress.CurrentRegionType, progress.GetCurrentRegion().CurrentWaweIndex);
+            OnWaveCompleted?.Invoke(progress.CurrentRegionType, progress.GetCurrentRegion().CurrentWaweIndex);
         }
 
         public void StartWave()

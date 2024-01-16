@@ -3,7 +3,8 @@
     public enum ETutorialState
     {
         Swipe,
-        Shop,
+        ShopBox,
+        ShopCurrency,
         Card,
         Completed
     }

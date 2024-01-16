@@ -1,4 +1,5 @@
 ﻿using System;
+using Gameplay.Enums;
 
 namespace Gameplay.Tutorial
 {
@@ -9,5 +10,7 @@ namespace Gameplay.Tutorial
         event Action<ETutorialState> СhangedState;
         void Initalize();
         void SwipeStateCompleted();
+        event Action<EZombieType> OnOpenCardPopUp;
+        void OpenCardPopUp(EZombieType zombieType);
     }
 }

@@ -2,7 +2,9 @@
 using Gameplay.Enums;
 using Gameplay.Tutorial;
 using Gameplay.Tutorial.States.SwipeState;
+using Gameplay.Windows.Gameplay;
 using Infrastructure.Input;
+using Infrastructure.Windows;
 using UnityEngine;
 using Utils.ZenjectInstantiateUtil;
 using Zenject;

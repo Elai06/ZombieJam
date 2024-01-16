@@ -1,11 +1,11 @@
 ﻿using Infrastructure.Windows;
 
-namespace Gameplay.Tutorial.States.SwipeState
+namespace Gameplay.Tutorial.States
 {
-    public class SwipeTutorialState : TutorialState
+    public class CompletedTutorialState : TutorialState
     {
-        public SwipeTutorialState(ITutorialService tutorialService, IWindowService windowService,
-            ETutorialState state = ETutorialState.Swipe)
+        public CompletedTutorialState(ITutorialService tutorialService,
+            IWindowService windowService, ETutorialState state = ETutorialState.Completed)
             : base(tutorialService, windowService, state)
         {
         }
@@ -13,6 +13,7 @@ namespace Gameplay.Tutorial.States.SwipeState
         public override void Enter()
         {
             base.Enter();
+
         }
 
         public override void Exit()

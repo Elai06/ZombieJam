@@ -43,6 +43,16 @@ namespace Gameplay.Windows.Footer
             }
         }
 
+        private void OnDisable()
+        {
+            foreach (var footerTab in _footerTabs)
+            {
+                footerTab.Click -= SelectedTab;
+            }
+
+            _windowService.OnOpen -= OpenView;
+        }
+
         private void OpenView(WindowType viewType)
         {
             var isFooterView = false;
@@ -62,15 +72,6 @@ namespace Gameplay.Windows.Footer
             }
         }
 
-        private void OnDisable()
-        {
-            foreach (var footerTab in _footerTabs)
-            {
-                footerTab.Click -= SelectedTab;
-            }
-
-            _windowService.OnOpen -= OpenView;
-        }
 
         private void SelectedTab(FooterTab selected)
         {
@@ -100,14 +101,20 @@ namespace Gameplay.Windows.Footer
                     case ETutorialState.Swipe:
                         continue;
 
-                    case ETutorialState.Shop:
+                    case ETutorialState.ShopBox:
                         if (footerTab.WindowType == WindowType.Shop)
                         {
                             footerTab.SetInteractable(true);
                         }
 
                         continue;
+                    case ETutorialState.ShopCurrency:
+                        if (footerTab.WindowType == WindowType.Shop)
+                        {
+                            footerTab.SetInteractable(true);
+                        }
 
+                        continue;
                     case ETutorialState.Card:
                         if (footerTab.WindowType == WindowType.Cards)
                         {
@@ -115,6 +122,7 @@ namespace Gameplay.Windows.Footer
                         }
 
                         continue;
+
                     default:
                         throw new ArgumentOutOfRangeException(nameof(tutorialState), tutorialState, null);
                 }

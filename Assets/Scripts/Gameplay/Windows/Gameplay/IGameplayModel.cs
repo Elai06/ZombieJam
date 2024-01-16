@@ -7,7 +7,7 @@ namespace Gameplay.Windows.Gameplay
     public interface IGameplayModel
     {
         void WaveCompleted();
-        event Action<ERegionType, int> UpdateWave;
+        event Action<ERegionType, int> OnWaveCompleted;
         RegionProgress GetCurrentRegionProgress();
         RegionConfigData GetRegionConfig();
         void LooseWave();
