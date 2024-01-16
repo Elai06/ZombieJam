@@ -10,6 +10,7 @@ using Gameplay.Curencies;
 using Gameplay.InApp;
 using Gameplay.Level;
 using Gameplay.PlayerTimes;
+using Gameplay.RegionMap;
 using Gameplay.Reward;
 using Gameplay.Shop;
 using Gameplay.Tutorial;
@@ -42,6 +43,7 @@ namespace Infrastructure.Installers
         [SerializeField] private GameStaticData _gameStaticData;
         [SerializeField] private TimerService _timerService;
         [SerializeField] private SwipeManager _swipeManager;
+        [SerializeField] private RegionInitializer _regionInitializer;
 
         public override void InstallBindings()
         {
@@ -83,6 +85,7 @@ namespace Infrastructure.Installers
             Container.Bind<ICoroutineService>().FromInstance(_coroutineService).AsSingle();
             Container.Bind<TimerService>().FromInstance(_timerService).AsSingle();
             Container.Bind<SwipeManager>().FromInstance(_swipeManager).AsSingle();
+            Container.Bind<RegionInitializer>().FromInstance(_regionInitializer).AsSingle();
         }
 
         private void BindModels()

@@ -3,6 +3,7 @@ using Gameplay.Boosters;
 using Gameplay.Cards;
 using Gameplay.Curencies;
 using Gameplay.Enums;
+using Gameplay.RegionMap;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.StaticData;
 using Infrastructure.Windows;
@@ -19,7 +20,8 @@ namespace Gameplay.Configs.Region
         private readonly ICurrenciesModel _currenciesModel;
         private readonly IBoostersManager _boostersManager;
         private readonly IProgressService _progressService;
-        private ICardsModel _cardsModel;
+        private readonly ICardsModel _cardsModel;
+        private readonly RegionInitializer _regionInitializer;
 
         private RegionProgressData _regionProgressData;
 
@@ -28,10 +30,10 @@ namespace Gameplay.Configs.Region
 
         public RegionManager(IProgressService progressService, GameStaticData gameStaticData,
             IWindowService windowService, ICurrenciesModel currenciesModel, IBoostersManager boostersManager,
-            ICardsModel cardsModel)
+            ICardsModel cardsModel, RegionInitializer regionInitializer)
         {
             _gameStaticData = gameStaticData;
-         
+            _regionInitializer = regionInitializer;
             _windowService = windowService;
             _currenciesModel = currenciesModel;
             _boostersManager = boostersManager;
@@ -48,10 +50,12 @@ namespace Gameplay.Configs.Region
         private void Loaded()
         {
             _progressService.OnLoaded -= Loaded;
+            _regionInitializer.Initialize();
+
             _regionProgressData = _progressService.PlayerProgress.RegionProgress.GetCurrentRegion();
             _regionProgress = _progressService.PlayerProgress.RegionProgress;
         }
-        
+
         public RegionConfigData GetActualRegion(ERegionType regionType)
         {
             return _gameStaticData.RegionConfig.GetRegionConfig(regionType);

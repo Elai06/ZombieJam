@@ -1,4 +1,5 @@
-﻿using Infrastructure.PersistenceProgress;
+﻿using System;
+using Infrastructure.PersistenceProgress;
 using Infrastructure.StaticData;
 using UnityEngine;
 using Zenject;
@@ -16,18 +17,8 @@ namespace Gameplay.RegionMap
             _progressService = progressService;
             _gameStaticData = gameStaticData;
         }
-
-        private void Awake()
-        {
-            _progressService.OnLoaded += Loaded;
-        }
-
-        private void Loaded()
-        {
-            Initialize();
-        }
-
-        private void Initialize()
+        
+        public void Initialize()
         {
             var regionProgress = _progressService.PlayerProgress.RegionProgress;
             foreach (var data in _gameStaticData.RegionConfig.ConfigData)
