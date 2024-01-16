@@ -4,6 +4,7 @@ using Gameplay.Tutorial;
 using Infrastructure.Events;
 using Infrastructure.Input;
 using Infrastructure.SceneManagement;
+using UnityEngine;
 
 namespace Infrastructure.StateMachine.States
 {
@@ -48,7 +49,8 @@ namespace Infrastructure.StateMachine.States
             _tutorialService.Initalize();
             _swipeManager.Initialize();
 
-            AppMetrica.Instance.ReportEvent("Game started", $"{{\"Day\":\"{_playerTimesService.GetDaysInPlay()}\"}}");
+            AppMetrica.Instance.ReportEvent("Game started",
+                $"{{\"Project version\":\"{Application.version}\\, Day\":\"{_playerTimesService.GetDaysInPlay()}\"}}");
 
             _stateMachine.Enter<GameState>();
         }

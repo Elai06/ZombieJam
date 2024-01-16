@@ -46,9 +46,11 @@ namespace Infrastructure.Events
             _adsService.Showed += OnAdsShowed;
 
             //GameLoaded
-            AppMetrica.Instance.ReportEvent("Game Loaded", $"{{\"day\":\"{_playerTimesService.GetDaysInPlay()}\"}}");
+            AppMetrica.Instance.ReportEvent("Game Loaded",
+                $"{{\"Project version\":\"{Application.version}\\, " +
+                $"Day\":\"{_playerTimesService.GetDaysInPlay()}\"}}");
         }
-        
+
         private void OnStartAds(EAdsType adsType)
         {
             var regionProgress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
@@ -71,7 +73,7 @@ namespace Infrastructure.Events
             SendEventWithLevelDay("AdsCompleted", parameters);
         }
 
-        
+
         public void SendEventWithLevelDay(string eventName, string parameters = "")
         {
             parameters +=
