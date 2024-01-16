@@ -1,6 +1,7 @@
 ﻿using Gameplay.Enums;
 using Gameplay.Shop;
 using Gameplay.Tutorial.States.Card;
+using Infrastructure.Events;
 using Infrastructure.Windows;
 
 namespace Gameplay.Tutorial.States.Shop
@@ -11,8 +12,8 @@ namespace Gameplay.Tutorial.States.Shop
 
 
         public ShopCurrencyTutorialState(ITutorialService tutorialService, IWindowService windowService,
-            IShopModel shopModel, ETutorialState state = ETutorialState.ShopCurrency)
-            : base(tutorialService, windowService, state)
+            IShopModel shopModel,IEventsManager eventsManager, ETutorialState state = ETutorialState.ShopCurrency)
+            : base(tutorialService, windowService,eventsManager, state)
         {
             _shopModel = shopModel;
         }

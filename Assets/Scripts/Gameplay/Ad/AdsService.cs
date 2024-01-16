@@ -1,6 +1,7 @@
 ﻿using System;
 using Gameplay.Configs;
 using Gameplay.Enums;
+using Infrastructure.Events;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.StaticData;
 using Infrastructure.Timer;
@@ -12,8 +13,8 @@ namespace Gameplay.Ad
     public class AdsService : IAdsService
     {
         public event Action<int> Tick;
-
         public event Action Showed;
+        public event Action<EAdsType> StartShow;
         public event Action OnSkipAds;
 
         private readonly IWindowService _windowService;
@@ -50,6 +51,7 @@ namespace Gameplay.Ad
             Time.timeScale = 0;
 
             _windowService.Open(WindowType.Ads);
+            StartShow?.Invoke(type);
             return true;
         }
 
@@ -68,11 +70,11 @@ namespace Gameplay.Ad
             _timerService.OnStop(Timer);
             _windowService.Close(WindowType.Ads);
         }
-        
+
         public void SkipAds()
         {
-           StopAds();
-           OnSkipAds?.Invoke();
+            StopAds();
+            OnSkipAds?.Invoke();
         }
 
         private void OnTick(int time)

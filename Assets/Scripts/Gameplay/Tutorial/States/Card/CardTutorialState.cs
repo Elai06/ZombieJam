@@ -1,5 +1,6 @@
 ﻿using Gameplay.Cards;
 using Gameplay.Enums;
+using Infrastructure.Events;
 using Infrastructure.Windows;
 
 namespace Gameplay.Tutorial.States.Card
@@ -9,8 +10,8 @@ namespace Gameplay.Tutorial.States.Card
         private readonly ICardsModel _cardsModel;
 
         public CardTutorialState(ITutorialService tutorialService, IWindowService windowService,
-            ICardsModel cardsModel, ETutorialState state = ETutorialState.Card)
-            : base(tutorialService, windowService, state)
+            ICardsModel cardsModel, IEventsManager eventsManager, ETutorialState state = ETutorialState.Card)
+            : base(tutorialService, windowService,eventsManager, state)
         {
             _cardsModel = cardsModel;
         }

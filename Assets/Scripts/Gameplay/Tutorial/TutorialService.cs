@@ -7,6 +7,7 @@ using Gameplay.Tutorial.States.Card;
 using Gameplay.Tutorial.States.Shop;
 using Gameplay.Tutorial.States.Shop.Box;
 using Gameplay.Tutorial.States.SwipeState;
+using Infrastructure.Events;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.StateMachine;
 using Infrastructure.Windows;
@@ -23,14 +24,16 @@ namespace Gameplay.Tutorial
         private readonly IWindowService _windowService;
         private readonly IShopModel _shopModel;
         private readonly ICardsModel _cardsModel;
+        private readonly IEventsManager _eventsManager;
 
         public TutorialService(IProgressService progressService, IWindowService windowService,
-            IShopModel shopModel, ICardsModel cardsModel)
+            IShopModel shopModel, ICardsModel cardsModel, IEventsManager eventsManager)
         {
             _windowService = windowService;
             _progressService = progressService;
             _shopModel = shopModel;
             _cardsModel = cardsModel;
+            _eventsManager = eventsManager;
         }
 
         public ETutorialState CurrentState => _progressService.PlayerProgress.CurrentTutorialState;
@@ -54,11 +57,11 @@ namespace Gameplay.Tutorial
         {
             if (CurrentState == ETutorialState.Completed) return;
 
-            var swipe = new SwipeTutorialState(this, _windowService);
-            var shopBoxTutorialState = new ShopBoxTutorialState(this, _windowService, _shopModel);
-            var shopCurrency = new ShopCurrencyTutorialState(this, _windowService, _shopModel);
-            var card = new CardTutorialState(this, _windowService, _cardsModel);
-            var completed = new CompletedTutorialState(this, _windowService);
+            var swipe = new SwipeTutorialState(this, _windowService, _eventsManager);
+            var shopBoxTutorialState = new ShopBoxTutorialState(this, _windowService, _shopModel, _eventsManager);
+            var shopCurrency = new ShopCurrencyTutorialState(this, _windowService, _shopModel, _eventsManager);
+            var card = new CardTutorialState(this, _windowService, _cardsModel, _eventsManager);
+            var completed = new CompletedTutorialState(this, _windowService, _eventsManager);
             _stateMachine.AddState(swipe);
             _stateMachine.AddState(shopBoxTutorialState);
             _stateMachine.AddState(shopCurrency);

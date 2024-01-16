@@ -1,5 +1,6 @@
 ﻿using Gameplay.Enums;
 using Gameplay.Shop;
+using Infrastructure.Events;
 using Infrastructure.Windows;
 
 namespace Gameplay.Tutorial.States.Shop.Box
@@ -9,8 +10,9 @@ namespace Gameplay.Tutorial.States.Shop.Box
         private IShopModel _shopModel;
 
         public ShopBoxTutorialState(ITutorialService tutorialService, IWindowService windowService,
-            IShopModel shopModel, ETutorialState state = ETutorialState.ShopBox)
-            : base(tutorialService, windowService, state)
+            IShopModel shopModel, IEventsManager eventsManager, ETutorialState state = ETutorialState.ShopBox)
+            : base(tutorialService, windowService, eventsManager, state)
+
         {
             _shopModel = shopModel;
         }

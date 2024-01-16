@@ -15,5 +15,6 @@ namespace Gameplay.Ad
         event Action Showed;
         void StopAds();
         event Action OnSkipAds;
+        event Action<EAdsType> StartShow;
     }
 }
