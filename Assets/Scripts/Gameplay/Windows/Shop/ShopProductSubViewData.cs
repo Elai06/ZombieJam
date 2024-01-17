@@ -13,5 +13,6 @@ namespace Gameplay.Windows.Shop
         public bool IsAvailable = true;
         public bool IsCanBuy;
         public bool IsInApp;
+        public bool isTutorial;
     }
 }

@@ -20,7 +20,6 @@ namespace Gameplay.Tutorial.States.Card
         {
             base.Enter();
 
-            _windowService.Open(WindowType.CardTutorial);
             _cardsModel.UpgradeSucced += OnUpgradeCard;
         }
 
@@ -33,7 +32,6 @@ namespace Gameplay.Tutorial.States.Card
         private void OnUpgradeCard(EZombieType obj)
         {
             _stateMachine.Enter<CompletedTutorialState>();
-            _windowService.Close(WindowType.CardTutorial);
         }
     }
 }

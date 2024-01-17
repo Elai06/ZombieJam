@@ -27,7 +27,8 @@ namespace Gameplay.Shop
         private ShopConfigData _currentConfigData;
 
         private ShopModel(GameStaticData gameStaticData, IProgressService progressService,
-            ICurrenciesModel currenciesModel, ICardsModel cardsModel, IAdsService adsService, IInAppService appService)
+            ICurrenciesModel currenciesModel, ICardsModel cardsModel, IAdsService adsService,
+            IInAppService appService)
         {
             _gameStaticData = gameStaticData;
             _progressService = progressService;

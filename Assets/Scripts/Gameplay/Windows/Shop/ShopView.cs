@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using Gameplay.Configs.Shop;
 using Gameplay.Enums;
+using Gameplay.Tutorial;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 namespace Gameplay.Windows.Shop
 {
@@ -15,13 +15,15 @@ namespace Gameplay.Windows.Shop
         public event Action<EShopProductType> ProductClick;
 
         [SerializeField] private ScrollRect _scrollView;
-        
+
         [SerializeField] private ShopProductSubViewContainer _noAdsContainer;
         [SerializeField] private ShopProductSubViewContainer _boxContainer;
         [SerializeField] private ShopProductSubViewContainer _hardContainer;
         [SerializeField] private ShopProductSubViewContainer _softContainer;
         [SerializeField] private ShopRewardPopUp _shopRewardPopUp;
         [SerializeField] private TextMeshProUGUI _noAdsDescription;
+
+        private bool _isTutorial;
 
         public void InitializeBoxes(List<ShopProductSubViewData> productSubViewData)
         {
@@ -39,13 +41,13 @@ namespace Gameplay.Windows.Shop
                     _boxContainer.Add(data.ProductType.ToString(), data);
                     subView = _boxContainer.SubViews[data.ProductType.ToString()];
                 }
-                
+
                 if (data.ProductType.ToString().Contains("Hard"))
                 {
                     _hardContainer.Add(data.ProductType.ToString(), data);
                     subView = _hardContainer.SubViews[data.ProductType.ToString()];
                 }
-                
+
                 if (data.ProductType.ToString().Contains("Soft"))
                 {
                     _softContainer.Add(data.ProductType.ToString(), data);
@@ -59,7 +61,7 @@ namespace Gameplay.Windows.Shop
                         HideNoAds();
                         continue;
                     }
-                    
+
                     _noAdsContainer.Add(data.ProductType.ToString(), data);
                     subView = _noAdsContainer.SubViews[data.ProductType.ToString()];
                 }
@@ -68,6 +70,11 @@ namespace Gameplay.Windows.Shop
 
                 subView.BuyClick += OnProductClick;
                 subView.ProductClick += OnProductClick;
+
+                if (_isTutorial)
+                {
+                    subView.SetAvailableBuyButton(data.isTutorial);
+                }
             }
         }
 
@@ -91,7 +98,7 @@ namespace Gameplay.Windows.Shop
                 data.BuyClick -= OnProductClick;
                 data.ProductClick -= OnProductClick;
             }
-            
+
             _shopRewardPopUp.gameObject.SetActive(false);
         }
 
@@ -115,12 +122,25 @@ namespace Gameplay.Windows.Shop
         public void ShowPopUp(ShopConfigData shopConfigData, Sprite priceImage, bool isCanBuy)
         {
             _shopRewardPopUp.gameObject.SetActive(true);
-            _shopRewardPopUp.Show(shopConfigData, priceImage, isCanBuy);
+            _shopRewardPopUp.Show(shopConfigData, priceImage, isCanBuy, _isTutorial);
         }
 
         public void BottomSrollRect()
         {
             _scrollView.content.anchoredPosition += Vector2.up * 400;
+        }
+
+        public void SetTutorialState(ETutorialState eTutorialState)
+        {
+            if (eTutorialState == ETutorialState.Completed)
+            {
+                _scrollView.enabled = true;
+                _isTutorial = false;
+                return;
+            }
+
+            _isTutorial = eTutorialState == ETutorialState.ShopBox || eTutorialState == ETutorialState.ShopCurrency;
+            _scrollView.enabled = !_isTutorial;
         }
     }
 }

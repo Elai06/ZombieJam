@@ -8,5 +8,6 @@ namespace Gameplay.Cards
         public CardProgressData ProgressData;
         public int ReqiredCards;
         public bool IsCanUpgrade;
+        public bool IsTutorial;
     }
 }

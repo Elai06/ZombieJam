@@ -22,6 +22,8 @@ namespace Gameplay.Windows.Shop
 
         public override void Show()
         {
+            View.SetTutorialState(_tutorialService.CurrentState);
+
             InitializeProducts();
 
             if (_tutorialService.CurrentState == ETutorialState.ShopCurrency)
@@ -38,6 +40,7 @@ namespace Gameplay.Windows.Shop
             View.ProductClick += OnProductClick;
             Model.Purchased += OnPurchased;
             Model.OpenBoxPopUp += OnProductClick;
+            _tutorialService.СhangedState += OnTutorialChanged;
         }
 
         public override void Unsubscribe()
@@ -48,6 +51,7 @@ namespace Gameplay.Windows.Shop
             View.ProductClick -= OnProductClick;
             Model.Purchased -= OnPurchased;
             Model.OpenBoxPopUp -= OnProductClick;
+            _tutorialService.СhangedState -= OnTutorialChanged;
         }
 
         private void InitializeProducts()
@@ -71,6 +75,13 @@ namespace Gameplay.Windows.Shop
                     subViewData.IsAvailable = !progress.IsBuy;
                 }
 
+                subViewData.isTutorial = subViewData.ProductType switch
+                {
+                    EShopProductType.SimpleBox => _tutorialService.CurrentState == ETutorialState.ShopBox,
+                    EShopProductType.LittleSoft => _tutorialService.CurrentState == ETutorialState.ShopCurrency,
+                    _ => false
+                };
+
                 subViews.Add(subViewData);
             }
 
@@ -79,16 +90,29 @@ namespace Gameplay.Windows.Shop
 
         private void OnProductClick(EShopProductType productType)
         {
+            switch (_tutorialService.CurrentState)
+            {
+                case ETutorialState.ShopBox when productType != EShopProductType.SimpleBox:
+                case ETutorialState.ShopCurrency:
+                    return;
+            }
+
             var config = _gameStaticData.ShopConfig.ConfigData
                 .Find(x => x.ProductType == productType);
 
             var priceSprite = _gameStaticData.SpritesConfig.GetCurrencySprite(config.PriceType);
+
             View.ShowPopUp(config, priceSprite, Model.IsCanConsume(config.PriceType, (int)config.PriceValue));
         }
 
         private void OnPurchased(EShopProductType productType)
         {
             InitializeProducts();
+        }
+        
+        private void OnTutorialChanged(ETutorialState tutorial)
+        {
+           View.SetTutorialState(tutorial);
         }
     }
 }

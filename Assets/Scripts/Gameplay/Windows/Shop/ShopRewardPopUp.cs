@@ -22,10 +22,13 @@ namespace Gameplay.Windows.Shop
         [SerializeField] private Button _buyButton;
         [SerializeField] private Image _priceImage;
         [SerializeField] private TextMeshProUGUI _notCurrencyText;
+        [SerializeField] private Image _arrowTutorial;
 
         private EShopProductType _productType;
 
         private bool _isCanBuy;
+
+        private bool _isTutorial;
 
         private void Start()
         {
@@ -46,7 +49,7 @@ namespace Gameplay.Windows.Shop
             _buyButton.onClick.RemoveListener(OnBuy);
         }
 
-        public void Show(ShopConfigData shopConfigData, Sprite priceImage, bool isCanBuy)
+        public void Show(ShopConfigData shopConfigData, Sprite priceImage, bool isCanBuy, bool isTutorial)
         {
             _nameText.text = $"{shopConfigData.ProductType}";
             _productType = shopConfigData.ProductType;
@@ -67,6 +70,8 @@ namespace Gameplay.Windows.Shop
                     _priceValue.color = isCanBuy ? Color.black : Color.red;
                 }
             }
+            
+            _arrowTutorial.gameObject.SetActive(isTutorial);
 
             _container.CleanUp();
             foreach (var reward in shopConfigData.Rewards.Rewards)
@@ -79,6 +84,12 @@ namespace Gameplay.Windows.Shop
                 };
 
                 _container.Add(viewData.ID, viewData);
+            }
+
+            if (isTutorial)
+            {
+                ShowTutorial();
+                _isTutorial = true;
             }
         }
 
@@ -93,13 +104,23 @@ namespace Gameplay.Windows.Shop
                 return;
             }
 
+            _isTutorial = false;
+
             Buy?.Invoke(_productType);
+            _arrowTutorial.gameObject.SetActive(false);
             ClosePopUp();
         }
 
         private void ClosePopUp()
         {
+            if (_isTutorial) return;
+            
             gameObject.SetActive(false);
+        }
+
+        private void ShowTutorial()
+        {
+            _arrowTutorial.gameObject.SetActive(true);
         }
     }
 }

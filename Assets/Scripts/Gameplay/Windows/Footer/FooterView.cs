@@ -12,6 +12,9 @@ namespace Gameplay.Windows.Footer
     public class FooterView : MonoBehaviour
     {
         [SerializeField] private List<FooterTab> _footerTabs = new();
+        [SerializeField] private Transform _shopTutorial;
+        [SerializeField] private Transform _cardTutorial;
+
         private IWindowService _windowService;
         private ITutorialService _tutorialService;
 
@@ -24,6 +27,9 @@ namespace Gameplay.Windows.Footer
 
         private void Start()
         {
+            _cardTutorial.gameObject.SetActive(false);
+            _shopTutorial.gameObject.SetActive(false);
+            
             InjectService.Instance.Inject(this);
 
             _tutorialService.СhangedState += OnChangedTutorialState;
@@ -82,12 +88,24 @@ namespace Gameplay.Windows.Footer
                     continue;
                 }
 
+                if (selected.WindowType == WindowType.Shop)
+                {
+                    _shopTutorial.gameObject.SetActive(false);
+                }
+
+                if (selected.WindowType == WindowType.Cards)
+                {
+                    _cardTutorial.gameObject.SetActive(false);
+                }
+
                 _windowService.Open(selected.WindowType);
             }
         }
 
         private void OnChangedTutorialState(ETutorialState tutorialState)
         {
+            if (_windowService.IsOpen(WindowType.Shop) && tutorialState == ETutorialState.ShopCurrency) return;
+
             foreach (var footerTab in _footerTabs)
             {
                 footerTab.SetInteractable(false);
@@ -105,6 +123,7 @@ namespace Gameplay.Windows.Footer
                         if (footerTab.WindowType == WindowType.Shop)
                         {
                             footerTab.SetInteractable(true);
+                            _shopTutorial.gameObject.SetActive(true);
                         }
 
                         continue;
@@ -112,6 +131,7 @@ namespace Gameplay.Windows.Footer
                         if (footerTab.WindowType == WindowType.Shop)
                         {
                             footerTab.SetInteractable(true);
+                            _shopTutorial.gameObject.SetActive(true);
                         }
 
                         continue;
@@ -119,6 +139,7 @@ namespace Gameplay.Windows.Footer
                         if (footerTab.WindowType == WindowType.Cards)
                         {
                             footerTab.SetInteractable(true);
+                            _cardTutorial.gameObject.SetActive(true);
                         }
 
                         continue;

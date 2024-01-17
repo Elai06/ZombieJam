@@ -22,14 +22,7 @@ namespace Gameplay.Tutorial.States.Shop.Box
             base.Enter();
 
 
-            if (_windowService.IsOpen(WindowType.Footer))
-            {
-                _windowService.Open(WindowType.ShopTutorial);
-            }
-            else
-            {
-                _windowService.OnOpen += OpenedWindow;
-            }
+            _windowService.OnOpen += OpenedWindow;
 
             _shopModel.Purchased += OnPurchase;
         }
@@ -40,7 +33,6 @@ namespace Gameplay.Tutorial.States.Shop.Box
 
             _windowService.OnOpen -= OpenedWindow;
             _shopModel.Purchased -= OnPurchase;
-            _windowService.Close(WindowType.ShopTutorial);
         }
 
         private void OnPurchase(EShopProductType shopProductType)
@@ -56,10 +48,6 @@ namespace Gameplay.Tutorial.States.Shop.Box
 
         private void OpenedWindow(WindowType type)
         {
-            if (type == WindowType.Footer)
-            {
-                _windowService.Open(WindowType.ShopTutorial);
-            }
         }
     }
 }

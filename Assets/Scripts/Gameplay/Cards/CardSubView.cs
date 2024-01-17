@@ -19,6 +19,7 @@ namespace Gameplay.Cards
         [SerializeField] private TextMeshProUGUI _nameText;
         [SerializeField] private TextMeshProUGUI _leveText;
         [SerializeField] private Button _clickButton;
+        [SerializeField] private Image _tutorialFinger;
 
         private EZombieType _type;
 
@@ -31,6 +32,8 @@ namespace Gameplay.Cards
             _nameText.text = $"{data.ProgressData.ZombieType}";
             _leveText.text = $"Level: {data.ProgressData.Level + 1}";
             _indicator.gameObject.SetActive(data.IsCanUpgrade);
+
+            _tutorialFinger.gameObject.SetActive(data.IsTutorial);
         }
 
         private void OnEnable()
@@ -45,6 +48,7 @@ namespace Gameplay.Cards
 
         private void OnClick()
         {
+            _tutorialFinger.gameObject.SetActive(false);
             Click?.Invoke(_type);
         }
     }

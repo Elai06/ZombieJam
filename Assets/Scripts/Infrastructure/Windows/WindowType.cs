@@ -15,7 +15,5 @@
         Shop,
         Ads,
         InApp,
-        ShopTutorial,
-        CardTutorial,
     }
 }

@@ -12,8 +12,8 @@ namespace Gameplay.Tutorial.States.Shop
 
 
         public ShopCurrencyTutorialState(ITutorialService tutorialService, IWindowService windowService,
-            IShopModel shopModel,IEventsManager eventsManager, ETutorialState state = ETutorialState.ShopCurrency)
-            : base(tutorialService, windowService,eventsManager, state)
+            IShopModel shopModel, IEventsManager eventsManager, ETutorialState state = ETutorialState.ShopCurrency)
+            : base(tutorialService, windowService, eventsManager, state)
         {
             _shopModel = shopModel;
         }
@@ -26,10 +26,9 @@ namespace Gameplay.Tutorial.States.Shop
             {
                 _windowService.Close(WindowType.Shop);
                 _windowService.Open(WindowType.Shop);
+                _windowService.Close(WindowType.Footer);
             }
 
-            _windowService.Open(WindowType.ShopTutorial);
-            _windowService.OnOpen += OpenedWindow;
             _shopModel.Purchased += OnPurchase;
         }
 
@@ -37,9 +36,10 @@ namespace Gameplay.Tutorial.States.Shop
         {
             base.Exit();
 
-            _windowService.OnOpen -= OpenedWindow;
             _shopModel.Purchased -= OnPurchase;
-            _windowService.Close(WindowType.ShopTutorial);
+
+            _windowService.Open(WindowType.Footer);
+            _windowService.Close(WindowType.Shop);
         }
 
         private void OnPurchase(EShopProductType shopProductType)
@@ -48,10 +48,6 @@ namespace Gameplay.Tutorial.States.Shop
             {
                 _stateMachine.Enter<CardTutorialState>();
             }
-        }
-
-        private void OpenedWindow(WindowType type)
-        {
         }
     }
 }

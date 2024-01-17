@@ -93,7 +93,6 @@ namespace Gameplay.Tutorial
         public void SwipeStateCompleted()
         {
             _stateMachine.Enter<ShopBoxTutorialState>();
-            _windowService.Close(WindowType.CardTutorial);
         }
 
         public void OpenCardPopUp(EZombieType zombieType)

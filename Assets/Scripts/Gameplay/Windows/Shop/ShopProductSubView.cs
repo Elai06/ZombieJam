@@ -19,6 +19,7 @@ namespace Gameplay.Windows.Shop
         [SerializeField] private Button _buyButton;
         [SerializeField] private Button _productButton;
         [SerializeField] private TextMeshProUGUI _notCurrencyText;
+        [SerializeField] private Image _arrowTutorial;
 
         private EShopProductType _productType;
 
@@ -48,6 +49,8 @@ namespace Gameplay.Windows.Shop
             _buyButton.gameObject.SetActive(data.IsAvailable);
 
             _productButton.gameObject.SetActive(data.ProductType.ToString().Contains("Box"));
+
+            _arrowTutorial.gameObject.SetActive(data.isTutorial);
         }
 
         private void OnEnable()
@@ -72,6 +75,8 @@ namespace Gameplay.Windows.Shop
                     .OnComplete(() => _notCurrencyText.gameObject.SetActive(false));
                 return;
             }
+            
+            _arrowTutorial.gameObject.SetActive(false);
 
             BuyClick?.Invoke(_productType);
         }
@@ -79,6 +84,12 @@ namespace Gameplay.Windows.Shop
         private void OnProductClick()
         {
             ProductClick?.Invoke(_productType);
+            _arrowTutorial.gameObject.SetActive(false);
+        }
+
+        public void SetAvailableBuyButton(bool isAvailable)
+        {
+            _buyButton.enabled = isAvailable;
         }
     }
 }

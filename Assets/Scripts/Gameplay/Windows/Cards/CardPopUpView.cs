@@ -23,6 +23,7 @@ namespace Gameplay.Windows.Cards
         [SerializeField] private TextMeshProUGUI _sliderValue;
         [SerializeField] private Slider _slider;
         [SerializeField] private TextMeshProUGUI _notCurrencyText;
+        [SerializeField] private Image _tutorialFinger;
 
         [SerializeField] private ParameterSubViewContainer _parameterSubViewContainer;
 
@@ -42,6 +43,8 @@ namespace Gameplay.Windows.Cards
             _priceValue.color = data.IsCanUpgrade ? Color.black : Color.red;
             _isCanUpgrade = data.IsCanUpgrade;
 
+            _tutorialFinger.gameObject.SetActive(data.IsTutorial);
+            
             _parameterSubViewContainer.CleanUp();
             foreach (var parameter in data.ParametersConfig)
             {
@@ -90,6 +93,8 @@ namespace Gameplay.Windows.Cards
                     .OnComplete(() => _notCurrencyText.gameObject.SetActive(false));
                 return;
             }
+            
+            _tutorialFinger.gameObject.SetActive(false);
 
             Upgrade?.Invoke(_type);
         }

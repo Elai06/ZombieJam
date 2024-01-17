@@ -17,5 +17,6 @@ namespace Gameplay.Windows.Cards
         public int CurrencyValue;
         public List<ParameterData> ParameterData;
         public bool IsCanUpgrade;
+        public bool IsTutorial;
     }
 }

@@ -32,7 +32,6 @@ namespace Gameplay.Windows.Cards
             View.Upgrade += OnUpgrade;
             Model.UpgradeSucced += UpdateCard;
             View.OnClickCard += ShowPopUp;
-            _tutorialService.OnOpenCardPopUp += ShowPopUp;
         }
 
         public override void Unsubscribe()
@@ -42,7 +41,6 @@ namespace Gameplay.Windows.Cards
             View.Upgrade -= OnUpgrade;
             Model.UpgradeSucced -= UpdateCard;
             View.OnClickCard -= ShowPopUp;
-            _tutorialService.OnOpenCardPopUp -= ShowPopUp;
         }
 
         private void InitializeCards()
@@ -58,8 +56,17 @@ namespace Gameplay.Windows.Cards
                     IsCanUpgrade = Model.IsCanUpgrade(zombieData.ZombieType, progress),
                 };
 
+                if (_tutorialService.CurrentState == ETutorialState.Card)
+                {
+                    if (viewData.IsCanUpgrade)
+                    {
+                        viewData.IsTutorial = true;
+                    }
+                }
+
                 cardsSubViewData.Add(viewData);
             }
+
 
             View.InitializeCards(cardsSubViewData);
         }
@@ -79,13 +86,14 @@ namespace Gameplay.Windows.Cards
                 IsCanUpgrade = Model.IsCanUpgrade(type, progress),
             };
 
-            ShowPopUp(type);
-
             View.CardsSubViewContainer.UpdateView(viewData, type.ToString());
+            ShowPopUp(type);
         }
 
         private void ShowPopUp(EZombieType type)
         {
+            if (_tutorialService.CurrentState == ETutorialState.Card && type != EZombieType.Easy) return;
+
             var progress = Model.CardsProgress.GetOrCreate(type);
             var currencyType = Model.GetCurrencyType(type);
             var config = Model.CardsConfig.Cards.Find(x => x.ZombieType == type);
@@ -97,7 +105,8 @@ namespace Gameplay.Windows.Cards
                 CurrencySprite = _gameStaticData.SpritesConfig.GetCurrencySprite(currencyType),
                 CurrencyValue = Model.GetCurrencyPrice(type, currencyType),
                 ParameterData = config.ParametersConfig.Parameters,
-                IsCanUpgrade = Model.IsCanUpgrade(type, progress)
+                IsCanUpgrade = Model.IsCanUpgrade(type, progress),
+                IsTutorial = _tutorialService.CurrentState == ETutorialState.Card
             };
 
             View.ShowPopUp(viewData);
