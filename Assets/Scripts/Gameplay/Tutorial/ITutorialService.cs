@@ -10,7 +10,7 @@ namespace Gameplay.Tutorial
         event Action<ETutorialState> СhangedState;
         void Initalize();
         void SwipeStateCompleted();
-        event Action<EZombieType> OnOpenCardPopUp;
-        void OpenCardPopUp(EZombieType zombieType);
+        event Action<EUnitClass> OnOpenCardPopUp;
+        void OpenCardPopUp(EUnitClass unitClass);
     }
 }

@@ -21,7 +21,7 @@ namespace Gameplay.Cards
             _cardsModel.CardValueChanged += OnCardValueChanged;
         }
 
-        private void OnCardValueChanged(EZombieType obj)
+        private void OnCardValueChanged(EUnitClass obj)
         {
             _indicator.gameObject.SetActive(_cardsModel.IsAvailableUpgrade());
         }

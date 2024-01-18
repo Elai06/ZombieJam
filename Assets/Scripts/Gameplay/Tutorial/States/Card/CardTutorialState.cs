@@ -29,7 +29,7 @@ namespace Gameplay.Tutorial.States.Card
             _cardsModel.UpgradeSucced -= OnUpgradeCard;
         }
 
-        private void OnUpgradeCard(EZombieType obj)
+        private void OnUpgradeCard(EUnitClass obj)
         {
             _stateMachine.Enter<CompletedTutorialState>();
         }

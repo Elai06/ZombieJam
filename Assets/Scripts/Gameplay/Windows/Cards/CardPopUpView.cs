@@ -12,7 +12,7 @@ namespace Gameplay.Windows.Cards
 {
     public class CardPopUpView : MonoBehaviour
     {
-        public event Action<EZombieType> Upgrade;
+        public event Action<EUnitClass> Upgrade;
 
         [SerializeField] private Button _upgradeButton;
         [SerializeField] private Button _closeButtonBG;
@@ -27,15 +27,15 @@ namespace Gameplay.Windows.Cards
 
         [SerializeField] private ParameterSubViewContainer _parameterSubViewContainer;
 
-        private EZombieType _type;
+        private EUnitClass _type;
         private bool _isCanUpgrade;
 
         public void Initialize(CardPopUpData data)
         {
             _currencyImage.sprite = data.CurrencySprite;
-            _nameText.text = $"{data.ProgressData.ZombieType} Level {data.ProgressData.Level + 1}";
+            _nameText.text = $"{data.ProgressData.unitClass} Level {data.ProgressData.Level + 1}";
             _priceValue.text = $"{data.CurrencyValue}";
-            _type = data.ProgressData.ZombieType;
+            _type = data.ProgressData.unitClass;
             _slider.value = data.ProgressData.CardsValue / (float)data.CardsReqired;
             _sliderValue.text = $"{data.ProgressData.CardsValue}/{data.CardsReqired}";
             _notCurrencyText.gameObject.SetActive(false);

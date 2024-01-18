@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Gameplay.Enemies.States
 {
-    public class EnemyIdleState : EnemyState
+    public class TowerIdleState : EnemyState
     {
         private ITargetManager _targetManager;
         private ICoroutineService _coroutineService;
@@ -15,13 +15,13 @@ namespace Gameplay.Enemies.States
 
         private Coroutine _coroutine;
 
-        public EnemyIdleState(Enemy enemy, ITargetManager targetManager, ICoroutineService coroutineService,
-            ParametersConfig parametersConfig) : base(enemy, EEnemyState.Idle)
+        public TowerIdleState(EnemyTower enemyTower, ITargetManager targetManager, ICoroutineService coroutineService,
+            ParametersConfig parametersConfig) : base(enemyTower, EEnemyState.Idle)
         {
             _targetManager = targetManager;
             _coroutineService = coroutineService;
             _parametersConfig = parametersConfig;
-            _enemy = enemy;
+            EnemyTower = enemyTower;
         }
 
         public override void Exit()
@@ -45,12 +45,12 @@ namespace Gameplay.Enemies.States
             var radiusAttack = _parametersConfig.GetDictionary()[EParameter.RadiusAttack].Value;
             while (true)
             {
-                if (_enemy == null) yield break;
-                _enemy.Target = _targetManager.GetTargetUnit(_enemy.transform, radiusAttack);
+                if (EnemyTower == null) yield break;
+                EnemyTower.Target = _targetManager.GetTargetUnit(EnemyTower.transform, radiusAttack);
 
-                if (_enemy.Target != null)
+                if (EnemyTower.Target != null)
                 {
-                    _stateMachine.Enter<EnemyBattleState>();
+                    _stateMachine.Enter<TowerBattleState>();
                     yield break;
                 }
 

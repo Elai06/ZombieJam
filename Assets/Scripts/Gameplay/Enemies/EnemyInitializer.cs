@@ -10,13 +10,13 @@ namespace Gameplay.Enemies
 {
     public class EnemyInitializer : MonoBehaviour
     {
-        [SerializeField] private List<Enemy> _enemies;
+        [SerializeField] private List<EnemyTower> _enemies;
         [SerializeField] private BuildingConfig _config;
         [SerializeField] private TargetManager _targetManager;
 
       [Inject]  private ICoroutineService _coroutineService;
 
-      public List<Enemy> Enemies => _enemies;
+      public List<EnemyTower> Enemies => _enemies;
 
       private void Start()
         {
@@ -24,7 +24,7 @@ namespace Gameplay.Enemies
             
             foreach (var enemy in _enemies)
             {
-                var configData = _config.GetBuildingConfig(enemy.BuildingType).Parameters;
+                var configData = _config.GetBuildingConfig(enemy.EnemyType).Parameters;
                 enemy.Initialize(configData, _coroutineService, _targetManager);
             }
         }

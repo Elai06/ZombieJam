@@ -92,22 +92,22 @@ namespace Infrastructure.Events
             Debug.Log($"Send appmetrica event {eventName}");
         }
 
-        private void OnStartUpgrade(EZombieType zombieType)
+        private void OnStartUpgrade(EUnitClass unitClass)
         {
             var regionProgress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
             var parameters =
-                $"{{\"UnitType\":\"{zombieType}\", " +
+                $"{{\"UnitType\":\"{unitClass}\", " +
                 $"\"RegionType\":\"{regionProgress.ERegionType}\", " +
                 $"\"WaveIndex\":\"{regionProgress.CurrentWaweIndex}\"}}";
 
             SendEventWithLevelDay("Button unit upgrade", parameters);
         }
 
-        private void OnUpgradeCard(EZombieType zombieType)
+        private void OnUpgradeCard(EUnitClass unitClass)
         {
             var regionProgress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
             var parameters =
-                $"{{\"UnitType\":\"{zombieType}\", " +
+                $"{{\"UnitType\":\"{unitClass}\", " +
                 $"\"RegionType\":\"{regionProgress.ERegionType}\", " +
                 $"\"WaveIndex\":\"{regionProgress.CurrentWaweIndex}\"}}";
             SendEventWithLevelDay("Unit upgrade", parameters);

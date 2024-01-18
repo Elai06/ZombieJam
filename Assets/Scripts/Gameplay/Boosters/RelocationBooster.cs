@@ -48,7 +48,7 @@ namespace Gameplay.Boosters
             {
                 // Генерируем случайный индекс из диапазона, начиная от текущего индекса до конца массива
                 var currentUnit = zombiesInParking[i];
-                var zombies = zombiesInParking.Where(x => x.ZombieType == currentUnit.ZombieType).ToList();
+                var zombies = zombiesInParking.Where(x => x.UnitClass == currentUnit.UnitClass).ToList();
                 var randomIndex = Random.Range(0, zombies.Count);
                 var randomUnit = zombies[randomIndex];
 

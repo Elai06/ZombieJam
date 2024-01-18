@@ -75,7 +75,7 @@ namespace Gameplay.Parking
             foreach (var spawnPosition in positions)
             {
                 if (!spawnPosition.IsAvailablePosition()) continue;
-                var config = _zombieConfig.Config.Find(x => x.Type == spawnPosition.ZombieType);
+                var config = _zombieConfig.Config.Find(x => x.Type == spawnPosition.unitClass);
                 var prefab = Instantiate(config.Prefab, spawnPosition.GetSpawnPosition(),
                     Quaternion.identity, _spawnPosition);
                 prefab.transform.localPosition = spawnPosition.GetSpawnPosition();

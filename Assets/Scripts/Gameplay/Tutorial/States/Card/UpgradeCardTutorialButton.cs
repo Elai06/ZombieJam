@@ -35,7 +35,7 @@ namespace Gameplay.Tutorial.States.Card
 
         private void UpgradeCard()
         {
-            _cardsModel.UpgradeZombie(EZombieType.Easy);
+            _cardsModel.UpgradeZombie(EUnitClass.Warrior);
         }
     }
 }

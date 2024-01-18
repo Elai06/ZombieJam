@@ -11,11 +11,11 @@ using UnityEngine;
 
 namespace Gameplay.Enemies
 {
-    public class Enemy : MonoBehaviour
+    public class EnemyTower : MonoBehaviour, IEnemy
     {
         public event Action Died;
 
-        [SerializeField] private EBuildingType _type;
+        [SerializeField] private EEnemyType _type;
         [SerializeField] private HealthBar _healthBar;
         [SerializeField] private CircleRenderer _circleRenderer;
         [SerializeField] private int _unitsCount = 12;
@@ -36,7 +36,7 @@ namespace Gameplay.Enemies
         public bool IsDead { get; set; }
         public EEnemyState CurrentState { get; set; }
 
-        public EBuildingType BuildingType => _type;
+        public EEnemyType EnemyType => _type;
 
         public bool IsSafe => _isSafe;
 
@@ -57,15 +57,15 @@ namespace Gameplay.Enemies
 
         private void InitializeStates()
         {
-            var idleState = new EnemyIdleState(this, _targetManager, _coroutineService, _parametersConfig);
-            var battleState = new EnemyBattleState(this, _coroutineService, _parametersConfig);
-            var diedState = new EnemyDiedState(this);
+            var idleState = new TowerIdleState(this, _targetManager, _coroutineService, _parametersConfig);
+            var battleState = new TowerBattleState(this, _coroutineService, _parametersConfig);
+            var diedState = new TowerDiedState(this);
 
             _stateMachine.AddState(idleState);
             _stateMachine.AddState(battleState);
             _stateMachine.AddState(diedState);
 
-            _stateMachine.Enter<EnemyIdleState>();
+            _stateMachine.Enter<TowerIdleState>();
         }
 
         public void GetDamage(float damage)
@@ -78,7 +78,7 @@ namespace Gameplay.Enemies
             if (Health <= 0)
             {
                 Health = 0;
-                _stateMachine.Enter<EnemyDiedState>();
+                _stateMachine.Enter<TowerDiedState>();
                 Died?.Invoke();
             }
         }

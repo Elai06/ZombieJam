@@ -74,7 +74,7 @@ namespace Gameplay.Reward
 
                 if (reward.ResourceType == EResourceType.Card)
                 {
-                    Enum.TryParse<EZombieType>(reward.ID, out var currencyType);
+                    Enum.TryParse<EUnitClass>(reward.ID, out var currencyType);
                     _cardsModel.AddCards(currencyType, reward.Value);
                 }
             }

@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Gameplay.Enemies.States
 {
-    public class EnemyDiedState : EnemyState
+    public class TowerDiedState : EnemyState
     {
-        public EnemyDiedState(Enemy enemy) : base(enemy, EEnemyState.Died)
+        public TowerDiedState(EnemyTower enemyTower) : base(enemyTower, EEnemyState.Died)
         {
         }
 
@@ -18,8 +18,8 @@ namespace Gameplay.Enemies.States
         {
             base.Enter();
             
-            _enemy.IsDead = true;
-            _enemy.gameObject.SetActive(false);
+            EnemyTower.IsDead = true;
+            EnemyTower.gameObject.SetActive(false);
         }
     }
 }

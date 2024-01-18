@@ -87,7 +87,7 @@ namespace Gameplay.Level
                         _rewardModel.AdditionalRewards(EResourceType.Currency, currencyType.ToString(), reward.Value);
                         continue;
                     case EResourceType.Card:
-                        Enum.TryParse<EZombieType>(reward.GetId(), out var card);
+                        Enum.TryParse<EUnitClass>(reward.GetId(), out var card);
                         _rewardModel.AdditionalRewards(EResourceType.Card, card.ToString(), reward.Value);
                         break;
                     default:

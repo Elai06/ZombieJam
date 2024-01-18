@@ -7,18 +7,18 @@ using UnityEngine;
 
 namespace Gameplay.Enemies.States
 {
-    public class EnemyBattleState : EnemyState
+    public class TowerBattleState : EnemyState
     {
         private readonly ICoroutineService _coroutineService;
         private readonly Dictionary<EParameter, ParameterData> _parametersConfig;
         private Coroutine _coroutine;
 
-        public EnemyBattleState(Enemy enemy, ICoroutineService coroutineService, ParametersConfig parametersConfig)
-            : base(enemy, EEnemyState.Battle)
+        public TowerBattleState(EnemyTower enemyTower, ICoroutineService coroutineService, ParametersConfig parametersConfig)
+            : base(enemyTower, EEnemyState.Battle)
         {
             _coroutineService = coroutineService;
             _parametersConfig = parametersConfig.GetDictionary();
-            _enemy = enemy;
+            EnemyTower = enemyTower;
         }
 
         public override void Enter()
@@ -40,27 +40,27 @@ namespace Gameplay.Enemies.States
             var time = 0f;
             while (true)
             {
-                if (_enemy.IsDead)
+                if (EnemyTower.IsDead)
                 {
-                    _stateMachine.Enter<EnemyDiedState>();
+                    _stateMachine.Enter<TowerDiedState>();
                     yield break;
                 }
 
-                if (time >= attackRate && !_enemy.IsSafe)
+                if (time >= attackRate && !EnemyTower.IsSafe)
                 {
                     var speedAttack = _parametersConfig[EParameter.AttackSpeed].Value;
                     var distanceToTarget =
-                        Vector3.Distance(_enemy.transform.position, _enemy.Target.transform.position);
+                        Vector3.Distance(EnemyTower.transform.position, EnemyTower.Target.transform.position);
                     if (IsAvailableDistance(distanceToTarget))
                     {
-                        _enemy.ShoteBullet(_enemy.Target.transform, speedAttack);
+                        EnemyTower.ShoteBullet(EnemyTower.Target.transform, speedAttack);
                         time = 0f;
                     }
                 }
 
-                if (_enemy.Target == null || _enemy.Target.IsDied)
+                if (EnemyTower.Target == null || EnemyTower.Target.IsDied)
                 {
-                    _stateMachine.Enter<EnemyIdleState>();
+                    _stateMachine.Enter<TowerIdleState>();
                     yield break;
                 }
 
@@ -74,7 +74,7 @@ namespace Gameplay.Enemies.States
             var radiusAttack = _parametersConfig[EParameter.RadiusAttack].Value;
             if (distance > radiusAttack)
             {
-                _stateMachine.Enter<EnemyIdleState>();
+                _stateMachine.Enter<TowerIdleState>();
                 return false;
             }
 

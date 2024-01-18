@@ -42,7 +42,7 @@ namespace Gameplay.Windows.Shop
                     subView = _boxContainer.SubViews[data.ProductType.ToString()];
                 }
 
-                if (data.ProductType.ToString().Contains("Hard"))
+                if (data.ProductType.ToString().Contains("Tank"))
                 {
                     _hardContainer.Add(data.ProductType.ToString(), data);
                     subView = _hardContainer.SubViews[data.ProductType.ToString()];

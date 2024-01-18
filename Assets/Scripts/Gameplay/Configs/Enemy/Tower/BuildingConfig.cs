@@ -9,7 +9,7 @@ namespace Gameplay.Configs
     {
         [SerializeField] private List<BuldingConfigData> _config;
 
-        public BuldingConfigData GetBuildingConfig(EBuildingType type)
+        public BuldingConfigData GetBuildingConfig(EEnemyType type)
         {
             return _config.Find(x => x.Type == type);
         }

@@ -16,5 +16,10 @@ namespace Gameplay.Parameters
         {
             return _datas.ToDictionary(data => data.Type, data => data);
         }
+
+        public Dictionary<EParameter, float> GetDictionaryTypeFloat()
+        {
+            return _datas.ToDictionary(data => data.Type, data => data.Value);
+        }
     }
 }

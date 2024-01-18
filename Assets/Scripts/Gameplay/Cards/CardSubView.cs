@@ -10,7 +10,7 @@ namespace Gameplay.Cards
 {
     public class CardSubView : SubView<CardSubViewData>
     {
-        public event Action<EZombieType> Click;
+        public event Action<EUnitClass> Click;
 
         [SerializeField] private Image _icon;
         [SerializeField] private Image _indicator;
@@ -21,15 +21,15 @@ namespace Gameplay.Cards
         [SerializeField] private Button _clickButton;
         [SerializeField] private Image _tutorialFinger;
 
-        private EZombieType _type;
+        private EUnitClass _type;
 
         public override void Initialize(CardSubViewData data)
         {
             // _icon.sprite = data.Icon;
             _cardSlider.value = (float)data.ProgressData.CardsValue / data.ReqiredCards;
             _valueCardsText.text = $"{data.ProgressData.CardsValue}/{data.ReqiredCards}";
-            _type = data.ProgressData.ZombieType;
-            _nameText.text = $"{data.ProgressData.ZombieType}";
+            _type = data.ProgressData.unitClass;
+            _nameText.text = $"{data.ProgressData.unitClass}";
             _leveText.text = $"Level: {data.ProgressData.Level + 1}";
             _indicator.gameObject.SetActive(data.IsCanUpgrade);
 

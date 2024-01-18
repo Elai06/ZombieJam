@@ -30,7 +30,7 @@ namespace Gameplay.Units
             }
 
             _slider.value = health / _maxHealth;
-            
+
             _damageText.Damage(damage);
 
             if (_slider.value <= 0)

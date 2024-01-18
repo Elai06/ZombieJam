@@ -9,7 +9,7 @@ namespace Gameplay.Configs
     [Serializable]
     public struct ZombieData
     {
-        public EZombieType Type;
+        public EUnitClass Type;
         public Unit Prefab;
         public ParametersConfig Parameters;
     }

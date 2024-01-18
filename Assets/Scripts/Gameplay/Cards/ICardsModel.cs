@@ -10,18 +10,18 @@ namespace Gameplay.Cards
     {
         CardsProgress CardsProgress { get; set; }
         CardsConfig CardsConfig { get; set; }
-        Dictionary<EZombieType, CardModel> CardModels { get; }
-        void UpgradeZombie(EZombieType zombieType);
-        Dictionary<EParameter, float> GetParameters(EZombieType type);
-        event Action<EZombieType> UpgradeSucced;
-        int GetReqiredCardsValue(EZombieType type);
+        Dictionary<EUnitClass, CardModel> CardModels { get; }
+        void UpgradeZombie(EUnitClass unitClass);
+        Dictionary<EParameter, float> GetParameters(EUnitClass type);
+        event Action<EUnitClass> UpgradeSucced;
+        int GetReqiredCardsValue(EUnitClass type);
         void Initialize();
-        void AddCards(EZombieType type, int value);
-        event Action<EZombieType> CardValueChanged;
+        void AddCards(EUnitClass type, int value);
+        event Action<EUnitClass> CardValueChanged;
         bool IsAvailableUpgrade();
-        int GetCurrencyPrice(EZombieType zombieType, ECurrencyType currencyType);
-        ECurrencyType GetCurrencyType(EZombieType zombieType);
-        bool IsCanUpgrade(EZombieType zombieType, CardProgressData cardProgressData);
-        event Action<EZombieType> StartUpgrade;
+        int GetCurrencyPrice(EUnitClass unitClass, ECurrencyType currencyType);
+        ECurrencyType GetCurrencyType(EUnitClass unitClass);
+        bool IsCanUpgrade(EUnitClass unitClass, CardProgressData cardProgressData);
+        event Action<EUnitClass> StartUpgrade;
     }
 }

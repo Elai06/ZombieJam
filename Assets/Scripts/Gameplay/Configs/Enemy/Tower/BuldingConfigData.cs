@@ -7,7 +7,7 @@ namespace Gameplay.Configs
     [Serializable]
     public struct BuldingConfigData
     {
-        public EBuildingType Type;
+        public EEnemyType Type;
         public ParametersConfig Parameters;
     }
 }

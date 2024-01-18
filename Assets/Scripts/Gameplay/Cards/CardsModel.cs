@@ -10,10 +10,10 @@ namespace Gameplay.Cards
 {
     public class CardsModel : ICardsModel
     {
-        public event Action<EZombieType> CardValueChanged;
+        public event Action<EUnitClass> CardValueChanged;
 
-        public event Action<EZombieType> UpgradeSucced;
-        public event Action<EZombieType> StartUpgrade;
+        public event Action<EUnitClass> UpgradeSucced;
+        public event Action<EUnitClass> StartUpgrade;
 
         private readonly IProgressService _progressService;
         private readonly GameStaticData _gameStaticData;
@@ -22,7 +22,7 @@ namespace Gameplay.Cards
         public CardsProgress CardsProgress { get; set; }
         public CardsConfig CardsConfig { get; set; }
 
-        public Dictionary<EZombieType, CardModel> CardModels { get; private set; } = new();
+        public Dictionary<EUnitClass, CardModel> CardModels { get; private set; } = new();
 
         public CardsModel(IProgressService progressService, GameStaticData gameStaticData,
             ICurrenciesModel currenciesModel)
@@ -46,53 +46,53 @@ namespace Gameplay.Cards
 
             foreach (var card in CardsConfig.Cards)
             {
-                var progress = CardsProgress.GetOrCreate(card.ZombieType);
+                var progress = CardsProgress.GetOrCreate(card.UnitClass);
                 var model = new CardModel(progress, card);
-                CardModels.Add(card.ZombieType, model);
+                CardModels.Add(card.UnitClass, model);
             }
         }
 
-        public void UpgradeZombie(EZombieType zombieType)
+        public void UpgradeZombie(EUnitClass unitClass)
         {
-            var progress = CardsProgress.GetOrCreate(zombieType);
-            var reqiredCardsValue = GetReqiredCardsValue(zombieType);
-            var currencyType = GetCurrencyType(zombieType);
+            var progress = CardsProgress.GetOrCreate(unitClass);
+            var reqiredCardsValue = GetReqiredCardsValue(unitClass);
+            var currencyType = GetCurrencyType(unitClass);
 
-            StartUpgrade?.Invoke(zombieType);
+            StartUpgrade?.Invoke(unitClass);
 
-            if (IsCanUpgrade(zombieType, progress))
+            if (IsCanUpgrade(unitClass, progress))
             {
-                CardModels[zombieType].Upgrade();
+                CardModels[unitClass].Upgrade();
                 ConsumeCards(progress, reqiredCardsValue);
-                _currenciesModel.Consume(currencyType, GetCurrencyPrice(zombieType, currencyType));
-                UpgradeSucced?.Invoke(zombieType);
+                _currenciesModel.Consume(currencyType, GetCurrencyPrice(unitClass, currencyType));
+                UpgradeSucced?.Invoke(unitClass);
             }
         }
 
-        public bool IsCanUpgrade(EZombieType zombieType, CardProgressData cardProgressData)
+        public bool IsCanUpgrade(EUnitClass unitClass, CardProgressData cardProgressData)
         {
-            var currencyType = GetCurrencyType(zombieType);
-            var currencyPrice = GetCurrencyPrice(zombieType, currencyType);
+            var currencyType = GetCurrencyType(unitClass);
+            var currencyPrice = GetCurrencyPrice(unitClass, currencyType);
             var currencyProgress = _currenciesModel.GetCurrencyProgress().GetOrCreate(currencyType);
 
-            return IsCanConsumeCards(cardProgressData, GetReqiredCardsValue(zombieType)) &&
+            return IsCanConsumeCards(cardProgressData, GetReqiredCardsValue(unitClass)) &&
                    _currenciesModel.IsCanConsume(currencyProgress, currencyPrice);
         }
 
-        public int GetReqiredCardsValue(EZombieType type)
+        public int GetReqiredCardsValue(EUnitClass type)
         {
-            var config = CardsConfig.Cards.Find(x => x.ZombieType == type);
+            var config = CardsConfig.Cards.Find(x => x.UnitClass == type);
             var progress = CardsProgress.GetOrCreate(type);
 
             return config.UpgradeCards + progress.Level;
         }
 
-        public Dictionary<EParameter, float> GetParameters(EZombieType type)
+        public Dictionary<EParameter, float> GetParameters(EUnitClass type)
         {
             return CardModels[type].Parameters;
         }
 
-        public void AddCards(EZombieType type, int value)
+        public void AddCards(EUnitClass type, int value)
         {
             var progress = CardsProgress.GetOrCreate(type);
             progress.CardsValue += value;
@@ -102,7 +102,7 @@ namespace Gameplay.Cards
         private void ConsumeCards(CardProgressData progress, int value)
         {
             progress.CardsValue -= value;
-            CardValueChanged?.Invoke(progress.ZombieType);
+            CardValueChanged?.Invoke(progress.unitClass);
         }
 
         private bool IsCanConsumeCards(CardProgressData progress, int value)
@@ -114,10 +114,10 @@ namespace Gameplay.Cards
         {
             foreach (var configData in CardsConfig.Cards)
             {
-                var progress = CardsProgress.GetOrCreate(configData.ZombieType);
-                var reqiredCards = GetReqiredCardsValue(configData.ZombieType);
-                var currency = _currenciesModel.GetCurrencyProgress().GetOrCreate(GetCurrencyType(progress.ZombieType));
-                var currencyPrice = GetCurrencyPrice(progress.ZombieType, currency.CurrencyType);
+                var progress = CardsProgress.GetOrCreate(configData.UnitClass);
+                var reqiredCards = GetReqiredCardsValue(configData.UnitClass);
+                var currency = _currenciesModel.GetCurrencyProgress().GetOrCreate(GetCurrencyType(progress.unitClass));
+                var currencyPrice = GetCurrencyPrice(progress.unitClass, currency.CurrencyType);
 
                 if (progress.CardsValue >= reqiredCards && _currenciesModel.IsCanConsume(currency, currencyPrice))
                 {
@@ -128,20 +128,20 @@ namespace Gameplay.Cards
             return false;
         }
 
-        public int GetCurrencyPrice(EZombieType zombieType, ECurrencyType currencyType)
+        public int GetCurrencyPrice(EUnitClass unitClass, ECurrencyType currencyType)
         {
-            var config = CardsConfig.Cards.Find(x => x.ZombieType == zombieType);
-            var progress = CardsProgress.GetOrCreate(zombieType);
+            var config = CardsConfig.Cards.Find(x => x.UnitClass == unitClass);
+            var progress = CardsProgress.GetOrCreate(unitClass);
 
             return (currencyType == ECurrencyType.SoftCurrency
                 ? config.SoftStartPrice
                 : config.HardStartPrice) * (progress.Level + 1);
         }
 
-        public ECurrencyType GetCurrencyType(EZombieType zombieType)
+        public ECurrencyType GetCurrencyType(EUnitClass unitClass)
         {
-            var config = CardsConfig.Cards.Find(x => x.ZombieType == zombieType);
-            var progress = CardsProgress.GetOrCreate(zombieType);
+            var config = CardsConfig.Cards.Find(x => x.UnitClass == unitClass);
+            var progress = CardsProgress.GetOrCreate(unitClass);
             return (progress.Level + 1) % config.HardCurrencyEveryLevel == 0
                 ? ECurrencyType.HardCurrency
                 : ECurrencyType.SoftCurrency;

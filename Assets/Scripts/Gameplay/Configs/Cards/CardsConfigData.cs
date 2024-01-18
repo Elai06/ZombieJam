@@ -7,7 +7,7 @@ namespace Gameplay.Configs.Cards
     [Serializable]
     public struct CardsConfigData
     {
-        public EZombieType ZombieType;
+        public EUnitClass UnitClass;
         public ParametersConfig ParametersConfig;
         public int UpgradeCards;
         public int HardCurrencyEveryLevel;

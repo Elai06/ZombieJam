@@ -40,7 +40,7 @@ namespace Gameplay.Battle
             }
         }
 
-        public Enemy GetTargetEnemy(Transform unitTransform)
+        public EnemyTower GetTargetEnemy(Transform unitTransform)
         {
             var target = _enemyInitializer.Enemies.Find(x => !x.IsDead);
             if (target == null) return null;

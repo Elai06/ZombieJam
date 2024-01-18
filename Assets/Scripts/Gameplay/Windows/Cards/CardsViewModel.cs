@@ -48,12 +48,12 @@ namespace Gameplay.Windows.Cards
             var cardsSubViewData = new List<CardSubViewData>();
             foreach (var zombieData in Model.CardsConfig.Cards)
             {
-                var progress = Model.CardsProgress.GetOrCreate(zombieData.ZombieType);
+                var progress = Model.CardsProgress.GetOrCreate(zombieData.UnitClass);
                 var viewData = new CardSubViewData
                 {
                     ProgressData = progress,
-                    ReqiredCards = Model.GetReqiredCardsValue(zombieData.ZombieType),
-                    IsCanUpgrade = Model.IsCanUpgrade(zombieData.ZombieType, progress),
+                    ReqiredCards = Model.GetReqiredCardsValue(zombieData.UnitClass),
+                    IsCanUpgrade = Model.IsCanUpgrade(zombieData.UnitClass, progress),
                 };
 
                 if (_tutorialService.CurrentState == ETutorialState.Card)
@@ -71,12 +71,12 @@ namespace Gameplay.Windows.Cards
             View.InitializeCards(cardsSubViewData);
         }
 
-        private void OnUpgrade(EZombieType zombieType)
+        private void OnUpgrade(EUnitClass unitClass)
         {
-            Model.UpgradeZombie(zombieType);
+            Model.UpgradeZombie(unitClass);
         }
 
-        private void UpdateCard(EZombieType type)
+        private void UpdateCard(EUnitClass type)
         {
             var progress = Model.CardsProgress.GetOrCreate(type);
             var viewData = new CardSubViewData()
@@ -90,13 +90,13 @@ namespace Gameplay.Windows.Cards
             ShowPopUp(type);
         }
 
-        private void ShowPopUp(EZombieType type)
+        private void ShowPopUp(EUnitClass type)
         {
-            if (_tutorialService.CurrentState == ETutorialState.Card && type != EZombieType.Easy) return;
+            if (_tutorialService.CurrentState == ETutorialState.Card && type != EUnitClass.Warrior) return;
 
             var progress = Model.CardsProgress.GetOrCreate(type);
             var currencyType = Model.GetCurrencyType(type);
-            var config = Model.CardsConfig.Cards.Find(x => x.ZombieType == type);
+            var config = Model.CardsConfig.Cards.Find(x => x.UnitClass == type);
             var viewData = new CardPopUpData
             {
                 ParametersConfig = Model.GetParameters(type),

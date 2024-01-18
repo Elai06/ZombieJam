@@ -6,14 +6,14 @@ namespace Gameplay.Enemies.States
 {
     public class EnemyState : IState
     {
-        protected Enemy _enemy;
+        protected EnemyTower EnemyTower;
         protected IStateMachine _stateMachine;
 
         private EEnemyState _enemyState;
 
-        public EnemyState(Enemy enemy, EEnemyState eEnemyState)
+        public EnemyState(EnemyTower enemyTower, EEnemyState eEnemyState)
         {
-            _enemy = enemy;
+            EnemyTower = enemyTower;
             _enemyState = eEnemyState;
         }
 
@@ -28,7 +28,7 @@ namespace Gameplay.Enemies.States
 
         public virtual void Enter()
         {
-            _enemy.CurrentState = _enemyState;
+            EnemyTower.CurrentState = _enemyState;
         }
     }
 }

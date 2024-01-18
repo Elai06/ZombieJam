@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &978521869495339438
 GameObject:
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition: []
 --- !u!1 &2722637911311950771
 GameObject:
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 1
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &2889486839083083113
 GameObject:
@@ -285,7 +285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 1
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition:
   - {fileID: 1836792880551283841}
 --- !u!1 &2948593553552297932
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition: []
 --- !u!1 &3029139136360008822
 GameObject:
@@ -510,7 +510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &3291491455846060557
 GameObject:
@@ -558,7 +558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition:
   - {fileID: 5256539760510193266}
 --- !u!1 &3546040187506046008
@@ -702,7 +702,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &3818278822433691249
 GameObject:
@@ -750,7 +750,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition:
   - {fileID: 8731817807600903760}
 --- !u!1 &3903012561859037413
@@ -799,7 +799,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition:
   - {fileID: 786876639390182447}
 --- !u!1 &3910593386829480843
@@ -848,7 +848,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition: []
 --- !u!1 &3940759503943836457
 GameObject:
@@ -896,7 +896,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition:
   - {fileID: 6722355914073296358}
 --- !u!1 &4006725244144125183
@@ -1016,7 +1016,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition: []
 --- !u!1 &4085429593475987791
 GameObject:
@@ -1064,7 +1064,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 1
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &4147842482515219236
 GameObject:
@@ -1112,7 +1112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition:
   - {fileID: 8568487412218642340}
 --- !u!1 &4569951265094365681
@@ -1161,7 +1161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition: []
 --- !u!1 &4716177375019792853
 GameObject:
@@ -1209,7 +1209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition: []
 --- !u!1 &4803008312177275461
 GameObject:
@@ -1257,7 +1257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition:
   - {fileID: 2842371750334672206}
 --- !u!1 &4953572884830912897
@@ -1306,7 +1306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition:
   - {fileID: 3154514820932010590}
 --- !u!1 &4978312413687154299
@@ -1355,7 +1355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition:
   - {fileID: 3036631223114970492}
 --- !u!1 &5084670256521304349
@@ -1404,7 +1404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition: []
 --- !u!1 &5089728210263740711
 GameObject:
@@ -1452,7 +1452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 1
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition:
   - {fileID: 43050699182814453}
 --- !u!1 &5121389207581762401
@@ -1501,7 +1501,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &5158609066392637795
 GameObject:
@@ -1549,7 +1549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition:
   - {fileID: 9209294018242033810}
 --- !u!1 &5177176829433053492
@@ -1598,7 +1598,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 1
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &5180042108299945637
 GameObject:
@@ -1646,7 +1646,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition: []
 --- !u!1 &5513703184402331746
 GameObject:
@@ -1694,7 +1694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition: []
 --- !u!1 &5607903328911301491
 GameObject:
@@ -1742,7 +1742,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 1
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &5645310871741248194
 GameObject:
@@ -1834,7 +1834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition: []
 --- !u!1 &5860579518097508129
 GameObject:
@@ -1882,7 +1882,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition:
   - {fileID: 3349760227351124937}
 --- !u!1 &6683396701631961656
@@ -1931,7 +1931,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition: []
 --- !u!1 &6694942381426923168
 GameObject:
@@ -1979,7 +1979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition: []
 --- !u!1 &6791827968652721214
 GameObject:
@@ -2027,7 +2027,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition:
   - {fileID: 4109130198117100172}
 --- !u!1 &6811061723217954877
@@ -4195,7 +4195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 1
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &8818446025619624071
 GameObject:
@@ -4243,7 +4243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &9121216227377129931
 GameObject:
@@ -4291,7 +4291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 2
+  unitClass: 2
   _cooperativePosition: []
 --- !u!1 &9178161965201624166
 GameObject:

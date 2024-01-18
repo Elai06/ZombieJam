@@ -8,8 +8,8 @@ namespace Gameplay.Windows.Cards
 {
     public class CardsView : MonoBehaviour
     {
-        public event Action<EZombieType> Upgrade;
-        public event Action<EZombieType> OnClickCard;
+        public event Action<EUnitClass> Upgrade;
+        public event Action<EUnitClass> OnClickCard;
 
         public CardsSubViewContainer CardsSubViewContainer;
 
@@ -25,8 +25,8 @@ namespace Gameplay.Windows.Cards
             CardsSubViewContainer.CleanUp();
             foreach (var subViewData in subViewDatas)
             {
-                CardsSubViewContainer.Add(subViewData.ProgressData.ZombieType.ToString(), subViewData);
-                var subView = CardsSubViewContainer.SubViews[subViewData.ProgressData.ZombieType.ToString()];
+                CardsSubViewContainer.Add(subViewData.ProgressData.unitClass.ToString(), subViewData);
+                var subView = CardsSubViewContainer.SubViews[subViewData.ProgressData.unitClass.ToString()];
                 subView.Click += OnClick;
             }
         }
@@ -41,12 +41,12 @@ namespace Gameplay.Windows.Cards
             _popUpView.Close();
         }
 
-        private void OnClick(EZombieType type)
+        private void OnClick(EUnitClass type)
         {
             OnClickCard?.Invoke(type);
         }
 
-        private void OnUpgrade(EZombieType type)
+        private void OnUpgrade(EUnitClass type)
         {
             Upgrade?.Invoke(type);
         }

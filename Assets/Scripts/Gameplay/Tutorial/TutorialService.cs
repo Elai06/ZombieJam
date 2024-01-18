@@ -17,7 +17,7 @@ namespace Gameplay.Tutorial
     public class TutorialService : ITutorialService
     {
         public event Action<ETutorialState> СhangedState;
-        public event Action<EZombieType> OnOpenCardPopUp;
+        public event Action<EUnitClass> OnOpenCardPopUp;
 
         private readonly StateMachine _stateMachine = new();
         private readonly IProgressService _progressService;
@@ -95,9 +95,9 @@ namespace Gameplay.Tutorial
             _stateMachine.Enter<ShopBoxTutorialState>();
         }
 
-        public void OpenCardPopUp(EZombieType zombieType)
+        public void OpenCardPopUp(EUnitClass unitClass)
         {
-            OnOpenCardPopUp?.Invoke(zombieType);
+            OnOpenCardPopUp?.Invoke(unitClass);
         }
     }
 }

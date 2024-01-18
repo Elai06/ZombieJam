@@ -34,7 +34,7 @@ namespace Gameplay.Tutorial.States.Card
 
         private void UpgradeCard()
         {
-            _tutorialService.OpenCardPopUp(EZombieType.Easy);
+            _tutorialService.OpenCardPopUp(EUnitClass.Warrior);
         }
     }
 }

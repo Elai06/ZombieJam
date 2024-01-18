@@ -21,6 +21,8 @@ namespace Gameplay
 
         public void Damage(int damage)
         {
+            if (damage == 0) return;
+
             transform.localPosition = _startPosition;
 
             _canvas.enabled = true;

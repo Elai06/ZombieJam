@@ -6,14 +6,14 @@ namespace Gameplay.Cards
     [Serializable]
     public class CardProgressData
     {
-        public EZombieType ZombieType;
+        public EUnitClass unitClass;
         public int CardsValue;
         public int Level;
         public int IsOpen;
 
-        public CardProgressData(EZombieType zombieType, int cardsValue)
+        public CardProgressData(EUnitClass unitClass, int cardsValue)
         {
-            ZombieType = zombieType;
+            this.unitClass = unitClass;
             CardsValue = cardsValue;
         }
     }

@@ -38,9 +38,9 @@ namespace Gameplay.Units
         private ITargetManager _targetManager;
 
         public EUnitState CurrentState { get; set; }
-        public EZombieType ZombieType { get; set; }
+        public EUnitClass UnitClass { get; set; }
         public BezierCurve Curve { get; private set; }
-        public Enemy Target { get; set; }
+        public EnemyTower Target { get; set; }
 
         public float Health { get; private set; }
         public bool IsDied { get; private set; }
@@ -52,12 +52,12 @@ namespace Gameplay.Units
         public ESwipeDirection SwipeDirection => _eSwipeDirection;
 
         public void Initialize(CardModel cardModel, ICoroutineService coroutineService,
-            ITargetManager targetManager, EZombieType type)
+            ITargetManager targetManager, EUnitClass type)
         {
             _cardModel = cardModel;
             _coroutineService = coroutineService;
             _targetManager = targetManager;
-            ZombieType = type;
+            UnitClass = type;
 
             Health = Parameters[EParameter.Health];
 
@@ -106,12 +106,12 @@ namespace Gameplay.Units
             OnInitializePath?.Invoke();
         }
 
-        public void DamageToTarget(Enemy enemy)
+        public void DamageToTarget(EnemyTower enemyTower)
         {
-            if (enemy == null) return;
+            if (enemyTower == null) return;
 
             var attack = Parameters[EParameter.Attack];
-            enemy.GetDamage(attack);
+            enemyTower.GetDamage(attack);
         }
 
         public void GetDamage(float damage)
