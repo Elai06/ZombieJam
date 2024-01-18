@@ -1,4 +1,5 @@
-﻿using Infrastructure.Windows;
+﻿using Gameplay.Tutorial;
+using Infrastructure.Windows;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ namespace Gameplay.Windows
         private Button _button;
 
         [Inject] private IWindowService _windowService;
+        [Inject] private ITutorialService _tutorialService;
 
         private void Awake()
         {
@@ -35,6 +37,8 @@ namespace Gameplay.Windows
 
         private void Restart()
         {
+            if (_tutorialService.CurrentState == ETutorialState.Swipe) return;
+
             SceneManager.LoadScene($"Gameplay");
 
             if (_windowService.IsOpen(WindowType.Victory))

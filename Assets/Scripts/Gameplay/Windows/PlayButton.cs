@@ -1,6 +1,7 @@
-﻿using Gameplay.Ad;
+﻿using System.Threading.Tasks;
+using Gameplay.Ad;
 using Gameplay.CinemachineCamera;
-using Gameplay.Configs.Region;
+using Gameplay.Tutorial;
 using Gameplay.Windows.Gameplay;
 using Infrastructure.Windows;
 using UnityEngine;
@@ -18,13 +19,16 @@ namespace Gameplay.Windows
         private IWindowService _windowService;
         private IAdsService _adsService;
         private IGameplayModel _gameplayModel;
+        private ITutorialService _tutorialService;
 
         [Inject]
-        private void Construct(IWindowService windowService, IAdsService adsService, IGameplayModel gameplayModel)
+        private void Construct(IWindowService windowService, IAdsService adsService, IGameplayModel gameplayModel,
+            ITutorialService tutorialService)
         {
             _windowService = windowService;
             _adsService = adsService;
             _gameplayModel = gameplayModel;
+            _tutorialService = tutorialService;
         }
 
         private void Awake()
@@ -32,9 +36,16 @@ namespace Gameplay.Windows
             _button = gameObject.GetComponent<Button>();
         }
 
-        private void Start()
+        private async void Start()
         {
             InjectService.Instance.Inject(this);
+
+            if (_tutorialService.CurrentState == ETutorialState.Swipe)
+            {
+               await Task.Delay(500);
+               _button.gameObject.SetActive(false);
+                StartPlay();
+            }
         }
 
         private void OnEnable()
@@ -49,6 +60,10 @@ namespace Gameplay.Windows
 
         private void Play()
         {
+            if (_tutorialService.CurrentState == ETutorialState.ShopBox ||
+                _tutorialService.CurrentState == ETutorialState.ShopCurrency ||
+                _tutorialService.CurrentState == ETutorialState.Card) return;
+
             if (_gameplayModel.GetCurrentRegionProgress().RegionIndex > 0)
             {
                 if (_adsService.ShowAds(EAdsType.Interstitial))
