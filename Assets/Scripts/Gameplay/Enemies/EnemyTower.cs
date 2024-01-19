@@ -13,7 +13,7 @@ namespace Gameplay.Enemies
 {
     public class EnemyTower : MonoBehaviour, IEnemy
     {
-        public event Action Died;
+        public event Action<EEnemyType> Died;
 
         [SerializeField] private EEnemyType _type;
         [SerializeField] private HealthBar _healthBar;
@@ -31,14 +31,16 @@ namespace Gameplay.Enemies
 
         public Unit Target { get; set; }
         private readonly List<Unit> _attackedUnits = new();
+        private readonly List<EnemyUnit> _defenceUnits = new();
 
         public float Health { get; private set; }
-        public bool IsDead { get; set; }
+        public bool IsDied { get; set; }
         public EEnemyState CurrentState { get; set; }
 
         public EEnemyType EnemyType => _type;
 
         public bool IsSafe => _isSafe;
+        public Transform Position => transform;
 
         public void Initialize(ParametersConfig parametersConfig, ICoroutineService coroutineService,
             ITargetManager targetManager)
@@ -79,7 +81,7 @@ namespace Gameplay.Enemies
             {
                 Health = 0;
                 _stateMachine.Enter<TowerDiedState>();
-                Died?.Invoke();
+                Died?.Invoke(_type);
             }
         }
 
@@ -87,6 +89,14 @@ namespace Gameplay.Enemies
         {
             var angle = _unitsCount - _attackedUnits.Count * Mathf.PI * 2 / _unitsCount;
             _attackedUnits.Add(unit);
+            return new Vector3(Mathf.Cos(angle) * radiusAttack, 0, Mathf.Sin(angle) * radiusAttack) +
+                   gameObject.transform.position;
+        }
+        
+        public Vector3 GetPositionForEnemyUnit(EnemyUnit unit, float radiusAttack, int enemyUnitsCount)
+        {
+            var angle = enemyUnitsCount - _defenceUnits.Count * Mathf.PI * 2 / enemyUnitsCount;
+            _defenceUnits.Add(unit);
             return new Vector3(Mathf.Cos(angle) * radiusAttack, 0, Mathf.Sin(angle) * radiusAttack) +
                    gameObject.transform.position;
         }

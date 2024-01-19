@@ -39,7 +39,7 @@ namespace Gameplay.Units
             }
         }
 
-        private void SwitchDisplay(bool isActive)
+        public void SwitchDisplay(bool isActive)
         {
             _canvas.enabled = isActive;
         }

@@ -2270,9 +2270,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 918e77f46bc447b5860733b6c62feb36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemies: []
+  _towers: []
   _config: {fileID: 11400000, guid: e5c92df0f11eaed4a97d99d6eef5b3a6, type: 2}
   _targetManager: {fileID: 7037340586256201244}
+  _enemyUnitsSpawner: {fileID: 0}
 --- !u!1 &7037340585706583817
 GameObject:
   m_ObjectHideFlags: 0
@@ -3085,7 +3086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _zombieSpawner: {fileID: 7037340587007066257}
-  _enemyInitializer: {fileID: 7037340585697550978}
+  _enemyManager: {fileID: 7037340585697550978}
 --- !u!1 &7037340586341672732
 GameObject:
   m_ObjectHideFlags: 0

@@ -40,7 +40,7 @@ namespace Gameplay.Units
         public EUnitState CurrentState { get; set; }
         public EUnitClass UnitClass { get; set; }
         public BezierCurve Curve { get; private set; }
-        public EnemyTower Target { get; set; }
+        public IEnemy Target { get; set; }
 
         public float Health { get; private set; }
         public bool IsDied { get; private set; }
@@ -106,12 +106,12 @@ namespace Gameplay.Units
             OnInitializePath?.Invoke();
         }
 
-        public void DamageToTarget(EnemyTower enemyTower)
+        public void DamageToTarget(IEnemy enemy)
         {
-            if (enemyTower == null) return;
+            if (enemy == null) return;
 
             var attack = Parameters[EParameter.Attack];
-            enemyTower.GetDamage(attack);
+            enemy.GetDamage(attack);
         }
 
         public void GetDamage(float damage)

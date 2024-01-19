@@ -15,7 +15,7 @@ namespace Gameplay.Battle
     public class TargetManager : MonoBehaviour, ITargetManager
     {
         [SerializeField] private ZombieSpawner _zombieSpawner;
-        [SerializeField] private EnemyInitializer _enemyInitializer;
+        [SerializeField] private EnemyManager _enemyManager;
         [Inject] private IGameplayModel _gameplayModel;
         [Inject] private IWindowService _windowService;
 
@@ -26,41 +26,35 @@ namespace Gameplay.Battle
 
         private void OnEnable()
         {
-            foreach (var enemy in _enemyInitializer.Enemies)
-            {
-                enemy.Died += OnDiedEnemy;
-            }
+            _enemyManager.EnemyDied += OnDiedEnemy;
         }
 
         private void OnDisable()
         {
-            foreach (var enemy in _enemyInitializer.Enemies)
-            {
-                enemy.Died -= OnDiedEnemy;
-            }
+            _enemyManager.EnemyDied -= OnDiedEnemy;
         }
 
-        public EnemyTower GetTargetEnemy(Transform unitTransform)
+        public IEnemy GetTargetEnemy(Transform unitTransform)
         {
-            var target = _enemyInitializer.Enemies.Find(x => !x.IsDead);
+            var target = _enemyManager.Enemies.Find(x => !x.IsDied);
             if (target == null) return null;
 
-            var distance = Vector3.Distance(unitTransform.position, target.transform.position);
+            var distance = Vector3.Distance(unitTransform.position, target.Position.position);
 
-            foreach (var enemy in _enemyInitializer.Enemies)
+            foreach (var enemy in _enemyManager.Enemies)
             {
-                if (enemy.IsDead) continue;
+                if (enemy.IsDied) continue;
 
-                var nextEnemyDistance = Vector3.Distance(unitTransform.position, enemy.transform.position);
+                var nextEnemyDistance = Vector3.Distance(unitTransform.position, enemy.Position.position);
 
                 if (distance > nextEnemyDistance)
                 {
-                    distance = Vector3.Distance(unitTransform.position, enemy.transform.position);
+                    distance = Vector3.Distance(unitTransform.position, enemy.Position.position);
                     target = enemy;
                 }
             }
 
-            return target == null ? null : target;
+            return target;
         }
 
         public Unit GetTargetUnit(Transform buildingTransform, float radiusAttack)
@@ -91,12 +85,9 @@ namespace Gameplay.Battle
             return distance <= radiusAttack && target.CurrentState != EUnitState.Parking ? target : null;
         }
 
-        private void OnDiedEnemy()
+        private void OnDiedEnemy(EEnemyType eEnemyType)
         {
-            if (_enemyInitializer.Enemies.Any(enemy => !enemy.IsDead))
-            {
-                return;
-            }
+            if (_enemyManager.Enemies.Any(enemy => !enemy.IsDied)) return;
 
             WaveCompleted();
         }

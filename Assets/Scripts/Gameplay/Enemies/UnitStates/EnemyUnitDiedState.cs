@@ -5,5 +5,12 @@
         public EnemyUnitDiedState(EnemyUnit unit) : base(unit, EEnemyUnitState.Died)
         {
         }
+
+        public override void Enter()
+        {
+            base.Enter();
+            
+            _unit.gameObject.SetActive(false);
+        }
     }
 }

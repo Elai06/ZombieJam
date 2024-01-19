@@ -40,7 +40,7 @@ namespace Gameplay.Enemies.States
             var time = 0f;
             while (true)
             {
-                if (EnemyTower.IsDead)
+                if (EnemyTower.IsDied)
                 {
                     _stateMachine.Enter<TowerDiedState>();
                     yield break;

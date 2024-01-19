@@ -1,47 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using Gameplay.Battle;
-using Gameplay.Cards;
 using Gameplay.Enemies.UnitStates;
 using Gameplay.Enums;
 using Gameplay.Parameters;
 using Gameplay.Units;
 using Gameplay.Units.Mover;
-using Gameplay.Units.States;
 using Infrastructure.StateMachine;
 using Infrastructure.UnityBehaviours;
 using UnityEngine;
-using Utils.CurveBezier;
 
 namespace Gameplay.Enemies
 {
     public class EnemyUnit : MonoBehaviour, IEnemy
     {
-        public event Action OnDied;
+        public event Action<EEnemyType> OnDied;
 
         [SerializeField] private RotateObject _rotateObject;
         [SerializeField] private HealthBar _healthBar;
         [SerializeField] private Animator _animator;
-        [SerializeField] private Transform _prefab;
 
         private readonly StateMachine _stateMachine = new();
 
         private ICoroutineService _coroutineService;
         private ITargetManager _targetManager;
-        public Dictionary<EParameter, float> Parameters;
 
+        private Vector3 _spawnPosition;
+        private List<Unit> _attackedUnits = new();
+
+        public Dictionary<EParameter, float> Parameters;
         public EEnemyUnitState CurrentState { get; set; }
         public EEnemyType EnemyType { get; set; }
-        public EnemyTower Target { get; set; }
+        public Unit Target { get; set; }
         public int Index { get; set; }
 
         public float Health { get; private set; }
         public bool IsDied { get; private set; }
-
-        public StateMachine StateMachine => _stateMachine;
-
-        public Transform Prefab => _prefab;
-
+        public Transform Position => transform;
 
         public void Initialize(ICoroutineService coroutineService,
             ITargetManager targetManager, ParametersConfig parametersConfig, EEnemyType type, int index)
@@ -55,11 +50,13 @@ namespace Gameplay.Enemies
 
             _healthBar.Initialize(Health);
             InitializeStates();
+
+            _spawnPosition = transform.position;
         }
 
         private void InitializeStates()
         {
-            var idleState = new EnemyUnitIdleState(this);
+            var idleState = new EnemyUnitIdleState(this, _coroutineService, _targetManager);
             var battleState = new EnemyUnitBattleState(this, _targetManager, _coroutineService, _rotateObject);
             var diedState = new EnemyUnitDiedState(this);
 
@@ -69,12 +66,12 @@ namespace Gameplay.Enemies
             _stateMachine.Enter<EnemyUnitIdleState>();
         }
 
-        public void DamageToTarget(EnemyTower enemyTower)
+        public void DamageToTarget(Unit enemy)
         {
-            if (enemyTower == null) return;
+            if (enemy == null) return;
 
             var attack = Parameters[EParameter.Attack];
-            enemyTower.GetDamage(attack);
+            enemy.GetDamage(attack);
         }
 
         public void GetDamage(float damage)
@@ -90,27 +87,41 @@ namespace Gameplay.Enemies
             }
         }
 
+        public Vector3 GetPositionForUnit(Unit unit, float radiusAttack)
+        {
+            _attackedUnits.Add(unit);
+            var angle = _attackedUnits.Count * Mathf.PI * 2 / _attackedUnits.Count;
+            return new Vector3(Mathf.Cos(angle) * radiusAttack, 0, Mathf.Sin(angle) * radiusAttack) +
+                   gameObject.transform.position;
+        }
+
         public void PlayAttackAnimation()
         {
             _animator.SetTrigger("Attack");
         }
-
-
+        
         public void Resurection()
         {
             IsDied = false;
             Health = Parameters[EParameter.Health];
             gameObject.SetActive(true);
             _healthBar.ChangeHealth(Health, 0);
+            _healthBar.SwitchDisplay(false);
+            gameObject.transform.position = _spawnPosition;
             _stateMachine.Enter<EnemyUnitIdleState>();
         }
 
-        public void Died()
+        private void Died()
         {
             Health = 0;
             IsDied = true;
             _stateMachine.Enter<EnemyUnitDiedState>();
-            OnDied?.Invoke();
+            OnDied?.Invoke(EnemyType);
+        }
+
+        public void RemoveAttackingUnit(Unit unit)
+        {
+            _attackedUnits.Remove(unit);
         }
     }
 }

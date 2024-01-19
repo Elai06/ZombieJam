@@ -7,6 +7,6 @@ namespace Gameplay.Battle
     public interface ITargetManager
     {
         Unit GetTargetUnit(Transform buildingTransform, float radiusAttack);
-        EnemyTower GetTargetEnemy(Transform buildingTransform);
+        IEnemy GetTargetEnemy(Transform buildingTransform);
     }
 }

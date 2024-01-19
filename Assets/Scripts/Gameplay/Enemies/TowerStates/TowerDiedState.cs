@@ -18,7 +18,7 @@ namespace Gameplay.Enemies.States
         {
             base.Enter();
             
-            EnemyTower.IsDead = true;
+            EnemyTower.IsDied = true;
             EnemyTower.gameObject.SetActive(false);
         }
     }

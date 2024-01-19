@@ -39,18 +39,27 @@ namespace Gameplay.Windows
         private async void Start()
         {
             InjectService.Instance.Inject(this);
-
+            
             if (_tutorialService.CurrentState == ETutorialState.Swipe)
             {
-               await Task.Delay(500);
-               _button.gameObject.SetActive(false);
+                await Task.Delay(500);
+                _button.gameObject.SetActive(false);
                 StartPlay();
+                _tutorialService.СhangedState += OnChangedState;
             }
+        }
+
+        private void OnChangedState(ETutorialState state)
+        {
+            if (state != ETutorialState.Completed) return;
+            _tutorialService.СhangedState -= OnChangedState;
+            _button.gameObject.SetActive(true);
         }
 
         private void OnEnable()
         {
             _button.onClick.AddListener(Play);
+            _button.gameObject.SetActive(true);
         }
 
         private void OnDisable()

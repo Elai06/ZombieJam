@@ -68,10 +68,10 @@ namespace Gameplay.Units.States
                 distance = Vector3.Distance(target, position);
 
                 _unit.transform.position = position;
-                _rotateObject.Rotate(_unit.Target.transform.position);
+                _rotateObject.Rotate(_unit.Target.Position.position);
                     yield return new WaitForFixedUpdate();
                     
-                    if (_unit.Target.IsDead)
+                    if (_unit.Target.IsDied)
                     {
                         InitializeTarget();
                         yield break;
@@ -97,7 +97,7 @@ namespace Gameplay.Units.States
 
                 _unit.DamageToTarget(_unit.Target);
 
-                if (_unit.Target.IsDead)
+                if (_unit.Target.IsDied)
                 {
                     InitializeTarget();
                     yield break;

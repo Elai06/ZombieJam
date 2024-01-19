@@ -49,7 +49,7 @@ namespace Gameplay.Enemies.UnitStates
             if (_unit.IsDied || _unit == null) return;
 
             var radiusAttack = _parametersConfig[EParameter.RadiusAttack];
-            _unit.Target = _targetManager.GetTargetEnemy(_unit.transform);
+            _unit.Target = _targetManager.GetTargetUnit(_unit.transform, radiusAttack);
             if (_unit.Target == null) return;
 
             _coroutineService.StartCoroutine(MoveToTarget(_unit.Target.transform.position));
@@ -70,7 +70,7 @@ namespace Gameplay.Enemies.UnitStates
                 _rotateObject.Rotate(_unit.Target.transform.position);
                 yield return new WaitForFixedUpdate();
 
-                if (_unit.Target.IsDead)
+                if (_unit.Target.IsDied)
                 {
                     InitializeTarget();
                     yield break;
@@ -96,7 +96,7 @@ namespace Gameplay.Enemies.UnitStates
 
                 _unit.DamageToTarget(_unit.Target);
 
-                if (_unit.Target.IsDead)
+                if (_unit.Target.IsDied)
                 {
                     InitializeTarget();
                     yield break;
