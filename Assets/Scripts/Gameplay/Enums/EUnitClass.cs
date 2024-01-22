@@ -3,7 +3,7 @@
     public enum EUnitClass
     {
         Warrior,
-        Shooter,
+        Archer,
         Tank
     }
 }
