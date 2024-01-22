@@ -35,7 +35,7 @@ namespace Gameplay.Enemies.UnitStates
 
         private IEnumerator FindTarget()
         {
-            var radiusAttack = _unit.Parameters[EParameter.RadiusAttack];
+            var radiusAttack = _unit.Parameters[EParameter.AgressiveRange];
             while (true)
             {
                 if (_unit == null) yield break;
@@ -44,7 +44,18 @@ namespace Gameplay.Enemies.UnitStates
                 if (_unit.Target != null)
                 {
                     _stateMachine.Enter<EnemyUnitBattleState>();
+                    _unit.InOnSpawnPosition = false;
                     yield break;
+                }
+
+                if (!_unit.InOnSpawnPosition)
+                {
+                    var distance = Vector3.Distance(_unit.transform.position, _unit.SpawnPosition);
+                    if (distance != 0)
+                    {
+                        _stateMachine.Enter<EnemyUnitFallBackState>();
+                        yield break;
+                    }
                 }
 
                 yield return new WaitForFixedUpdate();

@@ -51,6 +51,8 @@ namespace Gameplay.Units
 
         public ESwipeDirection SwipeDirection => _eSwipeDirection;
 
+        private List<IEnemy> _attackedEnemies = new();
+
         public void Initialize(CardModel cardModel, ICoroutineService coroutineService,
             ITargetManager targetManager, EUnitClass type)
         {
@@ -157,6 +159,14 @@ namespace Gameplay.Units
             IsDied = true;
             _stateMachine.Enter<UnitDiedState>();
             OnDied?.Invoke();
+        }
+
+        public Vector3 GetPosition(IEnemy enemy, float radiusAttack)
+        {
+            _attackedEnemies.Add(enemy);
+            var angle = _attackedEnemies.Count - 12 * Mathf.PI * 2 / 12;
+            return new Vector3(Mathf.Cos(angle) * radiusAttack, 0, Mathf.Sin(angle) * radiusAttack) +
+                   gameObject.transform.position;
         }
     }
 }

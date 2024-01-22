@@ -228,7 +228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340585057922605
 GameObject:
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 1
-  ZombieType: 2
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340585103804960
 GameObject:
@@ -324,7 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 1
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340585144121373
 GameObject:
@@ -372,7 +372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340585175785127
 GameObject:
@@ -420,7 +420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340585194400194
 GameObject:
@@ -468,7 +468,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340585245719131
 GameObject:
@@ -516,7 +516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340585282739797
 GameObject:
@@ -564,7 +564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340585313221525
 GameObject:
@@ -660,7 +660,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340585555111283
 GameObject:
@@ -708,7 +708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 1
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340585565744246
 GameObject:
@@ -787,7 +787,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 1
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340585614744922
 GameObject:
@@ -1025,11 +1025,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 918e77f46bc447b5860733b6c62feb36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemies:
-  - {fileID: 7037340585476077258}
-  - {fileID: 5033159135571247446}
   _config: {fileID: 11400000, guid: e5c92df0f11eaed4a97d99d6eef5b3a6, type: 2}
   _targetManager: {fileID: 7037340586256201244}
+  _enemyUnitsSpawner: {fileID: 0}
 --- !u!1 &7037340585706583817
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,7 +1541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 1
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340585941321169
 GameObject:
@@ -1639,7 +1637,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340586038197832
 GameObject:
@@ -2034,7 +2032,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340586248410683
 GameObject:
@@ -2152,7 +2150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _zombieSpawner: {fileID: 7037340587007066257}
-  _enemyInitializer: {fileID: 7037340585697550978}
+  _enemyManager: {fileID: 7037340585697550978}
 --- !u!1 &7037340586284328908
 GameObject:
   m_ObjectHideFlags: 0
@@ -2199,7 +2197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340586291706914
 GameObject:
@@ -2247,7 +2245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 1
-  ZombieType: 2
+  unitClass: 0
   _cooperativePosition:
   - {fileID: 7037340585057922607}
 --- !u!1 &7037340586341672732
@@ -2440,7 +2438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340586447524494
 GameObject:
@@ -2488,7 +2486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340586559277461
 GameObject:
@@ -2584,7 +2582,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340586683385300
 GameObject:
@@ -2632,7 +2630,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340586712135452
 GameObject:
@@ -2953,7 +2951,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340586812715696
 GameObject:
@@ -3250,7 +3248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340586911196282
 GameObject:
@@ -3331,7 +3329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340587007066263
 GameObject:
@@ -3439,7 +3437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340587022634608
 GameObject:
@@ -3487,7 +3485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 1
-  ZombieType: 0
+  unitClass: 0
   _cooperativePosition: []
 --- !u!1 &7037340587061952958
 GameObject:
@@ -3830,17 +3828,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da6667b356a20ba4ea722884e7015ebd, type: 3}
---- !u!114 &7037340585476077258 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2625871721960994534, guid: da6667b356a20ba4ea722884e7015ebd, type: 3}
-  m_PrefabInstance: {fileID: 5033159135165136940}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 997eff0344fa42cba115a6b0db4da139, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &7037340585476077262 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2625871721960994530, guid: da6667b356a20ba4ea722884e7015ebd, type: 3}
@@ -3928,17 +3915,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2625871721960994530, guid: da6667b356a20ba4ea722884e7015ebd, type: 3}
   m_PrefabInstance: {fileID: 7037340585069836208}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5033159135571247446 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2625871721960994534, guid: da6667b356a20ba4ea722884e7015ebd, type: 3}
-  m_PrefabInstance: {fileID: 7037340585069836208}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 997eff0344fa42cba115a6b0db4da139, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &7037340585597259875
 PrefabInstance:
   m_ObjectHideFlags: 0

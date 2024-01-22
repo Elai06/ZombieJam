@@ -46,20 +46,21 @@ namespace Gameplay.Enemies.UnitStates
 
         private void InitializeTarget()
         {
-            if (_unit.IsDied || _unit == null) return;
+            if (_unit == null) return;
 
             var radiusAttack = _parametersConfig[EParameter.RadiusAttack];
-            _unit.Target = _targetManager.GetTargetUnit(_unit.transform, radiusAttack);
-            if (_unit.Target == null) return;
+            if (_unit.Target.UnitClass == EUnitClass.Tank)
+            {
+                radiusAttack += 1;
+            }
 
-            _coroutineService.StartCoroutine(MoveToTarget(_unit.Target.transform.position));
+            _coroutineService.StartCoroutine(MoveToTarget(_unit.Target.GetPosition(_unit, radiusAttack), radiusAttack));
         }
 
-        private IEnumerator MoveToTarget(Vector3 target)
+        private IEnumerator MoveToTarget(Vector3 target, float radiusAttack)
         {
             var distance = Vector3.Distance(target, _unit.transform.position);
-
-            while (distance > 0.1f)
+            while (distance > radiusAttack + 1)
             {
                 if (_unit == null || _unit.IsDied) yield break;
                 var position = Vector3.MoveTowards(_unit.transform.position, target,
@@ -67,14 +68,15 @@ namespace Gameplay.Enemies.UnitStates
                 distance = Vector3.Distance(target, position);
 
                 _unit.transform.position = position;
+                //     _unit.Rigidbody.MovePosition(position);
                 _rotateObject.Rotate(_unit.Target.transform.position);
                 yield return new WaitForFixedUpdate();
+            }
 
-                if (_unit.Target.IsDied)
-                {
-                    InitializeTarget();
-                    yield break;
-                }
+            if (_unit.Target.IsDied)
+            {
+                EnterIdleState();
+                yield break;
             }
 
             _coroutine = _coroutineService.StartCoroutine(Damage());
@@ -88,20 +90,43 @@ namespace Gameplay.Enemies.UnitStates
             {
                 if (_unit.Target == null || _unit.IsDied) yield break;
 
+                if (!IsAvailableDistance())
+                {
+                    InitializeTarget();
+                    yield break;
+                }
+
                 _unit.PlayAttackAnimation();
 
                 yield return new WaitForSeconds(attackRate);
-
-                if (_unit.Target == null || _unit.IsDied) yield break;
 
                 _unit.DamageToTarget(_unit.Target);
 
                 if (_unit.Target.IsDied)
                 {
-                    InitializeTarget();
+                    EnterIdleState();
                     yield break;
                 }
             }
+        }
+
+        private void EnterIdleState()
+        {
+            _stateMachine.Enter<EnemyUnitIdleState>();
+        }
+
+        private bool IsAvailableDistance()
+        {
+            var radiusAttack = _unit.Parameters[EParameter.RadiusAttack];
+
+            if (_unit.Target.UnitClass == EUnitClass.Tank)
+            {
+                radiusAttack += 1;
+            }
+
+            var target = _unit.Target.GetPosition(_unit, radiusAttack);
+            var distance = Vector3.Distance(target, _unit.transform.position);
+            return distance <= radiusAttack + 1;
         }
     }
 }

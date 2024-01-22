@@ -9,6 +9,7 @@
         SpeedOnPark,
         SpeedToTarget,
         SpeedOnRoad,
-        AttackSpeed
+        AttackSpeed,
+        AgressiveRange
     }
 }

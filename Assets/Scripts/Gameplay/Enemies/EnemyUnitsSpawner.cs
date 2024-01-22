@@ -49,7 +49,8 @@ namespace Gameplay.Enemies
 
         private void TowerDied(EEnemyType eEnemyType)
         {
-            _timeModel.Stopped -= OnStopTimer;
+            if(_timeModel != null)
+            { _timeModel.Stopped -= OnStopTimer;}
         }
 
         private void SpawnEnemyUnits()
@@ -58,7 +59,7 @@ namespace Gameplay.Enemies
             {
                 var enemy = _enemyUnits[index];
                 var enemyConfig = _enemyUnitsConfig.GetConfigData(enemy);
-                var enemyUnit = Instantiate(enemyConfig.EnemyUnit, transform);
+                var enemyUnit = Instantiate(enemyConfig.EnemyUnit, transform.parent);
                 
                 enemyUnit.transform.position = _enemyTower
                     .GetPositionForEnemyUnit(enemyUnit, _radiusSpawn, _enemyUnits.Count);

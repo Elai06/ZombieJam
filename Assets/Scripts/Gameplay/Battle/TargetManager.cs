@@ -64,16 +64,14 @@ namespace Gameplay.Battle
                 return null;
             }
 
-            var zombies = _zombieSpawner.Zombies;
-            var target = zombies.Find(x => !x.IsDied);
+            var zombies = _zombieSpawner.Zombies.FindAll(x => !x.IsDied);
+            var target = zombies.Find(x => !x.IsDied && x.CurrentState == EUnitState.Battle);
             if (target == null) return null;
 
             var distance = Vector3.Distance(buildingTransform.position, target.transform.position);
 
             foreach (var zombie in zombies)
             {
-                if (zombie.CurrentState == EUnitState.Parking || zombie.IsDied) continue;
-
                 var nextZombieDistance = Vector3.Distance(buildingTransform.position, zombie.transform.position);
                 if (distance > nextZombieDistance)
                 {
@@ -82,7 +80,9 @@ namespace Gameplay.Battle
                 }
             }
 
-            return distance <= radiusAttack && target.CurrentState != EUnitState.Parking ? target : null;
+            if (target.CurrentState != EUnitState.Battle) return null;
+
+            return distance <= radiusAttack ? target : null;
         }
 
         private void OnDiedEnemy(EEnemyType eEnemyType)

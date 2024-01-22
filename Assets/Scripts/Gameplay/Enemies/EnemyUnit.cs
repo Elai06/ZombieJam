@@ -19,13 +19,13 @@ namespace Gameplay.Enemies
         [SerializeField] private RotateObject _rotateObject;
         [SerializeField] private HealthBar _healthBar;
         [SerializeField] private Animator _animator;
+        [SerializeField] private Rigidbody _rigidbody;
 
         private readonly StateMachine _stateMachine = new();
 
         private ICoroutineService _coroutineService;
         private ITargetManager _targetManager;
 
-        private Vector3 _spawnPosition;
         private List<Unit> _attackedUnits = new();
 
         public Dictionary<EParameter, float> Parameters;
@@ -36,11 +36,17 @@ namespace Gameplay.Enemies
 
         public float Health { get; private set; }
         public bool IsDied { get; private set; }
+        public bool InOnSpawnPosition { get; set; }
         public Transform Position => transform;
+        public Vector3 SpawnPosition { get; set; }
+
+        public Rigidbody Rigidbody => _rigidbody;
 
         public void Initialize(ICoroutineService coroutineService,
             ITargetManager targetManager, ParametersConfig parametersConfig, EEnemyType type, int index)
         {
+            SpawnPosition = transform.position;
+
             _coroutineService = coroutineService;
             _targetManager = targetManager;
             EnemyType = type;
@@ -50,18 +56,18 @@ namespace Gameplay.Enemies
 
             _healthBar.Initialize(Health);
             InitializeStates();
-
-            _spawnPosition = transform.position;
         }
 
         private void InitializeStates()
         {
             var idleState = new EnemyUnitIdleState(this, _coroutineService, _targetManager);
             var battleState = new EnemyUnitBattleState(this, _targetManager, _coroutineService, _rotateObject);
+            var fallBackState = new EnemyUnitFallBackState(this, _coroutineService, _rotateObject);
             var diedState = new EnemyUnitDiedState(this);
 
             _stateMachine.AddState(idleState);
             _stateMachine.AddState(battleState);
+            _stateMachine.AddState(fallBackState);
             _stateMachine.AddState(diedState);
             _stateMachine.Enter<EnemyUnitIdleState>();
         }
@@ -90,7 +96,7 @@ namespace Gameplay.Enemies
         public Vector3 GetPositionForUnit(Unit unit, float radiusAttack)
         {
             _attackedUnits.Add(unit);
-            var angle = _attackedUnits.Count * Mathf.PI * 2 / _attackedUnits.Count;
+            var angle = _attackedUnits.Count - 12 * Mathf.PI * 2 / _attackedUnits.Count;
             return new Vector3(Mathf.Cos(angle) * radiusAttack, 0, Mathf.Sin(angle) * radiusAttack) +
                    gameObject.transform.position;
         }
@@ -99,7 +105,7 @@ namespace Gameplay.Enemies
         {
             _animator.SetTrigger("Attack");
         }
-        
+
         public void Resurection()
         {
             IsDied = false;
@@ -107,7 +113,7 @@ namespace Gameplay.Enemies
             gameObject.SetActive(true);
             _healthBar.ChangeHealth(Health, 0);
             _healthBar.SwitchDisplay(false);
-            gameObject.transform.position = _spawnPosition;
+            gameObject.transform.position = SpawnPosition;
             _stateMachine.Enter<EnemyUnitIdleState>();
         }
 

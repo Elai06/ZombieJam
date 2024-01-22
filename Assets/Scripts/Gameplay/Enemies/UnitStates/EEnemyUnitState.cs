@@ -4,6 +4,7 @@
     {
         Idle, 
         Battle,
+        FallBack,
         Died
     }
 }
