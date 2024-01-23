@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Gameplay.Battle;
 using Gameplay.Enemies.States;
+using Gameplay.Enemies.TowerStates;
 using Gameplay.Enums;
 using Gameplay.Parameters;
 using Gameplay.Units;
@@ -116,7 +117,7 @@ namespace Gameplay.Enemies
             _bullet.Shote(target, speedAttack);
         }
 
-        private void OnHit()
+        private void OnHit(Bullet bullet)
         {
             DamageToTarget(Target);
         }

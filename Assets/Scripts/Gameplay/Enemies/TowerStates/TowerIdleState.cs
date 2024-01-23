@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using Gameplay.Battle;
+using Gameplay.Enemies.States;
 using Gameplay.Enums;
 using Gameplay.Parameters;
 using Infrastructure.UnityBehaviours;
 using UnityEngine;
 
-namespace Gameplay.Enemies.States
+namespace Gameplay.Enemies.TowerStates
 {
     public class TowerIdleState : EnemyState
     {

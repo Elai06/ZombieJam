@@ -73,16 +73,6 @@ namespace Gameplay.Units
 
     public virtual void InitializeStates()
     {
-        var parkingState = new UnitParkingState(this, Parameters, _coroutineService);
-        var roadState = new UnitRoadState(this, _coroutineService, _rotateObject);
-        var battleState = new UnitBattleState(this, _targetManager, _coroutineService, _rotateObject);
-        var diedState = new UnitDiedState(this);
-
-        _stateMachine.AddState(parkingState);
-        _stateMachine.AddState(roadState);
-        _stateMachine.AddState(battleState);
-        _stateMachine.AddState(diedState);
-        _stateMachine.Enter<UnitParkingState>();
     }
 
     protected virtual void OnCollisionEnter(Collision collision)
@@ -146,13 +136,12 @@ namespace Gameplay.Units
         ResetMoving?.Invoke();
     }
 
-    public void Resurection()
+    public virtual void Resurection()
     {
         IsDied = false;
         Health = Parameters[EParameter.Health] / 2;
         gameObject.SetActive(true);
         _healthBar.ChangeHealth(Health, 0);
-        _stateMachine.Enter<UnitBattleState>();
     }
 
     public void Died()

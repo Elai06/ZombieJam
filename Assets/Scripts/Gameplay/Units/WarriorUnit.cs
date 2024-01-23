@@ -21,5 +21,12 @@ namespace Gameplay.Units
             _stateMachine.AddState(diedState);
             _stateMachine.Enter<UnitParkingState>();
         }
+
+        public override void Resurection()
+        {
+            base.Resurection();
+            
+            _stateMachine.Enter<UnitBattleState>();
+        }
     }
 }
