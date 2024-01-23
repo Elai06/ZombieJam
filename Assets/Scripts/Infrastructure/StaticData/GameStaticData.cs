@@ -1,4 +1,5 @@
 ﻿using Gameplay.Configs;
+using Gameplay.Configs.Boosters;
 using Gameplay.Configs.Cards;
 using Gameplay.Configs.Level;
 using Gameplay.Configs.Region;
@@ -21,6 +22,7 @@ namespace Infrastructure.StaticData
         [SerializeField] private CardsConfig _cardsConfig;
         [SerializeField] private ShopConfig _shopConfig;
         [SerializeField] private AdsConfig _adsConfig;
+        [SerializeField] private BoostersConfig _boostersConfig;
 
         public RegionConfig RegionConfig => _regionConfig;
 
@@ -35,6 +37,8 @@ namespace Infrastructure.StaticData
         public ShopConfig ShopConfig => _shopConfig;
 
         public AdsConfig AdsConfig => _adsConfig;
+
+        public BoostersConfig BoostersConfig => _boostersConfig;
 
         public WindowData GetWindowData(WindowType windowType)
         {

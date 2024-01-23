@@ -2,7 +2,6 @@
 using Gameplay.Ad;
 using Infrastructure.PersistenceProgress;
 using UnityEngine;
-using Zenject;
 
 namespace Gameplay.Boosters
 {

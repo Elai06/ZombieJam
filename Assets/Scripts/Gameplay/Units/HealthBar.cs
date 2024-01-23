@@ -24,6 +24,8 @@ namespace Gameplay.Units
 
         public void ChangeHealth(float health, int damage)
         {
+            if(_canvas == null) return;
+            
             if (!_canvas.enabled)
             {
                 SwitchDisplay(true);

@@ -2,6 +2,9 @@
 {
     public enum EBoosterType
     {
-        Relocation
+        Relocation,
+        IncreaseAttack,
+        IncreaseAttackSpeed,
+        IncreaseHP
     }
 }

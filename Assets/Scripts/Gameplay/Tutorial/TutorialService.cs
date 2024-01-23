@@ -7,6 +7,7 @@ using Gameplay.Tutorial.States.Card;
 using Gameplay.Tutorial.States.Shop;
 using Gameplay.Tutorial.States.Shop.Box;
 using Gameplay.Tutorial.States.SwipeState;
+using Gameplay.Windows.Gameplay;
 using Infrastructure.Events;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.StateMachine;
@@ -25,15 +26,17 @@ namespace Gameplay.Tutorial
         private readonly IShopModel _shopModel;
         private readonly ICardsModel _cardsModel;
         private readonly IEventsManager _eventsManager;
+        private readonly IGameplayModel _gameplayModel;
 
         public TutorialService(IProgressService progressService, IWindowService windowService,
-            IShopModel shopModel, ICardsModel cardsModel, IEventsManager eventsManager)
+            IShopModel shopModel, ICardsModel cardsModel, IEventsManager eventsManager, IGameplayModel gameplayModel)
         {
             _windowService = windowService;
             _progressService = progressService;
             _shopModel = shopModel;
             _cardsModel = cardsModel;
             _eventsManager = eventsManager;
+            _gameplayModel = gameplayModel;
         }
 
         public ETutorialState CurrentState => _progressService.PlayerProgress.CurrentTutorialState;
@@ -57,7 +60,7 @@ namespace Gameplay.Tutorial
         {
             if (CurrentState == ETutorialState.Completed) return;
 
-            var swipe = new SwipeTutorialState(this, _windowService, _eventsManager);
+            var swipe = new SwipeTutorialState(this, _windowService, _eventsManager, _gameplayModel);
             var shopBoxTutorialState = new ShopBoxTutorialState(this, _windowService, _shopModel, _eventsManager);
             var shopCurrency = new ShopCurrencyTutorialState(this, _windowService, _shopModel, _eventsManager);
             var card = new CardTutorialState(this, _windowService, _cardsModel, _eventsManager);
@@ -90,10 +93,6 @@ namespace Gameplay.Tutorial
             }
         }
 
-        public void SwipeStateCompleted()
-        {
-            _stateMachine.Enter<ShopBoxTutorialState>();
-        }
 
         public void OpenCardPopUp(EUnitClass unitClass)
         {

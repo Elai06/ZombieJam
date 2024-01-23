@@ -37,14 +37,14 @@ namespace Gameplay.Cards
 
         private void UpdateParamaters()
         {
-            foreach (var parameter in ConfigData.ParametersConfig.GetDictionary().Values)
+            foreach (var parameter in ConfigData.ParametersConfig.Parameters)
             {
                 float value = parameter.Value;
-                for (int y = 0; y < ProgressData.Level; y++)
+                for (int i = 0; i < ProgressData.Level; i++)
                 {
-                    value = Parameters[parameter.Type] * parameter.MultiplierForUpgrade;
+                    value *= parameter.MultiplierForUpgrade;
                 }
-                
+
                 Parameters[parameter.Type] = value;
             }
         }

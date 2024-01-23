@@ -21,6 +21,8 @@ namespace Infrastructure.Input
 
         private bool _isWasSwipe;
 
+        public bool IsSwipeTutorialCompleted { get; set; }
+
         [Inject]
         public void Construct(ITutorialService tutorialService)
         {
@@ -30,6 +32,7 @@ namespace Infrastructure.Input
         public void Initialize()
         {
             _raycastDetector = new RaycastDetector();
+            IsSwipeTutorialCompleted = _tutorialService.CurrentState != ETutorialState.Swipe;
         }
 
         private void Update()
@@ -63,7 +66,7 @@ namespace Infrastructure.Input
                 {
                     _isWasSwipe = true;
 
-                    if (_tutorialService.CurrentState == ETutorialState.Swipe)
+                    if (_tutorialService.CurrentState == ETutorialState.Swipe && !IsSwipeTutorialCompleted)
                     {
                         _tutorialSwipeInfo.SwipeSide = swipe;
                         OnSwipe?.Invoke(_tutorialSwipeInfo);

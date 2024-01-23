@@ -2,38 +2,28 @@
 using Gameplay.Enums;
 using Gameplay.Parking;
 using UnityEngine;
-using Utils.ZenjectInstantiateUtil;
-using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Gameplay.Boosters
 {
-    public class RelocationBooster : MonoBehaviour
+    public class RelocationBooster : Booster
     {
-        private ZombieSpawner _zombieSpawner;
+        [SerializeField] private ZombieSpawner _zombieSpawner;
 
-        [Inject] private IBoostersManager _boostersManager;
-
-        private void Start()
+        protected override void Start()
         {
-            InjectService.Instance.Inject(this);
+            base.Start();
+
+            _boosterType = EBoosterType.Relocation;
             _zombieSpawner = FindObjectOfType<ZombieSpawner>();
-
-            _boostersManager.Activate += Activate;
         }
 
-        private void Activate(EBoosterType type)
+        protected override void Activate()
         {
-            if (type == EBoosterType.Relocation)
+            if (_zombieSpawner == null)
             {
-                SwapPositions();
-                Debug.Log($"Booster {type} activated");
+                _zombieSpawner = FindObjectOfType<ZombieSpawner>();
             }
-        }
-
-        private void SwapPositions()
-        {
-            _zombieSpawner ??= FindObjectOfType<ZombieSpawner>();
 
             var zombiesInParking = _zombieSpawner.Zombies.Where(x => x.CurrentState == EUnitState.Parking).ToList();
 
@@ -49,6 +39,12 @@ namespace Gameplay.Boosters
                 // Генерируем случайный индекс из диапазона, начиная от текущего индекса до конца массива
                 var currentUnit = zombiesInParking[i];
                 var zombies = zombiesInParking.Where(x => x.UnitClass == currentUnit.UnitClass).ToList();
+                if (zombies.Count <= 1)
+                {
+                    Debug.Log($"{currentUnit.UnitClass} {zombies.Count}");
+                    continue;
+                }
+
                 var randomIndex = Random.Range(0, zombies.Count);
                 var randomUnit = zombies[randomIndex];
 
@@ -75,7 +71,7 @@ namespace Gameplay.Boosters
                 randomUnit.ResetMovingAfterBooster();
             }
 
-            _boostersManager.ConsumeBooster(EBoosterType.Relocation, 1);
+            _boostersManager.ConsumeBooster(_boosterType, 1);
         }
     }
 }

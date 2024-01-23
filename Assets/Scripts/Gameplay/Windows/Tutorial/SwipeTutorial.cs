@@ -17,7 +17,6 @@ namespace Gameplay.Windows.Tutorial
         [SerializeField] private ArrowTutorial _firstArrow;
         [SerializeField] private ArrowTutorial _secondArrow;
 
-        [Inject] private ITutorialService _tutorialService;
         [Inject] private SwipeManager _swipeManager;
 
         private readonly Vector3 _firstUnitPosition = new(-1.5f, 0, 0);
@@ -101,7 +100,7 @@ namespace Gameplay.Windows.Tutorial
                         
                         swipeObject.UnitSwipe.Swipe(swipeObject.SwipeSide);
                         Destroy(_secondArrow.gameObject);
-                        _tutorialService.SwipeStateCompleted();
+                        _swipeManager.IsSwipeTutorialCompleted = true;
                     }
                 }
             }

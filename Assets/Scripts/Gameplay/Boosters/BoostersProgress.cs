@@ -16,7 +16,7 @@ namespace Gameplay.Boosters
                 return data;
             }
 
-            var progress = new BoosterProgressData(boosterType, 3);
+            var progress = new BoosterProgressData(boosterType, 5);
             BoostersProgressData.Add(progress);
 
             return progress;
