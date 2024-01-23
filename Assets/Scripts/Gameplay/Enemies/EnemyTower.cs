@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Gameplay.Battle;
+using Gameplay.Bullets;
 using Gameplay.Enemies.States;
 using Gameplay.Enemies.TowerStates;
 using Gameplay.Enums;
@@ -21,11 +22,10 @@ namespace Gameplay.Enemies
         [SerializeField] private CircleRenderer _circleRenderer;
         [SerializeField] private int _unitsCount = 12;
         [SerializeField] private Animator _animator;
-        [SerializeField] private Bullet _bullet;
+        [SerializeField] private BulletSpawner _bullet;
 
         [SerializeField] private bool _isSafe;
 
-        private ParametersConfig _parametersConfig;
         private ICoroutineService _coroutineService;
         private ITargetManager _targetManager;
         private readonly StateMachine _stateMachine = new();
@@ -43,25 +43,25 @@ namespace Gameplay.Enemies
         public bool IsSafe => _isSafe;
         public Transform Position => transform;
 
+        public Dictionary<EParameter, float> Parameters { get; private set; }
+
         public void Initialize(ParametersConfig parametersConfig, ICoroutineService coroutineService,
             ITargetManager targetManager)
         {
-            _parametersConfig = parametersConfig;
+            Parameters = parametersConfig.GetDictionaryTypeFloat();
             _coroutineService = coroutineService;
             _targetManager = targetManager;
             InitializeStates();
-            _circleRenderer.Initialize(_parametersConfig.GetDictionary()[EParameter.RadiusAttack].Value);
+            _circleRenderer.Initialize(Parameters[EParameter.RadiusAttack]);
 
-            Health = _parametersConfig.GetDictionary()[EParameter.Health].Value;
+            Health = Parameters[EParameter.Health];
             _healthBar.Initialize(Health);
-
-            _bullet.Hit += OnHit;
         }
 
         private void InitializeStates()
         {
-            var idleState = new TowerIdleState(this, _targetManager, _coroutineService, _parametersConfig);
-            var battleState = new TowerBattleState(this, _coroutineService, _parametersConfig);
+            var idleState = new TowerIdleState(this, _targetManager, _coroutineService);
+            var battleState = new TowerBattleState(this, _coroutineService);
             var diedState = new TowerDiedState(this);
 
             _stateMachine.AddState(idleState);
@@ -93,7 +93,7 @@ namespace Gameplay.Enemies
             return new Vector3(Mathf.Cos(angle) * radiusAttack, 0, Mathf.Sin(angle) * radiusAttack) +
                    gameObject.transform.position;
         }
-        
+
         public Vector3 GetPositionForEnemyUnit(EnemyUnit unit, float radiusAttack, int enemyUnitsCount)
         {
             var angle = enemyUnitsCount - _defenceUnits.Count * Mathf.PI * 2 / enemyUnitsCount;
@@ -105,7 +105,7 @@ namespace Gameplay.Enemies
         public void DamageToTarget(Unit unit)
         {
             if (unit == null) return;
-            var attack = _parametersConfig.GetDictionary()[EParameter.Attack].Value;
+            var attack = Parameters[EParameter.Attack];
             unit.GetDamage(attack);
         }
 
@@ -114,12 +114,7 @@ namespace Gameplay.Enemies
             if (Target.IsDied) return;
 
             _animator.SetTrigger("Attack");
-            _bullet.Shote(target, speedAttack);
-        }
-
-        private void OnHit(Bullet bullet)
-        {
-            DamageToTarget(Target);
+            _bullet.Shot(target, speedAttack);
         }
 
         public void RemoveAttackingUnit(Unit unit)

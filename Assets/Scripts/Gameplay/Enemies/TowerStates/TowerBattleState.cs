@@ -11,21 +11,21 @@ namespace Gameplay.Enemies.TowerStates
     public class TowerBattleState : EnemyState
     {
         private readonly ICoroutineService _coroutineService;
-        private readonly Dictionary<EParameter, ParameterData> _parametersConfig;
         private Coroutine _coroutine;
 
-        public TowerBattleState(EnemyTower enemyTower, ICoroutineService coroutineService, ParametersConfig parametersConfig)
+        private Queue _shotsQueue = new Queue();
+
+        public TowerBattleState(EnemyTower enemyTower, ICoroutineService coroutineService)
             : base(enemyTower, EEnemyState.Battle)
         {
             _coroutineService = coroutineService;
-            _parametersConfig = parametersConfig.GetDictionary();
             EnemyTower = enemyTower;
         }
 
         public override void Enter()
         {
             base.Enter();
-            var attackRate = _parametersConfig[EParameter.AttackRate].Value;
+            var attackRate = EnemyTower.Parameters[EParameter.AttackRate];
             _coroutine = _coroutineService.StartCoroutine(Attack(attackRate));
         }
 
@@ -33,12 +33,14 @@ namespace Gameplay.Enemies.TowerStates
         {
             base.Exit();
 
+            if(_coroutine == null) return;
             _coroutineService.StopCoroutine(_coroutine);
         }
 
         private IEnumerator Attack(float attackRate)
         {
-            var time = 0f;
+            var speedAttack = EnemyTower.Parameters[EParameter.AttackSpeed];
+
             while (true)
             {
                 if (EnemyTower.IsDied)
@@ -47,16 +49,19 @@ namespace Gameplay.Enemies.TowerStates
                     yield break;
                 }
 
-                if (time >= attackRate && !EnemyTower.IsSafe)
+                if (EnemyTower.IsSafe) yield break;
+
+                var distanceToTarget =
+                    Vector3.Distance(EnemyTower.transform.position, EnemyTower.Target.transform.position);
+                var duration = distanceToTarget / speedAttack;
+
+                if (IsAvailableDistance(distanceToTarget))
                 {
-                    var speedAttack = _parametersConfig[EParameter.AttackSpeed].Value;
-                    var distanceToTarget =
-                        Vector3.Distance(EnemyTower.transform.position, EnemyTower.Target.transform.position);
-                    if (IsAvailableDistance(distanceToTarget))
-                    {
-                        EnemyTower.ShoteBullet(EnemyTower.Target.transform, speedAttack);
-                        time = 0f;
-                    }
+                    EnemyTower.ShoteBullet(EnemyTower.Target.transform, speedAttack);
+                    var bullet = new TowerBulletModel(_coroutineService, EnemyTower.Target,
+                        EnemyTower.Parameters, duration);
+                    bullet.Attacked += OnAttacked;
+                    _shotsQueue.Enqueue(bullet);
                 }
 
                 if (EnemyTower.Target == null || EnemyTower.Target.IsDied)
@@ -65,14 +70,13 @@ namespace Gameplay.Enemies.TowerStates
                     yield break;
                 }
 
-                time += Time.fixedDeltaTime;
-                yield return new WaitForFixedUpdate();
+                yield return new WaitForSeconds(attackRate);
             }
         }
 
         private bool IsAvailableDistance(float distance)
         {
-            var radiusAttack = _parametersConfig[EParameter.RadiusAttack].Value;
+            var radiusAttack = EnemyTower.Parameters[EParameter.RadiusAttack];
             if (distance > radiusAttack)
             {
                 _stateMachine.Enter<TowerIdleState>();
@@ -80,6 +84,11 @@ namespace Gameplay.Enemies.TowerStates
             }
 
             return true;
+        }
+
+        private void OnAttacked()
+        {
+            _shotsQueue.Dequeue();
         }
     }
 }

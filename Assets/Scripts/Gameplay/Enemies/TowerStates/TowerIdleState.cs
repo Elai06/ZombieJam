@@ -12,16 +12,13 @@ namespace Gameplay.Enemies.TowerStates
     {
         private ITargetManager _targetManager;
         private ICoroutineService _coroutineService;
-        private ParametersConfig _parametersConfig;
 
         private Coroutine _coroutine;
 
-        public TowerIdleState(EnemyTower enemyTower, ITargetManager targetManager, ICoroutineService coroutineService,
-            ParametersConfig parametersConfig) : base(enemyTower, EEnemyState.Idle)
+        public TowerIdleState(EnemyTower enemyTower, ITargetManager targetManager, ICoroutineService coroutineService) : base(enemyTower, EEnemyState.Idle)
         {
             _targetManager = targetManager;
             _coroutineService = coroutineService;
-            _parametersConfig = parametersConfig;
             EnemyTower = enemyTower;
         }
 
@@ -43,7 +40,7 @@ namespace Gameplay.Enemies.TowerStates
 
         private IEnumerator FindTarget()
         {
-            var radiusAttack = _parametersConfig.GetDictionary()[EParameter.RadiusAttack].Value;
+            var radiusAttack = EnemyTower.Parameters[EParameter.RadiusAttack];
             while (true)
             {
                 if (EnemyTower == null) yield break;
