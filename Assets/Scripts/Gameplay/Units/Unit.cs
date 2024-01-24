@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Gameplay.Battle;
 using Gameplay.Cards;
+using Gameplay.Configs.Zombies;
 using Gameplay.Enemies;
 using Gameplay.Enums;
 using Gameplay.Units.Mover;
@@ -45,6 +46,7 @@ namespace Gameplay.Units
         public float Health { get; private set; }
         public bool IsDied { get; private set; }
 
+        public ZombieData Config;
         public StateMachine StateMachine => _stateMachine;
 
         public Transform Prefab => _prefab;
@@ -56,12 +58,13 @@ namespace Gameplay.Units
         protected List<IEnemy> _attackedEnemies = new();
 
         public void Initialize(CardModel cardModel, ICoroutineService coroutineService,
-            ITargetManager targetManager, EUnitClass type)
+            ITargetManager targetManager, EUnitClass type, ZombieData zombieData)
         {
             _cardModel = cardModel;
             _coroutineService = coroutineService;
             _targetManager = targetManager;
             UnitClass = type;
+            Config = zombieData;
 
             InitializeParameters();
             Health = Parameters[EParameter.Health];
@@ -131,8 +134,8 @@ namespace Gameplay.Units
 
         public void PlayAttackAnimation()
         {
-            if(_animator == null) return;
-            
+            if (_animator == null) return;
+
             _animator.SetTrigger("Attack");
         }
 

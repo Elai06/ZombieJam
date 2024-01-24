@@ -2,9 +2,8 @@
 using Gameplay.Enums;
 using Gameplay.Parameters;
 using Gameplay.Units;
-using UnityEngine;
 
-namespace Gameplay.Configs
+namespace Gameplay.Configs.Zombies
 {
     [Serializable]
     public struct ZombieData
@@ -12,5 +11,12 @@ namespace Gameplay.Configs
         public EUnitClass Type;
         public Unit Prefab;
         public ParametersConfig Parameters;
+        public EZombieSize ZombieSize;
+    }
+
+    public enum EZombieSize
+    {
+        SingleCell,
+        TwoCells
     }
 }

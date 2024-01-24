@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Gameplay.Configs
+namespace Gameplay.Configs.Zombies
 {
     [CreateAssetMenu(fileName = "ZombieConfig", menuName = "Configs/ZombieConfig")]
     public class ZombieConfig : ScriptableObject
