@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Gameplay.Battle;
 using Gameplay.Cards;
 using Gameplay.CinemachineCamera;
-using Gameplay.Configs;
 using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
 using Gameplay.Units;
@@ -62,6 +60,7 @@ namespace Gameplay.Parking
             foreach (var unit in Zombies)
             {
                 unit.OnDied += OnUnitDied;
+                unit.Kicked += OnKicked;
                 unit.StateMachine.OnStateChange += OnZombieStateChanged;
             }
 
@@ -91,14 +90,25 @@ namespace Gameplay.Parking
             }
         }
 
-        private void OnUnitDied()
+        private void OnUnitDied(Unit unit)
         {
-            if (Zombies.Any(unit => !unit.IsDied))
+            if (Zombies.Any(x => !x.IsDied))
             {
                 return;
             }
 
             _windowService.Open(WindowType.Died);
+        }
+
+        private void OnKicked(Unit unit)
+        {
+            unit.OnDied -= OnUnitDied;
+            _zombies.Remove(unit);
+
+            if (_gameplayModel.WaveType == EWaveType.Logic)
+            {
+                _windowService.Open(WindowType.Died);
+            }
         }
 
         private void OnZombieStateChanged()

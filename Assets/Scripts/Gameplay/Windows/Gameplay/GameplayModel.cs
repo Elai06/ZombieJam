@@ -16,18 +16,17 @@ namespace Gameplay.Windows.Gameplay
         private readonly IRegionManager _regionManager;
         private readonly ILevelModel _levelModel;
         private readonly IAdsService _adsService;
-        private readonly GameStaticData _gameStaticData;
 
         public bool IsAvailableRessuraction { get; set; } = true;
 
-        public GameplayModel(IRegionManager regionManager, ILevelModel levelModel, IAdsService adsService,
-            GameStaticData gameStaticData)
+        public GameplayModel(IRegionManager regionManager, ILevelModel levelModel, IAdsService adsService)
         {
             _regionManager = regionManager;
             _levelModel = levelModel;
             _adsService = adsService;
-            _gameStaticData = gameStaticData;
         }
+
+        public EWaveType WaveType { get; set; }
 
         public void WaveCompleted()
         {

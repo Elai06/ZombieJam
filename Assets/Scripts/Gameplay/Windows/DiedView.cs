@@ -30,9 +30,14 @@ namespace Gameplay.Windows
             SetWave(progress.ERegionType, waveIndex);
             _gameplayModel.LooseWave();
             _experienceText.text = $"Experience: +{_gameplayModel.GetExperience(false)}";
+
+            if (_gameplayModel.WaveType == EWaveType.Logic)
+            {
+                _ressurectionButton.gameObject.SetActive(false);
+                return;
+            }
             
             _ressurectionButton.onClick.AddListener(Ressurection);
-            
             _ressurectionButton.gameObject.SetActive(_gameplayModel.IsAvailableRessuraction);
         }
 

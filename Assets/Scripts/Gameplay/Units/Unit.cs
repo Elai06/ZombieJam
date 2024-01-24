@@ -16,10 +16,10 @@ using StateMachine = Infrastructure.StateMachine.StateMachine;
 namespace Gameplay.Units
 {
     public abstract class Unit : MonoBehaviour, ISwipeObject
-
     {
         public event Action ResetMoving;
-        public event Action OnDied;
+        public event Action<Unit> OnDied;
+        public event Action<Unit> Kicked;
         public event Action<ESwipeSide> OnSwipe;
         public event Action<GameObject> OnCollision;
         public event Action OnInitializePath;
@@ -84,6 +84,8 @@ namespace Gameplay.Units
 
         public virtual void InitializeStates()
         {
+            var kickState = new UnitKickState(this);
+            _stateMachine.AddState(kickState);
         }
 
         protected virtual void OnCollisionEnter(Collision collision)
@@ -151,6 +153,8 @@ namespace Gameplay.Units
 
         public virtual void Resurection()
         {
+            if (CurrentState != EUnitState.Died) return;
+
             IsDied = false;
             Health = Parameters[EParameter.Health] / 2;
             gameObject.SetActive(true);
@@ -162,7 +166,7 @@ namespace Gameplay.Units
             Health = 0;
             IsDied = true;
             _stateMachine.Enter<UnitDiedState>();
-            OnDied?.Invoke();
+            OnDied?.Invoke(this);
         }
 
         public Vector3 GetPosition(IEnemy enemy, float radiusAttack)
@@ -171,6 +175,12 @@ namespace Gameplay.Units
             var angle = _attackedEnemies.Count - 12 * Mathf.PI * 2 / 12;
             return new Vector3(Mathf.Cos(angle) * radiusAttack, 0, Mathf.Sin(angle) * radiusAttack) +
                    gameObject.transform.position;
+        }
+
+        public void Kick()
+        {
+            _stateMachine.Enter<UnitKickState>();
+            Kicked?.Invoke(this);
         }
     }
 }

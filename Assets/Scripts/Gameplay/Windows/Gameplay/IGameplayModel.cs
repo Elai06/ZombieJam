@@ -6,6 +6,7 @@ namespace Gameplay.Windows.Gameplay
 {
     public interface IGameplayModel
     {
+        EWaveType WaveType { get; set; }
         void WaveCompleted();
         event Action<ERegionType, int> OnWaveCompleted;
         RegionProgress GetCurrentRegionProgress();

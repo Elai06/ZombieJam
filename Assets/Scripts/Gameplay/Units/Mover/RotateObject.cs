@@ -6,8 +6,6 @@ namespace Gameplay.Units.Mover
 {
     public class RotateObject : MonoBehaviour
     {
-        [SerializeField] private ArrowDirection _arrow;
-
         public void Rotate(BezierCurve curve, float t)
         {
             var direction = Direction(curve, t);
