@@ -5,6 +5,7 @@
         Parking,
         Road,
         Battle,
-        Died
+        Died,
+        Kick
     }
 }

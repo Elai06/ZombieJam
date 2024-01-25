@@ -62,6 +62,8 @@ namespace Gameplay.Units.States
 
         private IEnumerator StartMove()
         {
+            _unit.Animator.SetTrigger("Move");
+
             while (true)
             {
                 yield return new WaitForFixedUpdate();

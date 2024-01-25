@@ -5,6 +5,7 @@ using Gameplay.Configs.Level;
 using Gameplay.Configs.Region;
 using Gameplay.Configs.Shop;
 using Gameplay.Configs.Sprites;
+using Gameplay.Configs.Zombies;
 using Infrastructure.Windows;
 using UnityEngine;
 using Zenject;

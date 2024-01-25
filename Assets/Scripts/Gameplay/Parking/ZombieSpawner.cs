@@ -1,13 +1,14 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using Gameplay.Battle;
 using Gameplay.Cards;
 using Gameplay.CinemachineCamera;
-using Gameplay.Configs;
+using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
 using Gameplay.Units;
 using Gameplay.Windows.Gameplay;
+using Infrastructure.StaticData;
 using Infrastructure.UnityBehaviours;
 using Infrastructure.Windows;
 using UnityEngine;
@@ -19,7 +20,6 @@ namespace Gameplay.Parking
     public class ZombieSpawner : MonoBehaviour
     {
         [SerializeField] private PositionSpawner _positionSpawner;
-        [SerializeField] private ZombieConfig _zombieConfig;
         [SerializeField] private Transform _spawnPosition;
         [SerializeField] private TargetManager _targetManager;
         [SerializeField] private CameraSelector _cameraSelector;
@@ -31,14 +31,18 @@ namespace Gameplay.Parking
         private ICardsModel _cardsModel;
         private IGameplayModel _gameplayModel;
 
+        private ZombieConfig _zombieConfig;
+
         [Inject]
         public void Construct(ICoroutineService coroutineService, IWindowService windowService,
-            ICardsModel cardsModel, IGameplayModel gameplayModel)
+            ICardsModel cardsModel, IGameplayModel gameplayModel, GameStaticData gameStaticData)
         {
             _coroutineService = coroutineService;
             _windowService = windowService;
             _cardsModel = cardsModel;
             _gameplayModel = gameplayModel;
+
+            _zombieConfig = gameStaticData.ZombieConfig;
         }
 
         public List<Unit> Zombies => _zombies;
@@ -57,6 +61,7 @@ namespace Gameplay.Parking
             foreach (var unit in Zombies)
             {
                 unit.OnDied += OnUnitDied;
+                unit.Kicked += OnKicked;
                 unit.StateMachine.OnStateChange += OnZombieStateChanged;
             }
 
@@ -81,20 +86,32 @@ namespace Gameplay.Parking
                 prefab.transform.localPosition = spawnPosition.GetSpawnPosition();
                 prefab.SetSwipeDirection(spawnPosition.GetSwipeDirection());
                 prefab.Initialize(_cardsModel.CardModels[config.Type], _coroutineService, _targetManager,
-                    config.Type);
+                    config.Type, config);
                 _zombies.Add(prefab);
             }
         }
 
-        private void OnUnitDied()
+        private void OnUnitDied(Unit unit)
         {
-            if (Zombies.Any(unit => !unit.IsDied))
+            if (Zombies.Any(x => !x.IsDied))
             {
                 return;
             }
 
             _windowService.Open(WindowType.Died);
         }
+
+        private void OnKicked(Unit unit)
+        {
+            unit.OnDied -= OnUnitDied;
+            _zombies.Remove(unit);
+
+            if (_gameplayModel.WaveType == EWaveType.Logic)
+            {
+                DOVirtual.DelayedCall(1, () => { _windowService.Open(WindowType.Died); });
+            }
+        }
+
 
         private void OnZombieStateChanged()
         {

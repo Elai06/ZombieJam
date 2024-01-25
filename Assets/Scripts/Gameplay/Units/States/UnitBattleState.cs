@@ -58,6 +58,8 @@ namespace Gameplay.Units.States
 
         private IEnumerator MoveToTarget(Vector3 target)
         {
+            _unit.Animator.SetTrigger("Move");
+
             var distance = Vector3.Distance(target, _unit.transform.position);
 
             while (distance > 0.1f)

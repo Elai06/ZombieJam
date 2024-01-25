@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Gameplay.Ad;
+using Gameplay.Boosters;
 using Gameplay.Cards;
 using Gameplay.Enums;
 using Gameplay.Level;
@@ -21,10 +22,11 @@ namespace Infrastructure.Events
         private readonly IShopModel _shopModel;
         private readonly ICardsModel _cardsModel;
         private readonly IAdsService _adsService;
+        private readonly IBoostersManager _boostersManager;
 
         public EventsManager(IWindowService windowService, IPlayerTimesService playerTimesService,
             ILevelModel levelModel, IGameplayModel gameplayModel, IShopModel shopModel, ICardsModel cardsModel,
-            IAdsService adsService)
+            IAdsService adsService, IBoostersManager boostersManager)
         {
             _windowService = windowService;
             _playerTimesService = playerTimesService;
@@ -33,6 +35,7 @@ namespace Infrastructure.Events
             _shopModel = shopModel;
             _cardsModel = cardsModel;
             _adsService = adsService;
+            _boostersManager = boostersManager;
         }
 
         public void Initialize()
@@ -44,6 +47,7 @@ namespace Infrastructure.Events
             _cardsModel.StartUpgrade += OnStartUpgrade;
             _adsService.StartShow += OnStartAds;
             _adsService.Showed += OnAdsShowed;
+            _boostersManager.Activate += OnBoosterActivate;
 
             //GameLoaded
             AppMetrica.Instance.ReportEvent("Game Loaded",
@@ -145,6 +149,13 @@ namespace Infrastructure.Events
         private void OnPurchase(EShopProductType productType)
         {
             SendEventWithLevelDay(productType.ToString(), $"{{\"ProductType\":\"{productType}\"}}");
+        }
+
+        private void OnBoosterActivate(EBoosterType boosterType)
+        {
+            var parameters =
+                $"{{\"BoosterActivated\":\"{boosterType}\"}}";
+            SendEventWithLevelDay(parameters);
         }
     }
 }

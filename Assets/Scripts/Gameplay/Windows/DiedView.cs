@@ -1,5 +1,4 @@
-﻿using System;
-using Gameplay.Enums;
+﻿using Gameplay.Enums;
 using Gameplay.Windows.Gameplay;
 using TMPro;
 using UnityEngine;
@@ -30,9 +29,14 @@ namespace Gameplay.Windows
             SetWave(progress.ERegionType, waveIndex);
             _gameplayModel.LooseWave();
             _experienceText.text = $"Experience: +{_gameplayModel.GetExperience(false)}";
+
+            if (_gameplayModel.WaveType == EWaveType.Logic)
+            {
+                _ressurectionButton.gameObject.SetActive(false);
+                return;
+            }
             
             _ressurectionButton.onClick.AddListener(Ressurection);
-            
             _ressurectionButton.gameObject.SetActive(_gameplayModel.IsAvailableRessuraction);
         }
 

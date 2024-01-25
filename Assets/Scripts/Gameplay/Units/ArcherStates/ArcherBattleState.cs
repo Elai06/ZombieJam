@@ -60,7 +60,7 @@ namespace Gameplay.Units.ArcherStates
         private IEnumerator MoveToTarget(Vector3 target)
         {
             var distance = Vector3.Distance(target, _unit.transform.position);
-
+            _unit.Animator.SetTrigger("Move");
             while (distance > 0.1f)
             {
                 if (_unit == null || _unit.IsDied) yield break;

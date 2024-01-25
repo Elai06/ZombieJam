@@ -22,6 +22,8 @@ namespace Gameplay.Battle
         private void Start()
         {
             InjectService.Instance.Inject(this);
+
+            _gameplayModel.WaveType = _enemyManager.Enemies.Count >= 1 ? EWaveType.Battle : EWaveType.Logic;
         }
 
         private void OnEnable()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Gameplay.Battle;
 using Gameplay.Cards;
+using Gameplay.Configs.Zombies;
 using Gameplay.Enemies;
 using Gameplay.Enums;
 using Gameplay.Units.Mover;
@@ -15,10 +16,10 @@ using StateMachine = Infrastructure.StateMachine.StateMachine;
 namespace Gameplay.Units
 {
     public abstract class Unit : MonoBehaviour, ISwipeObject
-
     {
         public event Action ResetMoving;
-        public event Action OnDied;
+        public event Action<Unit> OnDied;
+        public event Action<Unit> Kicked;
         public event Action<ESwipeSide> OnSwipe;
         public event Action<GameObject> OnCollision;
         public event Action OnInitializePath;
@@ -45,6 +46,7 @@ namespace Gameplay.Units
         public float Health { get; private set; }
         public bool IsDied { get; private set; }
 
+        public ZombieData Config;
         public StateMachine StateMachine => _stateMachine;
 
         public Transform Prefab => _prefab;
@@ -53,20 +55,20 @@ namespace Gameplay.Units
 
         public Dictionary<EParameter, float> Parameters { get; private set; } = new();
 
+        public Animator Animator => _animator;
+
         protected List<IEnemy> _attackedEnemies = new();
 
         public void Initialize(CardModel cardModel, ICoroutineService coroutineService,
-            ITargetManager targetManager, EUnitClass type)
+            ITargetManager targetManager, EUnitClass type, ZombieData zombieData)
         {
             _cardModel = cardModel;
             _coroutineService = coroutineService;
             _targetManager = targetManager;
             UnitClass = type;
+            Config = zombieData;
 
             InitializeParameters();
-            Health = Parameters[EParameter.Health];
-            _healthBar.Initialize(Health);
-
             InitializeStates();
         }
 
@@ -77,10 +79,15 @@ namespace Gameplay.Units
             {
                 Parameters.Add(parameter.Key, parameter.Value);
             }
+
+            Health = Parameters[EParameter.Health];
+            _healthBar.Initialize(Health);
         }
 
         public virtual void InitializeStates()
         {
+            var kickState = new UnitKickState(this);
+            _stateMachine.AddState(kickState);
         }
 
         protected virtual void OnCollisionEnter(Collision collision)
@@ -131,8 +138,8 @@ namespace Gameplay.Units
 
         public void PlayAttackAnimation()
         {
-            if(_animator == null) return;
-            
+            if (_animator == null) return;
+
             _animator.SetTrigger("Attack");
         }
 
@@ -148,6 +155,8 @@ namespace Gameplay.Units
 
         public virtual void Resurection()
         {
+            if (CurrentState != EUnitState.Died) return;
+
             IsDied = false;
             Health = Parameters[EParameter.Health] / 2;
             gameObject.SetActive(true);
@@ -159,7 +168,8 @@ namespace Gameplay.Units
             Health = 0;
             IsDied = true;
             _stateMachine.Enter<UnitDiedState>();
-            OnDied?.Invoke();
+            _animator.SetTrigger("Died");
+            OnDied?.Invoke(this);
         }
 
         public Vector3 GetPosition(IEnemy enemy, float radiusAttack)
@@ -168,6 +178,12 @@ namespace Gameplay.Units
             var angle = _attackedEnemies.Count - 12 * Mathf.PI * 2 / 12;
             return new Vector3(Mathf.Cos(angle) * radiusAttack, 0, Mathf.Sin(angle) * radiusAttack) +
                    gameObject.transform.position;
+        }
+
+        public void Kick()
+        {
+            _stateMachine.Enter<UnitKickState>();
+            Kicked?.Invoke(this);
         }
     }
 }
