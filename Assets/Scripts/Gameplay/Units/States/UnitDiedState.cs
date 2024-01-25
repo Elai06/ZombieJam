@@ -17,6 +17,8 @@ namespace Gameplay.Units.States
             {
                 _unit.Target.RemoveAttackingUnit(_unit);
             }
+            
+            _unit.Animator.SetTrigger("Died");
         }
     }
 }

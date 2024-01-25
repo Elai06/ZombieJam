@@ -69,6 +69,7 @@ namespace Gameplay.Units.ArcherStates
         private IEnumerator StartMove()
         {
             _isMove = true;
+            _unit.Animator.SetTrigger("Move");
             while (_isMove)
             {
                 yield return new WaitForFixedUpdate();

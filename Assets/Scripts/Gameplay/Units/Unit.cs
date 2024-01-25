@@ -55,6 +55,8 @@ namespace Gameplay.Units
 
         public Dictionary<EParameter, float> Parameters { get; private set; } = new();
 
+        public Animator Animator => _animator;
+
         protected List<IEnemy> _attackedEnemies = new();
 
         public void Initialize(CardModel cardModel, ICoroutineService coroutineService,
@@ -67,9 +69,6 @@ namespace Gameplay.Units
             Config = zombieData;
 
             InitializeParameters();
-            Health = Parameters[EParameter.Health];
-            _healthBar.Initialize(Health);
-
             InitializeStates();
         }
 
@@ -80,6 +79,9 @@ namespace Gameplay.Units
             {
                 Parameters.Add(parameter.Key, parameter.Value);
             }
+
+            Health = Parameters[EParameter.Health];
+            _healthBar.Initialize(Health);
         }
 
         public virtual void InitializeStates()
@@ -166,6 +168,7 @@ namespace Gameplay.Units
             Health = 0;
             IsDied = true;
             _stateMachine.Enter<UnitDiedState>();
+            _animator.SetTrigger("Died");
             OnDied?.Invoke(this);
         }
 

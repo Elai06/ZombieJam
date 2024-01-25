@@ -1,5 +1,4 @@
-﻿using System;
-using Gameplay.Enums;
+﻿using Gameplay.Enums;
 using Gameplay.Windows.Gameplay;
 using TMPro;
 using UnityEngine;

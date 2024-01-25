@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using Gameplay.Battle;
 using Gameplay.Cards;
 using Gameplay.CinemachineCamera;
@@ -107,9 +108,10 @@ namespace Gameplay.Parking
 
             if (_gameplayModel.WaveType == EWaveType.Logic)
             {
-                _windowService.Open(WindowType.Died);
+                DOVirtual.DelayedCall(1, () => { _windowService.Open(WindowType.Died); });
             }
         }
+
 
         private void OnZombieStateChanged()
         {
