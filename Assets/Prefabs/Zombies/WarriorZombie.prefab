@@ -325,6 +325,11 @@ MonoBehaviour:
   _animator: {fileID: 3386618505673386194}
   _prefab: {fileID: 1298486144722240191}
   _eSwipeDirection: 0
+  Config:
+    Type: 0
+    Prefab: {fileID: 0}
+    Parameters: {fileID: 0}
+    ZombieSize: 0
 --- !u!136 &6426492554983713376
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -402,7 +407,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c4679f406f24ed2a61396a46d3aa2e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _arrow: {fileID: 2071344386640409038}
 --- !u!1 &7805083672208440671
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,6 +552,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cop
       objectReference: {fileID: 0}
+    - target: {fileID: 1452412094885812, guid: 1d3e21374171a4335a8a51ecb8bf2d17, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1597986119671554, guid: 1d3e21374171a4335a8a51ecb8bf2d17, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -555,6 +563,10 @@ PrefabInstance:
     - target: {fileID: 1902993143538460, guid: 1d3e21374171a4335a8a51ecb8bf2d17, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1932211032921166, guid: 1d3e21374171a4335a8a51ecb8bf2d17, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4154021153174908, guid: 1d3e21374171a4335a8a51ecb8bf2d17, type: 3}
       propertyPath: m_RootOrder
@@ -611,6 +623,22 @@ PrefabInstance:
     - target: {fileID: 4154021153174908, guid: 1d3e21374171a4335a8a51ecb8bf2d17, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4219821234996822, guid: 1d3e21374171a4335a8a51ecb8bf2d17, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4219821234996822, guid: 1d3e21374171a4335a8a51ecb8bf2d17, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4219821234996822, guid: 1d3e21374171a4335a8a51ecb8bf2d17, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4219821234996822, guid: 1d3e21374171a4335a8a51ecb8bf2d17, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 95102391320674130, guid: 1d3e21374171a4335a8a51ecb8bf2d17, type: 3}
       propertyPath: m_Controller
