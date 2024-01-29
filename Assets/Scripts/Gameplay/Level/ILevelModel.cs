@@ -7,7 +7,7 @@ namespace Gameplay.Level
         event Action<LevelProgress> UpdateExperience;
         int CurrentLevel { get; }
         int CurrentExperience { get; }
-        int ReqiredExperienceForUp { get; }
+        int ReqiredExperienceForUp();
         void AddExperience(bool isWin);
         int GetExperience(bool isWin);
         event Action<int> OnLevelUp;

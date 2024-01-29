@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 namespace Gameplay.Windows.Header
 {
@@ -13,12 +14,12 @@ namespace Gameplay.Windows.Header
         public override void Initialize(CurrencySubViewData data)
         {
             _image.sprite = data.Sprite;
-            _valueText.text = data.Value.ToString();
+            _valueText.text = data.Value.ToFormattedBigNumber();
         }
 
         public void SetValue(int value)
         {
-            _valueText.text = value.ToString();
+            _valueText.text = value.ToFormattedBigNumber();
         }
     }
 }

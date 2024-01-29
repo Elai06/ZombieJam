@@ -4,6 +4,7 @@ using System.Linq;
 using Gameplay.Tutorial;
 using Infrastructure.Windows;
 using UnityEngine;
+using UnityEngine.UI;
 using Utils.ZenjectInstantiateUtil;
 using Zenject;
 
@@ -14,6 +15,10 @@ namespace Gameplay.Windows.Footer
         [SerializeField] private List<FooterTab> _footerTabs = new();
         [SerializeField] private Transform _shopTutorial;
         [SerializeField] private Transform _cardTutorial;
+
+        [SerializeField] private Sprite _selectedImage;
+        [SerializeField] private Sprite _idleImage;
+        [SerializeField] private Sprite _disabledImage;
 
         private IWindowService _windowService;
         private ITutorialService _tutorialService;
@@ -29,11 +34,13 @@ namespace Gameplay.Windows.Footer
         {
             _cardTutorial.gameObject.SetActive(false);
             _shopTutorial.gameObject.SetActive(false);
-            
+
             InjectService.Instance.Inject(this);
 
             _tutorialService.СhangedState += OnChangedTutorialState;
             OnChangedTutorialState(_tutorialService.CurrentState);
+            
+            SelectedTab(_footerTabs.Find(x=> x.WindowType == WindowType.Lobby));
         }
 
         private void OnEnable()
@@ -85,18 +92,24 @@ namespace Gameplay.Windows.Footer
             {
                 if (footerTab.WindowType != selected.WindowType)
                 {
+                    footerTab.SetImage(_idleImage);
                     continue;
                 }
 
-                if (selected.WindowType == WindowType.Shop)
+                if (_tutorialService.CurrentState != ETutorialState.Completed)
                 {
-                    _shopTutorial.gameObject.SetActive(false);
+                    if (selected.WindowType == WindowType.Shop)
+                    {
+                        _shopTutorial.gameObject.SetActive(false);
+                    }
+
+                    if (selected.WindowType == WindowType.Cards)
+                    {
+                        _cardTutorial.gameObject.SetActive(false);
+                    }
                 }
 
-                if (selected.WindowType == WindowType.Cards)
-                {
-                    _cardTutorial.gameObject.SetActive(false);
-                }
+                selected.SetImage(_selectedImage);
 
                 _windowService.Open(selected.WindowType);
             }

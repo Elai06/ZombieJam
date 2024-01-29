@@ -42,19 +42,15 @@ namespace Gameplay.Level
         public int CurrentLevel => _levelProgress.Level;
         public int CurrentExperience => _levelProgress.Experience;
 
-        public int ReqiredExperienceForUp => (int)(_levelConfig.ReqiredExperienceForUp + (CurrentLevel + 1) *
-            _levelConfig.MultiplierExperience);
-
-
         public void AddExperience(bool isWin)
         {
             var value = GetExperience(isWin);
 
-            _levelProgress.Experience += (int)value;
+            _levelProgress.Experience += value;
 
-            if (CurrentExperience >= ReqiredExperienceForUp)
+            if (CurrentExperience >= ReqiredExperienceForUp())
             {
-                var residue = _levelProgress.Experience - ReqiredExperienceForUp;
+                var residue = _levelProgress.Experience - ReqiredExperienceForUp();
                 LevelUp();
                 _levelProgress.Experience += residue;
             }
@@ -102,6 +98,12 @@ namespace Gameplay.Level
         {
             return (int)((isWin ? _levelConfig.ExperienceForWin : _levelConfig.ExperienceForLoose)
                          * _levelConfig.MultiplierExperience);
+        }
+
+        public int ReqiredExperienceForUp()
+        {
+            var reqiredExperience = (int)(_levelConfig.ReqiredExperienceForUp * (CurrentLevel * _levelConfig.MultiplierExperience));
+            return reqiredExperience > 0 ? reqiredExperience : _levelConfig.ReqiredExperienceForUp;
         }
     }
 }

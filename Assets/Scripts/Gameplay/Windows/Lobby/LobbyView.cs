@@ -1,4 +1,5 @@
-﻿using Gameplay.Enums;
+﻿using System.Collections.Generic;
+using Gameplay.Enums;
 using Gameplay.Windows.Gameplay;
 using Infrastructure.Windows;
 using TMPro;
@@ -14,6 +15,12 @@ namespace Gameplay.Windows.Lobby
     {
         [SerializeField] private Slider _slider;
         [SerializeField] private TextMeshProUGUI _waveText;
+
+        [SerializeField] private Sprite _completedWave;
+        [SerializeField] private Sprite _notCompletedWave;
+        [SerializeField] private Sprite _currentWave;
+
+        [SerializeField] private List<Image> _waveSprites;
 
         [Inject] private IWindowService _windowService;
         [Inject] private IGameplayModel _gameplayModel;
@@ -47,9 +54,30 @@ namespace Gameplay.Windows.Lobby
         private void UpdateWave(ERegionType regionType, int waveIndex)
         {
             var config = _gameplayModel.GetRegionConfig();
-            _slider.value = waveIndex / ((float)config.Waves.Count);
-            _waveText.text =
-                $"{regionType}: Wave {waveIndex + 1}/{_gameplayModel.GetRegionConfig().Waves.Count}";
+            _slider.value = waveIndex / ((float)config.Waves.Count - 1);
+            _waveText.text = $"{regionType}";
+
+            UpdateSliderWavesImage(waveIndex);
+        }
+
+        private void UpdateSliderWavesImage(int waveIndex)
+        {
+            for (var index = 0; index < _waveSprites.Count; index++)
+            {
+                var waveSprite = _waveSprites[index];
+                if (waveIndex > index)
+                {
+                    waveSprite.sprite = _completedWave;
+                }
+                else if (waveIndex == index)
+                {
+                    waveSprite.sprite = _currentWave;
+                }
+                else
+                {
+                    waveSprite.sprite = _notCompletedWave;
+                }
+            }
         }
 
         private void Restart()
