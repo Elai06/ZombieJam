@@ -39,8 +39,8 @@ namespace Gameplay.Windows.Footer
 
             _tutorialService.СhangedState += OnChangedTutorialState;
             OnChangedTutorialState(_tutorialService.CurrentState);
-            
-            SelectedTab(_footerTabs.Find(x=> x.WindowType == WindowType.Lobby));
+
+            SelectedTab(_footerTabs.Find(x => x.WindowType == WindowType.Lobby));
         }
 
         private void OnEnable()
@@ -68,18 +68,7 @@ namespace Gameplay.Windows.Footer
 
         private void OpenView(WindowType viewType)
         {
-            var isFooterView = false;
-            foreach (var tab in _footerTabs.Where(x => x.IsInteractable))
-            {
-                if (tab.WindowType == viewType)
-                {
-                    isFooterView = true;
-                }
-            }
-
-            if (!isFooterView) return;
-
-            foreach (var tab in _footerTabs.Where(x => x.IsInteractable))
+            foreach (var tab in _footerTabs)
             {
                 tab.Selected(tab.WindowType == viewType);
             }
@@ -88,11 +77,11 @@ namespace Gameplay.Windows.Footer
 
         private void SelectedTab(FooterTab selected)
         {
-            foreach (var footerTab in _footerTabs.Where(footerTab => footerTab.IsInteractable))
+            foreach (var footerTab in _footerTabs)
             {
                 if (footerTab.WindowType != selected.WindowType)
                 {
-                    footerTab.SetImage(_idleImage);
+                    footerTab.SetImage(footerTab.IsInteractable ? _idleImage : _disabledImage);
                     continue;
                 }
 
@@ -121,12 +110,12 @@ namespace Gameplay.Windows.Footer
 
             foreach (var footerTab in _footerTabs)
             {
-                footerTab.SetInteractable(false);
+                SetInteractableTab(footerTab, false);
 
                 switch (tutorialState)
                 {
                     case ETutorialState.Completed:
-                        footerTab.SetInteractable(true);
+                        SetInteractableTab(footerTab, true);
                         continue;
 
                     case ETutorialState.Swipe:
@@ -135,7 +124,7 @@ namespace Gameplay.Windows.Footer
                     case ETutorialState.ShopBox:
                         if (footerTab.WindowType == WindowType.Shop)
                         {
-                            footerTab.SetInteractable(true);
+                            SetInteractableTab(footerTab, true);
                             _shopTutorial.gameObject.SetActive(true);
                         }
 
@@ -143,7 +132,7 @@ namespace Gameplay.Windows.Footer
                     case ETutorialState.ShopCurrency:
                         if (footerTab.WindowType == WindowType.Shop)
                         {
-                            footerTab.SetInteractable(true);
+                            SetInteractableTab(footerTab, true);
                             _shopTutorial.gameObject.SetActive(true);
                         }
 
@@ -151,7 +140,7 @@ namespace Gameplay.Windows.Footer
                     case ETutorialState.Card:
                         if (footerTab.WindowType == WindowType.Cards)
                         {
-                            footerTab.SetInteractable(true);
+                            SetInteractableTab(footerTab, true);
                             _cardTutorial.gameObject.SetActive(true);
                         }
 
@@ -161,6 +150,14 @@ namespace Gameplay.Windows.Footer
                         throw new ArgumentOutOfRangeException(nameof(tutorialState), tutorialState, null);
                 }
             }
+        }
+
+        private void SetInteractableTab(FooterTab footerTab, bool isInteractable)
+        {
+            footerTab.SetInteractable(isInteractable);
+
+            footerTab.SetImage(isInteractable ? _idleImage : _disabledImage);
+            footerTab.SetScale();
         }
     }
 }

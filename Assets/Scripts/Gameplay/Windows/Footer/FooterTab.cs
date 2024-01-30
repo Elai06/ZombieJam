@@ -47,6 +47,11 @@ namespace Gameplay.Windows.Footer
         {
             IsSelected = isSelected;
 
+            SetScale();
+        }
+
+        public void SetScale()
+        {
             if (IsSelected)
             {
                 gameObject.transform.localScale = new Vector3(1.15f, 1.15f);

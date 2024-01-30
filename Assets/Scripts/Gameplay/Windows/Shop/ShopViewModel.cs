@@ -76,6 +76,11 @@ namespace Gameplay.Windows.Shop
                     subViewData.RewardValue = rewardConfig.Rewards.Count == 1 ? rewardConfig.Rewards[0].Value : 0;
                 }
 
+                if (configData.IsFree)
+                {
+                    subViewData.PriceSprite = _gameStaticData.SpritesConfig.GetCurrencySprite(ECurrencyType.Free);
+                }
+                
 
                 if (configData.IsDesposable)
                 {

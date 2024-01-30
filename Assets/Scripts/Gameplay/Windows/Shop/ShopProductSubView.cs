@@ -40,13 +40,15 @@ namespace Gameplay.Windows.Shop
             if (data.IsFree || data.IsInApp)
             {
                 _priceValue.text = data.IsInApp ? $"${data.PriceValue}" : "FREE";
-                _priceImage.gameObject.SetActive(false);
             }
 
+            
             if (!data.IsInApp && !data.IsFree)
             {
                 _priceValue.color = data.IsCanBuy ? Color.white : Color.red;
             }
+
+            _priceImage.gameObject.SetActive(!data.isTutorial && !data.IsInApp);
 
             _buyButton.gameObject.SetActive(data.IsAvailable);
 

@@ -40,7 +40,7 @@ namespace Gameplay.Windows.Cards
             _sliderValue.text = $"{data.ProgressData.CardsValue}/{data.CardsReqired}";
             _notCurrencyText.gameObject.SetActive(false);
 
-            _priceValue.color = data.IsCanUpgrade ? Color.black : Color.red;
+            _priceValue.color = data.IsCanUpgrade ? Color.white : Color.red;
             _isCanUpgrade = data.IsCanUpgrade;
 
             _tutorialFinger.gameObject.SetActive(data.IsTutorial);

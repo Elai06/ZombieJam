@@ -1,9 +1,10 @@
 using _Project.Scripts.Infrastructure.StateMachine.States;
 using Infrastructure.StateMachine;
+using Infrastructure.StateMachine.States;
 using UnityEngine;
 using Zenject;
 
-namespace _Project.Scripts.Infrastructure.Bootstrap
+namespace Infrastructure.Bootstrap
 {
     public class GameBootstrapper : MonoBehaviour
     {
