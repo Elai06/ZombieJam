@@ -67,7 +67,7 @@ namespace Gameplay.Windows.Shop
 
                 if (!shopConfigData.IsInApp)
                 {
-                    _priceValue.color = isCanBuy ? Color.black : Color.red;
+                    _priceValue.color = isCanBuy ? Color.white : Color.red;
                 }
             }
             

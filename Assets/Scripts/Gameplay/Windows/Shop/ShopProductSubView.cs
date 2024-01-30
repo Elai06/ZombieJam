@@ -14,6 +14,7 @@ namespace Gameplay.Windows.Shop
         public event Action<EShopProductType> ProductClick;
 
         [SerializeField] private Image _priceImage;
+        [SerializeField] private Image _iconImage;
         [SerializeField] private TextMeshProUGUI _priceValue;
         [SerializeField] private TextMeshProUGUI _productName;
         [SerializeField] private Button _buyButton;
@@ -30,20 +31,21 @@ namespace Gameplay.Windows.Shop
             _productType = data.ProductType;
             _priceImage.sprite = data.PriceSprite;
             _priceValue.text = $"{data.PriceValue}";
-            _productName.text = $"{data.ProductType}";
+            _productName.text = (int)data.RewardValue > 0 ? $"{data.RewardValue}" : $"{data.ProductType}";
+            _iconImage.sprite = data.ProductSprite;
             _notCurrencyText.gameObject.SetActive(false);
 
             _isCanBuy = data.IsCanBuy || data.IsInApp;
 
             if (data.IsFree || data.IsInApp)
             {
-                _priceValue.text = data.IsInApp ? $"Buy ${data.PriceValue}" : "Free";
+                _priceValue.text = data.IsInApp ? $"${data.PriceValue}" : "FREE";
                 _priceImage.gameObject.SetActive(false);
             }
 
             if (!data.IsInApp && !data.IsFree)
             {
-                _priceValue.color = data.IsCanBuy ? Color.black : Color.red;
+                _priceValue.color = data.IsCanBuy ? Color.white : Color.red;
             }
 
             _buyButton.gameObject.SetActive(data.IsAvailable);
@@ -75,7 +77,7 @@ namespace Gameplay.Windows.Shop
                     .OnComplete(() => _notCurrencyText.gameObject.SetActive(false));
                 return;
             }
-            
+
             _arrowTutorial.gameObject.SetActive(false);
 
             BuyClick?.Invoke(_productType);

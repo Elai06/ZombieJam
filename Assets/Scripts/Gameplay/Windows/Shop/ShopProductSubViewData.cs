@@ -14,5 +14,6 @@ namespace Gameplay.Windows.Shop
         public bool IsCanBuy;
         public bool IsInApp;
         public bool isTutorial;
+        public float RewardValue;
     }
 }
