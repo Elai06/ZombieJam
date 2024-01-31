@@ -203,6 +203,11 @@ namespace Gameplay.Windows.Footer
             var footerTab = _footerTabs.Find(x => x.WindowType == WindowType.Region);
             var regionIndex = _gameplayModel.GetCurrentRegionProgress().RegionIndex;
             SetInteractableTab(footerTab, regionIndex > 0);
+
+            if (_windowService.IsOpen(WindowType.Region))
+            {
+                SelectedTab(footerTab);
+            }
         }
 
         private void OnOpenedView(WindowType windowType)

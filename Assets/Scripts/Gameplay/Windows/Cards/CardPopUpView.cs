@@ -66,11 +66,6 @@ namespace Gameplay.Windows.Cards
             _closeButtonBG.onClick.AddListener(Close);
         }
 
-        private void Start()
-        {
-            Close();
-        }
-
         private void OnDisable()
         {
             _upgradeButton.onClick.RemoveListener(UpgradeCard);

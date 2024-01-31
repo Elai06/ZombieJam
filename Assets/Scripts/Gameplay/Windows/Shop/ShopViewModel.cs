@@ -106,8 +106,7 @@ namespace Gameplay.Windows.Shop
             switch (_tutorialService.CurrentState)
             {
                 case ETutorialState.ShopBox when productType != EShopProductType.SimpleBox:
-                case ETutorialState.ShopCurrency:
-                    return;
+                case ETutorialState.ShopCurrency: return;
             }
 
             var config = _gameStaticData.ShopConfig.ConfigData
