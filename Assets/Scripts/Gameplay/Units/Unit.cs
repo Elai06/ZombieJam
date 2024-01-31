@@ -141,6 +141,7 @@ namespace Gameplay.Units
             if (_animator == null) return;
 
             _animator.SetTrigger("Attack");
+            _animator.GetComponentInChildren<AnimatorDuplicator>().Attack();
         }
 
         public void ResetSwipeDirection()
