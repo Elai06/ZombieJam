@@ -11,25 +11,21 @@ namespace Gameplay.Windows.Footer
 
         private Button _button;
 
-        private Image _image;
+        [SerializeField] private WindowType _windowType;
+        [SerializeField] private Image _lockImage;
+
         public bool IsInteractable;
-        public WindowType WindowType;
         public bool IsSelected;
+
+        public WindowType WindowType => _windowType;
 
         private void Awake()
         {
             _button = gameObject.GetComponent<Button>();
-            _image = gameObject.GetComponent<Image>();
-            
-            _button.interactable = IsInteractable;
-        }
 
-        private void Start()
-        {
-            if (IsSelected)
-            {
-                Selected(true);
-            }
+            _button.interactable = IsInteractable;
+
+            _lockImage.gameObject.SetActive(!IsInteractable);
         }
 
         private void OnEnable()
@@ -51,23 +47,34 @@ namespace Gameplay.Windows.Footer
         {
             IsSelected = isSelected;
 
+            SetScale();
+        }
+
+        public void SetScale()
+        {
             if (IsSelected)
             {
                 gameObject.transform.localScale = new Vector3(1.15f, 1.15f);
-                _image.color = Color.green;
             }
             else
             {
                 gameObject.transform.localScale = new Vector3(1, 1);
-                _image.color = Color.white;
             }
         }
 
         public void SetInteractable(bool isInteractable)
         {
             if (IsInteractable == false) return;
-            
+
             _button.interactable = isInteractable;
+        }
+
+        public void SetImage(Sprite image)
+        {
+            if (_button.interactable)
+            {
+                _button.image.sprite = image;
+            }
         }
     }
 }

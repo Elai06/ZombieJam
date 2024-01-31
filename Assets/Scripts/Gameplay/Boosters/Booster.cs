@@ -1,5 +1,4 @@
 ﻿using Gameplay.Configs.Boosters;
-using Gameplay.Parameters;
 using Infrastructure.StaticData;
 using UnityEngine;
 using Utils.ZenjectInstantiateUtil;

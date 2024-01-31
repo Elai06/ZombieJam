@@ -59,6 +59,7 @@ namespace Gameplay.Windows.Shop
             var subViews = new List<ShopProductSubViewData>();
             foreach (var configData in Model.ShopConfig.ConfigData)
             {
+                var rewardConfig = configData.Rewards;
                 var subViewData = new ShopProductSubViewData()
                 {
                     ProductType = configData.ProductType,
@@ -66,8 +67,20 @@ namespace Gameplay.Windows.Shop
                     PriceValue = configData.PriceValue,
                     IsFree = configData.IsFree,
                     IsInApp = configData.IsInApp,
-                    IsCanBuy = Model.IsCanConsume(configData.PriceType, (int)configData.PriceValue)
+                    IsCanBuy = Model.IsCanConsume(configData.PriceType, (int)configData.PriceValue),
+                    ProductSprite = _gameStaticData.SpritesConfig.GetShopSprite(configData.ProductType)
                 };
+
+                if (rewardConfig != null)
+                {
+                    subViewData.RewardValue = rewardConfig.Rewards.Count == 1 ? rewardConfig.Rewards[0].Value : 0;
+                }
+
+                if (configData.IsFree)
+                {
+                    subViewData.PriceSprite = _gameStaticData.SpritesConfig.GetCurrencySprite(ECurrencyType.Free);
+                }
+                
 
                 if (configData.IsDesposable)
                 {
@@ -109,10 +122,10 @@ namespace Gameplay.Windows.Shop
         {
             InitializeProducts();
         }
-        
+
         private void OnTutorialChanged(ETutorialState tutorial)
         {
-           View.SetTutorialState(tutorial);
+            View.SetTutorialState(tutorial);
         }
     }
 }

@@ -37,15 +37,15 @@ namespace Gameplay.Tutorial.States.Shop
             base.Exit();
 
             _shopModel.Purchased -= OnPurchase;
-
-            _windowService.Open(WindowType.Footer);
-            _windowService.Close(WindowType.Shop);
         }
 
         private void OnPurchase(EShopProductType shopProductType)
         {
             if (shopProductType == EShopProductType.LittleSoft)
             {
+                _windowService.Close(WindowType.Shop);
+                _windowService.Open(WindowType.Footer);
+
                 _stateMachine.Enter<CardTutorialState>();
             }
         }

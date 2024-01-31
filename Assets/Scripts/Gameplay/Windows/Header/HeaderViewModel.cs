@@ -27,7 +27,7 @@ namespace Gameplay.Windows.Header
         {
             InitializeCurrencies();
             View.LevelView.Initialize(_levelModel.CurrentLevel, _levelModel.CurrentExperience,
-                _levelModel.ReqiredExperienceForUp);
+                _levelModel.ReqiredExperienceForUp());
         }
 
         public override void Subscribe()
@@ -72,7 +72,7 @@ namespace Gameplay.Windows.Header
 
         private void OnLevelUpdate(LevelProgress progress)
         {
-            View.LevelView.Initialize(progress.Level, progress.Experience, _levelModel.ReqiredExperienceForUp);
+            View.LevelView.Initialize(progress.Level, progress.Experience, _levelModel.ReqiredExperienceForUp());
         }
     }
 }

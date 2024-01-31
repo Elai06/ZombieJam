@@ -3,6 +3,7 @@
     public enum ECurrencyType
     {
         SoftCurrency,
-        HardCurrency
+        HardCurrency,
+        Free
     }
 }

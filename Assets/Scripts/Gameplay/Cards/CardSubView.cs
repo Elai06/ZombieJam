@@ -1,5 +1,4 @@
 ﻿using System;
-using DG.Tweening;
 using Gameplay.Enums;
 using Infrastructure.Windows.MVVM.SubView;
 using TMPro;
@@ -30,8 +29,9 @@ namespace Gameplay.Cards
             _valueCardsText.text = $"{data.ProgressData.CardsValue}/{data.ReqiredCards}";
             _type = data.ProgressData.unitClass;
             _nameText.text = $"{data.ProgressData.unitClass}";
-            _leveText.text = $"Level: {data.ProgressData.Level + 1}";
-            _indicator.gameObject.SetActive(data.IsCanUpgrade);
+            _leveText.text = $"{data.ProgressData.Level + 1}";
+            //_indicator.gameObject.SetActive(data.IsCanUpgrade);
+            _indicator.gameObject.SetActive(false);
 
             _tutorialFinger.gameObject.SetActive(data.IsTutorial);
         }

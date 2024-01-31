@@ -1,8 +1,6 @@
 using Infrastructure.SaveLoads;
-using Infrastructure.StateMachine;
-using Infrastructure.StateMachine.States;
 
-namespace _Project.Scripts.Infrastructure.StateMachine.States
+namespace Infrastructure.StateMachine.States
 {
     public class BootstrapState : IState
     {
