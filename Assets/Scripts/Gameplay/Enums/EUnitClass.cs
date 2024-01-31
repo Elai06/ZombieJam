@@ -4,6 +4,7 @@
     {
         Warrior,
         Archer,
-        Tank
+        Tank,
+        Coffin
     }
 }
