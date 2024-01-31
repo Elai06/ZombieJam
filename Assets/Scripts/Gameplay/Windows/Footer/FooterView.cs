@@ -49,11 +49,6 @@ namespace Gameplay.Windows.Footer
             {
                 footerTab.Click += SelectedTab;
             }
-
-            if (_windowService != null)
-            {
-                _windowService.OnOpen += OpenView;
-            }
         }
 
         private void OnDisable()
@@ -62,46 +57,37 @@ namespace Gameplay.Windows.Footer
             {
                 footerTab.Click -= SelectedTab;
             }
-
-            _windowService.OnOpen -= OpenView;
         }
-
-        private void OpenView(WindowType viewType)
-        {
-            foreach (var tab in _footerTabs)
-            {
-                tab.Selected(tab.WindowType == viewType);
-            }
-        }
-
-
+        
         private void SelectedTab(FooterTab selected)
         {
-            foreach (var footerTab in _footerTabs)
+            foreach (var footerTab in _footerTabs.Where(x => x.IsInteractable))
             {
                 if (footerTab.WindowType != selected.WindowType)
                 {
-                    footerTab.SetImage(footerTab.IsInteractable ? _idleImage : _disabledImage);
+                    footerTab.SetImage(_idleImage);
+                    footerTab.Selected(false);
                     continue;
                 }
 
-                if (_tutorialService.CurrentState != ETutorialState.Completed)
-                {
-                    if (selected.WindowType == WindowType.Shop)
-                    {
-                        _shopTutorial.gameObject.SetActive(false);
-                    }
+                selected.Selected(true);
+                selected.SetImage(_selectedImage);
+            }
 
-                    if (selected.WindowType == WindowType.Cards)
-                    {
-                        _cardTutorial.gameObject.SetActive(false);
-                    }
+            if (_tutorialService.CurrentState != ETutorialState.Completed)
+            {
+                if (selected.WindowType == WindowType.Shop)
+                {
+                    _shopTutorial.gameObject.SetActive(false);
                 }
 
-                selected.SetImage(_selectedImage);
-
-                _windowService.Open(selected.WindowType);
+                if (selected.WindowType == WindowType.Cards)
+                {
+                    _cardTutorial.gameObject.SetActive(false);
+                }
             }
+
+            _windowService.Open(selected.WindowType);
         }
 
         private void OnChangedTutorialState(ETutorialState tutorialState)
@@ -154,6 +140,8 @@ namespace Gameplay.Windows.Footer
 
         private void SetInteractableTab(FooterTab footerTab, bool isInteractable)
         {
+            if (footerTab.IsSelected) return;
+
             footerTab.SetInteractable(isInteractable);
 
             footerTab.SetImage(isInteractable ? _idleImage : _disabledImage);

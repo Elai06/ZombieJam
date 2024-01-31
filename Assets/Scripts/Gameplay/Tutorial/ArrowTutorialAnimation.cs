@@ -13,7 +13,7 @@ namespace Gameplay.Tutorial
         private void OnEnable()
         {
             _tween = transform.DOLocalMoveY(transform.localPosition.y + _distance, _duration)
-                .SetLoops(-1, LoopType.Yoyo);
+                .SetLoops(-1, LoopType.Restart);
         }
 
         private void OnDisable()

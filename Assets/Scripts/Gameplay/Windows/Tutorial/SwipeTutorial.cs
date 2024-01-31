@@ -27,17 +27,17 @@ namespace Gameplay.Windows.Tutorial
         private void Start()
         {
             InjectService.Instance.Inject(this);
+            _firstArrow.gameObject.SetActive(true);
 
             StartAnimation();
             _swipeManager.OnSwipe += OnSwipe;
-            _firstArrow.gameObject.SetActive(true);
             _secondArrow.gameObject.SetActive(false);
         }
 
         private void StartAnimation()
         {
-            _tween = _firstArrow.transform.DOLocalMoveZ(_firstArrow.transform.position.z - 1.5f, 1f)
-                .SetLoops(-1, LoopType.Yoyo);
+            _tween = _firstArrow.transform.DOLocalMoveZ(_firstArrow.transform.position.z + 1.75f, 1.75f)
+                .SetLoops(-1, LoopType.Restart);
         }
 
         private void OnSwipe(TutorialSwipeInfo swipeObject)
@@ -76,8 +76,8 @@ namespace Gameplay.Windows.Tutorial
                         }
 
                         _secondArrow.gameObject.SetActive(true);
-                        _tween = _secondArrow.transform.DOLocalMoveX(_secondArrow.transform.position.x - 1.5f, 1f)
-                            .SetLoops(-1, LoopType.Yoyo);
+                        _tween = _secondArrow.transform.DOLocalMoveX(_secondArrow.transform.position.x - 1.75f, 1.75f)
+                            .SetLoops(-1, LoopType.Restart);
                     }
                 }
             }
@@ -92,12 +92,12 @@ namespace Gameplay.Windows.Tutorial
                     if (swipeObject.SwipeGameObject.transform.localPosition == _secondUnitPosition)
                     {
                         _tween?.Kill();
-                        
+
                         if (_secondArrow == null)
                         {
                             _secondArrow = FindFirstObjectByType<ArrowTutorial>();
                         }
-                        
+
                         swipeObject.UnitSwipe.Swipe(swipeObject.SwipeSide);
                         Destroy(_secondArrow.gameObject);
                         _swipeManager.IsSwipeTutorialCompleted = true;

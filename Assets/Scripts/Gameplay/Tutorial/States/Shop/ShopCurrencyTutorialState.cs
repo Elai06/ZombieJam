@@ -27,6 +27,7 @@ namespace Gameplay.Tutorial.States.Shop
                 _windowService.Close(WindowType.Shop);
                 _windowService.Open(WindowType.Shop);
                 _windowService.Close(WindowType.Footer);
+                _windowService.Close(WindowType.Lobby);
             }
 
             _shopModel.Purchased += OnPurchase;
@@ -45,6 +46,7 @@ namespace Gameplay.Tutorial.States.Shop
             {
                 _windowService.Close(WindowType.Shop);
                 _windowService.Open(WindowType.Footer);
+                _windowService.Open(WindowType.Lobby);
 
                 _stateMachine.Enter<CardTutorialState>();
             }
