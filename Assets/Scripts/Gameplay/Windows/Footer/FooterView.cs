@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Gameplay.Cards;
+using Gameplay.Configs.Region;
+using Gameplay.Enums;
+using Gameplay.Level;
 using Gameplay.Tutorial;
+using Gameplay.Windows.Gameplay;
 using Infrastructure.Windows;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,12 +27,15 @@ namespace Gameplay.Windows.Footer
 
         private IWindowService _windowService;
         private ITutorialService _tutorialService;
+        private IGameplayModel _gameplayModel;
 
         [Inject]
-        private void Construct(IWindowService windowService, ITutorialService tutorialService)
+        private void Construct(IWindowService windowService, ITutorialService tutorialService,
+            IGameplayModel gameplayModel)
         {
             _windowService = windowService;
             _tutorialService = tutorialService;
+            _gameplayModel = gameplayModel;
         }
 
         private void Start()
@@ -37,10 +45,28 @@ namespace Gameplay.Windows.Footer
 
             InjectService.Instance.Inject(this);
 
+            _windowService.OnOpen += OnOpenedView;
+            _gameplayModel.OnWaveCompleted += OnWaveCompleted;
             _tutorialService.СhangedState += OnChangedTutorialState;
             OnChangedTutorialState(_tutorialService.CurrentState);
 
-            SelectedTab(_footerTabs.Find(x => x.WindowType == WindowType.Lobby));
+            var lobbyTab = _footerTabs.Find(x => x.WindowType == WindowType.Lobby);
+
+            if (_tutorialService.CurrentState != ETutorialState.Completed
+                && _tutorialService.CurrentState != ETutorialState.Card)
+            {
+                SetInteractableTab(lobbyTab, false);
+            }
+            else
+            {
+                SelectedTab(lobbyTab);
+            }
+
+            var regionProgress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
+            if (regionProgress.CurrentWaweIndex >= 1)
+            {
+                OnWaveCompleted(regionProgress.ERegionType, regionProgress.CurrentWaweIndex);
+            }
         }
 
         private void OnEnable()
@@ -58,7 +84,7 @@ namespace Gameplay.Windows.Footer
                 footerTab.Click -= SelectedTab;
             }
         }
-        
+
         private void SelectedTab(FooterTab selected)
         {
             foreach (var footerTab in _footerTabs.Where(x => x.IsInteractable))
@@ -102,6 +128,7 @@ namespace Gameplay.Windows.Footer
                 {
                     case ETutorialState.Completed:
                         SetInteractableTab(footerTab, true);
+                        OpenRegionTabButton();
                         continue;
 
                     case ETutorialState.Swipe:
@@ -115,6 +142,7 @@ namespace Gameplay.Windows.Footer
                         }
 
                         continue;
+
                     case ETutorialState.ShopCurrency:
                         if (footerTab.WindowType == WindowType.Shop)
                         {
@@ -123,11 +151,14 @@ namespace Gameplay.Windows.Footer
                         }
 
                         continue;
+
                     case ETutorialState.Card:
-                        if (footerTab.WindowType == WindowType.Cards)
+                        if (footerTab.WindowType == WindowType.Lobby)
                         {
                             SetInteractableTab(footerTab, true);
-                            _cardTutorial.gameObject.SetActive(true);
+                            SelectedTab(footerTab);
+                            var regionProgress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
+                            OnWaveCompleted(regionProgress.ERegionType, regionProgress.CurrentWaweIndex);
                         }
 
                         continue;
@@ -140,12 +171,57 @@ namespace Gameplay.Windows.Footer
 
         private void SetInteractableTab(FooterTab footerTab, bool isInteractable)
         {
-            if (footerTab.IsSelected) return;
-
             footerTab.SetInteractable(isInteractable);
+
+            if (!isInteractable)
+            {
+                footerTab.Selected(false);
+            }
 
             footerTab.SetImage(isInteractable ? _idleImage : _disabledImage);
             footerTab.SetScale();
+        }
+
+        private void OnWaveCompleted(ERegionType regionType, int waveIndex)
+        {
+            if (_tutorialService.CurrentState == ETutorialState.Card)
+            {
+                if (waveIndex >= 2)
+                {
+                    var footerTab = _footerTabs.Find(x => x.WindowType == WindowType.Cards);
+                    SetInteractableTab(footerTab, true);
+                    _cardTutorial.gameObject.SetActive(true);
+                    return;
+                }
+            }
+
+            OpenRegionTabButton();
+        }
+
+        private void OpenRegionTabButton()
+        {
+            var footerTab = _footerTabs.Find(x => x.WindowType == WindowType.Region);
+            var regionIndex = _gameplayModel.GetCurrentRegionProgress().RegionIndex;
+            SetInteractableTab(footerTab, regionIndex > 0);
+        }
+
+        private void OnOpenedView(WindowType windowType)
+        {
+            if (_tutorialService.CurrentState != ETutorialState.Completed) return;
+
+            var footerTab = _footerTabs.Find(x => x.WindowType == windowType);
+
+            if (footerTab == null || footerTab.IsSelected) return;
+
+            if (windowType == WindowType.Lobby)
+            {
+                SelectedTab(footerTab);
+            }
+
+            if (windowType == WindowType.Region)
+            {
+                SelectedTab(footerTab);
+            }
         }
     }
 }

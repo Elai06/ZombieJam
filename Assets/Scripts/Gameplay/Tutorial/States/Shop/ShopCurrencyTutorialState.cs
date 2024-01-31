@@ -26,7 +26,6 @@ namespace Gameplay.Tutorial.States.Shop
             {
                 _windowService.Close(WindowType.Shop);
                 _windowService.Open(WindowType.Shop);
-                _windowService.Close(WindowType.Footer);
                 _windowService.Close(WindowType.Lobby);
             }
 
@@ -45,7 +44,6 @@ namespace Gameplay.Tutorial.States.Shop
             if (shopProductType == EShopProductType.LittleSoft)
             {
                 _windowService.Close(WindowType.Shop);
-                _windowService.Open(WindowType.Footer);
                 _windowService.Open(WindowType.Lobby);
 
                 _stateMachine.Enter<CardTutorialState>();

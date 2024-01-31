@@ -39,39 +39,41 @@ namespace Gameplay.Windows
         private async void Start()
         {
             InjectService.Instance.Inject(this);
-            
+
             if (_tutorialService.CurrentState == ETutorialState.Swipe)
             {
-                await Task.Delay(500);
-                _button.gameObject.SetActive(false);
+                await Task.Delay(10);
+                _button.interactable = false;
                 StartPlay();
-                _tutorialService.СhangedState += OnChangedState;
             }
-        }
-
-        private void OnChangedState(ETutorialState state)
-        {
-            if (state != ETutorialState.Completed) return;
-            _tutorialService.СhangedState -= OnChangedState;
-            _button.gameObject.SetActive(true);
         }
 
         private void OnEnable()
         {
             _button.onClick.AddListener(Play);
-            _button.gameObject.SetActive(true);
+            _button.interactable = true;
+            _tutorialService.СhangedState += OnChangedState;
         }
 
         private void OnDisable()
         {
+            _tutorialService.СhangedState -= OnChangedState;
+
             _button.onClick.RemoveListener(Play);
         }
 
         private void Play()
         {
             if (_tutorialService.CurrentState == ETutorialState.ShopBox ||
-                _tutorialService.CurrentState == ETutorialState.ShopCurrency ||
-                _tutorialService.CurrentState == ETutorialState.Card) return;
+                _tutorialService.CurrentState == ETutorialState.ShopCurrency) return;
+
+            if (_tutorialService.CurrentState == ETutorialState.Card)
+            {
+                if (_gameplayModel.GetCurrentRegionProgress().GetCurrentRegion().CurrentWaweIndex >= 2)
+                {
+                    return;
+                }
+            }
 
             if (_gameplayModel.GetCurrentRegionProgress().RegionIndex > 0)
             {
@@ -101,6 +103,17 @@ namespace Gameplay.Windows
             _windowService.Close(WindowType.Footer);
             _windowService.Open(WindowType.Gameplay);
             _gameplayModel.StartWave();
+        }
+
+        private void OnChangedState(ETutorialState state)
+        {
+            if (state != ETutorialState.Completed && state != ETutorialState.Card)
+            {
+                _button.interactable = false;
+                return;
+            }
+
+            _button.interactable = true;
         }
     }
 }

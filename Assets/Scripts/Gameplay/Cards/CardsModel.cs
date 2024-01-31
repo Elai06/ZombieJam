@@ -146,5 +146,10 @@ namespace Gameplay.Cards
                 ? ECurrencyType.HardCurrency
                 : ECurrencyType.SoftCurrency;
         }
+
+        public CardModel GetCardModel(EUnitClass unitClass)
+        {
+            return CardModels[unitClass];
+        }
     }
 }

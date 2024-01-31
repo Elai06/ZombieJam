@@ -23,5 +23,6 @@ namespace Gameplay.Cards
         ECurrencyType GetCurrencyType(EUnitClass unitClass);
         bool IsCanUpgrade(EUnitClass unitClass, CardProgressData cardProgressData);
         event Action<EUnitClass> StartUpgrade;
+        CardModel GetCardModel(EUnitClass unitClass);
     }
 }

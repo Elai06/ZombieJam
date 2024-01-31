@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Gameplay.Tutorial
@@ -10,9 +11,19 @@ namespace Gameplay.Tutorial
 
         private Tween _tween;
 
+        private void Start()
+        {
+            var canvas = gameObject.GetComponent<Canvas>();
+
+            if (canvas != null)
+            {
+                canvas.overrideSorting = true;
+            }
+        }
+
         private void OnEnable()
         {
-            _tween = transform.DOLocalMoveY(transform.localPosition.y + _distance, _duration)
+            _tween = gameObject.transform.DOLocalMoveY(gameObject.transform.localPosition.y + _distance, _duration)
                 .SetLoops(-1, LoopType.Restart);
         }
 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Gameplay.Ad;
+﻿using Gameplay.Ad;
 using Gameplay.Boosters;
 using Gameplay.Cards;
 using Gameplay.Enums;
