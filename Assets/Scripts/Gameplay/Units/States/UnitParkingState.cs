@@ -98,7 +98,7 @@ namespace Gameplay.Units.States
                 _coroutine = _coroutineService.StartCoroutine(MoveAfterBash(collision.transform));
                 return;
             }
-
+            
             if (other.layer == 3 || other.layer == 6)
             {
                 Bash(_eSwipeSide, _bashBackWard);
@@ -109,7 +109,7 @@ namespace Gameplay.Units.States
         {
             if (eSwipeSide == ESwipeSide.None)
             {
-               StopMove();
+                StopMove();
                 return;
             }
 

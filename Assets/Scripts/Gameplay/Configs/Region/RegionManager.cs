@@ -89,8 +89,7 @@ namespace Gameplay.Configs.Region
                 ChangeRegion();
                 return;
             }
-
-
+            
             SceneManager.LoadScene($"Gameplay");
             _windowService.Open(WindowType.MainMenu);
         }

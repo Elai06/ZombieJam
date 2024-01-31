@@ -45,7 +45,7 @@ namespace Gameplay.RegionMap
             if (_currentRegion >= _regions.Count - 1) return;
             _currentRegion++;
             var region = _regions[_currentRegion];
-            _regionCamera.MoveCamera(region.transform);
+        //    _regionCamera.MoveCamera(region.transform);
         }
 
         private void SetTouch()
@@ -55,12 +55,12 @@ namespace Gameplay.RegionMap
 
             var region = contactInfo.Collider.transform.parent.GetComponent<Region>();
             var progressData = _progressService.PlayerProgress.RegionProgress.GetOrCreate(region.RegionType);
-            if (progressData.ERegionType == _progressService.PlayerProgress.RegionProgress.CurrentRegionType)
+            /*if (progressData.ERegionType == _progressService.PlayerProgress.RegionProgress.CurrentRegionType)
             {
                 SceneManager.LoadScene($"Gameplay");
                 _windowService.Open(WindowType.Lobby);
                 return;
-            }
+            }*/
 
             _regionTooltipView.Initialize(progressData);
         }
@@ -68,8 +68,9 @@ namespace Gameplay.RegionMap
         private void InitializeRegions()
         {
             var progress = _progressService.PlayerProgress.RegionProgress;
-            foreach (var region in _regions)
+            for (var index = 0; index < _regions.Count; index++)
             {
+                var region = _regions[index];
                 var regionProgress = progress.RegionProgressData
                     .Find(x => x.ERegionType == region.RegionType);
 
@@ -79,7 +80,8 @@ namespace Gameplay.RegionMap
 
                 if (isSelected)
                 {
-                    _regionCamera.MoveCamera(region.transform);
+                    var prevRegion = index > 0 ? index : 0;
+                    _regionCamera.MoveCamera(_regions[index - 1].transform, region.transform);
                 }
             }
         }
