@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using Gameplay.Cards;
+using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
 using Gameplay.Parameters;
 using TMPro;
@@ -12,7 +13,7 @@ namespace Gameplay.Windows.Cards
 {
     public class CardPopUpView : MonoBehaviour
     {
-        public event Action<EUnitClass> Upgrade;
+        public event Action<EZombieNames> Upgrade;
 
         [SerializeField] private Button _upgradeButton;
         [SerializeField] private Button _closeButtonBG;
@@ -27,15 +28,15 @@ namespace Gameplay.Windows.Cards
 
         [SerializeField] private ParameterSubViewContainer _parameterSubViewContainer;
 
-        private EUnitClass _type;
+        private EZombieNames _type;
         private bool _isCanUpgrade;
 
         public void Initialize(CardPopUpData data)
         {
             _currencyImage.sprite = data.CurrencySprite;
-            _nameText.text = $"{data.ProgressData.unitClass} Level {data.ProgressData.Level + 1}";
+            _nameText.text = $"{data.ProgressData.Name} Level {data.ProgressData.Level + 1}";
             _priceValue.text = $"{data.CurrencyValue}";
-            _type = data.ProgressData.unitClass;
+            _type = data.ProgressData.Name;
             _slider.value = data.ProgressData.CardsValue / (float)data.CardsReqired;
             _sliderValue.text = $"{data.ProgressData.CardsValue}/{data.CardsReqired}";
             _notCurrencyText.gameObject.SetActive(false);
@@ -64,11 +65,6 @@ namespace Gameplay.Windows.Cards
             _upgradeButton.onClick.AddListener(UpgradeCard);
             _closeButton.onClick.AddListener(Close);
             _closeButtonBG.onClick.AddListener(Close);
-        }
-
-        private void Start()
-        {
-            Close();
         }
 
         private void OnDisable()

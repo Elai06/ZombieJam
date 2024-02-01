@@ -80,8 +80,8 @@ namespace Gameplay.RegionMap
 
                 if (isSelected)
                 {
-                    var prevRegion = index > 0 ? index : 0;
-                    _regionCamera.MoveCamera(_regions[index - 1].transform, region.transform);
+                    var prevRegion = index > 0 ? index - 1 : 0;
+                    _regionCamera.MoveCamera(_regions[prevRegion].transform, region.transform);
                 }
             }
         }

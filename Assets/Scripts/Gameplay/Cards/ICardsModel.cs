@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Gameplay.Configs.Cards;
+using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
 using Gameplay.Parameters;
 
@@ -10,18 +11,19 @@ namespace Gameplay.Cards
     {
         CardsProgress CardsProgress { get; set; }
         CardsConfig CardsConfig { get; set; }
-        Dictionary<EUnitClass, CardModel> CardModels { get; }
-        void UpgradeZombie(EUnitClass unitClass);
-        Dictionary<EParameter, float> GetParameters(EUnitClass type);
-        event Action<EUnitClass> UpgradeSucced;
-        int GetReqiredCardsValue(EUnitClass type);
+        Dictionary<EZombieNames, CardModel> CardModels { get; }
+        void UpgradeZombie(EZombieNames unitClass);
+        Dictionary<EParameter, float> GetParameters(EZombieNames type);
+        event Action<EZombieNames> UpgradeSucced;
+        int GetReqiredCardsValue(EZombieNames type);
         void Initialize();
-        void AddCards(EUnitClass type, int value);
-        event Action<EUnitClass> CardValueChanged;
+        void AddCards(EZombieNames type, int value);
+        event Action<EZombieNames> CardValueChanged;
         bool IsAvailableUpgrade();
-        int GetCurrencyPrice(EUnitClass unitClass, ECurrencyType currencyType);
-        ECurrencyType GetCurrencyType(EUnitClass unitClass);
-        bool IsCanUpgrade(EUnitClass unitClass, CardProgressData cardProgressData);
-        event Action<EUnitClass> StartUpgrade;
+        int GetCurrencyPrice(EZombieNames unitClass, ECurrencyType currencyType);
+        ECurrencyType GetCurrencyType(EZombieNames unitClass);
+        bool IsCanUpgrade(EZombieNames unitClass, CardProgressData cardProgressData);
+        event Action<EZombieNames> StartUpgrade;
+        CardModel GetCardModel(EZombieNames unitClass);
     }
 }

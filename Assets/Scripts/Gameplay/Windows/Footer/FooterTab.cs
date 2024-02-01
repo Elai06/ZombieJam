@@ -24,8 +24,6 @@ namespace Gameplay.Windows.Footer
             _button = gameObject.GetComponent<Button>();
 
             _button.interactable = IsInteractable;
-
-            _lockImage.gameObject.SetActive(!IsInteractable);
         }
 
         private void OnEnable()
@@ -67,14 +65,12 @@ namespace Gameplay.Windows.Footer
             if (IsInteractable == false) return;
 
             _button.interactable = isInteractable;
+            _lockImage.gameObject.SetActive(!isInteractable);
         }
 
         public void SetImage(Sprite image)
         {
-            if (_button.interactable)
-            {
-                _button.image.sprite = image;
-            }
+            _button.image.sprite = image;
         }
     }
 }

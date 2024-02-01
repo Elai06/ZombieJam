@@ -2,6 +2,7 @@
 using Gameplay.Cards;
 using Gameplay.Configs.Rewards;
 using Gameplay.Configs.Shop;
+using Gameplay.Configs.Zombies;
 using Gameplay.Curencies;
 using Gameplay.Enums;
 using Infrastructure.PersistenceProgress;
@@ -63,7 +64,7 @@ namespace Gameplay.InApp
 
                 if (reward.RewardType == EResourceType.Card)
                 {
-                    Enum.TryParse<EUnitClass>(reward.GetId(), out var currencyType);
+                    Enum.TryParse<EZombieNames>(reward.GetId(), out var currencyType);
                     _cardsModel.AddCards(currencyType, reward.Value);
                 }
             }

@@ -1,4 +1,5 @@
 ﻿using Gameplay.Cards;
+using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,7 +36,7 @@ namespace Gameplay.Tutorial.States.Card
 
         private void UpgradeCard()
         {
-            _cardsModel.UpgradeZombie(EUnitClass.Warrior);
+            _cardsModel.UpgradeZombie(EZombieNames.Zombie);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Gameplay.Configs.Cards;
+using Gameplay.Configs.Zombies;
 using Gameplay.Curencies;
 using Gameplay.Enums;
 using Infrastructure.PersistenceProgress;
@@ -10,10 +11,10 @@ namespace Gameplay.Cards
 {
     public class CardsModel : ICardsModel
     {
-        public event Action<EUnitClass> CardValueChanged;
+        public event Action<EZombieNames> CardValueChanged;
 
-        public event Action<EUnitClass> UpgradeSucced;
-        public event Action<EUnitClass> StartUpgrade;
+        public event Action<EZombieNames> UpgradeSucced;
+        public event Action<EZombieNames> StartUpgrade;
 
         private readonly IProgressService _progressService;
         private readonly GameStaticData _gameStaticData;
@@ -22,7 +23,7 @@ namespace Gameplay.Cards
         public CardsProgress CardsProgress { get; set; }
         public CardsConfig CardsConfig { get; set; }
 
-        public Dictionary<EUnitClass, CardModel> CardModels { get; private set; } = new();
+        public Dictionary<EZombieNames, CardModel> CardModels { get; private set; } = new();
 
         public CardsModel(IProgressService progressService, GameStaticData gameStaticData,
             ICurrenciesModel currenciesModel)
@@ -46,13 +47,13 @@ namespace Gameplay.Cards
 
             foreach (var card in CardsConfig.Cards)
             {
-                var progress = CardsProgress.GetOrCreate(card.UnitClass);
+                var progress = CardsProgress.GetOrCreate(card.ZombieData.Name);
                 var model = new CardModel(progress, card);
-                CardModels.Add(card.UnitClass, model);
+                CardModels.Add(card.ZombieData.Name, model);
             }
         }
 
-        public void UpgradeZombie(EUnitClass unitClass)
+        public void UpgradeZombie(EZombieNames unitClass)
         {
             var progress = CardsProgress.GetOrCreate(unitClass);
             var reqiredCardsValue = GetReqiredCardsValue(unitClass);
@@ -69,7 +70,7 @@ namespace Gameplay.Cards
             }
         }
 
-        public bool IsCanUpgrade(EUnitClass unitClass, CardProgressData cardProgressData)
+        public bool IsCanUpgrade(EZombieNames unitClass, CardProgressData cardProgressData)
         {
             var currencyType = GetCurrencyType(unitClass);
             var currencyPrice = GetCurrencyPrice(unitClass, currencyType);
@@ -79,20 +80,20 @@ namespace Gameplay.Cards
                    _currenciesModel.IsCanConsume(currencyProgress, currencyPrice);
         }
 
-        public int GetReqiredCardsValue(EUnitClass type)
+        public int GetReqiredCardsValue(EZombieNames type)
         {
-            var config = CardsConfig.Cards.Find(x => x.UnitClass == type);
+            var config = CardsConfig.Cards.Find(x => x.ZombieData.Name == type);
             var progress = CardsProgress.GetOrCreate(type);
 
             return config.UpgradeCards + progress.Level;
         }
 
-        public Dictionary<EParameter, float> GetParameters(EUnitClass type)
+        public Dictionary<EParameter, float> GetParameters(EZombieNames type)
         {
             return CardModels[type].Parameters;
         }
 
-        public void AddCards(EUnitClass type, int value)
+        public void AddCards(EZombieNames type, int value)
         {
             var progress = CardsProgress.GetOrCreate(type);
             progress.CardsValue += value;
@@ -102,7 +103,7 @@ namespace Gameplay.Cards
         private void ConsumeCards(CardProgressData progress, int value)
         {
             progress.CardsValue -= value;
-            CardValueChanged?.Invoke(progress.unitClass);
+            CardValueChanged?.Invoke(progress.Name);
         }
 
         private bool IsCanConsumeCards(CardProgressData progress, int value)
@@ -114,10 +115,10 @@ namespace Gameplay.Cards
         {
             foreach (var configData in CardsConfig.Cards)
             {
-                var progress = CardsProgress.GetOrCreate(configData.UnitClass);
-                var reqiredCards = GetReqiredCardsValue(configData.UnitClass);
-                var currency = _currenciesModel.GetCurrencyProgress().GetOrCreate(GetCurrencyType(progress.unitClass));
-                var currencyPrice = GetCurrencyPrice(progress.unitClass, currency.CurrencyType);
+                var progress = CardsProgress.GetOrCreate(configData.ZombieData.Name);
+                var reqiredCards = GetReqiredCardsValue(configData.ZombieData.Name);
+                var currency = _currenciesModel.GetCurrencyProgress().GetOrCreate(GetCurrencyType(progress.Name));
+                var currencyPrice = GetCurrencyPrice(progress.Name, currency.CurrencyType);
 
                 if (progress.CardsValue >= reqiredCards && _currenciesModel.IsCanConsume(currency, currencyPrice))
                 {
@@ -128,9 +129,9 @@ namespace Gameplay.Cards
             return false;
         }
 
-        public int GetCurrencyPrice(EUnitClass unitClass, ECurrencyType currencyType)
+        public int GetCurrencyPrice(EZombieNames unitClass, ECurrencyType currencyType)
         {
-            var config = CardsConfig.Cards.Find(x => x.UnitClass == unitClass);
+            var config = CardsConfig.Cards.Find(x => x.ZombieData.Name == unitClass);
             var progress = CardsProgress.GetOrCreate(unitClass);
 
             return (currencyType == ECurrencyType.SoftCurrency
@@ -138,13 +139,18 @@ namespace Gameplay.Cards
                 : config.HardStartPrice) * (progress.Level + 1);
         }
 
-        public ECurrencyType GetCurrencyType(EUnitClass unitClass)
+        public ECurrencyType GetCurrencyType(EZombieNames unitClass)
         {
-            var config = CardsConfig.Cards.Find(x => x.UnitClass == unitClass);
+            var config = CardsConfig.Cards.Find(x => x.ZombieData.Name == unitClass);
             var progress = CardsProgress.GetOrCreate(unitClass);
             return (progress.Level + 1) % config.HardCurrencyEveryLevel == 0
                 ? ECurrencyType.HardCurrency
                 : ECurrencyType.SoftCurrency;
+        }
+
+        public CardModel GetCardModel(EZombieNames unitClass)
+        {
+            return CardModels[unitClass];
         }
     }
 }

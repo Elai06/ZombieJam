@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Gameplay.Parking
 {
@@ -9,6 +11,7 @@ namespace Gameplay.Parking
         [SerializeField] private bool _isAvailable = true;
         [SerializeField] private ESwipeDirection _eSwipeDirection;
         public EUnitClass unitClass;
+        [FormerlySerializedAs("ZombieNames")] public EZombieNames Name;
         [SerializeField] private List<SpawnPosition> _cooperativePosition = new();
 
         public bool IsCooperative { get; private set; }
