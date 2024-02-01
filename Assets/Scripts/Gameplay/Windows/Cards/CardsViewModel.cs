@@ -55,6 +55,9 @@ namespace Gameplay.Windows.Cards
                     ProgressData = progress,
                     ReqiredCards = Model.GetReqiredCardsValue(zombieData.ZombieData.Name),
                     IsCanUpgrade = Model.IsCanUpgrade(zombieData.ZombieData.Name, progress),
+                    Icon = _gameStaticData.SpritesConfig.GetZombieIcon(zombieData.ZombieData.Name),
+                    Background = _gameStaticData.SpritesConfig.GetCardsBackground(zombieData.ZombieData.Type),
+                    ClassIcon = _gameStaticData.SpritesConfig.GetClassIcon(zombieData.ZombieData.Type)
                 };
 
                 if (_tutorialService.CurrentState == ETutorialState.Card)
@@ -67,7 +70,6 @@ namespace Gameplay.Windows.Cards
 
                 cardsSubViewData.Add(viewData);
             }
-
 
             View.InitializeCards(cardsSubViewData);
         }
