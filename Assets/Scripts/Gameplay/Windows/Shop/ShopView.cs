@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Gameplay.Configs.Shop;
+using Gameplay.Configs.Sprites;
 using Gameplay.Enums;
 using Gameplay.Tutorial;
 using TMPro;
@@ -119,11 +120,11 @@ namespace Gameplay.Windows.Shop
             }
         }
 
-        public void ShowPopUp(ShopConfigData shopConfigData, Sprite priceImage, bool isCanBuy)
+        public void ShowPopUp(ShopConfigData shopConfigData, SpritesConfig SpritesConfig, bool isCanBuy)
         {
             _shopRewardPopUp.gameObject.SetActive(true);
 
-            _shopRewardPopUp.Show(shopConfigData, priceImage, isCanBuy, _isTutorial);
+            _shopRewardPopUp.Show(shopConfigData, SpritesConfig, isCanBuy, _isTutorial);
         }
 
         public void BottomSrollRect()

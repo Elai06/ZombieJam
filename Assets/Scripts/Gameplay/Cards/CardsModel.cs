@@ -148,6 +148,11 @@ namespace Gameplay.Cards
                 : ECurrencyType.SoftCurrency;
         }
 
+        public int GetCurrencyValue(ECurrencyType currencyType)
+        {
+            return _currenciesModel.GetCurrencyProgress().GetOrCreate(currencyType).Value;
+        }
+
         public CardModel GetCardModel(EZombieNames unitClass)
         {
             return CardModels[unitClass];

@@ -25,7 +25,7 @@ namespace Gameplay.Configs.Zombies
     {
         Zombie,
         BrainThrower,
-        WalkingСoffin,
+        WalkingCoffin,
         Hitchhiker,
         ArmoredZombie,
     }

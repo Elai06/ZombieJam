@@ -8,15 +8,16 @@ namespace Gameplay.Windows.Rewards
     public class RewardSubView : SubView<RewardSubViewData>
     {
         [SerializeField] private Image _sprite;
-        [SerializeField] private TextMeshProUGUI _idText;
+        [SerializeField] private Image _lightFrame;
+        [SerializeField] private GameObject _lightParticle;
         [SerializeField] private TextMeshProUGUI _valueText;
 
         public override void Initialize(RewardSubViewData data)
         {
-            _idText.gameObject.SetActive(!data.Sprite);
-            _idText.text = data.ID;
             _valueText.text = data.Value.ToString();
             _sprite.sprite = data.Sprite;
+            _lightFrame.gameObject.SetActive(data.isUnit);
+            _lightParticle.SetActive(data.isUnit);
         }
     }
 }

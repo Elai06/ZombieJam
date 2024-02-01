@@ -33,7 +33,7 @@ namespace Gameplay.Units.ArcherStates
             if (_target.IsDied) yield break;
             
             yield return new WaitForSeconds(_duration);
-            _target.GetDamage(_parameters[EParameter.Attack]);
+            _target.GetDamage(_parameters[EParameter.Damage]);
 
             Attacked?.Invoke();
         }

@@ -76,7 +76,7 @@ namespace Gameplay.Enemies
         {
             if (enemy == null) return;
 
-            var attack = Parameters[EParameter.Attack];
+            var attack = Parameters[EParameter.Damage];
             enemy.GetDamage(attack);
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using Gameplay.Boosters;
+using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace Gameplay.Configs.Rewards
     public struct RewardConfigData
     {
         public EResourceType RewardType;
-        [SerializeField, ShowIf("ShowZombie")] private EUnitClass unitClass;
+        [SerializeField, ShowIf("ShowZombie")] private EZombieNames unitClass;
 
         [SerializeField, ShowIf("ShowCurrency")]
         private ECurrencyType _currencyType;
