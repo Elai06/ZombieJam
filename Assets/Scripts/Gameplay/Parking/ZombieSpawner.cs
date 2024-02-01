@@ -85,8 +85,7 @@ namespace Gameplay.Parking
                     Quaternion.identity, _spawnPosition);
                 prefab.transform.localPosition = spawnPosition.GetSpawnPosition();
                 prefab.SetSwipeDirection(spawnPosition.GetSwipeDirection());
-                prefab.Initialize(_cardsModel.CardModels[config.Name], _coroutineService, _targetManager,
-                    config.Type, config);
+                prefab.Initialize(_cardsModel.CardModels[config.Name], _coroutineService, _targetManager, config);
                 _zombies.Add(prefab);
             }
         }
