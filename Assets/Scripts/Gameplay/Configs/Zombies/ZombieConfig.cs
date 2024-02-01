@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Gameplay.Configs.Zombies
 {
-    [CreateAssetMenu(fileName = "ZombieConfig", menuName = "Configs/ZombieConfig")]
+    [CreateAssetMenu(fileName = "ZombieConfig/Config", menuName = "Configs/ZombieConfig")]
     public class ZombieConfig : ScriptableObject
     {
         [SerializeField] private List<ZombieData> _config;

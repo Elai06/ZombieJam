@@ -1,6 +1,7 @@
 ﻿using Gameplay.Ad;
 using Gameplay.Boosters;
 using Gameplay.Cards;
+using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
 using Gameplay.Level;
 using Gameplay.PlayerTimes;
@@ -94,7 +95,7 @@ namespace Infrastructure.Events
             Debug.Log($"Send appmetrica event {eventName}");
         }
 
-        private void OnStartUpgrade(EUnitClass unitClass)
+        private void OnStartUpgrade(EZombieNames unitClass)
         {
             var regionProgress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
             var parameters =
@@ -105,7 +106,7 @@ namespace Infrastructure.Events
             SendEventWithLevelDay("Button unit upgrade", parameters);
         }
 
-        private void OnUpgradeCard(EUnitClass unitClass)
+        private void OnUpgradeCard(EZombieNames unitClass)
         {
             var regionProgress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
             var parameters =

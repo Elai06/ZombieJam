@@ -1,4 +1,5 @@
 ﻿using Gameplay.Cards;
+using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
 using Infrastructure.Events;
 using Infrastructure.Windows;
@@ -29,7 +30,7 @@ namespace Gameplay.Tutorial.States.Card
             _cardsModel.UpgradeSucced -= OnUpgradeCard;
         }
 
-        private void OnUpgradeCard(EUnitClass obj)
+        private void OnUpgradeCard(EZombieNames obj)
         {
             _stateMachine.Enter<CompletedTutorialState>();
         }

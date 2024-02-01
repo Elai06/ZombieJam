@@ -1,4 +1,5 @@
 ﻿using System;
+using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +22,7 @@ namespace Gameplay.Cards
             _cardsModel.CardValueChanged += OnCardValueChanged;
         }
 
-        private void OnCardValueChanged(EUnitClass obj)
+        private void OnCardValueChanged(EZombieNames obj)
         {
             _indicator.gameObject.SetActive(_cardsModel.IsAvailableUpgrade());
         }

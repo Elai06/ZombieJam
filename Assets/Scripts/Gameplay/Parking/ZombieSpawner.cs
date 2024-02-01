@@ -80,12 +80,12 @@ namespace Gameplay.Parking
             foreach (var spawnPosition in positions)
             {
                 if (!spawnPosition.IsAvailablePosition()) continue;
-                var config = _zombieConfig.Config.Find(x => x.Type == spawnPosition.unitClass);
+                var config = _zombieConfig.Config.Find(x => x.Name == spawnPosition.Name);
                 var prefab = Instantiate(config.Prefab, spawnPosition.GetSpawnPosition(),
                     Quaternion.identity, _spawnPosition);
                 prefab.transform.localPosition = spawnPosition.GetSpawnPosition();
                 prefab.SetSwipeDirection(spawnPosition.GetSwipeDirection());
-                prefab.Initialize(_cardsModel.CardModels[config.Type], _coroutineService, _targetManager,
+                prefab.Initialize(_cardsModel.CardModels[config.Name], _coroutineService, _targetManager,
                     config.Type, config);
                 _zombies.Add(prefab);
             }

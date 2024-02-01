@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Gameplay.Cards;
+using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
 using Gameplay.Tutorial;
 using Infrastructure.StaticData;
@@ -48,12 +49,12 @@ namespace Gameplay.Windows.Cards
             var cardsSubViewData = new List<CardSubViewData>();
             foreach (var zombieData in Model.CardsConfig.Cards)
             {
-                var progress = Model.CardsProgress.GetOrCreate(zombieData.UnitClass);
+                var progress = Model.CardsProgress.GetOrCreate(zombieData.ZombieData.Name);
                 var viewData = new CardSubViewData
                 {
                     ProgressData = progress,
-                    ReqiredCards = Model.GetReqiredCardsValue(zombieData.UnitClass),
-                    IsCanUpgrade = Model.IsCanUpgrade(zombieData.UnitClass, progress),
+                    ReqiredCards = Model.GetReqiredCardsValue(zombieData.ZombieData.Name),
+                    IsCanUpgrade = Model.IsCanUpgrade(zombieData.ZombieData.Name, progress),
                 };
 
                 if (_tutorialService.CurrentState == ETutorialState.Card)
@@ -71,12 +72,12 @@ namespace Gameplay.Windows.Cards
             View.InitializeCards(cardsSubViewData);
         }
 
-        private void OnUpgrade(EUnitClass unitClass)
+        private void OnUpgrade(EZombieNames unitClass)
         {
             Model.UpgradeZombie(unitClass);
         }
 
-        private void UpdateCard(EUnitClass type)
+        private void UpdateCard(EZombieNames type)
         {
             var progress = Model.CardsProgress.GetOrCreate(type);
             var viewData = new CardSubViewData()
@@ -90,13 +91,13 @@ namespace Gameplay.Windows.Cards
             ShowPopUp(type);
         }
 
-        private void ShowPopUp(EUnitClass type)
+        private void ShowPopUp(EZombieNames type)
         {
-            if (_tutorialService.CurrentState == ETutorialState.Card && type != EUnitClass.Warrior) return;
+            if (_tutorialService.CurrentState == ETutorialState.Card && type != EZombieNames.Zombie) return;
 
             var progress = Model.CardsProgress.GetOrCreate(type);
             var currencyType = Model.GetCurrencyType(type);
-            var config = Model.CardsConfig.Cards.Find(x => x.UnitClass == type);
+            var config = Model.CardsConfig.Cards.Find(x => x.ZombieData.Name == type);
             var viewData = new CardPopUpData
             {
                 ParametersConfig = Model.GetParameters(type),
@@ -104,7 +105,7 @@ namespace Gameplay.Windows.Cards
                 ProgressData = progress,
                 CurrencySprite = _gameStaticData.SpritesConfig.GetCurrencySprite(currencyType),
                 CurrencyValue = Model.GetCurrencyPrice(type, currencyType),
-                ParameterData = config.ParametersConfig.Parameters,
+                ParameterData = config.ZombieData.Parameters.Parameters,
                 IsCanUpgrade = Model.IsCanUpgrade(type, progress),
                 IsTutorial = _tutorialService.CurrentState == ETutorialState.Card
             };
