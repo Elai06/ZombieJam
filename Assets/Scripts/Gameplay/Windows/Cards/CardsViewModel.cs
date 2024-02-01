@@ -109,7 +109,8 @@ namespace Gameplay.Windows.Cards
                 CurrencyValue = Model.GetCurrencyPrice(type, currencyType),
                 ParameterData = config.ZombieData.Parameters.Parameters,
                 IsCanUpgrade = Model.IsCanUpgrade(type, progress),
-                IsTutorial = _tutorialService.CurrentState == ETutorialState.Card
+                IsTutorial = _tutorialService.CurrentState == ETutorialState.Card,
+                Icon = _gameStaticData.SpritesConfig.GetZombieIcon(type)
             };
 
             View.ShowPopUp(viewData);

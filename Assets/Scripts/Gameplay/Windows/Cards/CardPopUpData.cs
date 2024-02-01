@@ -4,6 +4,7 @@ using Gameplay.Cards;
 using Gameplay.Enums;
 using Gameplay.Parameters;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Gameplay.Windows.Cards
 {
@@ -14,6 +15,7 @@ namespace Gameplay.Windows.Cards
         public Dictionary<EParameter, float> ParametersConfig;
         public int CardsReqired;
         public Sprite CurrencySprite;
+        [FormerlySerializedAs("icon")] public Sprite Icon;
         public int CurrencyValue;
         public List<ParameterData> ParameterData;
         public bool IsCanUpgrade;
