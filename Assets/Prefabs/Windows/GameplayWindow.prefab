@@ -143,8 +143,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 15, y: -150}
-  m_SizeDelta: {x: 200, y: 200}
+  m_AnchoredPosition: {x: 25, y: -150}
+  m_SizeDelta: {x: 125, y: 125}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &780476159860924876
 CanvasRenderer:
@@ -323,6 +323,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1775402757950877528}
     m_Modifications:
+    - target: {fileID: 1600217072284623634, guid: 3f76b7c6366c4f242b555a56139ae070, type: 3}
+      propertyPath: _content
+      value: 
+      objectReference: {fileID: 4346497827787156245}
     - target: {fileID: 1775402757950877528, guid: 3f76b7c6366c4f242b555a56139ae070, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -565,6 +569,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f76b7c6366c4f242b555a56139ae070, type: 3}
+--- !u!224 &4346497827787156245 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8643107603092871516, guid: 3f76b7c6366c4f242b555a56139ae070, type: 3}
+  m_PrefabInstance: {fileID: 5450376087162237513}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5838141253107622009 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1920396723492885040, guid: 3f76b7c6366c4f242b555a56139ae070, type: 3}

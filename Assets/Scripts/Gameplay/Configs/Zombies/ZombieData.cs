@@ -1,13 +1,14 @@
-﻿using System;
-using Gameplay.Enums;
+﻿using Gameplay.Enums;
 using Gameplay.Parameters;
 using Gameplay.Units;
+using UnityEngine;
 
 namespace Gameplay.Configs.Zombies
 {
-    [Serializable]
-    public struct ZombieData
+    [CreateAssetMenu(menuName = "Configs/ZombieConfig/ZombieData", fileName = "ZombieData", order = 0)]
+    public class ZombieData : ScriptableObject
     {
+        public EZombieNames Name;
         public EUnitClass Type;
         public Unit Prefab;
         public ParametersConfig Parameters;
@@ -18,5 +19,14 @@ namespace Gameplay.Configs.Zombies
     {
         SingleCell,
         TwoCells
+    }
+
+    public enum EZombieNames
+    {
+        Zombie,
+        BrainThrower,
+        WalkingСoffin,
+        Hitchhiker,
+        ArmoredZombie,
     }
 }

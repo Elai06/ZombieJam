@@ -1,5 +1,4 @@
-﻿using System;
-using Infrastructure.Windows;
+﻿using Infrastructure.Windows;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils.ZenjectInstantiateUtil;

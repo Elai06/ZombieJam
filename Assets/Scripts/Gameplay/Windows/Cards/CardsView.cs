@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Gameplay.Cards;
+using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
 using UnityEngine;
 
@@ -8,8 +9,8 @@ namespace Gameplay.Windows.Cards
 {
     public class CardsView : MonoBehaviour
     {
-        public event Action<EUnitClass> Upgrade;
-        public event Action<EUnitClass> OnClickCard;
+        public event Action<EZombieNames> Upgrade;
+        public event Action<EZombieNames> OnClickCard;
 
         public CardsSubViewContainer CardsSubViewContainer;
 
@@ -25,8 +26,8 @@ namespace Gameplay.Windows.Cards
             CardsSubViewContainer.CleanUp();
             foreach (var subViewData in subViewDatas)
             {
-                CardsSubViewContainer.Add(subViewData.ProgressData.unitClass.ToString(), subViewData);
-                var subView = CardsSubViewContainer.SubViews[subViewData.ProgressData.unitClass.ToString()];
+                CardsSubViewContainer.Add(subViewData.ProgressData.Name.ToString(), subViewData);
+                var subView = CardsSubViewContainer.SubViews[subViewData.ProgressData.Name.ToString()];
                 subView.Click += OnClick;
             }
         }
@@ -41,12 +42,12 @@ namespace Gameplay.Windows.Cards
             _popUpView.Close();
         }
 
-        private void OnClick(EUnitClass type)
+        private void OnClick(EZombieNames type)
         {
             OnClickCard?.Invoke(type);
         }
 
-        private void OnUpgrade(EUnitClass type)
+        private void OnUpgrade(EZombieNames type)
         {
             Upgrade?.Invoke(type);
         }

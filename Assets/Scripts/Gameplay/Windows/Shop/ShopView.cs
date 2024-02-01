@@ -122,6 +122,7 @@ namespace Gameplay.Windows.Shop
         public void ShowPopUp(ShopConfigData shopConfigData, Sprite priceImage, bool isCanBuy)
         {
             _shopRewardPopUp.gameObject.SetActive(true);
+
             _shopRewardPopUp.Show(shopConfigData, priceImage, isCanBuy, _isTutorial);
         }
 

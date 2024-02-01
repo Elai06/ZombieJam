@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
 
 namespace Gameplay.Cards
@@ -9,9 +10,9 @@ namespace Gameplay.Cards
     public class CardsProgress
     {
         public List<CardProgressData> CardProgressData = new();
-        public CardProgressData GetOrCreate(EUnitClass unitClass)
+        public CardProgressData GetOrCreate(EZombieNames unitClass)
         {
-            foreach (var data in CardProgressData.Where(data => data.unitClass == unitClass))
+            foreach (var data in CardProgressData.Where(data => data.Name == unitClass))
             {
                 return data;
             }

@@ -1,19 +1,21 @@
 ﻿using System;
+using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
+using UnityEngine.Serialization;
 
 namespace Gameplay.Cards
 {
     [Serializable]
     public class CardProgressData
     {
-        public EUnitClass unitClass;
+        public EZombieNames Name;
         public int CardsValue;
         public int Level;
         public int IsOpen;
 
-        public CardProgressData(EUnitClass unitClass, int cardsValue)
+        public CardProgressData(EZombieNames name, int cardsValue)
         {
-            this.unitClass = unitClass;
+            Name = name;
             CardsValue = cardsValue;
         }
     }

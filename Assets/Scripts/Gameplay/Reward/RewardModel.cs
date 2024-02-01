@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Gameplay.Boosters;
 using Gameplay.Cards;
+using Gameplay.Configs.Zombies;
 using Gameplay.Curencies;
 using Gameplay.Enums;
 using Infrastructure.Windows;
@@ -74,7 +75,7 @@ namespace Gameplay.Reward
 
                 if (reward.ResourceType == EResourceType.Card)
                 {
-                    Enum.TryParse<EUnitClass>(reward.ID, out var currencyType);
+                    Enum.TryParse<EZombieNames>(reward.ID, out var currencyType);
                     _cardsModel.AddCards(currencyType, reward.Value);
                 }
             }

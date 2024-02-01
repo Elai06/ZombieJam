@@ -1,6 +1,7 @@
 ﻿using System;
 using Gameplay.Boosters;
 using Gameplay.Cards;
+using Gameplay.Configs.Zombies;
 using Gameplay.Curencies;
 using Gameplay.Enums;
 using Gameplay.RegionMap;
@@ -123,7 +124,7 @@ namespace Gameplay.Configs.Region
 
                 if (reward.RewardType == EResourceType.Card)
                 {
-                    Enum.TryParse<EUnitClass>(reward.GetId(), out var currencyType);
+                    Enum.TryParse<EZombieNames>(reward.GetId(), out var currencyType);
                     _cardsModel.AddCards(currencyType, reward.Value);
                 }
             }

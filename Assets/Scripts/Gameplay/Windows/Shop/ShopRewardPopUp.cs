@@ -30,11 +30,6 @@ namespace Gameplay.Windows.Shop
 
         private bool _isTutorial;
 
-        private void Start()
-        {
-            gameObject.SetActive(false);
-        }
-
         private void OnEnable()
         {
             _closeButton.onClick.AddListener(ClosePopUp);

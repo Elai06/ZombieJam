@@ -1,14 +1,19 @@
 ﻿using System;
 using Gameplay.Boosters;
+using Gameplay.Level;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils.ZenjectInstantiateUtil;
+using Zenject;
 
 namespace Gameplay.Windows.Boosters
 {
     public class BoostersView : MonoBehaviour
     {
         public event Action<EBoosterType> Activate;
+
+        [SerializeField] private Transform _content;
 
         [SerializeField] private TextMeshProUGUI _relocationValueText;
         [SerializeField] private Button _relocationButton;
@@ -22,12 +27,21 @@ namespace Gameplay.Windows.Boosters
         [SerializeField] private TextMeshProUGUI _increaseHPText;
         [SerializeField] private Button _increaseHPBooster;
 
+        [Inject] private ILevelModel _levelModel;
+
+        private void Start()
+        {
+            InjectService.Instance.Inject(this);
+        }
+
         private void OnEnable()
         {
             _relocationButton.onClick.AddListener(ActivateRelocation);
             _increaseAttackBooster.onClick.AddListener(ActivateIncreaseAttack);
             _increaseAttackSpeedBooster.onClick.AddListener(ActivateIncreaseAttackSpeed);
             _increaseHPBooster.onClick.AddListener(ActivateIncreaseHP);
+
+            _content.gameObject.SetActive(_levelModel.CurrentLevel > 0);
         }
 
         private void OnDisable()
