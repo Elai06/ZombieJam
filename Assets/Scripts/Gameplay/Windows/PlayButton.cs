@@ -53,6 +53,12 @@ namespace Gameplay.Windows
             _button.onClick.AddListener(Play);
             _button.interactable = true;
             _tutorialService.СhangedState += OnChangedState;
+
+            if (_tutorialService.CurrentState == ETutorialState.Card)
+            {
+                var waveIndex = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion().CurrentWaweIndex;
+                _button.interactable = waveIndex < 2;
+            }
         }
 
         private void OnDisable()
@@ -66,14 +72,6 @@ namespace Gameplay.Windows
         {
             if (_tutorialService.CurrentState == ETutorialState.ShopBox ||
                 _tutorialService.CurrentState == ETutorialState.ShopCurrency) return;
-
-            if (_tutorialService.CurrentState == ETutorialState.Card)
-            {
-                if (_gameplayModel.GetCurrentRegionProgress().GetCurrentRegion().CurrentWaweIndex >= 2)
-                {
-                    return;
-                }
-            }
 
             if (_gameplayModel.GetCurrentRegionProgress().RegionIndex > 0)
             {
