@@ -46,7 +46,7 @@ namespace Gameplay.Units
         public float Health { get; private set; }
         public bool IsDied { get; private set; }
 
-        public ZombieData Config;
+        public ZombieData Config { get; set; }
         public StateMachine StateMachine => _stateMachine;
 
         public Transform Prefab => _prefab;
@@ -60,13 +60,13 @@ namespace Gameplay.Units
         protected List<IEnemy> _attackedEnemies = new();
 
         public void Initialize(CardModel cardModel, ICoroutineService coroutineService,
-            ITargetManager targetManager, EUnitClass type, ZombieData zombieData)
+            ITargetManager targetManager, ZombieData zombieData)
         {
             _cardModel = cardModel;
             _coroutineService = coroutineService;
             _targetManager = targetManager;
-            UnitClass = type;
             Config = zombieData;
+            UnitClass = zombieData.Type;
 
             InitializeParameters();
             InitializeStates();

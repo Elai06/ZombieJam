@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Gameplay.Parking
 {
@@ -10,8 +9,8 @@ namespace Gameplay.Parking
     {
         [SerializeField] private bool _isAvailable = true;
         [SerializeField] private ESwipeDirection _eSwipeDirection;
-        public EUnitClass unitClass;
-        [FormerlySerializedAs("ZombieNames")] public EZombieNames Name;
+        public EZombieNames Name;
+        public EZombieSize ZombieSize;
         [SerializeField] private List<SpawnPosition> _cooperativePosition = new();
 
         public bool IsCooperative { get; private set; }
@@ -23,7 +22,7 @@ namespace Gameplay.Parking
         {
             Gizmos.color = _isAvailable && _eSwipeDirection != ESwipeDirection.None ? Color.green : Color.red;
 
-            if (_cooperativePosition.Count > 0 && unitClass == EUnitClass.Tank)
+            if (_cooperativePosition.Count > 0 && ZombieSize == EZombieSize.TwoCells)
             {
                 CooperativePosition();
 
@@ -31,11 +30,11 @@ namespace Gameplay.Parking
                 {
                     Gizmos.color = Color.blue;
                     position.CooperativePosition();
-                    position.unitClass = unitClass;
+                    position.ZombieSize = ZombieSize;
                 }
             }
 
-            if (IsCooperative && unitClass == EUnitClass.Tank)
+            if (IsCooperative && ZombieSize == EZombieSize.TwoCells)
             {
                 Gizmos.color = Color.blue;
             }

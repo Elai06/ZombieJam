@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Gameplay.Configs.Zombies;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -49,6 +50,19 @@ namespace Gameplay.Parking
             }
 
             _spawnGrid.Clear();
+        }
+        
+        [Button("FixedSize")]
+        private void Size()
+        {
+            for (int i = 0; i < _spawnGrid.Count; i++)
+            {
+                var element = _spawnGrid[i];
+                if (element.CooperativePositions.Count > 0)
+                {
+                    element.ZombieSize = EZombieSize.TwoCells;
+                }
+            }
         }
 
         [Button("ClearCoopPosition")]
