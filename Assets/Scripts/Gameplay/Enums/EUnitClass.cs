@@ -5,6 +5,7 @@
         Warrior,
         Archer,
         Tank,
-        Coffin
+        Coffin,
+        BrainThrower
     }
 }
