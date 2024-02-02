@@ -1,6 +1,9 @@
 ﻿using System;
 using DG.Tweening;
+using Gameplay.Boosters;
 using Gameplay.Configs.Shop;
+using Gameplay.Configs.Sprites;
+using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
 using Gameplay.Windows.Rewards;
 using TMPro;
@@ -21,6 +24,7 @@ namespace Gameplay.Windows.Shop
         [SerializeField] private Button _closeButton;
         [SerializeField] private Button _buyButton;
         [SerializeField] private Image _priceImage;
+        [SerializeField] private Image _boxImage;
         [SerializeField] private TextMeshProUGUI _notCurrencyText;
         [SerializeField] private Image _arrowTutorial;
 
@@ -29,6 +33,8 @@ namespace Gameplay.Windows.Shop
         private bool _isCanBuy;
 
         private bool _isTutorial;
+
+        private SpritesConfig _spritesConfig;
 
         private void OnEnable()
         {
@@ -44,8 +50,11 @@ namespace Gameplay.Windows.Shop
             _buyButton.onClick.RemoveListener(OnBuy);
         }
 
-        public void Show(ShopConfigData shopConfigData, Sprite priceImage, bool isCanBuy, bool isTutorial)
+        public void Show(ShopConfigData shopConfigData, SpritesConfig spritesConfig, bool isCanBuy, bool isTutorial)
         {
+            _spritesConfig = spritesConfig;
+            _boxImage.sprite = spritesConfig.GetShopSprite(shopConfigData.ProductType);
+
             _nameText.text = $"{shopConfigData.ProductType}";
             _productType = shopConfigData.ProductType;
             _buyButtonText.text = shopConfigData.IsFree ? "Claim" : "Buy";
@@ -57,7 +66,7 @@ namespace Gameplay.Windows.Shop
 
             if (!shopConfigData.IsFree)
             {
-                _priceImage.sprite = priceImage;
+                _priceImage.sprite = spritesConfig.GetCurrencySprite(shopConfigData.PriceType);
                 _priceValue.text = $"{shopConfigData.PriceValue}";
 
                 if (!shopConfigData.IsInApp)
@@ -65,7 +74,7 @@ namespace Gameplay.Windows.Shop
                     _priceValue.color = isCanBuy ? Color.white : Color.red;
                 }
             }
-            
+
             _arrowTutorial.gameObject.SetActive(isTutorial);
 
             _container.CleanUp();
@@ -75,7 +84,8 @@ namespace Gameplay.Windows.Shop
                 {
                     ID = reward.GetId(),
                     Value = reward.Value,
-                    //   Sprite = 
+                    Sprite = GetResourceSprite(reward.RewardType, reward.GetId()),
+                    isUnit = reward.RewardType == EResourceType.Card,
                 };
 
                 _container.Add(viewData.ID, viewData);
@@ -109,13 +119,31 @@ namespace Gameplay.Windows.Shop
         private void ClosePopUp()
         {
             if (_isTutorial) return;
-            
+
             gameObject.SetActive(false);
         }
 
         private void ShowTutorial()
         {
             _arrowTutorial.gameObject.SetActive(true);
+        }
+
+        private Sprite GetResourceSprite(EResourceType resourceType, string id)
+        {
+            switch (resourceType)
+            {
+                case EResourceType.Booster:
+                    Enum.TryParse<EBoosterType>(id, out var boosterType);
+                    return _spritesConfig.GetBoosterIcon(boosterType);
+                case EResourceType.Currency:
+                    Enum.TryParse<ECurrencyType>(id, out var currencyType);
+                    return _spritesConfig.GetCurrencySprite(currencyType);
+                case EResourceType.Card:
+                    Enum.TryParse<EZombieNames>(id, out var card);
+                    return _spritesConfig.GetZombieIcon(card);
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

@@ -80,7 +80,7 @@ namespace Gameplay.Windows.Shop
                 {
                     subViewData.PriceSprite = _gameStaticData.SpritesConfig.GetCurrencySprite(ECurrencyType.Free);
                 }
-                
+
 
                 if (configData.IsDesposable)
                 {
@@ -112,9 +112,8 @@ namespace Gameplay.Windows.Shop
             var config = _gameStaticData.ShopConfig.ConfigData
                 .Find(x => x.ProductType == productType);
 
-            var priceSprite = _gameStaticData.SpritesConfig.GetCurrencySprite(config.PriceType);
-
-            View.ShowPopUp(config, priceSprite, Model.IsCanConsume(config.PriceType, (int)config.PriceValue));
+            View.ShowPopUp(config, _gameStaticData.SpritesConfig,
+                Model.IsCanConsume(config.PriceType, (int)config.PriceValue));
         }
 
         private void OnPurchased(EShopProductType productType)

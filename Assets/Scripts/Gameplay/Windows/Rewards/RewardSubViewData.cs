@@ -7,5 +7,6 @@ namespace Gameplay.Windows.Rewards
         public Sprite Sprite;
         public int Value;
         public string ID;
+        public bool isUnit;
     }
 }

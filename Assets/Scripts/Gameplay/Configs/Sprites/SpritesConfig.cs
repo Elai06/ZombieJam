@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Gameplay.Boosters;
 using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace Gameplay.Configs.Sprites
         [SerializeField] private List<ZombieIconCards> _zombieIcons;
         [SerializeField] private List<ClassIcon> _classIcons;
         [SerializeField] private List<ParameterIcon> _parameterIcons;
+        [SerializeField] private List<BoosterIcon> _boosterIcons;
 
         public Sprite GetCurrencySprite(ECurrencyType type)
         {
@@ -43,6 +45,11 @@ namespace Gameplay.Configs.Sprites
         public Sprite GetParameterIcon(EParameter type)
         {
             return _parameterIcons.Find(x => x.ParameterType == type).Icon;
+        }
+        
+        public Sprite GetBoosterIcon(EBoosterType boosterType)
+        {
+            return _boosterIcons.Find(x => x.BoosterType == boosterType).Sprite;
         }
     }
 }
