@@ -9,5 +9,7 @@ namespace Gameplay.Configs.Sprites
     {
         public EUnitClass Class;
         public Sprite Sprite;
+        public Sprite LabelBackground;
+        public Color CardsPopUpBGColor;
     }
 }

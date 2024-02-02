@@ -13,6 +13,7 @@ namespace Gameplay.Configs.Sprites
         [SerializeField] private List<ZombieCardsBackground> _cardsBackgrounds;
         [SerializeField] private List<ZombieIconCards> _zombieIcons;
         [SerializeField] private List<ClassIcon> _classIcons;
+        [SerializeField] private List<ParameterIcon> _parameterIcons;
 
         public Sprite GetCurrencySprite(ECurrencyType type)
         {
@@ -29,14 +30,19 @@ namespace Gameplay.Configs.Sprites
             return _zombieIcons.Find(x => x.ZombieName == type).Icon;
         }
 
-        public Sprite GetCardsBackground(EUnitClass type)
+        public ZombieCardsBackground GetCardsBackground(EUnitClass type)
         {
-            return _cardsBackgrounds.Find(x => x.Class == type).Sprite;
+            return _cardsBackgrounds.Find(x => x.Class == type);
         }
         
         public Sprite GetClassIcon(EUnitClass type)
         {
             return _classIcons.Find(x => x.Class == type).Sprite;
+        }
+        
+        public Sprite GetParameterIcon(EParameter type)
+        {
+            return _parameterIcons.Find(x => x.ParameterType == type).Icon;
         }
     }
 }

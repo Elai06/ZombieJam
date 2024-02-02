@@ -105,7 +105,7 @@ namespace Gameplay.Enemies
         public void DamageToTarget(Unit unit)
         {
             if (unit == null) return;
-            var attack = Parameters[EParameter.Attack];
+            var attack = Parameters[EParameter.Damage];
             unit.GetDamage(attack);
         }
 

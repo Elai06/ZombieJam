@@ -3,7 +3,7 @@
     public enum EParameter
     {
         Health,
-        Attack,
+        Damage,
         RadiusAttack,
         AttackRate,
         SpeedOnPark,

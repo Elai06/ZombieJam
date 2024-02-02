@@ -1,6 +1,4 @@
-﻿using System;
-using Gameplay.Configs.Zombies;
-using Gameplay.Enums;
+﻿using Gameplay.Configs.Zombies;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils.ZenjectInstantiateUtil;
@@ -8,7 +6,7 @@ using Zenject;
 
 namespace Gameplay.Cards
 {
-    public class CardButtonIndicator : MonoBehaviour
+    public class CardFooterIndicator : MonoBehaviour
     {
         [SerializeField] private Image _indicator;
 

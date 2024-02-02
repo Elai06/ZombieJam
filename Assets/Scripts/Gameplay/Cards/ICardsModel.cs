@@ -25,5 +25,6 @@ namespace Gameplay.Cards
         bool IsCanUpgrade(EZombieNames unitClass, CardProgressData cardProgressData);
         event Action<EZombieNames> StartUpgrade;
         CardModel GetCardModel(EZombieNames unitClass);
+        int GetCurrencyValue(ECurrencyType currencyType);
     }
 }

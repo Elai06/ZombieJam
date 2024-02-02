@@ -40,7 +40,7 @@ namespace Gameplay.Cards
             //_indicator.gameObject.SetActive(data.IsCanUpgrade);
             _indicator.gameObject.SetActive(false);
             _icon.sprite = data.Icon;
-            _background.sprite = data.Background;
+            _background.sprite = data.CardSprites.Sprite;
             _tutorialFinger.gameObject.SetActive(data.IsTutorial);
             _classIcon.sprite = data.ClassIcon;
 
