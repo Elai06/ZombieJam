@@ -1084,7 +1084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isAvailable: 1
+  _isAvailable: 0
   _eSwipeDirection: 2
   Name: 0
   ZombieSize: 0
@@ -1445,8 +1445,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  Name: 0
-  ZombieSize: 0
+  Name: 3
+  ZombieSize: 1
   _cooperativePosition: []
 --- !u!1 &1493510459720227702
 GameObject:
@@ -1675,7 +1675,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
-  Name: 3
+  Name: 2
   ZombieSize: 1
   _cooperativePosition: []
 --- !u!1 &1960717785375261889
@@ -1771,10 +1771,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isAvailable: 1
-  _eSwipeDirection: 1
-  Name: 0
-  ZombieSize: 0
+  _isAvailable: 0
+  _eSwipeDirection: 0
+  Name: 3
+  ZombieSize: 1
   _cooperativePosition: []
 --- !u!1 &2400438729931580727
 GameObject:
@@ -3616,7 +3616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 1
-  Name: 0
+  Name: 1
   ZombieSize: 0
   _cooperativePosition: []
 --- !u!1 &4915151634000476117
@@ -3831,9 +3831,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  Name: 0
-  ZombieSize: 0
-  _cooperativePosition: []
+  Name: 3
+  ZombieSize: 1
+  _cooperativePosition:
+  - {fileID: 1419755905929833801}
 --- !u!1 &4975138949014195837
 GameObject:
   m_ObjectHideFlags: 0
@@ -4538,9 +4539,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isAvailable: 0
+  _isAvailable: 1
   _eSwipeDirection: 2
-  Name: 0
+  Name: 4
   ZombieSize: 0
   _cooperativePosition: []
 --- !u!1 &6514975683022496041
@@ -7552,9 +7553,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  Name: 0
-  ZombieSize: 0
-  _cooperativePosition: []
+  Name: 3
+  ZombieSize: 1
+  _cooperativePosition:
+  - {fileID: 7877320878263465145}
 --- !u!1 &8115913199366971722
 GameObject:
   m_ObjectHideFlags: 0
@@ -7767,7 +7769,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  Name: 3
+  Name: 2
   ZombieSize: 1
   _cooperativePosition:
   - {fileID: 2817752687838512791}
