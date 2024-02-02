@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 82065063208263383}
   - component: {fileID: 7546304547208371758}
   - component: {fileID: 3326746089256385763}
+  - component: {fileID: 6082445548747138337}
   m_Layer: 3
   m_Name: ZombieBrain
   m_TagString: Untagged
@@ -168,11 +169,6 @@ MonoBehaviour:
   _animator: {fileID: 5156251816921985014}
   _prefab: {fileID: 5558097343256406074}
   _eSwipeDirection: 0
-  Config:
-    Type: 0
-    Prefab: {fileID: 0}
-    Parameters: {fileID: 0}
-    ZombieSize: 0
   _bullet: {fileID: 3326746089256385763}
 --- !u!114 &3326746089256385763
 MonoBehaviour:
@@ -187,6 +183,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bullet: {fileID: 2392649937357707323, guid: 9ccff8b73f5dd1840a7e639daf8af554, type: 3}
+--- !u!114 &6082445548747138337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242093016697670560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28b0883dd31efd241b82920b046dfc97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathFX: {fileID: 5817862963592184471, guid: d9c11e76d31d94e45a0865ddb6c5b573, type: 3}
 --- !u!1 &4327601323718433423
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ namespace Gameplay.Enemies
 
         [SerializeField] private AnimationCurve _curve;
         [SerializeField] private float _height;
+        [SerializeField] private GameObject bulletFX;
 
         private Coroutine _coroutine;
 
@@ -41,6 +42,7 @@ namespace Gameplay.Enemies
 
                 if (distance <= 0.1f)
                 {
+                    Instantiate(bulletFX, target.position, Quaternion.identity);
                     transform.localPosition = Vector3.zero;
                     StopCoroutine(_coroutine);
                     Hit?.Invoke(this);
