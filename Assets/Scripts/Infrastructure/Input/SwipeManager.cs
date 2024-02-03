@@ -16,7 +16,7 @@ namespace Infrastructure.Input
         private Vector3 _startPosition;
         private RaycastDetector _raycastDetector;
 
-        private ISwipeObject _swipeObject;
+        private UnitSwipe _swipeObject;
         private TutorialSwipeInfo _tutorialSwipeInfo;
 
         private bool _isWasSwipe;
@@ -81,10 +81,10 @@ namespace Infrastructure.Input
 
         private void SetSwipedObject()
         {
-            var contactInfo = _raycastDetector.RayCast(3);
+            var contactInfo = _raycastDetector.RayCast(10);
             if (contactInfo.Collider == null) return;
 
-            _swipeObject = contactInfo.Collider.GetComponent<ISwipeObject>();
+            _swipeObject = contactInfo.Collider.GetComponent<UnitSwipe>();
             _tutorialSwipeInfo.SwipeGameObject = contactInfo.Collider.gameObject;
             _tutorialSwipeInfo.SwipeDirection = _swipeObject.SwipeDirection;
             _tutorialSwipeInfo.UnitSwipe = _swipeObject;

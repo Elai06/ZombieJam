@@ -1,4 +1,5 @@
 ﻿using Gameplay.Enums;
+using Gameplay.Units;
 using UnityEngine;
 
 namespace Infrastructure.Input
@@ -8,7 +9,7 @@ namespace Infrastructure.Input
         public ESwipeDirection SwipeDirection;
         public ESwipeSide SwipeSide;
         public GameObject SwipeGameObject;
-        public ISwipeObject UnitSwipe;
+        public UnitSwipe UnitSwipe;
 
         public void Reset()
         {

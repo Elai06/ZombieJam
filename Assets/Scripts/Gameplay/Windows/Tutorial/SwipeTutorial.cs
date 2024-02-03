@@ -19,8 +19,8 @@ namespace Gameplay.Windows.Tutorial
 
         [Inject] private SwipeManager _swipeManager;
 
-        private readonly Vector3 _firstUnitPosition = new(-1.5f, 0, 0);
-        private readonly Vector3 _secondUnitPosition = new(1f, 0, 0.5f);
+        private readonly Vector3 _firstUnitPosition = new(-1.5f, 0.5f, 0);
+        private readonly Vector3 _secondUnitPosition = new(1f, 0.5f, 0.5f);
 
         private Tween _tween;
 
@@ -59,7 +59,7 @@ namespace Gameplay.Windows.Tutorial
             {
                 if (swipeObject.SwipeSide == ESwipeSide.Forward || swipeObject.SwipeSide == ESwipeSide.Back)
                 {
-                    if (swipeObject.SwipeGameObject.transform.localPosition == _firstUnitPosition)
+                    if (swipeObject.SwipeGameObject.transform.position == _firstUnitPosition)
                     {
                         _tween?.Kill();
                         swipeObject.UnitSwipe.Swipe(swipeObject.SwipeSide);
@@ -89,7 +89,7 @@ namespace Gameplay.Windows.Tutorial
             {
                 if (swipeObject.SwipeSide == ESwipeSide.Left || swipeObject.SwipeSide == ESwipeSide.Right)
                 {
-                    if (swipeObject.SwipeGameObject.transform.localPosition == _secondUnitPosition)
+                    if (swipeObject.SwipeGameObject.transform.position == _secondUnitPosition)
                     {
                         _tween?.Kill();
 

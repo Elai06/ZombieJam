@@ -7,7 +7,6 @@ using Gameplay.Enemies;
 using Gameplay.Enums;
 using Gameplay.Units.Mover;
 using Gameplay.Units.States;
-using Infrastructure.Input;
 using Infrastructure.UnityBehaviours;
 using UnityEngine;
 using Utils.CurveBezier;
@@ -15,7 +14,7 @@ using StateMachine = Infrastructure.StateMachine.StateMachine;
 
 namespace Gameplay.Units
 {
-    public abstract class Unit : MonoBehaviour, ISwipeObject
+    public abstract class Unit : MonoBehaviour
     {
         public event Action ResetMoving;
         public event Action<Unit> OnDied;
@@ -30,6 +29,7 @@ namespace Gameplay.Units
         [SerializeField] protected Animator _animator;
         [SerializeField] protected Transform _prefab;
         [SerializeField] protected ESwipeDirection _eSwipeDirection;
+        [SerializeField] private UnitSwipe _unitSwipe;
 
         protected CardModel _cardModel;
 
@@ -103,6 +103,7 @@ namespace Gameplay.Units
         public void SetSwipeDirection(ESwipeDirection swipeDirection)
         {
             _eSwipeDirection = swipeDirection;
+            _unitSwipe.SwipeDirection = _eSwipeDirection;
             _arrowDirection.SetArrowDirection(swipeDirection);
         }
 
