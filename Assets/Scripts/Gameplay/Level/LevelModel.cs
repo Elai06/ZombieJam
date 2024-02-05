@@ -1,6 +1,8 @@
 ﻿using System;
 using Gameplay.Boosters;
+using Gameplay.Cards;
 using Gameplay.Configs.Level;
+using Gameplay.Configs.Zombies;
 using Gameplay.Curencies;
 using Gameplay.Enums;
 using Gameplay.Reward;
@@ -15,20 +17,24 @@ namespace Gameplay.Level
         public event Action<LevelProgress> UpdateExperience;
         public event Action<int> OnLevelUp;
 
-        private readonly LevelConfig _levelConfig;
-        private readonly IRewardModel _rewardModel;
         private readonly IWindowService _windowService;
         private readonly IProgressService _progressService;
+        private ICurrenciesModel _currenciesModel;
+        private IBoostersManager _boostersManager;
+        private ICardsModel _cardsModel;
 
         private LevelProgress _levelProgress;
 
-        public LevelModel(IProgressService progressService, GameStaticData gameStaticData, IRewardModel rewardModel,
-            IWindowService windowService)
+        public LevelModel(IProgressService progressService, GameStaticData gameStaticData,
+            IWindowService windowService, ICurrenciesModel currenciesModel, IBoostersManager boostersManager,
+            ICardsModel cardsModel)
         {
             _progressService = progressService;
-            _levelConfig = gameStaticData.LevelConfig;
-            _rewardModel = rewardModel;
+            LevelConfig = gameStaticData.LevelConfig;
             _windowService = windowService;
+            _cardsModel = cardsModel;
+            _currenciesModel = currenciesModel;
+            _boostersManager = boostersManager;
 
             _progressService.OnLoaded += Loaded;
         }
@@ -41,6 +47,7 @@ namespace Gameplay.Level
 
         public int CurrentLevel => _levelProgress.Level;
         public int CurrentExperience => _levelProgress.Experience;
+        public LevelConfig LevelConfig { get; set; }
 
         public void AddExperience(bool isWin)
         {
@@ -62,48 +69,49 @@ namespace Gameplay.Level
         {
             _levelProgress.Level++;
             _levelProgress.Experience = 0;
-            CreateRewards();
+            _windowService.Open(WindowType.LevelUp);
             OnLevelUp?.Invoke(CurrentLevel);
-        }
-
-        private void CreateRewards()
-        {
-            _rewardModel.CreateRewards($"Level Up {CurrentLevel + 1}", ERewardType.LevelUp);
-
-            foreach (var reward in _levelConfig.LevelRewards.Rewards)
-            {
-                switch (reward.RewardType)
-                {
-                    case EResourceType.Booster:
-                        Enum.TryParse<EBoosterType>(reward.GetId(), out var boosterType);
-                        _rewardModel.AdditionalRewards(EResourceType.Booster, boosterType.ToString(), reward.Value);
-                        continue;
-                    case EResourceType.Currency:
-                        Enum.TryParse<ECurrencyType>(reward.GetId(), out var currencyType);
-                        _rewardModel.AdditionalRewards(EResourceType.Currency, currencyType.ToString(), reward.Value);
-                        continue;
-                    case EResourceType.Card:
-                        Enum.TryParse<EUnitClass>(reward.GetId(), out var card);
-                        _rewardModel.AdditionalRewards(EResourceType.Card, card.ToString(), reward.Value);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-
-            _windowService.Open(WindowType.Reward);
         }
 
         public int GetExperience(bool isWin)
         {
-            return (int)((isWin ? _levelConfig.ExperienceForWin : _levelConfig.ExperienceForLoose)
-                         * _levelConfig.MultiplierExperience);
+            return (int)((isWin ? LevelConfig.ExperienceForWin : LevelConfig.ExperienceForLoose)
+                         * LevelConfig.MultiplierExperience);
         }
 
         public int ReqiredExperienceForUp()
         {
-            var reqiredExperience = (int)(_levelConfig.ReqiredExperienceForUp * (CurrentLevel * _levelConfig.MultiplierExperience));
-            return reqiredExperience > 0 ? reqiredExperience : _levelConfig.ReqiredExperienceForUp;
+            var reqiredExperience = (int)(LevelConfig.ReqiredExperienceForUp *
+                                          (CurrentLevel * LevelConfig.MultiplierExperience));
+            return reqiredExperience > 0 ? reqiredExperience : LevelConfig.ReqiredExperienceForUp;
+        }
+
+        public void GetRewards()
+        {
+            foreach (var reward in LevelConfig.LevelRewards.Rewards)
+            {
+                if (reward.RewardType == EResourceType.Booster)
+                {
+                    Enum.TryParse<EBoosterType>(reward.GetId(), out var boosterType);
+                    _boostersManager.AddBooster(boosterType, reward.Value);
+                    continue;
+                }
+
+                if (reward.RewardType == EResourceType.Currency)
+                {
+                    Enum.TryParse<ECurrencyType>(reward.GetId(), out var currencyType);
+                    _currenciesModel.Add(currencyType, reward.Value);
+                    continue;
+                }
+
+                if (reward.RewardType == EResourceType.Card)
+                {
+                    Enum.TryParse<EZombieNames>(reward.GetId(), out var currencyType);
+                    _cardsModel.AddCards(currencyType, reward.Value);
+                }
+            }
+
+            _windowService.Close(WindowType.LevelUp);
         }
     }
 }

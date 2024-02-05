@@ -18,6 +18,7 @@ using Gameplay.Windows.Boosters;
 using Gameplay.Windows.Cards;
 using Gameplay.Windows.Gameplay;
 using Gameplay.Windows.Header;
+using Gameplay.Windows.LevelUp;
 using Gameplay.Windows.Rewards;
 using Gameplay.Windows.Shop;
 using Infrastructure.Events;
@@ -61,6 +62,7 @@ namespace Infrastructure.Installers
             Container.BindInterfacesTo<RewardViewModelFactory>().AsSingle();
             Container.BindInterfacesTo<CardsViewModelFactory>().AsSingle();
             Container.BindInterfacesTo<ShopViewModelFactory>().AsSingle();
+            Container.BindInterfacesTo<LevelUpViewModelFactory>().AsSingle();
         }
 
         private void BindGameStates()

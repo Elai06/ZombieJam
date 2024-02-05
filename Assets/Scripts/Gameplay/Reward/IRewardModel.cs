@@ -7,10 +7,10 @@ namespace Gameplay.Reward
     {
         void CreateRewards(string description, ERewardType rewardType);
         void AdditionalRewards(EResourceType resourceType, string id, int value);
-        void GetRewards();
         string Description { get; set; }
         List<RewardData> RewardDatas { get; set; }
         ERewardType RewardType { get; }
         void ShowRewardWindow();
+        void GetRewards();
     }
 }

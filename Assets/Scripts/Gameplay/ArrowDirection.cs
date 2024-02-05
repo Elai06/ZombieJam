@@ -11,12 +11,12 @@ namespace Gameplay
             switch (swipeSide)
             {
                 case ESwipeDirection.Horizontal:
-                    transform.parent.parent.eulerAngles = Vector3.down * 90;
+                    transform.eulerAngles = Vector3.down * 90;
                     break;
                 case ESwipeDirection.None:
                     break;
                 case ESwipeDirection.Vertical:
-                    transform.parent.parent.eulerAngles = Vector3.zero;
+                    transform.eulerAngles = Vector3.zero;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(swipeSide), swipeSide, null);

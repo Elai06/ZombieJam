@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Gameplay.Enums;
 using Gameplay.Parameters;
+using Gameplay.Units.Mover;
 using Infrastructure.UnityBehaviours;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ namespace Gameplay.Units.States
         private Coroutine _coroutine;
 
         public UnitParkingState(Unit unit, Dictionary<EParameter, float> parametersConfig,
-            ICoroutineService coroutineService) : base(EUnitState.Parking, unit)
+            ICoroutineService coroutineService ) : base(EUnitState.Parking, unit)
         {
             _unit = unit;
             _speed = parametersConfig[EParameter.SpeedOnPark];
@@ -98,7 +99,7 @@ namespace Gameplay.Units.States
                 _coroutine = _coroutineService.StartCoroutine(MoveAfterBash(collision.transform));
                 return;
             }
-            
+
             if (other.layer == 3 || other.layer == 6)
             {
                 Bash(_eSwipeSide, _bashBackWard);

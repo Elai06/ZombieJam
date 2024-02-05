@@ -23,8 +23,8 @@ namespace Gameplay.Units
         public event Action<GameObject> OnCollision;
         public event Action OnInitializePath;
 
-        [SerializeField] protected ArrowDirection _arrowDirection;
         [SerializeField] protected RotateObject _rotateObject;
+        [SerializeField] protected ArrowDirection _arrowDirection;
         [SerializeField] protected HealthBar _healthBar;
         [SerializeField] protected Animator _animator;
         [SerializeField] protected Transform _prefab;
@@ -98,13 +98,13 @@ namespace Gameplay.Units
         public void Swipe(ESwipeSide swipe)
         {
             OnSwipe?.Invoke(swipe);
+            _arrowDirection.SetArrowDirection(_eSwipeDirection);
         }
 
         public void SetSwipeDirection(ESwipeDirection swipeDirection)
         {
             _eSwipeDirection = swipeDirection;
             _unitSwipe.SwipeDirection = _eSwipeDirection;
-            _arrowDirection.SetArrowDirection(swipeDirection);
         }
 
         public void InitializePath(BezierCurve bezierCurve)
