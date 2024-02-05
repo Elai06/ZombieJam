@@ -31,7 +31,7 @@ namespace Gameplay.Windows.LevelUp
         public void InitializeReward(List<RewardSubViewData> rewardSubViewDatas, string level)
         {
             RewardSubViewContainer.Content.gameObject.SetActive(true);
-            _descriptionText.text = $"Level up {level}";
+           // _descriptionText.text = $"Level up {level}";
             _levelShieldText.text = level;
 
             RewardSubViewContainer.CleanUp();
