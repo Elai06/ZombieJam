@@ -22,5 +22,28 @@ namespace Gameplay
                     throw new ArgumentOutOfRangeException(nameof(swipeSide), swipeSide, null);
             }
         }
+
+        public void SetSwipeRotate(ESwipeSide swipeSide)
+        {
+            if (swipeSide == ESwipeSide.Back)
+            {
+                transform.eulerAngles = Vector3.down * 180;
+            }
+
+            if (swipeSide == ESwipeSide.Forward)
+            {
+                transform.eulerAngles = Vector3.zero;
+            }
+
+            if (swipeSide == ESwipeSide.Left)
+            {
+                transform.eulerAngles = Vector3.down * 90;
+            }
+
+            if (swipeSide == ESwipeSide.Right)
+            {
+                transform.eulerAngles = Vector3.up * 90;
+            }
+        }
     }
 }

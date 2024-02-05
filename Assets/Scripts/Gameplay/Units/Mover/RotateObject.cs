@@ -13,10 +13,10 @@ namespace Gameplay.Units.Mover
             switch (deltaX)
             {
                 case > 0.05f:
-                    transform.parent.eulerAngles = Vector3.up * 90;
+                    transform.eulerAngles =  Vector3.up * 90;
                     break;
                 case < -0.05f:
-                    transform.parent.eulerAngles = Vector3.up * 90;
+                    transform.eulerAngles = Vector3.down * 90;
                     return;
             }
 
@@ -24,10 +24,10 @@ namespace Gameplay.Units.Mover
             switch (deltaZ)
             {
                 case > 0.05f:
-                    transform.parent.eulerAngles = Vector3.zero;
+                    transform.eulerAngles = Vector3.zero;
                     break;
                 case < -0.05f:
-                    transform.parent.eulerAngles = Vector3.zero;
+                    transform.eulerAngles = Vector3.down * 180;
                     return;
             }
         }

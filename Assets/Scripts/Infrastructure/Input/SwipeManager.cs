@@ -2,6 +2,7 @@
 using Gameplay.Enums;
 using Gameplay.Tutorial;
 using Gameplay.Units;
+using Gameplay.Windows.Gameplay;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +13,7 @@ namespace Infrastructure.Input
         public event Action<TutorialSwipeInfo> OnSwipe;
 
         private ITutorialService _tutorialService;
+        private IGameplayModel _gameplayModel;
 
         private Vector3 _startPosition;
         private RaycastDetector _raycastDetector;
@@ -24,9 +26,10 @@ namespace Infrastructure.Input
         public bool IsSwipeTutorialCompleted { get; set; }
 
         [Inject]
-        public void Construct(ITutorialService tutorialService)
+        public void Construct(ITutorialService tutorialService, IGameplayModel gameplayModel)
         {
             _tutorialService = tutorialService;
+            _gameplayModel = gameplayModel;
         }
 
         public void Initialize()
@@ -37,6 +40,8 @@ namespace Infrastructure.Input
 
         private void Update()
         {
+            if (!_gameplayModel.IsStartWave) return;
+
             if (UnityEngine.Input.GetMouseButtonDown(0))
             {
                 _startPosition = UnityEngine.Input.mousePosition;

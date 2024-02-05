@@ -1,4 +1,5 @@
 ﻿using Gameplay.Tutorial;
+using Gameplay.Windows.Gameplay;
 using Infrastructure.Windows;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,6 +15,7 @@ namespace Gameplay.Windows
 
         [Inject] private IWindowService _windowService;
         [Inject] private ITutorialService _tutorialService;
+        [Inject] private IGameplayModel _gameplayModel;
 
         private void Awake()
         {
@@ -53,6 +55,7 @@ namespace Gameplay.Windows
 
             _windowService.Open(WindowType.MainMenu);
             _windowService.Open(WindowType.Footer);
+            _gameplayModel.StopWave();
         }
     }
 }

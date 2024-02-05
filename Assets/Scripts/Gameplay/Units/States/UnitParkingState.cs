@@ -11,6 +11,7 @@ namespace Gameplay.Units.States
     public class UnitParkingState : UnitState
     {
         private ICoroutineService _coroutineService;
+        private ArrowDirection _arrowDirection;
 
         private ESwipeSide _eSwipeSide = ESwipeSide.None;
 
@@ -22,11 +23,12 @@ namespace Gameplay.Units.States
         private Coroutine _coroutine;
 
         public UnitParkingState(Unit unit, Dictionary<EParameter, float> parametersConfig,
-            ICoroutineService coroutineService ) : base(EUnitState.Parking, unit)
+            ICoroutineService coroutineService , ArrowDirection arrowDirection) : base(EUnitState.Parking, unit)
         {
             _unit = unit;
             _speed = parametersConfig[EParameter.SpeedOnPark];
             _coroutineService = coroutineService;
+            _arrowDirection = arrowDirection;
         }
 
         public override void Enter()
@@ -83,6 +85,7 @@ namespace Gameplay.Units.States
             if (_isMove || swipe == ESwipeSide.None || !IsAvailableSwipe(swipe)) return;
 
             _eSwipeSide = swipe;
+            _arrowDirection.SetSwipeRotate(swipe);
 
             _coroutine = _coroutineService.StartCoroutine(StartMove());
         }

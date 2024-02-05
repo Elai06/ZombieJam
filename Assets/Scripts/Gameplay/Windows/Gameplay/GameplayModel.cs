@@ -19,6 +19,8 @@ namespace Gameplay.Windows.Gameplay
 
         public bool IsAvailableRessuraction { get; set; } = true;
 
+        public bool IsStartWave { get; set; }
+
         public GameplayModel(IRegionManager regionManager, ILevelModel levelModel, IAdsService adsService)
         {
             _regionManager = regionManager;
@@ -34,11 +36,13 @@ namespace Gameplay.Windows.Gameplay
             _regionManager.WaveCompleted();
             _levelModel.AddExperience(true);
             IsAvailableRessuraction = true;
+            StopWave();
             OnWaveCompleted?.Invoke(progress.CurrentRegionType, progress.GetCurrentRegion().CurrentWaweIndex);
         }
 
         public void StartWave()
         {
+            IsStartWave = true;
             OnStartWave?.Invoke(_regionManager.ProgressData.CurrentWaweIndex);
         }
 
@@ -80,6 +84,11 @@ namespace Gameplay.Windows.Gameplay
         {
             IsAvailableRessuraction = false;
             OnResurection?.Invoke();
+        }
+
+        public void StopWave()
+        {
+            IsStartWave = false;
         }
     }
 }

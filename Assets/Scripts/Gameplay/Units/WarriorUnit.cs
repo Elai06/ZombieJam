@@ -10,7 +10,7 @@ namespace Gameplay.Units
         {
             base.InitializeStates();
             
-            var parkingState = new UnitParkingState(this, Parameters, _coroutineService);
+            var parkingState = new UnitParkingState(this, Parameters, _coroutineService, _arrowDirection);
             var roadState = new UnitRoadState(this, _coroutineService, _rotateObject);
             var battleState = new UnitBattleState(this, _targetManager, _coroutineService, _rotateObject);
             var diedState = new UnitDiedState(this);

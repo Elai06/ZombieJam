@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotateObject: {fileID: 8624090902253383887}
-  _arrowDirection: {fileID: 8153588854199719378}
+  _arrowDirection: {fileID: 2983070834700285187}
   _healthBar: {fileID: 6964285613675902043}
   _animator: {fileID: 8475781411936090157}
   _prefab: {fileID: 7320636221045586305}
@@ -169,6 +169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6608548847440992292}
   - component: {fileID: 8624090902253383887}
+  - component: {fileID: 2983070834700285187}
   m_Layer: 3
   m_Name: Model
   m_TagString: Untagged
@@ -203,6 +204,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c4679f406f24ed2a61396a46d3aa2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2983070834700285187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6483549480185863257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 454d2fe02a754124b360d0c3aef48879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &185324577371458609
@@ -832,15 +845,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8153588854199719378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7985954677889426235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 454d2fe02a754124b360d0c3aef48879, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
