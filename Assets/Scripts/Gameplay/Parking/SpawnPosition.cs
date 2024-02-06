@@ -12,6 +12,9 @@ namespace Gameplay.Parking
         public EZombieNames Name;
         public EZombieSize ZombieSize;
         [SerializeField] private List<SpawnPosition> _cooperativePosition = new();
+        [SerializeField] private GameObject _cubePrefab;
+
+        public GameObject CubePrefab => _cubePrefab;
 
         public bool IsCooperative { get; private set; }
 
@@ -67,6 +70,11 @@ namespace Gameplay.Parking
             }
 
             return transform.position;
+        }
+
+        public void SetCubePrefab(GameObject cube)
+        {
+            _cubePrefab = cube;
         }
     }
 }

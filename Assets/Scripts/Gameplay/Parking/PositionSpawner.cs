@@ -8,6 +8,7 @@ namespace Gameplay.Parking
     public class PositionSpawner : MonoBehaviour
     {
         [SerializeField] private List<SpawnPosition> _spawnGrid = new();
+        [SerializeField] private GameObject _cubePrefab;
         [SerializeField] private SpawnPosition _spawnPositionPrefab;
         [SerializeField] private int _square = 25;
         [SerializeField] private Transform _startPosition;
@@ -20,7 +21,7 @@ namespace Gameplay.Parking
             {
                 var spawnPrefab = Instantiate(_spawnPositionPrefab, startPosition, Quaternion.identity, transform);
                 _spawnGrid.Add(spawnPrefab);
-                
+
                 if (spawnPrefab.IsCooperative && spawnPrefab.CooperativePositions.Count == 0)
                 {
                     _spawnGrid.Remove(spawnPrefab);
@@ -51,7 +52,7 @@ namespace Gameplay.Parking
 
             _spawnGrid.Clear();
         }
-        
+
         [Button("FixedSize")]
         private void Size()
         {
@@ -62,6 +63,21 @@ namespace Gameplay.Parking
                 {
                     element.ZombieSize = EZombieSize.TwoCells;
                 }
+            }
+        }
+
+        [Button("SpawnCube")]
+        private void SpawnCubes()
+        {
+            for (int i = 0; i < _spawnGrid.Count; i++)
+            {
+                var spawnPosition = _spawnGrid[i];
+                if (spawnPosition.CubePrefab == null)
+                {
+                    _spawnGrid[i].SetCubePrefab(Instantiate(_cubePrefab, Vector3.zero, Quaternion.identity,
+                        _spawnGrid[i].transform));
+                }
+                spawnPosition.CubePrefab.transform.localPosition = Vector3.zero;
             }
         }
 
