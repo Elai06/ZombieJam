@@ -126,7 +126,7 @@ namespace Gameplay.Windows
                     return _gameStaticData.SpritesConfig.GetCurrencySprite(type);
                 case EResourceType.Card:
                     Enum.TryParse<EZombieNames>(data.GetId(), out var card);
-                    return _gameStaticData.SpritesConfig.GetZombieIcon(card);
+                    return _gameStaticData.SpritesConfig.GetZombieIcon(card).HalfHeighSprite;
                 default:
                     return null;
             }

@@ -66,7 +66,7 @@ namespace Gameplay.Windows.LevelUp
                     case EResourceType.Card:
                         Enum.TryParse<EZombieNames>(reward.GetId(), out var card);
                         rewardSubViewDatas.Add(CreateSubView(reward,
-                            _gameStaticData.SpritesConfig.GetZombieIcon(card)));
+                            _gameStaticData.SpritesConfig.GetZombieIcon(card).HalfHeighSprite));
                         continue;
                     default:
                         throw new ArgumentOutOfRangeException();

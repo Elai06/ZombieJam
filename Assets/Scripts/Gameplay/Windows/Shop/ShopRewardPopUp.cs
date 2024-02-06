@@ -140,7 +140,7 @@ namespace Gameplay.Windows.Shop
                     return _spritesConfig.GetCurrencySprite(currencyType);
                 case EResourceType.Card:
                     Enum.TryParse<EZombieNames>(id, out var card);
-                    return _spritesConfig.GetZombieIcon(card);
+                    return _spritesConfig.GetZombieIcon(card).HalfHeighSprite;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

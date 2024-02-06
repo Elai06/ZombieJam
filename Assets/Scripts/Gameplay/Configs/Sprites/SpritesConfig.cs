@@ -27,9 +27,9 @@ namespace Gameplay.Configs.Sprites
             return _shopSprites.Find(x => x.ProductType == type).Sprite;
         }
 
-        public Sprite GetZombieIcon(EZombieNames type)
+        public ZombieIconCards GetZombieIcon(EZombieNames type)
         {
-            return _zombieIcons.Find(x => x.ZombieName == type).FullHeighSprite;
+            return _zombieIcons.Find(x => x.ZombieName == type);
         }
 
         public ZombieCardsBackground GetCardsBackground(EUnitClass type)

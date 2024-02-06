@@ -55,7 +55,7 @@ namespace Gameplay.Windows.Cards
                     ProgressData = progress,
                     ReqiredCards = Model.GetReqiredCardsValue(zombieData.ZombieData.Name),
                     IsCanUpgrade = Model.IsCanUpgrade(zombieData.ZombieData.Name, progress),
-                    Icon = _gameStaticData.SpritesConfig.GetZombieIcon(zombieData.ZombieData.Name),
+                    Icon = _gameStaticData.SpritesConfig.GetZombieIcon(zombieData.ZombieData.Name).HalfHeighSprite,
                     CardSprites = _gameStaticData.SpritesConfig.GetCardsBackground(zombieData.ZombieData.Type),
                     ClassIcon = _gameStaticData.SpritesConfig.GetClassIcon(zombieData.ZombieData.Type)
                 };
@@ -89,7 +89,7 @@ namespace Gameplay.Windows.Cards
                 ProgressData = progress,
                 ReqiredCards = Model.GetReqiredCardsValue(zombieData.ZombieData.Name),
                 IsCanUpgrade = Model.IsCanUpgrade(zombieData.ZombieData.Name, progress),
-                Icon = _gameStaticData.SpritesConfig.GetZombieIcon(zombieData.ZombieData.Name),
+                Icon = _gameStaticData.SpritesConfig.GetZombieIcon(zombieData.ZombieData.Name).HalfHeighSprite,
                 CardSprites = _gameStaticData.SpritesConfig.GetCardsBackground(zombieData.ZombieData.Type),
                 ClassIcon = _gameStaticData.SpritesConfig.GetClassIcon(zombieData.ZombieData.Type)
             };
@@ -116,7 +116,7 @@ namespace Gameplay.Windows.Cards
                 ParameterData = config.ZombieData.Parameters.Parameters,
                 IsCanUpgrade = Model.IsCanUpgrade(type, progress),
                 IsTutorial = _tutorialService.CurrentState == ETutorialState.Card,
-                Icon = _gameStaticData.SpritesConfig.GetZombieIcon(type),
+                Icon = _gameStaticData.SpritesConfig.GetZombieIcon(type).FullHeighSprite,
                 CardSprites = _gameStaticData.SpritesConfig.GetCardsBackground(config.ZombieData.Type),
                 ClassIcon = _gameStaticData.SpritesConfig.GetClassIcon(config.ZombieData.Type),
                 SpritesConfig = _gameStaticData.SpritesConfig,
