@@ -1,6 +1,7 @@
 ﻿using System;
 using Gameplay.Configs.Zombies;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Gameplay.Configs.Sprites
 {
@@ -8,6 +9,7 @@ namespace Gameplay.Configs.Sprites
     public struct ZombieIconCards
     {
         public EZombieNames ZombieName;
-        public Sprite Icon;
+        public Sprite FullHeighSprite;
+        public Sprite HalfHeighSprite;
     }
 }

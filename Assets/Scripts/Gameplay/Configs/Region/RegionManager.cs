@@ -77,7 +77,8 @@ namespace Gameplay.Configs.Region
                 .ConfigData[_regionProgress.RegionIndex].RegionType;
             _regionProgressData = _regionProgress.GetCurrentRegion();
 
-            _windowService.Open(WindowType.Region);
+            //   _windowService.Open(WindowType.Region);
+            SceneManager.LoadScene($"Gameplay");
         }
 
         private void NextWave()
@@ -90,7 +91,7 @@ namespace Gameplay.Configs.Region
                 ChangeRegion();
                 return;
             }
-            
+
             SceneManager.LoadScene($"Gameplay");
             _windowService.Open(WindowType.MainMenu);
         }

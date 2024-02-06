@@ -29,7 +29,7 @@ namespace Gameplay.Configs.Sprites
 
         public Sprite GetZombieIcon(EZombieNames type)
         {
-            return _zombieIcons.Find(x => x.ZombieName == type).Icon;
+            return _zombieIcons.Find(x => x.ZombieName == type).FullHeighSprite;
         }
 
         public ZombieCardsBackground GetCardsBackground(EUnitClass type)

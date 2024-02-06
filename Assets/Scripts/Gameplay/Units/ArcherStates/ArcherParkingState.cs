@@ -55,6 +55,7 @@ namespace Gameplay.Units.ArcherStates
         private void StopMove()
         {
             _isMove = false;
+            _unit.Animator.SetTrigger("StopMove");
             if (_coroutine != null)
             {
                 _coroutineService.StopCoroutine(_coroutine);

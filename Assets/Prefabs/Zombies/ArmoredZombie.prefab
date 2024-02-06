@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 59863722191376692}
   - component: {fileID: 4581459902602220428}
+  - component: {fileID: 5931550021870530088}
   m_Layer: 3
   m_Name: Model
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 187132977582069065}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -44,6 +45,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c4679f406f24ed2a61396a46d3aa2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5931550021870530088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187132977582069065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 454d2fe02a754124b360d0c3aef48879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2191943676120220095
@@ -156,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotateObject: {fileID: 4581459902602220428}
-  _arrowDirection: {fileID: 0}
+  _arrowDirection: {fileID: 5931550021870530088}
   _healthBar: {fileID: 3910677451147094828}
   _animator: {fileID: 6559176991923815304}
   _prefab: {fileID: 0}
@@ -234,7 +247,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e54c443d1278e3d4daa88ee100a3094d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.462
+      value: -0.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e54c443d1278e3d4daa88ee100a3094d, type: 3}
       propertyPath: m_LocalPosition.z
