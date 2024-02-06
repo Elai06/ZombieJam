@@ -1,6 +1,5 @@
 ﻿using System;
 using Gameplay.Boosters;
-using Gameplay.Configs.Region;
 using Gameplay.Configs.Rewards;
 using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
@@ -11,7 +10,6 @@ using Infrastructure.StaticData;
 using Infrastructure.Windows;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Utils.ZenjectInstantiateUtil;
 using Zenject;

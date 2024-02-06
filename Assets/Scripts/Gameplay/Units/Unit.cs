@@ -160,7 +160,7 @@ namespace Gameplay.Units
             ResetMoving?.Invoke();
         }
 
-        public virtual void Resurection()
+        public virtual void Revive()
         {
             if (CurrentState != EUnitState.Died) return;
 

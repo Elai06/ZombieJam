@@ -22,9 +22,9 @@ namespace Gameplay.Units
             _stateMachine.Enter<UnitParkingState>();
         }
 
-        public override void Resurection()
+        public override void Revive()
         {
-            base.Resurection();
+            base.Revive();
             
             _stateMachine.Enter<UnitBattleState>();
         }

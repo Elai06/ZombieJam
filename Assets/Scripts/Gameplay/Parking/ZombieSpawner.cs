@@ -126,7 +126,7 @@ namespace Gameplay.Parking
         {
             foreach (var zombie in _zombies)
             {
-                zombie.Resurection();
+                zombie.Revive();
             }
 
             _windowService.Open(WindowType.Gameplay);

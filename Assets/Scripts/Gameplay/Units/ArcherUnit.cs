@@ -28,9 +28,9 @@ namespace Gameplay.Units
             _stateMachine.Enter<ArcherParkingState>();
         }
         
-        public override void Resurection()
+        public override void Revive()
         {
-            base.Resurection();
+            base.Revive();
             
             _stateMachine.Enter<ArcherBattleState>();
         }

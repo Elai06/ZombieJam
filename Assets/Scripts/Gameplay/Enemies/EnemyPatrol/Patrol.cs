@@ -1,4 +1,5 @@
 ﻿using System;
+using DG.Tweening;
 using Gameplay.Units;
 using UnityEngine;
 using Utils.CurveBezier;
@@ -41,6 +42,8 @@ namespace Gameplay.Enemies.EnemyPatrol
         private void OnUnitDetected(Unit unit)
         {
             _workSpeed = _agressiveSpeed;
+
+            DOVirtual.DelayedCall(2, () => { _workSpeed = _idleSpeed; });
         }
 
         private void OnCollisionEnter(Collision other)
