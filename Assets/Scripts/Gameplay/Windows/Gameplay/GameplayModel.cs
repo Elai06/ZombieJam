@@ -11,6 +11,7 @@ namespace Gameplay.Windows.Gameplay
     {
         public event Action OnResurection;
         public event Action<ERegionType, int> OnWaveCompleted;
+        public event Action<ERegionType, int> OnWaveLoose;
         public event Action<int> OnStartWave;
 
         private readonly IRegionManager _regionManager;
@@ -48,7 +49,9 @@ namespace Gameplay.Windows.Gameplay
 
         public void LooseWave()
         {
-            _levelModel.AddExperience(false);
+            var progress = GetCurrentRegionProgress();
+            OnWaveLoose?.Invoke(progress.CurrentRegionType, progress.GetCurrentRegion().CurrentWaweIndex);
+            //   _levelModel.AddExperience(false);
         }
 
         public int GetExperience(bool isWin)

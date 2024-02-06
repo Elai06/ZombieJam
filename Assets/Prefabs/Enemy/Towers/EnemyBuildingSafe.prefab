@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &428072597
 Transform:
   m_ObjectHideFlags: 0
@@ -223,7 +223,7 @@ MonoBehaviour:
   _healthBar: {fileID: 6246972279302597229}
   _circleRenderer: {fileID: 428072595}
   _unitsCount: 12
-  _animator: {fileID: 0}
+  _animator: {fileID: 468304810808818383}
   _bullet: {fileID: 5045112723148441695}
   _isSafe: 0
 --- !u!114 &5045112723148441695
@@ -388,6 +388,11 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 06bf6c557d8084343891baa0036b83da, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d3e21374171a4335a8a51ecb8bf2d17, type: 3}
+--- !u!95 &468304810808818383 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95102391320674130, guid: 1d3e21374171a4335a8a51ecb8bf2d17, type: 3}
+  m_PrefabInstance: {fileID: 517385781349238173}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &513654101579509985 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4154021153174908, guid: 1d3e21374171a4335a8a51ecb8bf2d17, type: 3}
