@@ -19,8 +19,8 @@ namespace Gameplay.Windows.Tutorial
 
         [Inject] private SwipeManager _swipeManager;
 
-        private readonly Vector3 _firstUnitPosition = new(-1.5f, 0.5f, 0);
-        private readonly Vector3 _secondUnitPosition = new(1f, 0.5f, 0.5f);
+        private readonly Vector3 _firstUnitPosition = new(-1.5f, 0.5f, -.5f);
+        private readonly Vector3 _secondUnitPosition = new(1.5f, 0.5f, 0.5f);
 
         private Tween _tween;
 

@@ -51,7 +51,7 @@ namespace Gameplay.Units.Mover
             Vector3 directionToTarget = target - transform.position;
             Quaternion rotationToTarget = Quaternion.LookRotation(directionToTarget);
             var rotation = Quaternion.Lerp(transform.rotation, rotationToTarget, 10 * Time.fixedDeltaTime);
-            transform.parent.rotation = rotation;
+            transform.rotation = rotation;
         }
     }
 }

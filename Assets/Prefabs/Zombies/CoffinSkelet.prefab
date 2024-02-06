@@ -583,6 +583,8 @@ GameObject:
   - component: {fileID: 684429589779431565}
   - component: {fileID: 7172039941052200711}
   - component: {fileID: 1829213751748553581}
+  - component: {fileID: 8891734329092935471}
+  - component: {fileID: 7509396870226823429}
   m_Layer: 3
   m_Name: CoffinSkelet
   m_TagString: Untagged
@@ -619,8 +621,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b67792e299c473e8576fa1084c1b593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotateObject: {fileID: 5833715869984118817}
-  _arrowDirection: {fileID: 7924722063838994587}
+  _rotateObject: {fileID: 7509396870226823429}
+  _arrowDirection: {fileID: 8891734329092935471}
   _healthBar: {fileID: 5187431578414357685}
   _animator: {fileID: 6608345115401172516}
   _prefab: {fileID: 9001888057665941706}
@@ -668,6 +670,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathFX: {fileID: 1185827820595744409, guid: 867d532fe89e98646ade9e11a3e97014, type: 3}
+--- !u!114 &8891734329092935471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828696383929734650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 454d2fe02a754124b360d0c3aef48879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7509396870226823429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828696383929734650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c4679f406f24ed2a61396a46d3aa2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1887555645874410410
 GameObject:
   m_ObjectHideFlags: 0
@@ -2382,8 +2408,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9001888057665941706}
-  - component: {fileID: 5833715869984118817}
-  - component: {fileID: 7924722063838994587}
   m_Layer: 3
   m_Name: Model
   m_TagString: Untagged
@@ -2408,30 +2432,6 @@ Transform:
   m_Father: {fileID: 1958129481222738311}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5833715869984118817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9124671841417196727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c4679f406f24ed2a61396a46d3aa2e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7924722063838994587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9124671841417196727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 454d2fe02a754124b360d0c3aef48879, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8353076036772007823
 PrefabInstance:
   m_ObjectHideFlags: 0
