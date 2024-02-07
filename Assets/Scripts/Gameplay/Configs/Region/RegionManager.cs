@@ -79,6 +79,7 @@ namespace Gameplay.Configs.Region
 
             //   _windowService.Open(WindowType.Region);
             SceneManager.LoadScene($"Gameplay");
+            _windowService.Open(WindowType.MainMenu);
         }
 
         private void NextWave()
