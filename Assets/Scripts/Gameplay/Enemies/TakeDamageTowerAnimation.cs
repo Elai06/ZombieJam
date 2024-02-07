@@ -1,5 +1,4 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine;
 
 namespace Gameplay.Enemies
@@ -22,8 +21,11 @@ namespace Gameplay.Enemies
         private void OnTakeDamage()
         {
             if (_tween != null && _tween.IsPlaying()) return;
-            _tween = transform.DOShakeRotation(1);
-            transform.DOScale(1.15f, 1).SetLoops(1, LoopType.Yoyo);
+            _tween = transform.DOShakeRotation(0.5f, 5, 15);
+            transform.DOScale(1.05f, 0.25f).OnComplete(() =>
+            {
+                transform.DOScale(1, 0.25f);
+            });
         }
     }
 }

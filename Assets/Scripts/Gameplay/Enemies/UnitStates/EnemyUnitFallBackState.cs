@@ -23,6 +23,7 @@ namespace Gameplay.Enemies.UnitStates
         {
             base.Enter();
 
+            _unit.Animator.SetTrigger("Move");
             _coroutine.StartCoroutine(FallBackMove());
         }
 

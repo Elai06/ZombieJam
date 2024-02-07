@@ -45,11 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isAvailable: 0
-  _eSwipeDirection: 1
-  Name: 2
+  _isAvailable: 1
+  _eSwipeDirection: 2
+  Name: 3
   ZombieSize: 1
-  _cooperativePosition: []
+  _cooperativePosition:
+  - {fileID: 4067905328654133933}
   _cubePrefab: {fileID: 4068860318235377586}
 --- !u!1 &324423607992449385
 GameObject:
@@ -428,12 +429,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isAvailable: 1
+  _isAvailable: 0
   _eSwipeDirection: 2
-  Name: 2
+  Name: 3
   ZombieSize: 1
-  _cooperativePosition:
-  - {fileID: 8643902549775830516}
+  _cooperativePosition: []
   _cubePrefab: {fileID: 5299251331307232881}
 --- !u!1 &460325709154316202
 GameObject:
@@ -614,11 +614,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isAvailable: 0
+  _isAvailable: 1
   _eSwipeDirection: 1
   Name: 3
   ZombieSize: 1
-  _cooperativePosition: []
+  _cooperativePosition:
+  - {fileID: 3162859554015425177}
   _cubePrefab: {fileID: 6545860500712419368}
 --- !u!1 &683685198126612037
 GameObject:
@@ -882,11 +883,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isAvailable: 0
+  _isAvailable: 1
   _eSwipeDirection: 2
-  Name: 2
+  Name: 3
   ZombieSize: 1
-  _cooperativePosition: []
+  _cooperativePosition:
+  - {fileID: 2984995376580229618}
   _cubePrefab: {fileID: 7302217451417482379}
 --- !u!1 &1126649064263965368
 GameObject:
@@ -933,12 +935,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isAvailable: 1
+  _isAvailable: 0
   _eSwipeDirection: 2
   Name: 3
   ZombieSize: 1
-  _cooperativePosition:
-  - {fileID: 8255708083905823755}
+  _cooperativePosition: []
   _cubePrefab: {fileID: 3350122193552913133}
 --- !u!1 &1455061063690862702
 GameObject:
@@ -1758,12 +1759,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isAvailable: 1
+  _isAvailable: 0
   _eSwipeDirection: 1
   Name: 3
   ZombieSize: 1
-  _cooperativePosition:
-  - {fileID: 4846148946261203258}
+  _cooperativePosition: []
   _cubePrefab: {fileID: 8125734591701098495}
 --- !u!1 &3319028378310698832
 GameObject:
@@ -1995,12 +1995,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isAvailable: 1
+  _isAvailable: 0
   _eSwipeDirection: 2
-  Name: 2
+  Name: 3
   ZombieSize: 1
-  _cooperativePosition:
-  - {fileID: 988680032929436218}
+  _cooperativePosition: []
   _cubePrefab: {fileID: 8036826439627936357}
 --- !u!1 &3584642475552870554
 GameObject:
@@ -3790,12 +3789,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isAvailable: 1
+  _isAvailable: 0
   _eSwipeDirection: 1
   Name: 3
   ZombieSize: 1
-  _cooperativePosition:
-  - {fileID: 4200932539236298642}
+  _cooperativePosition: []
   _cubePrefab: {fileID: 3669690932558778752}
 --- !u!1 &6291807337545787821
 GameObject:
@@ -4161,11 +4159,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isAvailable: 0
+  _isAvailable: 1
   _eSwipeDirection: 2
   Name: 3
   ZombieSize: 1
-  _cooperativePosition: []
+  _cooperativePosition:
+  - {fileID: 8272636733665473724}
   _cubePrefab: {fileID: 695007648665912856}
 --- !u!1 &6541216867491003735
 GameObject:
@@ -4723,7 +4722,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: e5c92df0f11eaed4a97d99d6eef5b3a6, type: 2}
   _targetManager: {fileID: 7037340586256201244}
-  _enemyUnitsSpawner: {fileID: 1622100762126998653}
+  _enemyUnitsSpawner: {fileID: 3668055146865769597}
 --- !u!1 &7037340585706583817
 GameObject:
   m_ObjectHideFlags: 0
@@ -5830,11 +5829,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isAvailable: 0
+  _isAvailable: 1
   _eSwipeDirection: 1
   Name: 3
   ZombieSize: 1
-  _cooperativePosition: []
+  _cooperativePosition:
+  - {fileID: 5940765291022394988}
   _cubePrefab: {fileID: 5407072747066619742}
 --- !u!1 &7302217451417482379
 GameObject:
@@ -6200,11 +6200,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isAvailable: 0
+  _isAvailable: 1
   _eSwipeDirection: 1
   Name: 3
   ZombieSize: 1
-  _cooperativePosition: []
+  _cooperativePosition:
+  - {fileID: 6645366640525906349}
   _cubePrefab: {fileID: 342256813456175316}
 --- !u!1 &8036826439627936357
 GameObject:
@@ -6551,12 +6552,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isAvailable: 1
+  _isAvailable: 0
   _eSwipeDirection: 1
   Name: 3
   ZombieSize: 1
-  _cooperativePosition:
-  - {fileID: 7842978386530997174}
+  _cooperativePosition: []
   _cubePrefab: {fileID: 8822818960809420661}
 --- !u!1 &8613581836905099206
 GameObject:
@@ -7811,7 +7811,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2625871721960994531, guid: da6667b356a20ba4ea722884e7015ebd, type: 3}
   m_PrefabInstance: {fileID: 7450005503615469484}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1622100762126998653
+--- !u!114 &3668055146865769597
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
