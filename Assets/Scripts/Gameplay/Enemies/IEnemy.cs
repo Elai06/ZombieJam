@@ -11,5 +11,6 @@ namespace Gameplay.Enemies
         Transform Transform { get; }
         bool IsDied { get; }
         void RemoveAttackingUnit(Unit unit);
+         Color BloodColor { get; }
     }
 }

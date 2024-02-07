@@ -20,6 +20,7 @@ namespace Gameplay.Enemies
         [SerializeField] private HealthBar _healthBar;
         [SerializeField] private Animator _animator;
         [SerializeField] private Rigidbody _rigidbody;
+        [SerializeField] private Color _bloodColor;
 
         private readonly StateMachine _stateMachine = new();
 
@@ -43,6 +44,8 @@ namespace Gameplay.Enemies
         public Rigidbody Rigidbody => _rigidbody;
 
         public Animator Animator => _animator;
+
+        public Color BloodColor => _bloodColor;
 
         public void Initialize(ICoroutineService coroutineService,
             ITargetManager targetManager, ParametersConfig parametersConfig, EEnemyType type, int index)

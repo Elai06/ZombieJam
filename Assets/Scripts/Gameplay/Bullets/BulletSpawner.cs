@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Gameplay.Enemies;
+using UnityEditor.VersionControl;
 using UnityEngine;
+using Task = System.Threading.Tasks.Task;
 
 namespace Gameplay.Bullets
 {
@@ -11,28 +13,30 @@ namespace Gameplay.Bullets
 
         private List<Bullet> _bullets = new();
 
-        public void Shot(Transform target, float speed)
+        public void Shot(Transform target, float speed, Color bloodColor)
         {
             foreach (var bullet in _bullets.Where(bullet => !bullet.gameObject.activeSelf))
             {
                 bullet.gameObject.SetActive(true);
-                bullet.Shote(target, speed);
+                bullet.Shot(target, speed, bloodColor);
                 return;
             }
 
-            CreateBullet(target, speed);
+            CreateBullet(target, speed, bloodColor);
         }
 
-        private void CreateBullet(Transform target, float speed)
+        private void CreateBullet(Transform target, float speed, Color bloodColor)
         {
             var newBullet = Instantiate(_bullet, transform);
-            newBullet.Shote(target, speed);
+            newBullet.Shot(target, speed, bloodColor);
             newBullet.Hit += OnHit;
             _bullets.Add(newBullet);
         }
 
-        private void OnHit(Bullet bullet)
+        private async void OnHit(Bullet bullet)
         {
+          await  Task.Delay(250);
+            bullet.transform.localPosition = Vector3.zero;
             bullet.gameObject.SetActive(false);
         }
     }

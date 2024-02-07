@@ -16,6 +16,7 @@ namespace Gameplay.Enemies
     public class EnemyTower : MonoBehaviour, IEnemy
     {
         public event Action<EEnemyType> Died;
+        public event Action TakeDamage;
 
         [SerializeField] private EEnemyType _type;
         [SerializeField] private HealthBar _healthBar;
@@ -23,8 +24,8 @@ namespace Gameplay.Enemies
         [SerializeField] private int _unitsCount = 12;
         [SerializeField] private Animator _animator;
         [SerializeField] private BulletSpawner _bullet;
-
         [SerializeField] private bool _isSafe;
+        [SerializeField] private Color _bloodColor;
 
         private ICoroutineService _coroutineService;
         private ITargetManager _targetManager;
@@ -44,6 +45,8 @@ namespace Gameplay.Enemies
         public Transform Transform => transform;
 
         public Dictionary<EParameter, float> Parameters { get; private set; }
+
+        public Color BloodColor => _bloodColor;
 
         public void Initialize(ParametersConfig parametersConfig, ICoroutineService coroutineService,
             ITargetManager targetManager)
@@ -84,6 +87,8 @@ namespace Gameplay.Enemies
                 _stateMachine.Enter<TowerDiedState>();
                 Died?.Invoke(_type);
             }
+
+            TakeDamage?.Invoke();
         }
 
         public Vector3 GetPositionForUnit(Unit unit, float radiusAttack)
@@ -113,8 +118,8 @@ namespace Gameplay.Enemies
         {
             if (Target.IsDied) return;
 
-         //   _animator.SetTrigger("Attack");
-            _bullet.Shot(target, speedAttack);
+            //   _animator.SetTrigger("Attack");
+            _bullet.Shot(target, speedAttack, Target.BloodColor);
         }
 
         public void RemoveAttackingUnit(Unit unit)

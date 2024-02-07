@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections;
-using DG.Tweening.Core.Easing;
-using ModestTree.Util;
 using UnityEngine;
 
 namespace Gameplay.Enemies
@@ -12,13 +10,20 @@ namespace Gameplay.Enemies
 
         [SerializeField] private AnimationCurve _curve;
         [SerializeField] private float _height;
-        [SerializeField] private GameObject bulletFX;
+        [SerializeField] private ParticleSystem _bloodFX;
+        [SerializeField] private ParticleSystem _dropletsFX;
 
         private Coroutine _coroutine;
 
-        public void Shote(Transform target, float speed)
+        public void Shot(Transform target, float speed, Color bloodColor)
         {
             _coroutine = StartCoroutine(MoveBullet(target, speed));
+
+            if (_bloodFX != null && _dropletsFX != null)
+            {
+                _bloodFX.startColor = bloodColor;
+                _dropletsFX.startColor = bloodColor;
+            }
         }
 
         private IEnumerator MoveBullet(Transform target, float speed)
@@ -42,8 +47,11 @@ namespace Gameplay.Enemies
 
                 if (distance <= 0.1f)
                 {
-                    Instantiate(bulletFX, target.position, Quaternion.identity);
-                    transform.localPosition = Vector3.zero;
+                    if (_bloodFX != null)
+                    {
+                        _bloodFX.Play();
+                    }
+
                     StopCoroutine(_coroutine);
                     Hit?.Invoke(this);
                     yield break;

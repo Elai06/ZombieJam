@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 113835947330897269}
   - component: {fileID: 113835947330897270}
   - component: {fileID: 7198795171993975759}
+  - component: {fileID: -5682089825263281016}
   m_Layer: 8
   m_Name: TowerEnemy
   m_TagString: Untagged
@@ -73,6 +74,7 @@ MonoBehaviour:
   _animator: {fileID: 2565738855973243231}
   _bullet: {fileID: 7198795171993975759}
   _isSafe: 0
+  _bloodColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &7198795171993975759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,6 +88,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bullet: {fileID: 2392649937357707323, guid: 6a4ef35ae55992942930e115c3d36e5a, type: 3}
+--- !u!114 &-5682089825263281016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113835947330897267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c85143c7d5d4f74b3c10f572685cc34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyTower: {fileID: 2625871721960994534, guid: da6667b356a20ba4ea722884e7015ebd, type: 3}
 --- !u!1 &2730471495790603522
 GameObject:
   m_ObjectHideFlags: 0

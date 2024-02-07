@@ -95,7 +95,7 @@ namespace Gameplay.Units.ArcherStates
 
                 _unit.PlayAttackAnimation();
                 var shot = new ArcherBulletModel(_coroutineService, _unit.Target, _parametersConfig, duration);
-                _unit.Bullet.Shot(_unit.Target.Transform, attackSpeed);
+                _unit.Bullet.Shot(_unit.Target.Transform, attackSpeed, _unit.Target.BloodColor);
                 shot.Attacked += OnAttacked;
                 _shotsQueue.Enqueue(shot);
 

@@ -9,6 +9,7 @@ using Gameplay.Units.Mover;
 using Gameplay.Units.States;
 using Infrastructure.UnityBehaviours;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utils.CurveBezier;
 using StateMachine = Infrastructure.StateMachine.StateMachine;
 
@@ -22,8 +23,7 @@ namespace Gameplay.Units
         public event Action<ESwipeSide> OnSwipe;
         public event Action<GameObject> OnCollision;
         public event Action OnInitializePath;
-        public event Action TakeDamage; 
-        public event Action DoneDamage; 
+        public event Action TakeDamage;
 
         [SerializeField] protected RotateObject _rotateObject;
         [SerializeField] protected ArrowDirection _arrowDirection;
@@ -32,6 +32,7 @@ namespace Gameplay.Units
         [SerializeField] protected Transform _prefab;
         [SerializeField] protected ESwipeDirection _eSwipeDirection;
         [SerializeField] private UnitSwipe _unitSwipe;
+        [SerializeField] protected Color _bloodColor;
 
         protected CardModel _cardModel;
 
@@ -58,6 +59,8 @@ namespace Gameplay.Units
         public Dictionary<EParameter, float> Parameters { get; private set; } = new();
 
         public Animator Animator => _animator;
+
+        public Color BloodColor => _bloodColor;
 
         protected List<IEnemy> _attackedEnemies = new();
 
@@ -124,7 +127,6 @@ namespace Gameplay.Units
 
             var attack = Parameters[EParameter.Damage];
             enemy.GetDamage(attack);
-            DoneDamage?.Invoke();
         }
 
         public void GetDamage(float damage)
@@ -138,7 +140,7 @@ namespace Gameplay.Units
             {
                 Died();
             }
-            
+
             TakeDamage?.Invoke();
         }
 

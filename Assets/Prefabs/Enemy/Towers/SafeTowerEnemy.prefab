@@ -165,6 +165,7 @@ GameObject:
   - component: {fileID: 2625871721960994533}
   - component: {fileID: 2625871721960994534}
   - component: {fileID: 5045112723148441695}
+  - component: {fileID: -1692663477359889793}
   m_Layer: 8
   m_Name: SafeTowerEnemy
   m_TagString: Untagged
@@ -226,6 +227,7 @@ MonoBehaviour:
   _animator: {fileID: 468304810808818383}
   _bullet: {fileID: 5045112723148441695}
   _isSafe: 1
+  _bloodColor: {r: 0.38823533, g: 0.3137255, b: 0.22352943, a: 1}
 --- !u!114 &5045112723148441695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,6 +241,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bullet: {fileID: 2392649937357707323, guid: 6a4ef35ae55992942930e115c3d36e5a, type: 3}
+--- !u!114 &-1692663477359889793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2625871721960994531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c85143c7d5d4f74b3c10f572685cc34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyTower: {fileID: 2625871721960994534}
 --- !u!1001 &517385781349238173
 PrefabInstance:
   m_ObjectHideFlags: 0
