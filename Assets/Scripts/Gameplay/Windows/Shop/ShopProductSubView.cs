@@ -52,7 +52,7 @@ namespace Gameplay.Windows.Shop
 
             _buyButton.gameObject.SetActive(data.IsAvailable);
 
-            _productButton.gameObject.SetActive(data.ProductType.ToString().Contains("Box"));
+        //    _productButton.gameObject.SetActive(data.ProductType.ToString().Contains("Box"));
 
             _arrowTutorial.gameObject.SetActive(data.isTutorial);
         }
@@ -73,10 +73,7 @@ namespace Gameplay.Windows.Shop
         {
             if (!_isCanBuy && !_productType.ToString().Contains("Box"))
             {
-                _notCurrencyText.gameObject.SetActive(true);
-                _notCurrencyText.transform.localPosition = Vector3.zero;
-                _notCurrencyText.transform.DOLocalMoveY(50f, 0.5f)
-                    .OnComplete(() => _notCurrencyText.gameObject.SetActive(false));
+                PlayAnimationNotEnoughCurrency();
                 return;
             }
 
@@ -85,8 +82,22 @@ namespace Gameplay.Windows.Shop
             BuyClick?.Invoke(_productType);
         }
 
+        private void PlayAnimationNotEnoughCurrency()
+        {
+            _notCurrencyText.gameObject.SetActive(true);
+            _notCurrencyText.transform.localPosition = Vector3.zero;
+            _notCurrencyText.transform.DOLocalMoveY(50f, 0.5f)
+                .OnComplete(() => _notCurrencyText.gameObject.SetActive(false));
+        }
+
         private void OnProductClick()
         {
+            if (!_isCanBuy && !_productType.ToString().Contains("Box"))
+            {
+                PlayAnimationNotEnoughCurrency();
+                return;
+            }
+            
             ProductClick?.Invoke(_productType);
             _arrowTutorial.gameObject.SetActive(false);
         }
