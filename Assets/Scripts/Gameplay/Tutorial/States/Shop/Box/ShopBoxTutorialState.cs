@@ -1,5 +1,6 @@
 ﻿using Gameplay.Enums;
 using Gameplay.Shop;
+using Gameplay.Tutorial.States.Card;
 using Infrastructure.Events;
 using Infrastructure.Windows;
 
@@ -40,9 +41,8 @@ namespace Gameplay.Tutorial.States.Shop.Box
             if (shopProductType == EShopProductType.SimpleBox)
             {
                 _windowService.Close(WindowType.Shop);
-                _windowService.Open(WindowType.Shop);
 
-                _stateMachine.Enter<ShopCurrencyTutorialState>();
+                _stateMachine.Enter<CardTutorialState>();
             }
         }
 

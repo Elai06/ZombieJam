@@ -103,7 +103,6 @@ namespace Gameplay.Parking
         private void OnKicked(Unit unit)
         {
             unit.OnDied -= OnUnitDied;
-            _zombies.Remove(unit);
 
             if (_gameplayModel.WaveType == EWaveType.Logic)
             {

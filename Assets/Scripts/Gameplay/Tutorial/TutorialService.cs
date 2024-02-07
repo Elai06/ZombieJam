@@ -62,12 +62,12 @@ namespace Gameplay.Tutorial
 
             var swipe = new SwipeTutorialState(this, _windowService, _eventsManager, _gameplayModel);
             var shopBoxTutorialState = new ShopBoxTutorialState(this, _windowService, _shopModel, _eventsManager);
-            var shopCurrency = new ShopCurrencyTutorialState(this, _windowService, _shopModel, _eventsManager);
+           // var shopCurrency = new ShopCurrencyTutorialState(this, _windowService, _shopModel, _eventsManager);
             var card = new CardTutorialState(this, _windowService, _cardsModel, _eventsManager);
             var completed = new CompletedTutorialState(this, _windowService, _eventsManager);
             _stateMachine.AddState(swipe);
             _stateMachine.AddState(shopBoxTutorialState);
-            _stateMachine.AddState(shopCurrency);
+          //  _stateMachine.AddState(shopCurrency);
             _stateMachine.AddState(card);
             _stateMachine.AddState(completed);
 
