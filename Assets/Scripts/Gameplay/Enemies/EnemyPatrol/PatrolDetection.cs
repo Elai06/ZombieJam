@@ -16,7 +16,7 @@ namespace Gameplay.Enemies.EnemyPatrol
         public void Initialize(float radius)
         {
             _collider.size = new Vector3(1, 1, radius);
-            _collider.center = Vector3.back * (radius / 2 + 0.5f);
+            _collider.center = Vector3.forward * (radius / 2);
         }
 
         private void OnTriggerEnter(Collider other)
