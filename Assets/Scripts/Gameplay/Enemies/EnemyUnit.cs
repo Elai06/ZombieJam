@@ -37,10 +37,12 @@ namespace Gameplay.Enemies
         public float Health { get; private set; }
         public bool IsDied { get; private set; }
         public bool InOnSpawnPosition { get; set; }
-        public Transform Position => transform;
+        public Transform Transform => transform;
         public Vector3 SpawnPosition { get; set; }
 
         public Rigidbody Rigidbody => _rigidbody;
+
+        public Animator Animator => _animator;
 
         public void Initialize(ICoroutineService coroutineService,
             ITargetManager targetManager, ParametersConfig parametersConfig, EEnemyType type, int index)
@@ -76,6 +78,7 @@ namespace Gameplay.Enemies
         {
             if (enemy == null) return;
 
+            _rotateObject.Rotate(Target.transform.position);
             var attack = Parameters[EParameter.Damage];
             enemy.GetDamage(attack);
         }

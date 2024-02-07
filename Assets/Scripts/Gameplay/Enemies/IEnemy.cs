@@ -8,7 +8,7 @@ namespace Gameplay.Enemies
     {
         void GetDamage(float damage);
         Vector3 GetPositionForUnit(Unit unit, float radiusAttack);
-        Transform Position { get; }
+        Transform Transform { get; }
         bool IsDied { get; }
         void RemoveAttackingUnit(Unit unit);
     }

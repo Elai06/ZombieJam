@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 4314154567759291866}
   - component: {fileID: 5536458948033308633}
   - component: {fileID: 2957620239948724795}
+  - component: {fileID: 3949343869181688328}
   m_Layer: 3
   m_Name: ArmoredZombie
   m_TagString: Untagged
@@ -218,6 +219,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathFX: {fileID: 3074017231137915896, guid: 614adf45de6db3549b0fe260556679c3, type: 3}
+--- !u!114 &3949343869181688328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6686214517064692398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a183b76cae174dec874004247835cdb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unit: {fileID: 8314136072308659269}
+  _damageTakingParticle: {fileID: 1742762197130040380}
 --- !u!1001 &751103954364431897
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -559,7 +574,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 494700, guid: 351dec89524a0c64b97fd0eeb9fbbba1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 494700, guid: 351dec89524a0c64b97fd0eeb9fbbba1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -567,7 +582,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 494700, guid: 351dec89524a0c64b97fd0eeb9fbbba1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.42
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 494700, guid: 351dec89524a0c64b97fd0eeb9fbbba1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -598,16 +613,32 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19841576, guid: 351dec89524a0c64b97fd0eeb9fbbba1, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19841576, guid: 351dec89524a0c64b97fd0eeb9fbbba1, type: 3}
       propertyPath: moveWithTransform
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19842714, guid: 351dec89524a0c64b97fd0eeb9fbbba1, type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19842714, guid: 351dec89524a0c64b97fd0eeb9fbbba1, type: 3}
       propertyPath: moveWithTransform
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19855404, guid: 351dec89524a0c64b97fd0eeb9fbbba1, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19855404, guid: 351dec89524a0c64b97fd0eeb9fbbba1, type: 3}
       propertyPath: moveWithTransform
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19879026, guid: 351dec89524a0c64b97fd0eeb9fbbba1, type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19879026, guid: 351dec89524a0c64b97fd0eeb9fbbba1, type: 3}
       propertyPath: moveWithTransform
@@ -615,6 +646,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 351dec89524a0c64b97fd0eeb9fbbba1, type: 3}
+--- !u!198 &1742762197130040380 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 19879026, guid: 351dec89524a0c64b97fd0eeb9fbbba1, type: 3}
+  m_PrefabInstance: {fileID: 1742762197110816846}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9021417193693353175
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -628,7 +664,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 105246, guid: 305722bc3bbbf1f44aa7890efb7f31d9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 488332, guid: 305722bc3bbbf1f44aa7890efb7f31d9, type: 3}
       propertyPath: m_RootOrder

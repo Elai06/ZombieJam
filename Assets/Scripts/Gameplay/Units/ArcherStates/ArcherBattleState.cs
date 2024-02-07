@@ -69,7 +69,7 @@ namespace Gameplay.Units.ArcherStates
                 distance = Vector3.Distance(target, position);
 
                 _unit.transform.position = position;
-                _rotateObject.Rotate(_unit.Target.Position.position);
+                _rotateObject.Rotate(_unit.Target.Transform.position);
                 yield return new WaitForFixedUpdate();
 
                 if (_unit.Target.IsDied)
@@ -85,7 +85,7 @@ namespace Gameplay.Units.ArcherStates
         private IEnumerator Damage()
         {
             var attackRate = _parametersConfig[EParameter.AttackRate];
-            var distance = Vector3.Distance(_unit.Target.Position.position, _unit.transform.position);
+            var distance = Vector3.Distance(_unit.Target.Transform.position, _unit.transform.position);
             var attackSpeed = _parametersConfig[EParameter.AttackSpeed];
             var duration = distance / attackSpeed;
 
@@ -95,7 +95,7 @@ namespace Gameplay.Units.ArcherStates
 
                 _unit.PlayAttackAnimation();
                 var shot = new ArcherBulletModel(_coroutineService, _unit.Target, _parametersConfig, duration);
-                _unit.Bullet.Shot(_unit.Target.Position, attackSpeed);
+                _unit.Bullet.Shot(_unit.Target.Transform, attackSpeed);
                 shot.Attacked += OnAttacked;
                 _shotsQueue.Enqueue(shot);
 

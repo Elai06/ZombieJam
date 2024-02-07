@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 2625871721960994534}
   - component: {fileID: 5045112723148441695}
   m_Layer: 8
-  m_Name: EnemyBuildingSafe
+  m_Name: SafeTowerEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,7 +225,7 @@ MonoBehaviour:
   _unitsCount: 12
   _animator: {fileID: 468304810808818383}
   _bullet: {fileID: 5045112723148441695}
-  _isSafe: 0
+  _isSafe: 1
 --- !u!114 &5045112723148441695
 MonoBehaviour:
   m_ObjectHideFlags: 0

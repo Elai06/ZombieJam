@@ -74,10 +74,10 @@ namespace Gameplay.Enemies.EnemyPatrol
             switch (deltaX)
             {
                 case > 0.05f:
-                    transform.eulerAngles = Vector3.down * 90;
+                    transform.eulerAngles = Vector3.up * 90;
                     break;
                 case < -0.05f:
-                    transform.eulerAngles = Vector3.up * 90;
+                    transform.eulerAngles = Vector3.down * 90;
                     return;
             }
 
@@ -85,10 +85,10 @@ namespace Gameplay.Enemies.EnemyPatrol
             switch (deltaZ)
             {
                 case > 0.05f:
-                    transform.eulerAngles = Vector3.down * 180;
+                    transform.eulerAngles = Vector3.zero;
                     break;
                 case < -0.05f:
-                    transform.eulerAngles = Vector3.zero;
+                    transform.eulerAngles = Vector3.up * 180;
                     return;
             }
         }

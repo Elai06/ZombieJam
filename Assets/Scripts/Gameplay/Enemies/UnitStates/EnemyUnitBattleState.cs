@@ -54,13 +54,14 @@ namespace Gameplay.Enemies.UnitStates
                 radiusAttack += 1;
             }
 
+            _unit.Animator.SetTrigger("Move");
             _coroutineService.StartCoroutine(MoveToTarget(_unit.Target.GetPosition(_unit, radiusAttack), radiusAttack));
         }
 
         private IEnumerator MoveToTarget(Vector3 target, float radiusAttack)
         {
             var distance = Vector3.Distance(target, _unit.transform.position);
-            while (distance > radiusAttack + 1)
+            while (distance > radiusAttack)
             {
                 if (_unit == null || _unit.IsDied) yield break;
                 var position = Vector3.MoveTowards(_unit.transform.position, target,
@@ -68,7 +69,6 @@ namespace Gameplay.Enemies.UnitStates
                 distance = Vector3.Distance(target, position);
 
                 _unit.transform.position = position;
-                //     _unit.Rigidbody.MovePosition(position);
                 _rotateObject.Rotate(_unit.Target.transform.position);
                 yield return new WaitForFixedUpdate();
             }
@@ -78,6 +78,8 @@ namespace Gameplay.Enemies.UnitStates
                 EnterIdleState();
                 yield break;
             }
+            
+            _unit.Animator.SetTrigger("StopMove");
 
             _coroutine = _coroutineService.StartCoroutine(Damage());
         }
@@ -97,6 +99,7 @@ namespace Gameplay.Enemies.UnitStates
                 }
 
                 _unit.PlayAttackAnimation();
+                _rotateObject.Rotate(_unit.Target.transform.position);
 
                 yield return new WaitForSeconds(attackRate);
 
@@ -112,6 +115,7 @@ namespace Gameplay.Enemies.UnitStates
 
         private void EnterIdleState()
         {
+            _unit.Animator.SetTrigger("StopMove");
             _stateMachine.Enter<EnemyUnitIdleState>();
         }
 
@@ -119,14 +123,9 @@ namespace Gameplay.Enemies.UnitStates
         {
             var radiusAttack = _unit.Parameters[EParameter.RadiusAttack];
 
-            if (_unit.Target.UnitClass == EUnitClass.Tank)
-            {
-                radiusAttack += 1;
-            }
-
-            var target = _unit.Target.GetPosition(_unit, radiusAttack);
+            var target = _unit.Target.transform.position;
             var distance = Vector3.Distance(target, _unit.transform.position);
-            return distance <= radiusAttack + 1;
+            return distance <= radiusAttack + 0.25f;
         }
     }
 }

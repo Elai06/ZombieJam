@@ -70,7 +70,7 @@ namespace Gameplay.Units.States
                 distance = Vector3.Distance(target, position);
 
                 _unit.transform.position = position;
-                _rotateObject.Rotate(_unit.Target.Position.position);
+                _rotateObject.Rotate(_unit.Target.Transform.position);
                     yield return new WaitForFixedUpdate();
                     
                     if (_unit.Target.IsDied)

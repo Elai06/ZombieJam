@@ -22,6 +22,8 @@ namespace Gameplay.Units
         public event Action<ESwipeSide> OnSwipe;
         public event Action<GameObject> OnCollision;
         public event Action OnInitializePath;
+        public event Action TakeDamage; 
+        public event Action DoneDamage; 
 
         [SerializeField] protected RotateObject _rotateObject;
         [SerializeField] protected ArrowDirection _arrowDirection;
@@ -122,6 +124,7 @@ namespace Gameplay.Units
 
             var attack = Parameters[EParameter.Damage];
             enemy.GetDamage(attack);
+            DoneDamage?.Invoke();
         }
 
         public void GetDamage(float damage)
@@ -135,6 +138,8 @@ namespace Gameplay.Units
             {
                 Died();
             }
+            
+            TakeDamage?.Invoke();
         }
 
         public void PlayAttackAnimation()

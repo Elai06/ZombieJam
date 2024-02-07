@@ -41,7 +41,7 @@ namespace Gameplay.Enemies
         public EEnemyType EnemyType => _type;
 
         public bool IsSafe => _isSafe;
-        public Transform Position => transform;
+        public Transform Transform => transform;
 
         public Dictionary<EParameter, float> Parameters { get; private set; }
 

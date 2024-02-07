@@ -41,17 +41,17 @@ namespace Gameplay.Battle
             var target = _enemyManager.Enemies.Find(x => !x.IsDied);
             if (target == null) return null;
 
-            var distance = Vector3.Distance(unitTransform.position, target.Position.position);
+            var distance = Vector3.Distance(unitTransform.position, target.Transform.position);
 
             foreach (var enemy in _enemyManager.Enemies)
             {
                 if (enemy.IsDied) continue;
 
-                var nextEnemyDistance = Vector3.Distance(unitTransform.position, enemy.Position.position);
+                var nextEnemyDistance = Vector3.Distance(unitTransform.position, enemy.Transform.position);
 
                 if (distance > nextEnemyDistance)
                 {
-                    distance = Vector3.Distance(unitTransform.position, enemy.Position.position);
+                    distance = Vector3.Distance(unitTransform.position, enemy.Transform.position);
                     target = enemy;
                 }
             }
