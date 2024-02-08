@@ -13,6 +13,6 @@ namespace Gameplay.Shop
         bool IsCanConsume(ECurrencyType currencyType, int price);
         void TutorialPurchase(EShopProductType shopProductType);
         event Action<EShopProductType> OpenBoxPopUp;
-        void PurchaseSuccesed(EShopProductType shopProductType, ShopConfigData config);
+        void PurchaseAfterAdShowed(EShopProductType shopProductType, ShopConfigData config);
     }
 }

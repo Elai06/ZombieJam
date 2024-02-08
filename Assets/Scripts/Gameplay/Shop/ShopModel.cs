@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Gameplay.Ad;
 using Gameplay.Cards;
 using Gameplay.Configs.Rewards;
@@ -10,6 +11,8 @@ using Gameplay.InApp;
 using Gameplay.Tutorial;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.StaticData;
+using Infrastructure.UnityBehaviours;
+using UnityEngine;
 
 namespace Gameplay.Shop
 {
@@ -24,12 +27,15 @@ namespace Gameplay.Shop
         private readonly ICardsModel _cardsModel;
         private readonly IAdsService _adsService;
         private readonly IInAppService _appService;
+        private readonly ICoroutineService _coroutineService;
 
         private ShopConfigData _currentConfigData;
 
+        private bool _isCanBuy = true;
+
         private ShopModel(GameStaticData gameStaticData, IProgressService progressService,
             ICurrenciesModel currenciesModel, ICardsModel cardsModel, IAdsService adsService,
-            IInAppService appService)
+            IInAppService appService, ICoroutineService coroutineService)
         {
             _gameStaticData = gameStaticData;
             _progressService = progressService;
@@ -37,6 +43,7 @@ namespace Gameplay.Shop
             _cardsModel = cardsModel;
             _adsService = adsService;
             _appService = appService;
+            _coroutineService = coroutineService;
         }
 
         public ShopProgress ShopProgress => _progressService.PlayerProgress.ShopProgress;
@@ -44,6 +51,8 @@ namespace Gameplay.Shop
 
         public void BuyProduct(EShopProductType shopProductType)
         {
+            if (!_isCanBuy) return;
+
             _currentConfigData = ShopConfig.ConfigData.Find(x => x.ProductType == shopProductType);
 
             var parametrs = $"{{\"productName\":\"{shopProductType}\", " +
@@ -56,12 +65,14 @@ namespace Gameplay.Shop
             {
                 _appService.Purchase(_currentConfigData);
                 Purchased?.Invoke(shopProductType);
+                _coroutineService.StartCoroutine(MissClickDefence());
                 return;
             }
 
             if (_currentConfigData.IsDesposable)
             {
                 BuyDisposableProduct(_currentConfigData);
+                _coroutineService.StartCoroutine(MissClickDefence());
                 return;
             }
 
@@ -79,18 +90,20 @@ namespace Gameplay.Shop
                 if (!_currenciesModel.Consume(_currentConfigData.PriceType, (int)_currentConfigData.PriceValue)) return;
             }
 
-            PurchaseSuccesed(shopProductType, _currentConfigData);
+            PurchaseAfterAdShowed(shopProductType, _currentConfigData);
         }
 
         private void OnAdsShowed()
         {
             _adsService.Showed -= OnAdsShowed;
-            PurchaseSuccesed(_currentConfigData.ProductType, _currentConfigData);
+            PurchaseAfterAdShowed(_currentConfigData.ProductType, _currentConfigData);
         }
 
-        public void PurchaseSuccesed(EShopProductType shopProductType, ShopConfigData config)
+        public void PurchaseAfterAdShowed(EShopProductType shopProductType, ShopConfigData config)
         {
             GetRewards(config.Rewards);
+
+            _coroutineService.StartCoroutine(MissClickDefence());
             Purchased?.Invoke(shopProductType);
             _currentConfigData = null;
         }
@@ -144,7 +157,16 @@ namespace Gameplay.Shop
 
             var config = ShopConfig.ConfigData
                 .Find(x => x.ProductType == shopProductType);
-            PurchaseSuccesed(shopProductType, config);
+            PurchaseAfterAdShowed(shopProductType, config);
+        }
+
+        private IEnumerator MissClickDefence()
+        {
+            _isCanBuy = false;
+
+            yield return new WaitForSeconds(2f);
+
+            _isCanBuy = true;
         }
     }
 }

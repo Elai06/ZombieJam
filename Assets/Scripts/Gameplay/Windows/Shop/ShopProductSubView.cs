@@ -42,7 +42,6 @@ namespace Gameplay.Windows.Shop
                 _priceValue.text = data.IsInApp ? $"${data.PriceValue}" : "FREE";
             }
 
-            
             if (!data.IsInApp && !data.IsFree)
             {
                 _priceValue.color = data.IsCanBuy ? Color.white : Color.red;
@@ -51,8 +50,6 @@ namespace Gameplay.Windows.Shop
             _priceImage.gameObject.SetActive(!data.isTutorial && !data.IsInApp);
 
             _buyButton.gameObject.SetActive(data.IsAvailable);
-
-        //    _productButton.gameObject.SetActive(data.ProductType.ToString().Contains("Box"));
 
             _arrowTutorial.gameObject.SetActive(data.isTutorial);
         }
@@ -97,7 +94,7 @@ namespace Gameplay.Windows.Shop
                 PlayAnimationNotEnoughCurrency();
                 return;
             }
-            
+
             ProductClick?.Invoke(_productType);
             _arrowTutorial.gameObject.SetActive(false);
         }

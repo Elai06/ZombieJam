@@ -37,7 +37,7 @@ namespace Gameplay.Tutorial.States.Shop.Box
         private void GetReward()
         {
             var config = _shopModel.ShopConfig.ConfigData.Find(x => x.ProductType == EShopProductType.SimpleBox);
-            _shopModel.PurchaseSuccesed(EShopProductType.SimpleBox, config);
+            _shopModel.PurchaseAfterAdShowed(EShopProductType.SimpleBox, config);
         }
     }
 }

@@ -40,6 +40,11 @@ namespace Gameplay.Windows.Shop
             {
                 var subView = _shopView.BoxContainer.SubViews
                     .First(x => x.Key == productType.ToString()).Value;
+
+                if (subView != null)
+                {
+                    StartCoroutine(StartAnimation(subView.transform, ECurrencyType.SoftCurrency));
+                }
             }
 
             if (productType.ToString().Contains("Hard"))
@@ -64,7 +69,7 @@ namespace Gameplay.Windows.Shop
 
         private IEnumerator StartAnimation(Transform startPosition, ECurrencyType currencyType)
         {
-            _tween?.Kill();
+            if (_tween != null && _tween.IsPlaying()) yield break;
 
             var prefab = currencyType == ECurrencyType.SoftCurrency ? _softCurrency : _hardCurrency;
             var window = _windowService.CashedWindows[WindowType.Header].GetComponent<HeaderView>();
