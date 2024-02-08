@@ -1,131 +1,371 @@
 fileFormatVersion: 2
 guid: cd9f9e576c57446b2995efca0d2440ba
 ModelImporter:
-  serializedVersion: 22
-  fileIDToRecycleName:
-    100000: ball_l
-    100002: ball_r
-    100004: calf_l
-    100006: calf_r
-    100008: clavicle_l
-    100010: clavicle_r
-    100012: //RootNode
-    100014: foot_l
-    100016: foot_r
-    100018: hand_l
-    100020: hand_r
-    100022: hat
-    100024: head
-    100026: holster_w_gun
-    100028: index_01_l
-    100030: index_01_r
-    100032: index_02_l
-    100034: index_02_r
-    100036: index_03_l
-    100038: index_03_r
-    100040: lowerarm_l
-    100042: lowerarm_r
-    100044: male_arms_swat
-    100046: male_head_swat
-    100048: male_legs_swat
-    100050: male_torso_swat
-    100052: middle_01_l
-    100054: middle_01_r
-    100056: middle_02_l
-    100058: middle_02_r
-    100060: middle_03_l
-    100062: middle_03_r
-    100064: neck_01
-    100066: pelvis
-    100068: ring_01_l
-    100070: ring_01_r
-    100072: ring_02_l
-    100074: ring_02_r
-    100076: ring_03_l
-    100078: ring_03_r
-    100080: root
-    100082: spine_01
-    100084: spine_02
-    100086: spine_03
-    100088: thigh_l
-    100090: thigh_r
-    100092: thumb_01_l
-    100094: thumb_01_r
-    100096: thumb_02_l
-    100098: thumb_02_r
-    100100: thumb_03_l
-    100102: thumb_03_r
-    100104: upperarm_l
-    100106: upperarm_r
-    400000: ball_l
-    400002: ball_r
-    400004: calf_l
-    400006: calf_r
-    400008: clavicle_l
-    400010: clavicle_r
-    400012: //RootNode
-    400014: foot_l
-    400016: foot_r
-    400018: hand_l
-    400020: hand_r
-    400022: hat
-    400024: head
-    400026: holster_w_gun
-    400028: index_01_l
-    400030: index_01_r
-    400032: index_02_l
-    400034: index_02_r
-    400036: index_03_l
-    400038: index_03_r
-    400040: lowerarm_l
-    400042: lowerarm_r
-    400044: male_arms_swat
-    400046: male_head_swat
-    400048: male_legs_swat
-    400050: male_torso_swat
-    400052: middle_01_l
-    400054: middle_01_r
-    400056: middle_02_l
-    400058: middle_02_r
-    400060: middle_03_l
-    400062: middle_03_r
-    400064: neck_01
-    400066: pelvis
-    400068: ring_01_l
-    400070: ring_01_r
-    400072: ring_02_l
-    400074: ring_02_r
-    400076: ring_03_l
-    400078: ring_03_r
-    400080: root
-    400082: spine_01
-    400084: spine_02
-    400086: spine_03
-    400088: thigh_l
-    400090: thigh_r
-    400092: thumb_01_l
-    400094: thumb_01_r
-    400096: thumb_02_l
-    400098: thumb_02_r
-    400100: thumb_03_l
-    400102: thumb_03_r
-    400104: upperarm_l
-    400106: upperarm_r
-    2100000: cop_swat_mat
-    4300000: holster_w_gun
-    4300002: male_head_swat
-    4300004: male_legs_swat
-    4300006: male_arms_swat
-    4300008: male_torso_swat
-    9500000: //RootNode
-    13700000: holster_w_gun
-    13700002: male_arms_swat
-    13700004: male_head_swat
-    13700006: male_legs_swat
-    13700008: male_torso_swat
+  serializedVersion: 21300
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: ball_l
+  - first:
+      1: 100002
+    second: ball_r
+  - first:
+      1: 100004
+    second: calf_l
+  - first:
+      1: 100006
+    second: calf_r
+  - first:
+      1: 100008
+    second: clavicle_l
+  - first:
+      1: 100010
+    second: clavicle_r
+  - first:
+      1: 100012
+    second: //RootNode
+  - first:
+      1: 100014
+    second: foot_l
+  - first:
+      1: 100016
+    second: foot_r
+  - first:
+      1: 100018
+    second: hand_l
+  - first:
+      1: 100020
+    second: hand_r
+  - first:
+      1: 100022
+    second: hat
+  - first:
+      1: 100024
+    second: head
+  - first:
+      1: 100026
+    second: holster_w_gun
+  - first:
+      1: 100028
+    second: index_01_l
+  - first:
+      1: 100030
+    second: index_01_r
+  - first:
+      1: 100032
+    second: index_02_l
+  - first:
+      1: 100034
+    second: index_02_r
+  - first:
+      1: 100036
+    second: index_03_l
+  - first:
+      1: 100038
+    second: index_03_r
+  - first:
+      1: 100040
+    second: lowerarm_l
+  - first:
+      1: 100042
+    second: lowerarm_r
+  - first:
+      1: 100044
+    second: male_arms_swat
+  - first:
+      1: 100046
+    second: male_head_swat
+  - first:
+      1: 100048
+    second: male_legs_swat
+  - first:
+      1: 100050
+    second: male_torso_swat
+  - first:
+      1: 100052
+    second: middle_01_l
+  - first:
+      1: 100054
+    second: middle_01_r
+  - first:
+      1: 100056
+    second: middle_02_l
+  - first:
+      1: 100058
+    second: middle_02_r
+  - first:
+      1: 100060
+    second: middle_03_l
+  - first:
+      1: 100062
+    second: middle_03_r
+  - first:
+      1: 100064
+    second: neck_01
+  - first:
+      1: 100066
+    second: pelvis
+  - first:
+      1: 100068
+    second: ring_01_l
+  - first:
+      1: 100070
+    second: ring_01_r
+  - first:
+      1: 100072
+    second: ring_02_l
+  - first:
+      1: 100074
+    second: ring_02_r
+  - first:
+      1: 100076
+    second: ring_03_l
+  - first:
+      1: 100078
+    second: ring_03_r
+  - first:
+      1: 100080
+    second: root
+  - first:
+      1: 100082
+    second: spine_01
+  - first:
+      1: 100084
+    second: spine_02
+  - first:
+      1: 100086
+    second: spine_03
+  - first:
+      1: 100088
+    second: thigh_l
+  - first:
+      1: 100090
+    second: thigh_r
+  - first:
+      1: 100092
+    second: thumb_01_l
+  - first:
+      1: 100094
+    second: thumb_01_r
+  - first:
+      1: 100096
+    second: thumb_02_l
+  - first:
+      1: 100098
+    second: thumb_02_r
+  - first:
+      1: 100100
+    second: thumb_03_l
+  - first:
+      1: 100102
+    second: thumb_03_r
+  - first:
+      1: 100104
+    second: upperarm_l
+  - first:
+      1: 100106
+    second: upperarm_r
+  - first:
+      4: 400000
+    second: ball_l
+  - first:
+      4: 400002
+    second: ball_r
+  - first:
+      4: 400004
+    second: calf_l
+  - first:
+      4: 400006
+    second: calf_r
+  - first:
+      4: 400008
+    second: clavicle_l
+  - first:
+      4: 400010
+    second: clavicle_r
+  - first:
+      4: 400012
+    second: //RootNode
+  - first:
+      4: 400014
+    second: foot_l
+  - first:
+      4: 400016
+    second: foot_r
+  - first:
+      4: 400018
+    second: hand_l
+  - first:
+      4: 400020
+    second: hand_r
+  - first:
+      4: 400022
+    second: hat
+  - first:
+      4: 400024
+    second: head
+  - first:
+      4: 400026
+    second: holster_w_gun
+  - first:
+      4: 400028
+    second: index_01_l
+  - first:
+      4: 400030
+    second: index_01_r
+  - first:
+      4: 400032
+    second: index_02_l
+  - first:
+      4: 400034
+    second: index_02_r
+  - first:
+      4: 400036
+    second: index_03_l
+  - first:
+      4: 400038
+    second: index_03_r
+  - first:
+      4: 400040
+    second: lowerarm_l
+  - first:
+      4: 400042
+    second: lowerarm_r
+  - first:
+      4: 400044
+    second: male_arms_swat
+  - first:
+      4: 400046
+    second: male_head_swat
+  - first:
+      4: 400048
+    second: male_legs_swat
+  - first:
+      4: 400050
+    second: male_torso_swat
+  - first:
+      4: 400052
+    second: middle_01_l
+  - first:
+      4: 400054
+    second: middle_01_r
+  - first:
+      4: 400056
+    second: middle_02_l
+  - first:
+      4: 400058
+    second: middle_02_r
+  - first:
+      4: 400060
+    second: middle_03_l
+  - first:
+      4: 400062
+    second: middle_03_r
+  - first:
+      4: 400064
+    second: neck_01
+  - first:
+      4: 400066
+    second: pelvis
+  - first:
+      4: 400068
+    second: ring_01_l
+  - first:
+      4: 400070
+    second: ring_01_r
+  - first:
+      4: 400072
+    second: ring_02_l
+  - first:
+      4: 400074
+    second: ring_02_r
+  - first:
+      4: 400076
+    second: ring_03_l
+  - first:
+      4: 400078
+    second: ring_03_r
+  - first:
+      4: 400080
+    second: root
+  - first:
+      4: 400082
+    second: spine_01
+  - first:
+      4: 400084
+    second: spine_02
+  - first:
+      4: 400086
+    second: spine_03
+  - first:
+      4: 400088
+    second: thigh_l
+  - first:
+      4: 400090
+    second: thigh_r
+  - first:
+      4: 400092
+    second: thumb_01_l
+  - first:
+      4: 400094
+    second: thumb_01_r
+  - first:
+      4: 400096
+    second: thumb_02_l
+  - first:
+      4: 400098
+    second: thumb_02_r
+  - first:
+      4: 400100
+    second: thumb_03_l
+  - first:
+      4: 400102
+    second: thumb_03_r
+  - first:
+      4: 400104
+    second: upperarm_l
+  - first:
+      4: 400106
+    second: upperarm_r
+  - first:
+      21: 2100000
+    second: cop_swat_mat
+  - first:
+      43: 4300000
+    second: holster_w_gun
+  - first:
+      43: 4300002
+    second: male_head_swat
+  - first:
+      43: 4300004
+    second: male_legs_swat
+  - first:
+      43: 4300006
+    second: male_arms_swat
+  - first:
+      43: 4300008
+    second: male_torso_swat
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: holster_w_gun
+  - first:
+      137: 13700002
+    second: male_arms_swat
+  - first:
+      137: 13700004
+    second: male_head_swat
+  - first:
+      137: 13700006
+    second: male_legs_swat
+  - first:
+      137: 13700008
+    second: male_torso_swat
   externalObjects: {}
   materials:
-    importMaterials: 0
+    materialImportMode: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -134,6 +374,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -142,6 +383,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -156,21 +398,33 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
@@ -178,10 +432,13 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -191,14 +448,18 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
