@@ -49,7 +49,7 @@ namespace Gameplay.Windows.Header
         private void InitializeCurrencies()
         {
             var currenciesSubViewData = new List<CurrencySubViewData>();
-            
+
             foreach (var currency in _currenciesModel.GetCurrencyProgress().CurrenciesProgresses)
             {
                 var viewData = new CurrencySubViewData()
@@ -65,9 +65,9 @@ namespace Gameplay.Windows.Header
             View.InitializeCurrencies(currenciesSubViewData);
         }
 
-        private void OnUpdateCurrency(ECurrencyType type, int value)
+        private void OnUpdateCurrency(ECurrencyType type, int value, int newValue)
         {
-            View.CurrenciesSubViewContainer.SubViews[type.ToString()].SetValue(value);
+            View.CurrenciesSubViewContainer.SubViews[type.ToString()].SetValue(value, newValue);
         }
 
         private void OnLevelUpdate(LevelProgress progress)

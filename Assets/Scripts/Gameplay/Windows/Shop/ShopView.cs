@@ -26,6 +26,12 @@ namespace Gameplay.Windows.Shop
 
         private bool _isTutorial;
 
+        public ShopProductSubViewContainer SoftContainer => _softContainer;
+
+        public ShopProductSubViewContainer HardContainer => _hardContainer;
+
+        public ShopProductSubViewContainer BoxContainer => _boxContainer;
+
         public void InitializeBoxes(List<ShopProductSubViewData> productSubViewData)
         {
             _boxContainer.CleanUp();

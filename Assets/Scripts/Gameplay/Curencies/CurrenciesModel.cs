@@ -6,7 +6,7 @@ namespace Gameplay.Curencies
 {
     public class CurrenciesModel : ICurrenciesModel
     {
-        public event Action<ECurrencyType, int> Update;
+        public event Action<ECurrencyType, int, int> Update;
 
         private CurrenciesProgress _currenciesProgress;
         private readonly IProgressService _progressService;
@@ -33,8 +33,9 @@ namespace Gameplay.Curencies
         public void Add(ECurrencyType currencyType, int value)
         {
             var currencyProgress = _currenciesProgress.GetOrCreate(currencyType);
+            var prevValue = currencyProgress.Value;
             currencyProgress.Value += value;
-            Update?.Invoke(currencyType, currencyProgress.Value);
+            Update?.Invoke(currencyType, prevValue, currencyProgress.Value);
         }
 
         public bool Consume(ECurrencyType currencyType, int value)
@@ -43,8 +44,9 @@ namespace Gameplay.Curencies
 
             if (IsCanConsume(currencyProgress, value))
             {
+                var prevValue = currencyProgress.Value;
                 currencyProgress.Value -= value;
-                Update?.Invoke(currencyType, currencyProgress.Value);
+                Update?.Invoke(currencyType, prevValue, currencyProgress.Value);
                 return true;
             }
 

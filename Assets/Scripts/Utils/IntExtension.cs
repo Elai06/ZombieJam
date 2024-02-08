@@ -30,7 +30,7 @@ namespace Utils
         {
             var currency = value.ToString();
 
-            if (currency.Length <= 3)
+            if (currency.Length <= 4)
             {
                 return currency;
             }
