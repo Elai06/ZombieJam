@@ -11,9 +11,12 @@ namespace Gameplay.Windows.Rewards
         [SerializeField] private Image _lightFrame;
         [SerializeField] private GameObject _lightParticle;
         [SerializeField] private TextMeshProUGUI _valueText;
+        
+        public int Value { get; set; }
 
         public override void Initialize(RewardSubViewData data)
         {
+            Value = data.Value;
             _valueText.text = data.Value.ToString();
             _sprite.sprite = data.Sprite;
             _lightFrame.gameObject.SetActive(data.isUnit);

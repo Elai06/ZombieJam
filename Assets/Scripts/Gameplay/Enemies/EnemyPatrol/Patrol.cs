@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using Gameplay.Units;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace Gameplay.Enemies.EnemyPatrol
         [SerializeField] private float _idleSpeed = 1;
         [SerializeField] private float _agressiveSpeed = 3;
         [SerializeField] private float _agressiveRadius = 2;
+        [SerializeField] private List<GameObject> _wheels = new();
 
         private float _workSpeed;
         private float _time;
@@ -64,6 +66,11 @@ namespace Gameplay.Enemies.EnemyPatrol
             if (_time >= 1)
             {
                 _time = 0;
+            }
+
+            foreach (var wheel in _wheels)
+            {
+                wheel.transform.Rotate(Vector3.right * (1.5f * _workSpeed));
             }
         }
 

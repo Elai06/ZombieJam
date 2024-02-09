@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Gameplay.Enums;
 using Gameplay.Windows.Rewards;
+using Gameplay.Windows.Shop;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +17,8 @@ namespace Gameplay.Windows.LevelUp
         [SerializeField] private TextMeshProUGUI _descriptionText;
         [SerializeField] private TextMeshProUGUI _levelShieldText;
         [SerializeField] private Button _getRewardButton;
+
+        [SerializeField] private CurrencyAnimation _animation;
 
         public RewardSubViewContainer RewardSubViewContainer;
 
@@ -31,7 +36,7 @@ namespace Gameplay.Windows.LevelUp
         public void InitializeReward(List<RewardSubViewData> rewardSubViewDatas, string level)
         {
             RewardSubViewContainer.Content.gameObject.SetActive(true);
-           // _descriptionText.text = $"Level up {level}";
+            // _descriptionText.text = $"Level up {level}";
             _levelShieldText.text = level;
 
             RewardSubViewContainer.CleanUp();
@@ -44,6 +49,15 @@ namespace Gameplay.Windows.LevelUp
         private void GetReward()
         {
             RewardsClick?.Invoke();
+            StartAnimation();
+        }
+
+        private void StartAnimation()
+        {
+            var rewardSubView = RewardSubViewContainer.SubViews
+                .First(x => x.Key == ECurrencyType.HardCurrency.ToString());
+            StartCoroutine(_animation.StartAnimation(rewardSubView.Value.transform, ECurrencyType.HardCurrency,
+                rewardSubView.Value.Value));
         }
     }
 }

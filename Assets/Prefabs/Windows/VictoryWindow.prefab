@@ -259,6 +259,7 @@ GameObject:
   - component: {fileID: 1775402756450529251}
   - component: {fileID: 1775402756450529248}
   - component: {fileID: 1775402756450529249}
+  - component: {fileID: 887118267468903455}
   m_Layer: 5
   m_Name: RestartButton
   m_TagString: Untagged
@@ -369,6 +370,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &887118267468903455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775402756450529263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8caa08919424d7aaa1c47f2c61ab2eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1775402757417302498
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,6 +529,7 @@ GameObject:
   - component: {fileID: 1775402757950877530}
   - component: {fileID: 1775402757950877533}
   - component: {fileID: 6679903601479263221}
+  - component: {fileID: 2113645609131311721}
   m_Layer: 5
   m_Name: VictoryWindow
   m_TagString: Untagged
@@ -583,9 +597,26 @@ MonoBehaviour:
   _levelText: {fileID: 2738904122429224970}
   _currentExperienceSlider: {fileID: 2494265500498017598}
   _levelSlider: {fileID: 3937141989616662479}
-  _lobbyButton: {fileID: 1775402756450529249}
-  _rewardButton: {fileID: 7967386088279071063}
   _rewardSubViewContainer: {fileID: 4587818431670742839}
+  _currencyAnimation: {fileID: 2113645609131311721}
+--- !u!114 &2113645609131311721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775402757950877529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d2a9840114b430586eb9245742b042a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offsetDuration: 0.05
+  _durationAnimation: 0.75
+  _softModificator: 10
+  _hardModificator: 5
+  _softCurrency: {fileID: 2951856971251326975, guid: b5b4f859039a1c3479154bc54f5e78ad, type: 3}
+  _hardCurrency: {fileID: 2951856971251326975, guid: 770938d747502b34b81d0a4f60dc53f0, type: 3}
 --- !u!1 &2213154836968793970
 GameObject:
   m_ObjectHideFlags: 0

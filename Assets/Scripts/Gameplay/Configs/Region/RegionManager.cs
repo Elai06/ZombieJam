@@ -78,14 +78,10 @@ namespace Gameplay.Configs.Region
             _regionProgressData = _regionProgress.GetCurrentRegion();
 
             //   _windowService.Open(WindowType.Region);
-            SceneManager.LoadScene($"Gameplay");
-            _windowService.Open(WindowType.MainMenu);
         }
 
         private void NextWave()
         {
-            _windowService.Open(WindowType.Footer);
-
             if (_regionProgressData.CurrentWaweIndex >= RegionConfig.Waves.Count)
             {
                 _regionProgressData.IsCompleted = true;
@@ -93,8 +89,8 @@ namespace Gameplay.Configs.Region
                 return;
             }
 
-            SceneManager.LoadScene($"Gameplay");
-            _windowService.Open(WindowType.MainMenu);
+            GetReward();
+          //  _windowService.Open(WindowType.MainMenu);
         }
 
         public void WaveCompleted()

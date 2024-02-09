@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Gameplay.Boosters;
 using Gameplay.Configs.Rewards;
 using Gameplay.Configs.Zombies;
@@ -6,6 +7,7 @@ using Gameplay.Enums;
 using Gameplay.Level;
 using Gameplay.Windows.Gameplay;
 using Gameplay.Windows.Rewards;
+using Gameplay.Windows.Shop;
 using Infrastructure.StaticData;
 using Infrastructure.Windows;
 using TMPro;
@@ -25,10 +27,8 @@ namespace Gameplay.Windows
         [SerializeField] private TextMeshProUGUI _currentExperienceSlider;
         [SerializeField] private Slider _levelSlider;
 
-        [SerializeField] private Button _lobbyButton;
-        [SerializeField] private Button _rewardButton;
-
         [SerializeField] private RewardSubViewContainer _rewardSubViewContainer;
+        [SerializeField] private CurrencyAnimation _currencyAnimation;
 
         private IGameplayModel _gameplayModel;
         private IWindowService _windowService;
@@ -52,14 +52,23 @@ namespace Gameplay.Windows
 
         public void OnEnable()
         {
-            _lobbyButton.onClick?.AddListener(EnterLobby);
-            _rewardButton.onClick?.AddListener(EnterLobby);
             var progress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
             var waveIndex = progress.CurrentWaweIndex + 1;
 
             SetWave(progress.ERegionType, waveIndex);
             SetLevelInfo();
             CreateRewardSubView();
+            
+            StartAnimation();
+            _gameplayModel.WaveCompleted();
+        }
+
+        private void StartAnimation()
+        {
+            var rewardSubView = _rewardSubViewContainer.SubViews
+                .First(x => x.Key == ECurrencyType.SoftCurrency.ToString());
+            StartCoroutine(_currencyAnimation.StartAnimation(rewardSubView.Value.transform, ECurrencyType.SoftCurrency,
+                rewardSubView.Value.Value));
         }
 
         private void SetLevelInfo()
@@ -71,18 +80,6 @@ namespace Gameplay.Windows
             _levelText.text = $"{currentLevel + 1}";
             _levelSlider.value = (float)currentExperience / reqiredExperience;
             _currentExperienceSlider.text = $"{currentExperience}/{reqiredExperience}";
-        }
-
-        public void OnDisable()
-        {
-            _lobbyButton.onClick?.RemoveListener(EnterLobby);
-            _rewardButton.onClick?.RemoveListener(EnterLobby);
-        }
-
-        private void EnterLobby()
-        {
-            _gameplayModel.WaveCompleted();
-            _windowService.Close(WindowType.Victory);
         }
 
         private void SetWave(ERegionType regionType, int index)

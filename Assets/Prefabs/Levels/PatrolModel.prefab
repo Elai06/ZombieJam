@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2330130588945747891}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.39489847, z: -1.3983113}
+  m_LocalPosition: {x: 0, y: 0.3948985, z: -1.3983113}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -152,6 +152,10 @@ MonoBehaviour:
   _idleSpeed: 1.5
   _agressiveSpeed: 4
   _agressiveRadius: 12
+  _wheels:
+  - {fileID: 2330130588945747891}
+  - {fileID: 8992565173414259430}
+  - {fileID: 5997394760996361890}
 --- !u!33 &8391218593463911806
 MeshFilter:
   m_ObjectHideFlags: 0
