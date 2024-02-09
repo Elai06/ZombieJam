@@ -9,6 +9,7 @@ namespace Gameplay.Bullets
     public class BulletSpawner : MonoBehaviour
     {
         [SerializeField] private Bullet _bullet;
+        [SerializeField] private Transform _spawnPosition;
 
         private List<Bullet> _bullets = new();
 
@@ -17,7 +18,7 @@ namespace Gameplay.Bullets
             foreach (var bullet in _bullets.Where(bullet => !bullet.gameObject.activeSelf))
             {
                 bullet.gameObject.SetActive(true);
-                bullet.Shot(target, speed, bloodColor);
+                bullet.Shot(_spawnPosition, target, speed, bloodColor);
                 return;
             }
 
@@ -27,14 +28,14 @@ namespace Gameplay.Bullets
         private void CreateBullet(Transform target, float speed, Color bloodColor)
         {
             var newBullet = Instantiate(_bullet, transform);
-            newBullet.Shot(target, speed, bloodColor);
+            newBullet.Shot(_spawnPosition, target, speed, bloodColor);
             newBullet.Hit += OnHit;
             _bullets.Add(newBullet);
         }
 
         private async void OnHit(Bullet bullet)
         {
-          await  Task.Delay(250);
+            await Task.Delay(250);
             bullet.transform.localPosition = Vector3.zero;
             bullet.gameObject.SetActive(false);
         }

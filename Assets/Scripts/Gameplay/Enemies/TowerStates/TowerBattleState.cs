@@ -33,7 +33,7 @@ namespace Gameplay.Enemies.TowerStates
         {
             base.Exit();
 
-            if(_coroutine == null) return;
+            if (_coroutine == null) return;
             _coroutineService.StopCoroutine(_coroutine);
         }
 
@@ -55,6 +55,8 @@ namespace Gameplay.Enemies.TowerStates
                     Vector3.Distance(EnemyTower.transform.position, EnemyTower.Target.transform.position);
                 var duration = distanceToTarget / speedAttack;
 
+                yield return new WaitForSeconds(1 / attackRate);
+
                 if (IsAvailableDistance(distanceToTarget))
                 {
                     EnemyTower.ShoteBullet(EnemyTower.Target.transform, speedAttack);
@@ -69,8 +71,6 @@ namespace Gameplay.Enemies.TowerStates
                     _stateMachine.Enter<TowerIdleState>();
                     yield break;
                 }
-
-                yield return new WaitForSeconds(attackRate);
             }
         }
 

@@ -65,7 +65,7 @@ namespace Gameplay.Enemies.UnitStates
             {
                 if (_unit == null || _unit.IsDied) yield break;
                 var position = Vector3.MoveTowards(_unit.transform.position, target,
-                    Time.fixedDeltaTime * _parametersConfig[EParameter.SpeedOnPark]);
+                    Time.fixedDeltaTime * _parametersConfig[EParameter.SpeedToTarget]);
                 distance = Vector3.Distance(target, position);
 
                 _unit.transform.position = position;
@@ -87,6 +87,7 @@ namespace Gameplay.Enemies.UnitStates
         private IEnumerator Damage()
         {
             var attackRate = _parametersConfig[EParameter.AttackRate];
+            _unit.Animator.SetFloat("AttackSpeed", attackRate);
 
             while (true)
             {
@@ -97,11 +98,12 @@ namespace Gameplay.Enemies.UnitStates
                     InitializeTarget();
                     yield break;
                 }
-
+                
                 _unit.PlayAttackAnimation();
+
                 _rotateObject.Rotate(_unit.Target.transform.position);
 
-                yield return new WaitForSeconds(attackRate);
+                yield return new WaitForSeconds(1 / attackRate);
 
                 _unit.DamageToTarget(_unit.Target);
 

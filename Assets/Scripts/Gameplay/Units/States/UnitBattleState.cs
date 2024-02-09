@@ -86,6 +86,7 @@ namespace Gameplay.Units.States
         private IEnumerator Damage()
         {
             var attackRate = _parametersConfig[EParameter.AttackRate];
+            _unit.Animator.SetFloat("AttackSpeed", attackRate);
 
             while (true)
             {
@@ -93,7 +94,7 @@ namespace Gameplay.Units.States
 
                 _unit.PlayAttackAnimation();
 
-                yield return new WaitForSeconds(attackRate);
+                yield return new WaitForSeconds(1 / attackRate);
                 
                 if (_unit.Target == null || _unit.IsDied) yield break;
 

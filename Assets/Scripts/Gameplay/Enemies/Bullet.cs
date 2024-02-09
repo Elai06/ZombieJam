@@ -15,8 +15,9 @@ namespace Gameplay.Enemies
 
         private Coroutine _coroutine;
 
-        public void Shot(Transform target, float speed, Color bloodColor)
+        public void Shot(Transform spawnPosition, Transform target, float speed, Color bloodColor)
         {
+            transform.position = spawnPosition.position;
             _coroutine = StartCoroutine(MoveBullet(target, speed));
 
             if (_bloodFX != null && _dropletsFX != null)

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8514069465541549268}
   - component: {fileID: 82065063208263383}
   - component: {fileID: 7546304547208371758}
-  - component: {fileID: 3326746089256385763}
   - component: {fileID: 6082445548747138337}
   - component: {fileID: 6610630357215423625}
+  - component: {fileID: 842566439356051442}
   m_Layer: 3
   m_Name: ZombieBrain
   m_TagString: Untagged
@@ -89,20 +89,7 @@ MonoBehaviour:
   _eSwipeDirection: 0
   _unitSwipe: {fileID: 4157588092875620073}
   _bloodColor: {r: 0.098039225, g: 0.29411766, b: 0.39607847, a: 1}
-  _bullet: {fileID: 3326746089256385763}
---- !u!114 &3326746089256385763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1242093016697670560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7678fe4e3a446299f5893e9d91c6c39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bullet: {fileID: 2392649937357707323, guid: 9ccff8b73f5dd1840a7e639daf8af554, type: 3}
+  _bullet: {fileID: 842566439356051442}
 --- !u!114 &6082445548747138337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,6 +117,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unit: {fileID: 7546304547208371758}
   _damageTakingParticle: {fileID: 5860321728307015798}
+--- !u!114 &842566439356051442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242093016697670560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7678fe4e3a446299f5893e9d91c6c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bullet: {fileID: 2392649937357707323, guid: 9ccff8b73f5dd1840a7e639daf8af554, type: 3}
+  _spawnPosition: {fileID: 1103829233084640687}
 --- !u!1 &5723562593134259271
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,6 +336,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: f6560ae70fe455948b17bfdc85780610, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75780d5082d655647a5f75dabce7be93, type: 3}
+--- !u!4 &1103829233084640687 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: 75780d5082d655647a5f75dabce7be93, type: 3}
+  m_PrefabInstance: {fileID: 1649507258072584807}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1256085802566628748 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 75780d5082d655647a5f75dabce7be93, type: 3}

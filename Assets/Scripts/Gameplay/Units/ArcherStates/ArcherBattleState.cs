@@ -88,18 +88,20 @@ namespace Gameplay.Units.ArcherStates
             var distance = Vector3.Distance(_unit.Target.Transform.position, _unit.transform.position);
             var attackSpeed = _parametersConfig[EParameter.AttackSpeed];
             var duration = distance / attackSpeed;
+            _unit.Animator.SetFloat("AttackSpeed", attackRate);
 
             while (true)
             {
                 if (_unit.Target == null || _unit.IsDied) yield break;
-
                 _unit.PlayAttackAnimation();
+
+                yield return new WaitForSeconds(1 / attackRate);
+
                 var shot = new ArcherBulletModel(_coroutineService, _unit.Target, _parametersConfig, duration);
                 _unit.Bullet.Shot(_unit.Target.Transform, attackSpeed, _unit.Target.BloodColor);
                 shot.Attacked += OnAttacked;
                 _shotsQueue.Enqueue(shot);
 
-                yield return new WaitForSeconds(attackRate);
 
                 if (_unit.Target == null || _unit.IsDied) yield break;
 
