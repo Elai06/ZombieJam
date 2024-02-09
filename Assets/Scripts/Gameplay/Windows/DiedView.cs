@@ -21,11 +21,13 @@ namespace Gameplay.Windows
         [SerializeField] private TextMeshProUGUI _levelText;
         [SerializeField] private TextMeshProUGUI _currentExperienceSlider;
         [SerializeField] private TextMeshProUGUI _reviveTextButton;
+        [SerializeField] private Image _adImage;
         [SerializeField] private Slider _levelSlider;
         [SerializeField] private Button _reviveButton;
 
         [SerializeField] private Transform _inAppContent;
         [SerializeField] private Transform _reviveContent;
+        [SerializeField] private Transform _patrolContent;
 
         [Inject] private IGameplayModel _gameplayModel;
         [Inject] private ILevelModel _levelModel;
@@ -41,6 +43,8 @@ namespace Gameplay.Windows
         {
             _reviveContent.gameObject.SetActive(false);
             _inAppContent.gameObject.SetActive(false);
+            _patrolContent.gameObject.SetActive(false);
+            _adImage.gameObject.SetActive(true);
 
             var progress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
             var waveIndex = progress.CurrentWaweIndex == 0 ? 0 : progress.CurrentWaweIndex - 1;
@@ -50,8 +54,8 @@ namespace Gameplay.Windows
 
             if (_gameplayModel.WaveType == EWaveType.Logic)
             {
-                SetInAppContent();
-                _reviveButton.onClick.AddListener(ClaimSimpleBox);
+                SetPatrolContent();
+                _reviveButton.onClick.AddListener(Restart);
             }
             else
             {
@@ -122,6 +126,13 @@ namespace Gameplay.Windows
             _windowService.Open(WindowType.MainMenu);
             _windowService.Open(WindowType.Footer);
             _gameplayModel.StopWave();
+        }
+
+        private void SetPatrolContent()
+        {
+            _adImage.gameObject.SetActive(false);
+            _reviveTextButton.text = "Restart";
+            _patrolContent.gameObject.SetActive(true);
         }
     }
 }
