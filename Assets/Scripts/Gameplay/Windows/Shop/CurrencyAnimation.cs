@@ -109,9 +109,11 @@ namespace Gameplay.Windows.Shop
             var amount = value / (currencyType == ECurrencyType.SoftCurrency ? _softModificator : _hardModificator);
             var prefab = currencyType == ECurrencyType.SoftCurrency ? _softCurrency : _hardCurrency;
             var targetObject = GetTargetPosition(currencyType);
+            var offsetDuration = 0f;
             for (int i = 0; i < amount; i++)
             {
                 yield return new WaitForSeconds(_offsetDuration);
+                offsetDuration += _offsetDuration;
                 var currency = Instantiate
                     (prefab, startPosition.position, Quaternion.identity, transform);
                 _spawnedObjects.Add(currency);
@@ -119,7 +121,12 @@ namespace Gameplay.Windows.Shop
                     .OnComplete(() => { Destroy(currency); });
             }
 
-            AnimationFinish?.Invoke();
+            Debug.Log($"OffsetDuration {offsetDuration}");
+            _tween.OnComplete(() =>
+            {
+                CleanUp();
+                AnimationFinish?.Invoke();
+            });
         }
 
         private CurrencySubView GetTargetPosition(ECurrencyType currencyType)

@@ -4,8 +4,10 @@ using System.Linq;
 using Gameplay.Enums;
 using Gameplay.Windows.Rewards;
 using Gameplay.Windows.Shop;
+using Infrastructure.Windows;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Gameplay.Windows.LevelUp
@@ -13,6 +15,7 @@ namespace Gameplay.Windows.LevelUp
     public class LevelUpView : MonoBehaviour
     {
         public event Action RewardsClick;
+        public event Action CloseWindow;
 
         [SerializeField] private TextMeshProUGUI _descriptionText;
         [SerializeField] private TextMeshProUGUI _levelShieldText;
@@ -22,15 +25,16 @@ namespace Gameplay.Windows.LevelUp
 
         public RewardSubViewContainer RewardSubViewContainer;
 
-
         private void OnEnable()
         {
             _getRewardButton.onClick.AddListener(GetReward);
+            _animation.AnimationFinish += Restart;
         }
 
         private void OnDisable()
         {
             _getRewardButton.onClick.RemoveListener(GetReward);
+            _animation.AnimationFinish -= Restart;
         }
 
         public void InitializeReward(List<RewardSubViewData> rewardSubViewDatas, string level)
@@ -58,6 +62,11 @@ namespace Gameplay.Windows.LevelUp
                 .First(x => x.Key == ECurrencyType.HardCurrency.ToString());
             StartCoroutine(_animation.StartAnimation(rewardSubView.Value.transform, ECurrencyType.HardCurrency,
                 rewardSubView.Value.Value));
+        }
+
+        private void Restart()
+        {
+            CloseWindow?.Invoke();
         }
     }
 }

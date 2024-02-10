@@ -32,13 +32,20 @@ namespace Gameplay.Windows.Header
         {
             _tween?.Kill();
 
-            _tween = _valueText.transform.DOScale(1.15f, 1.25f).SetLoops(2, LoopType.Yoyo);
-            _tween = _image.transform.DOScale(1.5f, 1.25f).SetLoops(2, LoopType.Yoyo);
+            var deltaValue = Math.Max(value, newValue) - Math.Min(value, newValue);
+            var duration = deltaValue * 0.05f / 15;
+            duration = duration < 0.75f ? 0.75f : duration;
+            _tween = _valueText.transform.DOScale(1.15f, 0.75f);
+            _tween = _image.transform.DOScale(1.5f, 0.75f);
 
-            DOVirtual.Float(value, newValue, 1.75f, delta =>
+            DOVirtual.Float(value, newValue, duration, delta =>
                 {
                     _valueText.text = $"{((int)delta).ToFormattedBigNumber()}";
-                });
+                }).OnComplete(() =>
+            {
+                _tween = _valueText.transform.DOScale(1, 0.75f);
+                _tween = _image.transform.DOScale(1, 0.75f);
+            });
         }
     }
 }

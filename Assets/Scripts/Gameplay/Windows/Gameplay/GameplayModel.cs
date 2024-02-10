@@ -93,5 +93,10 @@ namespace Gameplay.Windows.Gameplay
         {
             IsStartWave = false;
         }
+
+        public void GetRewardForWave()
+        {
+            _regionManager.GetReward();
+        }
     }
 }

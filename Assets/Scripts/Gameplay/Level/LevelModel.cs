@@ -110,8 +110,6 @@ namespace Gameplay.Level
                     _cardsModel.AddCards(currencyType, reward.Value);
                 }
             }
-
-            _windowService.Close(WindowType.LevelUp);
         }
     }
 }

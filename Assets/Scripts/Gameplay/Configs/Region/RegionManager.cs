@@ -88,19 +88,16 @@ namespace Gameplay.Configs.Region
                 ChangeRegion();
                 return;
             }
-
-            GetReward();
-          //  _windowService.Open(WindowType.MainMenu);
+            //  _windowService.Open(WindowType.MainMenu);
         }
 
         public void WaveCompleted()
         {
-            GetReward();
             _regionProgressData.CurrentWaweIndex++;
             NextWave();
         }
 
-        private void GetReward()
+        public void GetReward()
         {
             var currencyReward = RegionConfig.Waves[_regionProgressData.CurrentWaweIndex];
 

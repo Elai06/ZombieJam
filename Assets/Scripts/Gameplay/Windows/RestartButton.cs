@@ -37,7 +37,7 @@ namespace Gameplay.Windows
             _button.onClick.RemoveListener(Restart);
         }
 
-        private void Restart()
+        public void Restart()
         {
             if (_tutorialService.CurrentState == ETutorialState.Swipe) return;
 

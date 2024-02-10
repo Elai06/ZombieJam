@@ -7,6 +7,7 @@ using Gameplay.Enums;
 using Gameplay.Level;
 using Gameplay.Windows.Rewards;
 using Infrastructure.StaticData;
+using Infrastructure.Windows;
 using Infrastructure.Windows.MVVM;
 using UnityEngine;
 
@@ -15,10 +16,13 @@ namespace Gameplay.Windows.LevelUp
     public class LevelUpViewModel : ViewModelBase<ILevelModel, LevelUpView>
     {
         private readonly GameStaticData _gameStaticData;
+        private readonly IWindowService _windowService;
 
-        public LevelUpViewModel(ILevelModel model, LevelUpView view, GameStaticData gameStaticData) : base(model, view)
+        public LevelUpViewModel(ILevelModel model, LevelUpView view, GameStaticData gameStaticData,
+            IWindowService windowService) : base(model, view)
         {
             _gameStaticData = gameStaticData;
+            _windowService = windowService;
         }
 
         public override void Show()
@@ -31,6 +35,7 @@ namespace Gameplay.Windows.LevelUp
             base.Subscribe();
 
             View.RewardsClick += OnGetReward;
+            View.CloseWindow += CloseWindow;
         }
 
         public override void Unsubscribe()
@@ -38,6 +43,7 @@ namespace Gameplay.Windows.LevelUp
             base.Unsubscribe();
 
             View.RewardsClick -= OnGetReward;
+            View.CloseWindow -= CloseWindow;
         }
 
         private void OnGetReward()
@@ -84,6 +90,11 @@ namespace Gameplay.Windows.LevelUp
                 ID = rewardConfigData.GetId(),
                 Value = rewardConfigData.Value
             };
+        }
+
+        private void CloseWindow()
+        {
+            _windowService.Close(WindowType.LevelUp);
         }
     }
 }

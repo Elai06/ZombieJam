@@ -12,6 +12,7 @@ using Infrastructure.StaticData;
 using Infrastructure.Windows;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Utils.ZenjectInstantiateUtil;
 using Zenject;
@@ -26,6 +27,7 @@ namespace Gameplay.Windows
         [SerializeField] private TextMeshProUGUI _levelText;
         [SerializeField] private TextMeshProUGUI _currentExperienceSlider;
         [SerializeField] private Slider _levelSlider;
+        [SerializeField] private Button _lobbyButton;
 
         [SerializeField] private RewardSubViewContainer _rewardSubViewContainer;
         [SerializeField] private CurrencyAnimation _currencyAnimation;
@@ -58,13 +60,22 @@ namespace Gameplay.Windows
             SetWave(progress.ERegionType, waveIndex);
             SetLevelInfo();
             CreateRewardSubView();
-            
-            StartAnimation();
-            _gameplayModel.WaveCompleted();
+
+            _lobbyButton.onClick.AddListener(StartAnimation);
+            _currencyAnimation.AnimationFinish += Restart;
+        }
+
+        private void OnDisable()
+        {
+            _lobbyButton.onClick.RemoveListener(StartAnimation);
+            _currencyAnimation.AnimationFinish -= Restart;
         }
 
         private void StartAnimation()
         {
+            _gameplayModel.WaveCompleted();
+            _gameplayModel.GetRewardForWave();
+
             var rewardSubView = _rewardSubViewContainer.SubViews
                 .First(x => x.Key == ECurrencyType.SoftCurrency.ToString());
             StartCoroutine(_currencyAnimation.StartAnimation(rewardSubView.Value.transform, ECurrencyType.SoftCurrency,
@@ -127,6 +138,20 @@ namespace Gameplay.Windows
                 default:
                     return null;
             }
+        }
+
+        private void Restart()
+        {
+            SceneManager.LoadScene($"Gameplay");
+
+            if (_windowService.IsOpen(WindowType.Died))
+            {
+                _windowService.Close(WindowType.Died);
+            }
+
+            _windowService.Open(WindowType.MainMenu);
+            _windowService.Open(WindowType.Footer);
+            _gameplayModel.StopWave();
         }
     }
 }

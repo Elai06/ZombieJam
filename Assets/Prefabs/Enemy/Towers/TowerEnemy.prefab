@@ -88,6 +88,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bullet: {fileID: 2392649937357707323, guid: 6a4ef35ae55992942930e115c3d36e5a, type: 3}
+  _spawnPosition: {fileID: 4252176986390975532}
 --- !u!114 &-5682089825263281016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,6 +102,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyTower: {fileID: 2625871721960994534, guid: da6667b356a20ba4ea722884e7015ebd, type: 3}
+--- !u!1 &1194854051198625520
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4252176986390975532}
+  m_Layer: 8
+  m_Name: BulletSpawnPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4252176986390975532
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194854051198625520}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.806, y: -0.117, z: 0.55}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8831401996633731470}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2730471495790603522
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,7 +315,8 @@ Transform:
   m_LocalPosition: {x: 0.026, y: -0.059, z: 0.011}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4252176986390975532}
   m_Father: {fileID: 2505392145968573063}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 27.065, y: 121.634, z: -191.946}
