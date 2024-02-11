@@ -27,15 +27,12 @@ namespace Gameplay.Windows.Footer
 
         private IWindowService _windowService;
         private ITutorialService _tutorialService;
-        private IGameplayModel _gameplayModel;
 
         [Inject]
-        private void Construct(IWindowService windowService, ITutorialService tutorialService,
-            IGameplayModel gameplayModel)
+        private void Construct(IWindowService windowService, ITutorialService tutorialService)
         {
             _windowService = windowService;
             _tutorialService = tutorialService;
-            _gameplayModel = gameplayModel;
         }
 
         private void Start()
@@ -46,26 +43,14 @@ namespace Gameplay.Windows.Footer
             InjectService.Instance.Inject(this);
 
             _windowService.OnOpen += OnOpenedView;
-            _gameplayModel.OnWaveCompleted += OnWaveCompleted;
             _tutorialService.СhangedState += OnChangedTutorialState;
             OnChangedTutorialState(_tutorialService.CurrentState);
 
             var lobbyTab = _footerTabs.Find(x => x.WindowType == WindowType.Lobby);
 
-            if (_tutorialService.CurrentState != ETutorialState.Completed
-                && _tutorialService.CurrentState != ETutorialState.Card)
-            {
-                SetInteractableTab(lobbyTab, false);
-            }
-            else
+            if (_tutorialService.CurrentState == ETutorialState.Completed)
             {
                 SelectedTab(lobbyTab);
-            }
-
-            var regionProgress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
-            if (regionProgress.CurrentWaweIndex >= 1)
-            {
-                OnWaveCompleted(regionProgress.ERegionType, regionProgress.CurrentWaweIndex);
             }
         }
 
@@ -128,7 +113,7 @@ namespace Gameplay.Windows.Footer
                 {
                     case ETutorialState.Completed:
                         SetInteractableTab(footerTab, true);
-                        OpenRegionTabButton();
+                        //  OpenRegionTabButton();
                         continue;
 
                     case ETutorialState.Swipe:
@@ -153,12 +138,10 @@ namespace Gameplay.Windows.Footer
                         continue;
 
                     case ETutorialState.Card:
-                        if (footerTab.WindowType == WindowType.Lobby)
+                        if (footerTab.WindowType == WindowType.Cards)
                         {
                             SetInteractableTab(footerTab, true);
-                            SelectedTab(footerTab);
-                            var regionProgress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
-                            OnWaveCompleted(regionProgress.ERegionType, regionProgress.CurrentWaweIndex);
+                            _cardTutorial.gameObject.SetActive(true);
                         }
 
                         continue;
@@ -180,34 +163,6 @@ namespace Gameplay.Windows.Footer
 
             footerTab.SetImage(isInteractable ? _idleImage : _disabledImage);
             footerTab.SetScale();
-        }
-
-        private void OnWaveCompleted(ERegionType regionType, int waveIndex)
-        {
-            if (_tutorialService.CurrentState == ETutorialState.Card)
-            {
-                if (waveIndex >= 2)
-                {
-                    var footerTab = _footerTabs.Find(x => x.WindowType == WindowType.Cards);
-                    SetInteractableTab(footerTab, true);
-                    _cardTutorial.gameObject.SetActive(true);
-                    return;
-                }
-            }
-
-            OpenRegionTabButton();
-        }
-
-        private void OpenRegionTabButton()
-        {
-            var footerTab = _footerTabs.Find(x => x.WindowType == WindowType.Region);
-            var regionIndex = _gameplayModel.GetCurrentRegionProgress().RegionIndex;
-            SetInteractableTab(footerTab, regionIndex > 0);
-
-            if (_windowService.IsOpen(WindowType.Region))
-            {
-                SelectedTab(footerTab);
-            }
         }
 
         private void OnOpenedView(WindowType windowType)
