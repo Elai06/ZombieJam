@@ -1,4 +1,5 @@
-﻿using Gameplay.Enums;
+﻿using System.Threading.Tasks;
+using Gameplay.Enums;
 using Gameplay.Shop;
 using Gameplay.Tutorial.States.Card;
 using Infrastructure.Events;
@@ -36,10 +37,11 @@ namespace Gameplay.Tutorial.States.Shop.Box
             _shopModel.Purchased -= OnPurchase;
         }
 
-        private void OnPurchase(EShopProductType shopProductType)
+        private async void OnPurchase(EShopProductType shopProductType)
         {
             if (shopProductType == EShopProductType.SimpleBox)
             {
+                await Task.Delay(2000);
                 _windowService.Close(WindowType.Shop);
 
                 _stateMachine.Enter<CardTutorialState>();
