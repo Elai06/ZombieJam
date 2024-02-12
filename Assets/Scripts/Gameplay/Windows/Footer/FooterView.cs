@@ -28,6 +28,8 @@ namespace Gameplay.Windows.Footer
         private IWindowService _windowService;
         private ITutorialService _tutorialService;
 
+        public List<FooterTab> FooterTabs => _footerTabs;
+
         [Inject]
         private void Construct(IWindowService windowService, ITutorialService tutorialService)
         {

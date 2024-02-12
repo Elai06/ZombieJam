@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Gameplay.Cards;
 using Gameplay.Configs.Zombies;
 using Gameplay.Tutorial;
@@ -46,17 +47,30 @@ namespace Gameplay.Windows.Cards
         private void InitializeCards()
         {
             var cardsSubViewData = new List<CardSubViewData>();
-            foreach (var zombieData in Model.CardsConfig.Cards)
+            var openedCards = Model.CardModels.Values.ToList()
+                .FindAll(x => x.ProgressData.IsOpen);
+            var notOpenedCards = Model.CardModels.Values.ToList()
+                .FindAll(x => !x.ProgressData.IsOpen);
+
+            CreatedSubViews(notOpenedCards, cardsSubViewData);
+            CreatedSubViews(openedCards, cardsSubViewData);
+        }
+
+        private void CreatedSubViews(List<CardModel> openedCards, List<CardSubViewData> cardsSubViewData)
+        {
+            if (openedCards.Count == 0) return;
+            foreach (var zombieData in openedCards)
             {
-                var progress = Model.CardsProgress.GetOrCreate(zombieData.ZombieData.Name);
+                var progress = Model.CardsProgress.GetOrCreate(zombieData.Name);
                 var viewData = new CardSubViewData
                 {
                     ProgressData = progress,
-                    ReqiredCards = Model.GetReqiredCardsValue(zombieData.ZombieData.Name),
-                    IsCanUpgrade = Model.IsCanUpgrade(zombieData.ZombieData.Name, progress),
-                    Icon = _gameStaticData.SpritesConfig.GetZombieIcon(zombieData.ZombieData.Name).HalfHeighSprite,
-                    CardSprites = _gameStaticData.SpritesConfig.GetCardsBackground(zombieData.ZombieData.Type),
-                    ClassIcon = _gameStaticData.SpritesConfig.GetClassIcon(zombieData.ZombieData.Type)
+                    ReqiredCards = Model.GetReqiredCardsValue(zombieData.Name),
+                    IsCanUpgrade = Model.IsCanUpgrade(zombieData.Name, progress),
+                    Icon = _gameStaticData.SpritesConfig.GetZombieIcon(zombieData.Name).HalfHeighSprite,
+                    CardSprites =
+                        _gameStaticData.SpritesConfig.GetCardsBackground(zombieData.ConfigData.ZombieData.Type),
+                    ClassIcon = _gameStaticData.SpritesConfig.GetClassIcon(zombieData.ConfigData.ZombieData.Type)
                 };
 
                 if (_tutorialService.CurrentState == ETutorialState.Card)
@@ -99,9 +113,9 @@ namespace Gameplay.Windows.Cards
 
         private void ShowPopUp(EZombieNames type)
         {
-            if (_tutorialService.CurrentState == ETutorialState.Card && type != EZombieNames.Hitchhiker) return;
-
             var progress = Model.CardsProgress.GetOrCreate(type);
+            if (_tutorialService.CurrentState == ETutorialState.Card && progress.CardsValue == 0) return;
+
             var currencyType = Model.GetCurrencyType(type);
             var config = Model.CardsConfig.Cards.Find(x => x.ZombieData.Name == type);
             var viewData = new CardPopUpData

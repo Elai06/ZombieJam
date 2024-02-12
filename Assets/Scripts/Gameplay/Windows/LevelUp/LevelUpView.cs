@@ -4,10 +4,8 @@ using System.Linq;
 using Gameplay.Enums;
 using Gameplay.Windows.Rewards;
 using Gameplay.Windows.Shop;
-using Infrastructure.Windows;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Gameplay.Windows.LevelUp
@@ -17,7 +15,6 @@ namespace Gameplay.Windows.LevelUp
         public event Action RewardsClick;
         public event Action CloseWindow;
 
-        [SerializeField] private TextMeshProUGUI _descriptionText;
         [SerializeField] private TextMeshProUGUI _levelShieldText;
         [SerializeField] private Button _getRewardButton;
 
@@ -40,7 +37,6 @@ namespace Gameplay.Windows.LevelUp
         public void InitializeReward(List<RewardSubViewData> rewardSubViewDatas, string level)
         {
             RewardSubViewContainer.Content.gameObject.SetActive(true);
-            // _descriptionText.text = $"Level up {level}";
             _levelShieldText.text = level;
 
             RewardSubViewContainer.CleanUp();

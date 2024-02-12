@@ -27,6 +27,8 @@ namespace Gameplay.Windows.Shop
         [SerializeField] private Image _boxImage;
         [SerializeField] private TextMeshProUGUI _notCurrencyText;
         [SerializeField] private Image _arrowTutorial;
+        [SerializeField] private Sprite _cardSprite;
+
 
         private EShopProductType _productType;
 
@@ -139,8 +141,7 @@ namespace Gameplay.Windows.Shop
                     Enum.TryParse<ECurrencyType>(id, out var currencyType);
                     return _spritesConfig.GetCurrencySprite(currencyType);
                 case EResourceType.Card:
-                    Enum.TryParse<EZombieNames>(id, out var card);
-                    return _spritesConfig.GetZombieIcon(card).HalfHeighSprite;
+                    return _cardSprite;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Gameplay.Configs.Cards;
 using Gameplay.Configs.Zombies;
 using Gameplay.Curencies;
 using Gameplay.Enums;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.StaticData;
+using Random = UnityEngine.Random;
 
 namespace Gameplay.Cards
 {
@@ -101,7 +103,7 @@ namespace Gameplay.Cards
             {
                 progress.IsOpen = true;
             }
-            
+
             progress.CardsValue += value;
             CardValueChanged?.Invoke(type);
         }
@@ -162,6 +164,18 @@ namespace Gameplay.Cards
         public CardModel GetCardModel(EZombieNames unitClass)
         {
             return CardModels[unitClass];
+        }
+
+        public EZombieNames GetRandomCard(bool isOpen)
+        {
+            var progresses = CardsProgress.CardProgressData.FindAll(x => x.IsOpen == isOpen);
+
+            if (progresses.Count == 0)
+            {
+                progresses = CardsProgress.CardProgressData.FindAll(x => x.IsOpen == !isOpen);
+            }
+
+            return progresses[Random.Range(0, progresses.Count)].Name;
         }
     }
 }

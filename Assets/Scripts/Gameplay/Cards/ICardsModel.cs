@@ -26,5 +26,6 @@ namespace Gameplay.Cards
         event Action<EZombieNames> StartUpgrade;
         CardModel GetCardModel(EZombieNames unitClass);
         int GetCurrencyValue(ECurrencyType currencyType);
+        EZombieNames GetRandomCard(bool isOpen);
     }
 }

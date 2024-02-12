@@ -6,8 +6,10 @@ using DG.Tweening;
 using Gameplay.Enums;
 using Gameplay.Shop;
 using Gameplay.Windows.Header;
+using Infrastructure.StaticData;
 using Infrastructure.Windows;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Gameplay.Windows.Shop
@@ -20,11 +22,11 @@ namespace Gameplay.Windows.Shop
         [SerializeField] private float _durationAnimation = 0.75f;
         [SerializeField] private int _softModificator = 10;
         [SerializeField] private int _hardModificator = 5;
-        [SerializeField] private GameObject _softCurrency;
-        [SerializeField] private GameObject _hardCurrency;
+        [SerializeField] private GameObject _prefab;
 
         [Inject] private IShopModel _shopModel;
         [Inject] private IWindowService _windowService;
+        [Inject] private GameStaticData _gameStaticData;
 
         private List<GameObject> _spawnedObjects = new();
 
@@ -107,21 +109,19 @@ namespace Gameplay.Windows.Shop
         {
             if (_tween != null && _tween.IsPlaying()) yield break;
             var amount = value / (currencyType == ECurrencyType.SoftCurrency ? _softModificator : _hardModificator);
-            var prefab = currencyType == ECurrencyType.SoftCurrency ? _softCurrency : _hardCurrency;
+            var sprite = GetCurrencySprite(currencyType);
             var targetObject = GetTargetPosition(currencyType);
-            var offsetDuration = 0f;
             for (int i = 0; i < amount; i++)
             {
                 yield return new WaitForSeconds(_offsetDuration);
-                offsetDuration += _offsetDuration;
                 var currency = Instantiate
-                    (prefab, startPosition.position, Quaternion.identity, transform);
+                    (_prefab, startPosition.position, Quaternion.identity, transform);
+                currency.GetComponent<Image>().sprite = sprite;
                 _spawnedObjects.Add(currency);
                 _tween = currency.transform.DOMove(targetObject.Image.transform.position, _durationAnimation)
                     .OnComplete(() => { Destroy(currency); });
             }
 
-            Debug.Log($"OffsetDuration {offsetDuration}");
             _tween.OnComplete(() =>
             {
                 CleanUp();
@@ -135,6 +135,11 @@ namespace Gameplay.Windows.Shop
             var targetObject = window.CurrenciesSubViewContainer.SubViews
                 .First(x => x.Key == currencyType.ToString()).Value;
             return targetObject.GetComponent<CurrencySubView>();
+        }
+
+        private Sprite GetCurrencySprite(ECurrencyType currencyType)
+        {
+            return _gameStaticData.SpritesConfig.GetCurrencySprite(currencyType);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Gameplay.Enums;
 using UnityEngine;
 
 namespace Gameplay.Configs.Shop
@@ -9,5 +10,10 @@ namespace Gameplay.Configs.Shop
         [SerializeField] private List<ShopConfigData> _shopConfigData;
 
         public List<ShopConfigData> ConfigData => _shopConfigData;
+
+        public ShopConfigData GetConfig(EShopProductType eShopProductType)
+        {
+            return _shopConfigData.Find(x => x.ProductType == eShopProductType);
+        }
     }
 }

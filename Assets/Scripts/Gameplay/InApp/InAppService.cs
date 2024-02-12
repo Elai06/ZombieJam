@@ -5,6 +5,7 @@ using Gameplay.Configs.Shop;
 using Gameplay.Configs.Zombies;
 using Gameplay.Curencies;
 using Gameplay.Enums;
+using Gameplay.Shop;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.Windows;
 
@@ -18,6 +19,8 @@ namespace Gameplay.InApp
         private readonly ICardsModel _cardsModel;
         private readonly IWindowService _windowService;
         private readonly IProgressService _progressService;
+
+        private EZombieNames _zombieNames;
 
         public InAppService(ICurrenciesModel currenciesModel, ICardsModel cardsModel, IWindowService windowService,
             IProgressService progressService)
@@ -64,10 +67,14 @@ namespace Gameplay.InApp
 
                 if (reward.RewardType == EResourceType.Card)
                 {
-                    Enum.TryParse<EZombieNames>(reward.GetId(), out var currencyType);
-                    _cardsModel.AddCards(currencyType, reward.Value);
+                    _cardsModel.AddCards(_zombieNames, reward.Value);
                 }
             }
+        }
+
+        public void SetCardProduct(EZombieNames zombieNames)
+        {
+            _zombieNames = zombieNames;
         }
     }
 }

@@ -33,6 +33,8 @@ namespace Gameplay.Shop
 
         private bool _isCanBuy = true;
 
+        public EZombieNames RandomCardName { get; private set; }
+
         private ShopModel(GameStaticData gameStaticData, IProgressService progressService,
             ICurrenciesModel currenciesModel, ICardsModel cardsModel, IAdsService adsService,
             IInAppService appService, ICoroutineService coroutineService)
@@ -55,6 +57,16 @@ namespace Gameplay.Shop
 
             _currentConfigData = ShopConfig.ConfigData.Find(x => x.ProductType == shopProductType);
 
+            if (shopProductType.ToString().Contains("Box"))
+            {
+                var cardReward = _currentConfigData.Rewards.Rewards
+                    .Find(x => x.RewardType == EResourceType.Card);
+
+                if (cardReward.RewardType != EResourceType.Card) return;
+
+                RandomCardName = _cardsModel.GetRandomCard(true);
+            }
+
             var parametrs = $"{{\"productName\":\"{shopProductType}\", " +
                             $"\"Level\":\"{_progressService.PlayerProgress.LevelProgress.Level}\", " +
                             $"\"Day\":\"{_progressService.PlayerProgress.DaysInPlay}\"}}";
@@ -63,6 +75,7 @@ namespace Gameplay.Shop
 
             if (_currentConfigData.IsInApp)
             {
+                _appService.SetCardProduct(RandomCardName);
                 _appService.Purchase(_currentConfigData);
                 Purchased?.Invoke(shopProductType);
                 _coroutineService.StartCoroutine(MissClickDefence());
@@ -121,8 +134,7 @@ namespace Gameplay.Shop
 
                 if (reward.RewardType == EResourceType.Card)
                 {
-                    Enum.TryParse<EZombieNames>(reward.GetId(), out var currencyType);
-                    _cardsModel.AddCards(currencyType, reward.Value);
+                    _cardsModel.AddCards(RandomCardName, reward.Value);
                 }
             }
         }

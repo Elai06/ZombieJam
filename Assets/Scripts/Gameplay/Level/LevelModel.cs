@@ -25,6 +25,8 @@ namespace Gameplay.Level
 
         private LevelProgress _levelProgress;
 
+        public EZombieNames CardNameReward { get; private set; }
+
         public LevelModel(IProgressService progressService, GameStaticData gameStaticData,
             IWindowService windowService, ICurrenciesModel currenciesModel, IBoostersManager boostersManager,
             ICardsModel cardsModel)
@@ -69,6 +71,7 @@ namespace Gameplay.Level
         {
             _levelProgress.Level++;
             _levelProgress.Experience = 0;
+            CardNameReward = _cardsModel.GetRandomCard(false);
             OpenWindow();
             OnLevelUp?.Invoke(CurrentLevel);
         }
@@ -106,8 +109,7 @@ namespace Gameplay.Level
 
                 if (reward.RewardType == EResourceType.Card)
                 {
-                    Enum.TryParse<EZombieNames>(reward.GetId(), out var currencyType);
-                    _cardsModel.AddCards(currencyType, reward.Value);
+                    _cardsModel.AddCards(CardNameReward, reward.Value);
                 }
             }
         }

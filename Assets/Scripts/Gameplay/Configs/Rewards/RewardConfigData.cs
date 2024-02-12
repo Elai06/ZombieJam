@@ -11,7 +11,6 @@ namespace Gameplay.Configs.Rewards
     public struct RewardConfigData
     {
         public EResourceType RewardType;
-        [SerializeField, ShowIf("ShowZombie")] private EZombieNames unitClass;
 
         [SerializeField, ShowIf("ShowCurrency")]
         private ECurrencyType _currencyType;
@@ -42,7 +41,6 @@ namespace Gameplay.Configs.Rewards
             {
                 EResourceType.Booster => _boosterType.ToString(),
                 EResourceType.Currency => _currencyType.ToString(),
-                EResourceType.Card => unitClass.ToString(),
                 _ => ""
             };
         }

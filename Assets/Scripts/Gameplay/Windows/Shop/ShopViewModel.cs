@@ -60,7 +60,7 @@ namespace Gameplay.Windows.Shop
             foreach (var configData in Model.ShopConfig.ConfigData)
             {
                 var rewardConfig = configData.Rewards;
-                var subViewData = new ShopProductSubViewData()
+                var subViewData = new ShopProductSubViewData
                 {
                     ProductType = configData.ProductType,
                     PriceSprite = _gameStaticData.SpritesConfig.GetCurrencySprite(configData.PriceType),
