@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Gameplay.Cards;
 using Gameplay.Configs.Zombies;
-using Gameplay.Enums;
 using Gameplay.Tutorial;
 using Infrastructure.StaticData;
 using Infrastructure.Windows.MVVM;
@@ -100,7 +99,7 @@ namespace Gameplay.Windows.Cards
 
         private void ShowPopUp(EZombieNames type)
         {
-            if (_tutorialService.CurrentState == ETutorialState.Card && type != EZombieNames.Zombie) return;
+            if (_tutorialService.CurrentState == ETutorialState.Card && type != EZombieNames.Hitchhiker) return;
 
             var progress = Model.CardsProgress.GetOrCreate(type);
             var currencyType = Model.GetCurrencyType(type);

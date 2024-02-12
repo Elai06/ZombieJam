@@ -35,8 +35,11 @@ namespace Gameplay.Cards
             _cardSlider.value = (float)data.ProgressData.CardsValue / data.ReqiredCards;
             _valueCardsText.text = $"{data.ProgressData.CardsValue}/{data.ReqiredCards}";
             _type = data.ProgressData.Name;
-            _nameText.text = $"{data.ProgressData.Name.ToString().AddedUpper()}";
+            
             _leveText.text = $"{data.ProgressData.Level + 1}";
+            _nameText.text = data.ProgressData.IsOpen
+                ? $"{data.ProgressData.Name.ToString().AddedUpper()}" : "Not Open";
+            
             //_indicator.gameObject.SetActive(data.IsCanUpgrade);
             _indicator.gameObject.SetActive(false);
             _icon.sprite = data.Icon;

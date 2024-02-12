@@ -1,4 +1,6 @@
 ﻿using Gameplay.Configs.Zombies;
+using Gameplay.Curencies;
+using Gameplay.Enums;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils.ZenjectInstantiateUtil;
@@ -11,6 +13,7 @@ namespace Gameplay.Cards
         [SerializeField] private Image _indicator;
 
         [Inject] private ICardsModel _cardsModel;
+        [Inject] private ICurrenciesModel _currenciesModel;
 
         private void Start()
         {
@@ -18,6 +21,12 @@ namespace Gameplay.Cards
 
             _indicator.gameObject.SetActive(_cardsModel.IsAvailableUpgrade());
             _cardsModel.CardValueChanged += OnCardValueChanged;
+            _currenciesModel.Update += OnCurrenciesUpdate;
+        }
+
+        private void OnCurrenciesUpdate(ECurrencyType arg1, int arg2, int arg3)
+        {
+            _indicator.gameObject.SetActive(_cardsModel.IsAvailableUpgrade());
         }
 
         private void OnCardValueChanged(EZombieNames obj)

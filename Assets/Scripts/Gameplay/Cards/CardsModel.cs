@@ -96,6 +96,12 @@ namespace Gameplay.Cards
         public void AddCards(EZombieNames type, int value)
         {
             var progress = CardsProgress.GetOrCreate(type);
+
+            if (!progress.IsOpen)
+            {
+                progress.IsOpen = true;
+            }
+            
             progress.CardsValue += value;
             CardValueChanged?.Invoke(type);
         }

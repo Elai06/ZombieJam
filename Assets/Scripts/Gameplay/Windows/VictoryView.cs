@@ -28,6 +28,7 @@ namespace Gameplay.Windows
         [SerializeField] private TextMeshProUGUI _currentExperienceSlider;
         [SerializeField] private Slider _levelSlider;
         [SerializeField] private Button _lobbyButton;
+        [SerializeField] private Button _claimButton;
 
         [SerializeField] private RewardSubViewContainer _rewardSubViewContainer;
         [SerializeField] private CurrencyAnimation _currencyAnimation;
@@ -62,12 +63,16 @@ namespace Gameplay.Windows
             CreateRewardSubView();
 
             _lobbyButton.onClick.AddListener(StartAnimation);
+            _claimButton.onClick.AddListener(StartAnimation);
+            
             _currencyAnimation.AnimationFinish += Restart;
         }
 
         private void OnDisable()
         {
             _lobbyButton.onClick.RemoveListener(StartAnimation);
+            _claimButton.onClick.RemoveListener(StartAnimation);
+            
             _currencyAnimation.AnimationFinish -= Restart;
         }
 
@@ -75,6 +80,9 @@ namespace Gameplay.Windows
         {
             _gameplayModel.WaveCompleted();
             _gameplayModel.GetRewardForWave();
+
+            _claimButton.onClick.RemoveListener(StartAnimation);
+            _lobbyButton.onClick.RemoveListener(StartAnimation);
 
             var rewardSubView = _rewardSubViewContainer.SubViews
                 .First(x => x.Key == ECurrencyType.SoftCurrency.ToString());

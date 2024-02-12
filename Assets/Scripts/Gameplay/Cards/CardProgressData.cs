@@ -11,7 +11,7 @@ namespace Gameplay.Cards
         public EZombieNames Name;
         public int CardsValue;
         public int Level;
-        public int IsOpen;
+        public bool IsOpen;
 
         public CardProgressData(EZombieNames name, int cardsValue)
         {

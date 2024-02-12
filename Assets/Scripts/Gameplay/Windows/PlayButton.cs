@@ -70,8 +70,7 @@ namespace Gameplay.Windows
 
         private void Play()
         {
-            if (_tutorialService.CurrentState == ETutorialState.ShopBox ||
-                _tutorialService.CurrentState == ETutorialState.ShopCurrency) return;
+            if (_tutorialService.CurrentState != ETutorialState.Completed) return;
 
             if (_gameplayModel.GetCurrentRegionProgress().RegionIndex > 0)
             {

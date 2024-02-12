@@ -69,7 +69,7 @@ namespace Gameplay.Level
         {
             _levelProgress.Level++;
             _levelProgress.Experience = 0;
-            _windowService.Open(WindowType.LevelUp);
+            OpenWindow();
             OnLevelUp?.Invoke(CurrentLevel);
         }
 
@@ -109,6 +109,26 @@ namespace Gameplay.Level
                     Enum.TryParse<EZombieNames>(reward.GetId(), out var currencyType);
                     _cardsModel.AddCards(currencyType, reward.Value);
                 }
+            }
+        }
+
+        private void OpenWindow()
+        {
+            if (_windowService.IsOpen(WindowType.Victory))
+            {
+                _windowService.OnClosed += ClosedWindow;
+                return;
+            }
+
+            _windowService.Open(WindowType.LevelUp);
+        }
+
+        private void ClosedWindow(WindowType windowType)
+        {
+            if (windowType == WindowType.Victory)
+            {
+                _windowService.OnClosed -= ClosedWindow;
+                _windowService.Open(WindowType.LevelUp);
             }
         }
     }

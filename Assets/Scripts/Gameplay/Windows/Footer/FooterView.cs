@@ -72,6 +72,9 @@ namespace Gameplay.Windows.Footer
 
         private void SelectedTab(FooterTab selected)
         {
+            if (_tutorialService.CurrentState == ETutorialState.Card && 
+                selected.WindowType == WindowType.Shop) return;
+
             foreach (var footerTab in _footerTabs.Where(x => x.IsInteractable))
             {
                 if (footerTab.WindowType != selected.WindowType)
@@ -142,6 +145,11 @@ namespace Gameplay.Windows.Footer
                         {
                             SetInteractableTab(footerTab, true);
                             _cardTutorial.gameObject.SetActive(true);
+                        }
+
+                        if (footerTab.WindowType == WindowType.Shop)
+                        {
+                            SetInteractableTab(footerTab, true);
                         }
 
                         continue;

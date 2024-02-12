@@ -13,5 +13,6 @@ namespace Gameplay.Configs.Cards
         public int HardCurrencyEveryLevel;
         public int HardStartPrice;
         public int SoftStartPrice;
+        public bool OpenStart;
     }
 }
