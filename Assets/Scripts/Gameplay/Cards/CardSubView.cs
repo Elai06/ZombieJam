@@ -15,6 +15,7 @@ namespace Gameplay.Cards
         public event Action<EZombieNames> Click;
 
         [SerializeField] private Image _icon;
+        [SerializeField] private Image _shadowIcon;
         [SerializeField] private Image _background;
         [SerializeField] private Image _indicator;
         [SerializeField] private Image _classIcon;
@@ -35,14 +36,26 @@ namespace Gameplay.Cards
             _cardSlider.value = (float)data.ProgressData.CardsValue / data.ReqiredCards;
             _valueCardsText.text = $"{data.ProgressData.CardsValue}/{data.ReqiredCards}";
             _type = data.ProgressData.Name;
-            
+
             _leveText.text = $"{data.ProgressData.Level + 1}";
-            _nameText.text = data.ProgressData.IsOpen
-                ? $"{data.ProgressData.Name.ToString().AddedUpper()}" : "Not Open";
             
-            //_indicator.gameObject.SetActive(data.IsCanUpgrade);
+            if (data.ProgressData.IsOpen)
+            {
+                _icon.sprite = data.Icon;
+                _shadowIcon.gameObject.SetActive(false);
+                _nameText.text = $"{data.ProgressData.Name.ToString().AddedUpper()}";
+                _clickButton.onClick.AddListener(OnClick);
+            }
+            else
+            {
+                _shadowIcon.sprite = data.Icon;
+                _nameText.text = $"Not Open";
+                _icon.gameObject.SetActive(false);
+                _cardSlider.gameObject.SetActive(false);
+                _classIcon.transform.parent.gameObject.SetActive(false);
+            }
+
             _indicator.gameObject.SetActive(false);
-            _icon.sprite = data.Icon;
             _background.sprite = data.CardSprites.Sprite;
             _tutorialFinger.gameObject.SetActive(data.IsTutorial);
             _classIcon.sprite = data.ClassIcon;
@@ -51,11 +64,6 @@ namespace Gameplay.Cards
             _sliderFill.sprite = sliderFillSprite;
 
             _valueCardsText.text = data.IsCanUpgrade ? "Upgrade!" : _valueCardsText.text;
-        }
-
-        private void OnEnable()
-        {
-            _clickButton.onClick.AddListener(OnClick);
         }
 
         private void OnDisable()
