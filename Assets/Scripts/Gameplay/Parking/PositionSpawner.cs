@@ -72,6 +72,7 @@ namespace Gameplay.Parking
             for (int i = 0; i < _spawnGrid.Count; i++)
             {
                 var spawnPosition = _spawnGrid[i];
+                DestroyImmediate(spawnPosition.CubePrefab);
                 if (spawnPosition.CubePrefab == null)
                 {
                     _spawnGrid[i].SetCubePrefab(Instantiate(_cubePrefab, Vector3.zero, Quaternion.identity,
