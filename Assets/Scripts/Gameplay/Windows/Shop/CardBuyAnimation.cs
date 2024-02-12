@@ -56,27 +56,25 @@ namespace Gameplay.Windows.Shop
                     .Find(x => x.RewardType == EResourceType.Card);
 
                 if (rewardConfig.RewardType != EResourceType.Card) return;
-                
+
                 var shopView = transform.GetComponent<ShopView>();
                 var subView = shopView.BoxContainer.SubViews
                     .First(x => x.Key == shopProductType.ToString()).Value;
-                var sprite = _gameStaticData.SpritesConfig.GetZombieIcon(_shopModel.RandomCardName).HalfHeighSprite;
 
-                StartCoroutine(StartAnimation(subView.transform, rewardConfig.Value, sprite));
+                StartCoroutine(StartAnimation(subView.transform, rewardConfig.Value));
             }
         }
 
-        private IEnumerator StartAnimation(Transform startPosition, int value, Sprite sprite)
+        private IEnumerator StartAnimation(Transform startPosition, int value)
         {
             if (_tween != null && _tween.IsPlaying()) yield break;
             var targetObject = GetTargetPosition();
             for (int i = 0; i < value; i++)
             {
+                var sprite = _gameStaticData.SpritesConfig.GetZombieIcon(_shopModel.RandomCardNames[i]).HalfHeighSprite;
                 yield return new WaitForSeconds(_offsetDuration);
                 var card = Instantiate(_prefab, startPosition.position, Quaternion.identity, transform);
-
                 card.GetComponent<Image>().sprite = sprite;
-
                 _spawnedObjects.Add(card);
                 _tween = card.transform.DOMove(targetObject.position, _durationAnimation)
                     .OnComplete(() => { Destroy(card); });

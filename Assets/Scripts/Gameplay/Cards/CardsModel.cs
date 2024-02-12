@@ -50,6 +50,12 @@ namespace Gameplay.Cards
             foreach (var card in CardsConfig.Cards)
             {
                 var progress = CardsProgress.GetOrCreate(card.ZombieData.Name);
+                
+                if (card.OpenStart)
+                {
+                    progress.IsOpen = true;
+                }
+                
                 var model = new CardModel(progress, card);
                 CardModels.Add(card.ZombieData.Name, model);
             }

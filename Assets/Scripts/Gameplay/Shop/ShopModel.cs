@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Gameplay.Ad;
 using Gameplay.Cards;
 using Gameplay.Configs.Rewards;
@@ -33,7 +34,7 @@ namespace Gameplay.Shop
 
         private bool _isCanBuy = true;
 
-        public EZombieNames RandomCardName { get; private set; }
+        public List<EZombieNames> RandomCardNames { get; private set; } = new();
 
         private ShopModel(GameStaticData gameStaticData, IProgressService progressService,
             ICurrenciesModel currenciesModel, ICardsModel cardsModel, IAdsService adsService,
@@ -63,8 +64,13 @@ namespace Gameplay.Shop
                     .Find(x => x.RewardType == EResourceType.Card);
 
                 if (cardReward.RewardType != EResourceType.Card) return;
+                
+                RandomCardNames.Clear();
 
-                RandomCardName = _cardsModel.GetRandomCard(true);
+                for (int i = 0; i < cardReward.Value; i++)
+                {
+                    RandomCardNames.Add(_cardsModel.GetRandomCard(true));
+                }
             }
 
             var parametrs = $"{{\"productName\":\"{shopProductType}\", " +
@@ -75,7 +81,7 @@ namespace Gameplay.Shop
 
             if (_currentConfigData.IsInApp)
             {
-                _appService.SetCardProduct(RandomCardName);
+                _appService.SetCardProduct(RandomCardNames);
                 _appService.Purchase(_currentConfigData);
                 Purchased?.Invoke(shopProductType);
                 _coroutineService.StartCoroutine(MissClickDefence());
@@ -134,7 +140,10 @@ namespace Gameplay.Shop
 
                 if (reward.RewardType == EResourceType.Card)
                 {
-                    _cardsModel.AddCards(RandomCardName, reward.Value);
+                    foreach (var cardName in RandomCardNames)
+                    {
+                        _cardsModel.AddCards(cardName, 1);
+                    }
                 }
             }
         }

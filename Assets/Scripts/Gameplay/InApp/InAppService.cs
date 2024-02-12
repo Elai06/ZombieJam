@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Gameplay.Cards;
 using Gameplay.Configs.Rewards;
 using Gameplay.Configs.Shop;
@@ -20,7 +21,7 @@ namespace Gameplay.InApp
         private readonly IWindowService _windowService;
         private readonly IProgressService _progressService;
 
-        private EZombieNames _zombieNames;
+        private List<EZombieNames> _zombieNames;
 
         public InAppService(ICurrenciesModel currenciesModel, ICardsModel cardsModel, IWindowService windowService,
             IProgressService progressService)
@@ -67,12 +68,15 @@ namespace Gameplay.InApp
 
                 if (reward.RewardType == EResourceType.Card)
                 {
-                    _cardsModel.AddCards(_zombieNames, reward.Value);
+                    foreach (var cardName in _zombieNames)
+                    {
+                        _cardsModel.AddCards(cardName, reward.Value);
+                    }
                 }
             }
         }
 
-        public void SetCardProduct(EZombieNames zombieNames)
+        public void SetCardProduct(List<EZombieNames> zombieNames)
         {
             _zombieNames = zombieNames;
         }

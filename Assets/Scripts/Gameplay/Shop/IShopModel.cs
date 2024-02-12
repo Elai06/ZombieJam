@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Gameplay.Configs.Shop;
 using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
@@ -9,7 +10,7 @@ namespace Gameplay.Shop
     {
         ShopConfig ShopConfig { get; }
         ShopProgress ShopProgress { get; }
-        EZombieNames RandomCardName { get; }
+        List<EZombieNames> RandomCardNames { get; }
         void BuyProduct(EShopProductType shopProductType);
         event Action<EShopProductType> Purchased;
         bool IsCanConsume(ECurrencyType currencyType, int price);
