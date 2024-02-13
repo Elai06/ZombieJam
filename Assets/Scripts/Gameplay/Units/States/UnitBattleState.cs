@@ -16,16 +16,17 @@ namespace Gameplay.Units.States
         private ICoroutineService _coroutineService;
         private Dictionary<EParameter, float> _parametersConfig;
         private Coroutine _coroutine;
-        private RotateObject _rotateObject;
+        private ObstacleAvoidance _obstacleAvoidance;
 
-        public UnitBattleState(Unit unit, ITargetManager targetManager, ICoroutineService coroutineService, RotateObject rotateObject) 
+        public UnitBattleState(Unit unit, ITargetManager targetManager, ICoroutineService coroutineService,
+            ObstacleAvoidance obstacleAvoidance)
             : base(EUnitState.Battle, unit)
         {
             _unit = unit;
             _targetManager = targetManager;
             _parametersConfig = unit.Parameters;
             _coroutineService = coroutineService;
-            _rotateObject = rotateObject;
+            _obstacleAvoidance = obstacleAvoidance;
         }
 
         public override void Enter()
@@ -33,6 +34,8 @@ namespace Gameplay.Units.States
             base.Enter();
 
             InitializeTarget();
+
+            _obstacleAvoidance.ReachedToTarget += OnReachedToTarget;
         }
 
         public override void Exit()
@@ -43,44 +46,38 @@ namespace Gameplay.Units.States
             {
                 _coroutineService.StopCoroutine(_coroutine);
             }
+
+            _obstacleAvoidance.ReachedToTarget -= OnReachedToTarget;
         }
 
         private void InitializeTarget()
         {
             if (_unit.IsDied || _unit == null) return;
 
-            var radiusAttack = _parametersConfig[EParameter.RadiusAttack];
             _unit.Target = _targetManager.GetTargetEnemy(_unit.transform);
             if (_unit.Target == null) return;
 
-            _coroutineService.StartCoroutine(MoveToTarget(_unit.Target.GetPositionForUnit(_unit, radiusAttack)));
+            MoveToTarget(_unit.Target.Transform);
         }
 
-        private IEnumerator MoveToTarget(Vector3 target)
+        private void MoveToTarget(Transform target)
         {
-            _unit.Animator.SetTrigger("Move");
+            var radiusAttack = _parametersConfig[EParameter.RadiusAttack];
 
-            var distance = Vector3.Distance(target, _unit.transform.position);
+            _obstacleAvoidance.StartMovement(target, radiusAttack);
 
-            while (distance > 0.1f)
+            if (_unit == null || _unit.IsDied) return;
+
+
+            if (_unit.Target.IsDied)
             {
-                if (_unit == null || _unit.IsDied) yield break;
-                var position = Vector3.MoveTowards(_unit.transform.position, target,
-                    Time.fixedDeltaTime * _parametersConfig[EParameter.SpeedOnPark]);
-                distance = Vector3.Distance(target, position);
-
-                _unit.transform.position = position;
-                _rotateObject.Rotate(_unit.Target.Transform.position);
-                    yield return new WaitForFixedUpdate();
-                    
-                    if (_unit.Target.IsDied)
-                    {
-                        InitializeTarget();
-                        yield break;
-                    }
+                InitializeTarget();
             }
+        }
 
-            _coroutine = _coroutineService.StartCoroutine(Damage());
+        private void OnReachedToTarget()
+        {
+            _coroutineService.StartCoroutine(Damage());
         }
 
         private IEnumerator Damage()
@@ -90,12 +87,16 @@ namespace Gameplay.Units.States
 
             while (true)
             {
-                if (_unit.Target == null || _unit.IsDied) yield break;
+                if (_unit.Target == null || _unit.IsDied || !IsAvailableDistance())
+                {
+                    InitializeTarget();
+                    yield break;
+                }
 
                 _unit.PlayAttackAnimation();
 
                 yield return new WaitForSeconds(1 / attackRate);
-                
+
                 if (_unit.Target == null || _unit.IsDied) yield break;
 
                 _unit.DamageToTarget(_unit.Target);
@@ -106,6 +107,15 @@ namespace Gameplay.Units.States
                     yield break;
                 }
             }
+        }
+
+        private bool IsAvailableDistance()
+        {
+            var radiusAttack = _unit.Parameters[EParameter.RadiusAttack];
+
+            var target = _unit.Target.Transform.position;
+            var distance = Vector3.Distance(target, _unit.transform.position);
+            return distance <= radiusAttack + 0.25f;
         }
     }
 }

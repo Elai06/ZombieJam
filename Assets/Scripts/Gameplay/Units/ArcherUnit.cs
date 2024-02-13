@@ -9,6 +9,7 @@ namespace Gameplay.Units
     public class ArcherUnit : Unit
     {
         [SerializeField] private BulletSpawner _bullet;
+        [SerializeField] private ObstacleAvoidance _obstacleAvoidance;
 
         public BulletSpawner Bullet => _bullet;
 
@@ -18,7 +19,7 @@ namespace Gameplay.Units
 
             var parkingState = new ArcherParkingState(this, Parameters, _coroutineService);
             var roadState = new ArcherRoadState(this, _coroutineService, _rotateObject);
-            var battleState = new ArcherBattleState(this, _targetManager, _coroutineService, _rotateObject);
+            var battleState = new ArcherBattleState(this, _targetManager, _coroutineService, _obstacleAvoidance);
             var diedState = new UnitDiedState(this);
 
             _stateMachine.AddState(parkingState);

@@ -25,7 +25,6 @@ namespace Gameplay.Tutorial.States.Shop.Box
 
 
             _windowService.OnOpen += OpenedWindow;
-
             _shopModel.Purchased += OnPurchase;
         }
 

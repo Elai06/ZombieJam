@@ -21,6 +21,7 @@ namespace Gameplay.Enemies
         [SerializeField] private Animator _animator;
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Color _bloodColor;
+        [SerializeField] private ObstacleAvoidance _obstacleAvoidance;
 
         private readonly StateMachine _stateMachine = new();
 
@@ -66,7 +67,7 @@ namespace Gameplay.Enemies
         private void InitializeStates()
         {
             var idleState = new EnemyUnitIdleState(this, _coroutineService, _targetManager);
-            var battleState = new EnemyUnitBattleState(this, _targetManager, _coroutineService, _rotateObject);
+            var battleState = new EnemyUnitBattleState(this, _targetManager, _coroutineService, _rotateObject, _obstacleAvoidance);
             var fallBackState = new EnemyUnitFallBackState(this, _coroutineService, _rotateObject);
             var diedState = new EnemyUnitDiedState(this);
 
@@ -98,15 +99,7 @@ namespace Gameplay.Enemies
                 Died();
             }
         }
-
-        public Vector3 GetPositionForUnit(Unit unit, float radiusAttack)
-        {
-            _attackedUnits.Add(unit);
-            var angle = _attackedUnits.Count - 12 * Mathf.PI * 2 / _attackedUnits.Count;
-            return new Vector3(Mathf.Cos(angle) * radiusAttack, 0, Mathf.Sin(angle) * radiusAttack) +
-                   gameObject.transform.position;
-        }
-
+        
         public void PlayAttackAnimation()
         {
             _animator.SetTrigger("Attack");

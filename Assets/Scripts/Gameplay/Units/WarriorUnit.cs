@@ -1,10 +1,11 @@
 ﻿using Gameplay.Units.States;
+using UnityEngine;
 
 namespace Gameplay.Units
 {
     public class WarriorUnit : Unit
     {
-        
+        [SerializeField] private ObstacleAvoidance _obstacleAvoidance;
         
         public override void InitializeStates()
         {
@@ -12,7 +13,7 @@ namespace Gameplay.Units
             
             var parkingState = new UnitParkingState(this, Parameters, _coroutineService, _arrowDirection);
             var roadState = new UnitRoadState(this, _coroutineService, _rotateObject);
-            var battleState = new UnitBattleState(this, _targetManager, _coroutineService, _rotateObject);
+            var battleState = new UnitBattleState(this, _targetManager, _coroutineService, _obstacleAvoidance);
             var diedState = new UnitDiedState(this);
 
             _stateMachine.AddState(parkingState);

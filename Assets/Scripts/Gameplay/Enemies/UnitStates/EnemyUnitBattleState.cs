@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Gameplay.Battle;
 using Gameplay.Enums;
+using Gameplay.Units;
 using Gameplay.Units.Mover;
 using Infrastructure.UnityBehaviours;
 using UnityEngine;
@@ -15,9 +16,10 @@ namespace Gameplay.Enemies.UnitStates
         private Dictionary<EParameter, float> _parametersConfig;
         private Coroutine _coroutine;
         private RotateObject _rotateObject;
+        private ObstacleAvoidance _obstacleAvoidance;
 
         public EnemyUnitBattleState(EnemyUnit unit, ITargetManager targetManager, ICoroutineService coroutineService,
-            RotateObject rotateObject)
+            RotateObject rotateObject, ObstacleAvoidance obstacleAvoidance)
             : base(unit, EEnemyUnitState.Battle)
         {
             _unit = unit;
@@ -25,6 +27,7 @@ namespace Gameplay.Enemies.UnitStates
             _parametersConfig = unit.Parameters;
             _coroutineService = coroutineService;
             _rotateObject = rotateObject;
+            _obstacleAvoidance = obstacleAvoidance;
         }
 
         public override void Enter()
@@ -32,6 +35,8 @@ namespace Gameplay.Enemies.UnitStates
             base.Enter();
 
             InitializeTarget();
+            
+            _obstacleAvoidance.ReachedToTarget += OnReachedToTarget;
         }
 
         public override void Exit()
@@ -42,46 +47,33 @@ namespace Gameplay.Enemies.UnitStates
             {
                 _coroutineService.StopCoroutine(_coroutine);
             }
+            
+            _obstacleAvoidance.ReachedToTarget -= OnReachedToTarget;
         }
 
         private void InitializeTarget()
         {
             if (_unit == null) return;
 
-            var radiusAttack = _parametersConfig[EParameter.RadiusAttack];
-            if (_unit.Target.UnitClass == EUnitClass.Tank)
-            {
-                radiusAttack += 1;
-            }
-
-            _unit.Animator.SetTrigger("Move");
-            _coroutineService.StartCoroutine(MoveToTarget(_unit.Target.GetPosition(_unit, radiusAttack), radiusAttack));
+            MoveToTarget(_unit.Target.transform);
         }
 
-        private IEnumerator MoveToTarget(Vector3 target, float radiusAttack)
+        private void MoveToTarget(Transform target)
         {
-            var distance = Vector3.Distance(target, _unit.transform.position);
-            while (distance > radiusAttack)
-            {
-                if (_unit == null || _unit.IsDied) yield break;
-                var position = Vector3.MoveTowards(_unit.transform.position, target,
-                    Time.fixedDeltaTime * _parametersConfig[EParameter.SpeedToTarget]);
-                distance = Vector3.Distance(target, position);
+            var radiusAttack = _parametersConfig[EParameter.RadiusAttack];
 
-                _unit.transform.position = position;
-                _rotateObject.Rotate(_unit.Target.transform.position);
-                yield return new WaitForFixedUpdate();
-            }
+            _obstacleAvoidance.StartMovement(target, radiusAttack);
+
 
             if (_unit.Target.IsDied)
             {
                 EnterIdleState();
-                yield break;
             }
-            
-            _unit.Animator.SetTrigger("StopMove");
-
-            _coroutine = _coroutineService.StartCoroutine(Damage());
+        }
+        
+        private void OnReachedToTarget()
+        {
+            _coroutineService.StartCoroutine(Damage());
         }
 
         private IEnumerator Damage()
@@ -98,7 +90,7 @@ namespace Gameplay.Enemies.UnitStates
                     InitializeTarget();
                     yield break;
                 }
-                
+
                 _unit.PlayAttackAnimation();
 
                 _rotateObject.Rotate(_unit.Target.transform.position);
@@ -117,7 +109,6 @@ namespace Gameplay.Enemies.UnitStates
 
         private void EnterIdleState()
         {
-            _unit.Animator.SetTrigger("StopMove");
             _stateMachine.Enter<EnemyUnitIdleState>();
         }
 

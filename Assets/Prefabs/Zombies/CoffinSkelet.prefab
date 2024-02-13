@@ -585,6 +585,7 @@ GameObject:
   - component: {fileID: 1829213751748553581}
   - component: {fileID: 8891734329092935471}
   - component: {fileID: 7509396870226823429}
+  - component: {fileID: -545949565807149726}
   m_Layer: 3
   m_Name: CoffinSkelet
   m_TagString: Untagged
@@ -629,6 +630,7 @@ MonoBehaviour:
   _eSwipeDirection: 0
   _unitSwipe: {fileID: 5298112880199680878}
   _bloodColor: {r: 0.32941177, g: 0.2901961, b: 0.19215688, a: 1}
+  _obstacleAvoidance: {fileID: -545949565807149726}
 --- !u!54 &684429589779431565
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -643,7 +645,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!65 &7172039941052200711
 BoxCollider:
@@ -695,6 +697,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c4679f406f24ed2a61396a46d3aa2e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-545949565807149726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828696383929734650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 661e745aecfe42f7bcdfcc84f2870e7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveSpeed: 3
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  _animator: {fileID: 6608345115401172516}
 --- !u!1 &1887555645874410410
 GameObject:
   m_ObjectHideFlags: 0

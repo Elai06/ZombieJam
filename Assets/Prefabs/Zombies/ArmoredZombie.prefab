@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 5536458948033308633}
   - component: {fileID: 2957620239948724795}
   - component: {fileID: 3949343869181688328}
+  - component: {fileID: 6396896310720289841}
   m_Layer: 3
   m_Name: ArmoredZombie
   m_TagString: Untagged
@@ -177,6 +178,7 @@ MonoBehaviour:
   _eSwipeDirection: 0
   _unitSwipe: {fileID: 7037949685058511927}
   _bloodColor: {r: 0, g: 0.37647063, b: 0.36078432, a: 1}
+  _obstacleAvoidance: {fileID: 6396896310720289841}
 --- !u!136 &4314154567759291866
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -187,10 +189,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.35
-  m_Height: 1
+  m_Radius: 0.2
+  m_Height: 1.5
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.6, z: 0}
 --- !u!54 &5536458948033308633
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -205,7 +207,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &2957620239948724795
 MonoBehaviour:
@@ -234,6 +236,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unit: {fileID: 8314136072308659269}
   _damageTakingParticle: {fileID: 1742762197130040380}
+--- !u!114 &6396896310720289841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6686214517064692398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 661e745aecfe42f7bcdfcc84f2870e7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveSpeed: 3
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _animator: {fileID: 6559176991923815304}
 --- !u!1001 &751103954364431897
 PrefabInstance:
   m_ObjectHideFlags: 0

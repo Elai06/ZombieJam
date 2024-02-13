@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 7901225968601600888}
   - component: {fileID: 1017700513525175257}
   - component: {fileID: 8690333573796676718}
+  - component: {fileID: 169002639575494139}
   m_Layer: 3
   m_Name: HitchHikerZombie
   m_TagString: Untagged
@@ -118,6 +119,7 @@ MonoBehaviour:
   _eSwipeDirection: 0
   _unitSwipe: {fileID: 8922421325892291966}
   _bloodColor: {r: 0.25490198, g: 0.3647059, b: 0.14509805, a: 1}
+  _obstacleAvoidance: {fileID: 169002639575494139}
 --- !u!54 &3325059788409808995
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -132,7 +134,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &7901225968601600888
 MonoBehaviour:
@@ -157,10 +159,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.35
-  m_Height: 2
+  m_Radius: 0.2
+  m_Height: 1.33
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.35, z: 0}
 --- !u!114 &8690333573796676718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +177,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unit: {fileID: 3526283986178969214}
   _damageTakingParticle: {fileID: 185324577387131485}
+--- !u!114 &169002639575494139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4484385641469558036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 661e745aecfe42f7bcdfcc84f2870e7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveSpeed: 3
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  _animator: {fileID: 8475781411936090157}
 --- !u!1 &6483549480185863257
 GameObject:
   m_ObjectHideFlags: 0
