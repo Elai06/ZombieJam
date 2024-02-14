@@ -47,7 +47,7 @@ namespace Gameplay.Units.States
         {
             if (_unit.Curve == null) return;
 
-            var speed = _unit.Parameters[EParameter.SpeedOnRoad];
+            var speed = _unit.Parameters[EParameter.TravelSpeed] + 3;
             var fullDistance = GetFullDistanceCurvePoints();
             var distanceToFinish = Vector3.Distance(_unit.transform.position, _unit.Curve.GetPointAt(1));
             _offsetDurationTime = GetCurrentPositionOnCurve();

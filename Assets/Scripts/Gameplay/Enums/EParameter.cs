@@ -6,9 +6,7 @@
         Damage,
         RadiusAttack,
         AttackRate,
-        SpeedOnPark,
-        SpeedToTarget,
-        SpeedOnRoad,
+        TravelSpeed,
         AttackSpeed,
         AgressiveRange
     }

@@ -23,7 +23,7 @@ namespace Gameplay.Enemies
 
         [SerializeField] private Transform _diedZone;
 
-        private UnSafeEnemyTower _unSafeEnemyTower;
+        private EnemyTower _unSafeEnemyTower;
 
         private ICoroutineService _coroutineService;
         private TimerService _timerService;
@@ -40,7 +40,7 @@ namespace Gameplay.Enemies
             _coroutineService = coroutineService;
             _timerService = timerService;
 
-            _unSafeEnemyTower = gameObject.GetComponent<UnSafeEnemyTower>();
+            _unSafeEnemyTower = gameObject.GetComponent<EnemyTower>();
             _unSafeEnemyTower.Died += TowerDied;
 
             SpawnEnemyUnits();

@@ -91,7 +91,6 @@ namespace Gameplay.Windows.Shop
                 subViewData.isTutorial = subViewData.ProductType switch
                 {
                     EShopProductType.SimpleBox => _tutorialService.CurrentState == ETutorialState.ShopBox,
-                    EShopProductType.LittleSoft => _tutorialService.CurrentState == ETutorialState.ShopCurrency,
                     _ => false
                 };
 
@@ -118,6 +117,8 @@ namespace Gameplay.Windows.Shop
 
         private void OnPurchased(EShopProductType productType)
         {
+            if(_gameStaticData.ShopConfig.GetConfig(productType).IsFree) return;
+            
             InitializeProducts();
         }
 

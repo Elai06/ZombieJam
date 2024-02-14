@@ -2,7 +2,8 @@
 {
     public enum EEnemyType
     {
-        Tower,
+        UnSafeTower,
+        SafeTower,
         Warrior,
     }
 }

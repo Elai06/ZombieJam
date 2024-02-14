@@ -64,7 +64,7 @@ namespace Gameplay.Windows.Boosters
 
         private void ActivateIncreaseAttackSpeed()
         {
-            Activate?.Invoke(EBoosterType.IncreaseAttackSpeed);
+            Activate?.Invoke(EBoosterType.IncreaseTravelSpeed);
         }
 
         private void ActivateIncreaseHP()

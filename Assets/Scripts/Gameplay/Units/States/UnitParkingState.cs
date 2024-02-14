@@ -26,7 +26,7 @@ namespace Gameplay.Units.States
             ICoroutineService coroutineService , ArrowDirection arrowDirection) : base(EUnitState.Parking, unit)
         {
             _unit = unit;
-            _speed = parametersConfig[EParameter.SpeedOnPark];
+            _speed = parametersConfig[EParameter.TravelSpeed];
             _coroutineService = coroutineService;
             _arrowDirection = arrowDirection;
         }

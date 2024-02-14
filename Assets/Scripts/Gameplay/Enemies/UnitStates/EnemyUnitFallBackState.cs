@@ -35,7 +35,7 @@ namespace Gameplay.Enemies.UnitStates
             {
                 if (_unit == null || _unit.IsDied) yield break;
                 var position = Vector3.MoveTowards(_unit.transform.position, _unit.SpawnPosition,
-                    Time.fixedDeltaTime * _unit.Parameters[EParameter.SpeedToTarget]);
+                    Time.fixedDeltaTime * _unit.Parameters[EParameter.TravelSpeed]);
                 distance = Vector3.Distance(_unit.SpawnPosition, position);
 
                 _unit.transform.position = position;

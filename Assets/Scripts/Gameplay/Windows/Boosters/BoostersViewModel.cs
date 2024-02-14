@@ -44,7 +44,7 @@ namespace Gameplay.Windows.Boosters
                 case EBoosterType.IncreaseAttack:
                     View.SetBoosterAttackValue(Model.GetBoosterProgressData(type).Value);
                     break;
-                case EBoosterType.IncreaseAttackSpeed:
+                case EBoosterType.IncreaseTravelSpeed:
                     View.SetBoosterAttackSpeedValue(Model.GetBoosterProgressData(type).Value);
                     break;
                 case EBoosterType.IncreaseHP:

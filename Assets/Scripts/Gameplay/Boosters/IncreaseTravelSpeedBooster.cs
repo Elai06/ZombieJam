@@ -1,9 +1,8 @@
-﻿using Gameplay.Enums;
-using Gameplay.Parking;
+﻿using Gameplay.Parking;
 
 namespace Gameplay.Boosters
 {
-    public class IncreaseAttackSpeedBooster : Booster
+    public class IncreaseTravelSpeedBooster : Booster
     {
         private ZombieSpawner _zombieSpawner;
 
@@ -11,7 +10,7 @@ namespace Gameplay.Boosters
 
         protected override void Start()
         {
-            _boosterType = EBoosterType.IncreaseAttackSpeed;
+            _boosterType = EBoosterType.IncreaseTravelSpeed;
 
             base.Start();
 
@@ -26,8 +25,8 @@ namespace Gameplay.Boosters
             foreach (var zombie in _zombieSpawner.Zombies)
             {
                 var parameters = zombie.Parameters;
-                var increaseValue = parameters[_parameter.ParameterType] * _parameter.IncreaseValue;
-                parameters[_parameter.ParameterType] += increaseValue;
+                var roadSpeed = parameters[_parameter.ParameterType] * _parameter.IncreaseValue;
+                parameters[_parameter.ParameterType] += roadSpeed;
             }
 
             _boostersManager.ConsumeBooster(_boosterType, 1);

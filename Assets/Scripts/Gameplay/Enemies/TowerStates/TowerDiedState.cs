@@ -1,5 +1,5 @@
-﻿using Gameplay.Enums;
-using UnityEngine;
+﻿using Gameplay.Enemies.TowerStates;
+using Gameplay.Enums;
 
 namespace Gameplay.Enemies.States
 {

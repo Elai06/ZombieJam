@@ -24,7 +24,7 @@ namespace Gameplay.Units.ArcherStates
             ICoroutineService coroutineService) : base(EUnitState.Parking, unit)
         {
             _unit = unit;
-            _speed = parametersConfig[EParameter.SpeedOnPark];
+            _speed = parametersConfig[EParameter.TravelSpeed];
             _coroutineService = coroutineService;
         }
 

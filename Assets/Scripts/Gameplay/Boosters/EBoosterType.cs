@@ -5,6 +5,7 @@
         Relocation,
         IncreaseAttack,
         IncreaseAttackSpeed,
-        IncreaseHP
+        IncreaseHP,
+        IncreaseTravelSpeed
     }
 }

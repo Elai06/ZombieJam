@@ -62,7 +62,7 @@ namespace Gameplay.Enemies.TowerStates
 
                 if (IsAvailableDistance(distanceToTarget))
                 {
-                    UnSafeEnemyTower.ShoteBullet(UnSafeEnemyTower.Target.transform, speedAttack);
+                    UnSafeEnemyTower.ShotBullet(UnSafeEnemyTower.Target.transform, speedAttack);
                     var bullet = new TowerBulletModel(_coroutineService, UnSafeEnemyTower.Target,
                         UnSafeEnemyTower.Parameters, duration);
                     bullet.Attacked += OnAttacked;
