@@ -43,7 +43,7 @@ namespace Gameplay.Enemies.UnitStates
                 yield return new WaitForFixedUpdate();
             }
 
-            _unit.InOnSpawnPosition = true;
+            _unit.IsOnSpawnPosition = true;
             
             _stateMachine.Enter<EnemyUnitIdleState>();
         }

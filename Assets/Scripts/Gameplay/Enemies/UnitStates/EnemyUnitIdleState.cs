@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using Gameplay.Battle;
-using Gameplay.Enemies.States;
 using Gameplay.Enums;
 using Infrastructure.UnityBehaviours;
 using UnityEngine;
@@ -40,15 +38,14 @@ namespace Gameplay.Enemies.UnitStates
             {
                 if (_unit == null) yield break;
                 _unit.Target = _targetManager.GetTargetUnit(_unit.transform, radiusAttack);
-
-                if (_unit.Target != null)
+                if (_unit.Target != null )
                 {
                     _stateMachine.Enter<EnemyUnitBattleState>();
-                    _unit.InOnSpawnPosition = false;
+                    _unit.IsOnSpawnPosition = false;
                     yield break;
                 }
 
-                if (!_unit.InOnSpawnPosition)
+                if (!_unit.IsOnSpawnPosition)
                 {
                     var distance = Vector3.Distance(_unit.transform.position, _unit.SpawnPosition);
                     if (distance != 0)

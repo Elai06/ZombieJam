@@ -5,10 +5,7 @@ using Gameplay.Configs.Enemy.Units;
 using Gameplay.Enums;
 using Infrastructure.Timer;
 using Infrastructure.UnityBehaviours;
-using Unity.VisualScripting;
 using UnityEngine;
-using Utils.ZenjectInstantiateUtil;
-using Zenject;
 
 namespace Gameplay.Enemies
 {
@@ -22,7 +19,9 @@ namespace Gameplay.Enemies
         [SerializeField] private List<EEnemyType> _enemyUnits = new List<EEnemyType>();
         [SerializeField] private EnemyUnitsConfig _enemyUnitsConfig;
         [SerializeField] private int _spawnTime = 15;
-        [SerializeField] private float _radiusSpawn = 1;
+        [SerializeField] private float _radiusSpawn = 1.5f;
+
+        [SerializeField] private Transform _diedZone;
 
         private EnemyTower _enemyTower;
 
@@ -49,8 +48,10 @@ namespace Gameplay.Enemies
 
         private void TowerDied(EEnemyType eEnemyType)
         {
-            if(_timeModel != null)
-            { _timeModel.Stopped -= OnStopTimer;}
+            if (_timeModel != null)
+            {
+                _timeModel.Stopped -= OnStopTimer;
+            }
         }
 
         private void SpawnEnemyUnits()
@@ -60,10 +61,11 @@ namespace Gameplay.Enemies
                 var enemy = _enemyUnits[index];
                 var enemyConfig = _enemyUnitsConfig.GetConfigData(enemy);
                 var enemyUnit = Instantiate(enemyConfig.EnemyUnit, transform.parent);
-                
+
                 enemyUnit.transform.position = _enemyTower
                     .GetPositionForEnemyUnit(enemyUnit, _radiusSpawn, _enemyUnits.Count);
-                enemyUnit.Initialize(_coroutineService, _targetManager, enemyConfig.ParametersConfig, enemy, index);
+                enemyUnit.Initialize(_coroutineService, _targetManager, enemyConfig.ParametersConfig,
+                    enemy, index, _diedZone);
                 enemyUnit.OnDied += UnitDied;
                 _spawnedUnits.Add(enemyUnit);
             }

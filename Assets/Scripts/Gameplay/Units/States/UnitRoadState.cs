@@ -76,7 +76,8 @@ namespace Gameplay.Units.States
             if (other.gameObject.layer == UNIT_LAYER)
             {
                 var collision = other.gameObject.GetComponent<Unit>();
-                if (collision == null || collision.CurrentState == EUnitState.Parking)
+                if (collision == null || collision.CurrentState == EUnitState.Parking 
+                                      || collision.CurrentState == EUnitState.Battle)
                 {
                     return;
                 }
@@ -103,7 +104,7 @@ namespace Gameplay.Units.States
                     _isBash = false;
                     yield break;
                 }
-                
+
                 distanceToCollision = Vector3.Distance(_unit.transform.position, collision.position);
                 yield return new WaitForFixedUpdate();
             }

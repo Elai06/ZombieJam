@@ -36,6 +36,7 @@ namespace Gameplay.Units.States
             InitializeTarget();
 
             _obstacleAvoidance.ReachedToTarget += OnReachedToTarget;
+            _obstacleAvoidance.StopMoved += OnStopMoved;
         }
 
         public override void Exit()
@@ -48,6 +49,7 @@ namespace Gameplay.Units.States
             }
 
             _obstacleAvoidance.ReachedToTarget -= OnReachedToTarget;
+            _obstacleAvoidance.StopMoved -= OnStopMoved;
         }
 
         private void InitializeTarget()
@@ -115,7 +117,12 @@ namespace Gameplay.Units.States
 
             var target = _unit.Target.Transform.position;
             var distance = Vector3.Distance(target, _unit.transform.position);
-            return distance <= radiusAttack + 0.25f;
+            return distance <= radiusAttack + 0.2f;
+        }
+
+        private void OnStopMoved()
+        {
+            InitializeTarget();
         }
     }
 }

@@ -19,40 +19,34 @@ namespace Gameplay.Enemies
         [SerializeField] private RotateObject _rotateObject;
         [SerializeField] private HealthBar _healthBar;
         [SerializeField] private Animator _animator;
-        [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Color _bloodColor;
-        [SerializeField] private ObstacleAvoidance _obstacleAvoidance;
+        [SerializeField] private EnemyUnitObstacleAvoidance _obstacleAvoidance;
 
         private readonly StateMachine _stateMachine = new();
 
         private ICoroutineService _coroutineService;
         private ITargetManager _targetManager;
 
-        private List<Unit> _attackedUnits = new();
+        public Transform DiedZone { get; private set; }
 
-        public Dictionary<EParameter, float> Parameters;
+        public Dictionary<EParameter, float> Parameters { get; private set; }
         public EEnemyUnitState CurrentState { get; set; }
         public EEnemyType EnemyType { get; set; }
         public Unit Target { get; set; }
         public int Index { get; set; }
-
         public float Health { get; private set; }
         public bool IsDied { get; private set; }
-        public bool InOnSpawnPosition { get; set; }
+        public bool IsOnSpawnPosition { get; set; }
         public Transform Transform => transform;
         public Vector3 SpawnPosition { get; set; }
-
-        public Rigidbody Rigidbody => _rigidbody;
-
         public Animator Animator => _animator;
-
         public Color BloodColor => _bloodColor;
 
-        public void Initialize(ICoroutineService coroutineService,
-            ITargetManager targetManager, ParametersConfig parametersConfig, EEnemyType type, int index)
+        public void Initialize(ICoroutineService coroutineService, ITargetManager targetManager,
+            ParametersConfig parametersConfig, EEnemyType type, int index, Transform diedZone)
         {
             SpawnPosition = transform.position;
-
+            DiedZone = diedZone;
             _coroutineService = coroutineService;
             _targetManager = targetManager;
             EnemyType = type;
@@ -67,7 +61,7 @@ namespace Gameplay.Enemies
         private void InitializeStates()
         {
             var idleState = new EnemyUnitIdleState(this, _coroutineService, _targetManager);
-            var battleState = new EnemyUnitBattleState(this, _targetManager, _coroutineService, _rotateObject, _obstacleAvoidance);
+            var battleState = new EnemyUnitBattleState(this, _coroutineService, _rotateObject, _obstacleAvoidance);
             var fallBackState = new EnemyUnitFallBackState(this, _coroutineService, _rotateObject);
             var diedState = new EnemyUnitDiedState(this);
 
@@ -99,7 +93,7 @@ namespace Gameplay.Enemies
                 Died();
             }
         }
-        
+
         public void PlayAttackAnimation()
         {
             _animator.SetTrigger("Attack");
@@ -124,9 +118,9 @@ namespace Gameplay.Enemies
             OnDied?.Invoke(EnemyType);
         }
 
-        public void RemoveAttackingUnit(Unit unit)
+        public bool IsAvailableZoneForTarget()
         {
-            _attackedUnits.Remove(unit);
+            return Target.transform.position.z >= DiedZone.transform.position.z;
         }
     }
 }

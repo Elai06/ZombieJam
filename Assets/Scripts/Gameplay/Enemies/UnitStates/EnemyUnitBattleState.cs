@@ -11,19 +11,17 @@ namespace Gameplay.Enemies.UnitStates
 {
     public class EnemyUnitBattleState : EnemyUnitState
     {
-        private ITargetManager _targetManager;
         private ICoroutineService _coroutineService;
         private Dictionary<EParameter, float> _parametersConfig;
         private Coroutine _coroutine;
         private RotateObject _rotateObject;
-        private ObstacleAvoidance _obstacleAvoidance;
+        private EnemyUnitObstacleAvoidance _obstacleAvoidance;
 
-        public EnemyUnitBattleState(EnemyUnit unit, ITargetManager targetManager, ICoroutineService coroutineService,
-            RotateObject rotateObject, ObstacleAvoidance obstacleAvoidance)
+        public EnemyUnitBattleState(EnemyUnit unit, ICoroutineService coroutineService,
+            RotateObject rotateObject, EnemyUnitObstacleAvoidance obstacleAvoidance)
             : base(unit, EEnemyUnitState.Battle)
         {
             _unit = unit;
-            _targetManager = targetManager;
             _parametersConfig = unit.Parameters;
             _coroutineService = coroutineService;
             _rotateObject = rotateObject;
@@ -35,8 +33,9 @@ namespace Gameplay.Enemies.UnitStates
             base.Enter();
 
             InitializeTarget();
-            
+
             _obstacleAvoidance.ReachedToTarget += OnReachedToTarget;
+            _obstacleAvoidance.StopMoved += StopMoved;
         }
 
         public override void Exit()
@@ -47,14 +46,15 @@ namespace Gameplay.Enemies.UnitStates
             {
                 _coroutineService.StopCoroutine(_coroutine);
             }
-            
+
             _obstacleAvoidance.ReachedToTarget -= OnReachedToTarget;
+            _obstacleAvoidance.StopMoved -= StopMoved;
         }
 
         private void InitializeTarget()
         {
             if (_unit == null) return;
-
+            
             MoveToTarget(_unit.Target.transform);
         }
 
@@ -62,15 +62,14 @@ namespace Gameplay.Enemies.UnitStates
         {
             var radiusAttack = _parametersConfig[EParameter.RadiusAttack];
 
-            _obstacleAvoidance.StartMovement(target, radiusAttack);
-
+            _obstacleAvoidance.StartMovement(target, radiusAttack, _unit.DiedZone);
 
             if (_unit.Target.IsDied)
             {
                 EnterIdleState();
             }
         }
-        
+
         private void OnReachedToTarget()
         {
             _coroutineService.StartCoroutine(Damage());
@@ -119,6 +118,11 @@ namespace Gameplay.Enemies.UnitStates
             var target = _unit.Target.transform.position;
             var distance = Vector3.Distance(target, _unit.transform.position);
             return distance <= radiusAttack + 0.25f;
+        }
+
+        private void StopMoved()
+        {
+            InitializeTarget();
         }
     }
 }

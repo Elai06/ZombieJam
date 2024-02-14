@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6082445548747138337}
   - component: {fileID: 6610630357215423625}
   - component: {fileID: 842566439356051442}
-  - component: {fileID: -356343260363113714}
+  - component: {fileID: 193462016992909542}
   m_Layer: 3
   m_Name: ZombieBrain
   m_TagString: Untagged
@@ -68,7 +68,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 124
   m_CollisionDetection: 0
 --- !u!114 &7546304547208371758
 MonoBehaviour:
@@ -91,7 +91,7 @@ MonoBehaviour:
   _unitSwipe: {fileID: 4157588092875620073}
   _bloodColor: {r: 0.098039225, g: 0.29411766, b: 0.39607847, a: 1}
   _bullet: {fileID: 842566439356051442}
-  _obstacleAvoidance: {fileID: -356343260363113714}
+  _obstacleAvoidance: {fileID: 193462016992909542}
 --- !u!114 &6082445548747138337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bullet: {fileID: 2392649937357707323, guid: 9ccff8b73f5dd1840a7e639daf8af554, type: 3}
   _spawnPosition: {fileID: 1103829233084640687}
---- !u!114 &-356343260363113714
+--- !u!114 &193462016992909542
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,9 +142,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1242093016697670560}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 661e745aecfe42f7bcdfcc84f2870e7d, type: 3}
+  m_Script: {fileID: 11500000, guid: d8b9d227b37441f1af30c1e9c9123b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rayDistance: 0.4
   _moveSpeed: 3
   obstacleLayer:
     serializedVersion: 2

@@ -18,13 +18,7 @@ namespace Gameplay.Units.States
             
             _unit.gameObject.SetActive(false);
             _unit.GetComponent<FXSpawner>().FXSpawn();
-            
-            
-            if (_unit.Target != null)
-            {
-                _unit.Target.RemoveAttackingUnit(_unit);
-            }
-            
+
             _unit.Animator.SetTrigger("Died");
         }
     }

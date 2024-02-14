@@ -76,7 +76,8 @@ namespace Gameplay.Units.ArcherStates
             if (other.gameObject.layer == UNIT_LAYER)
             {
                 var collision = other.gameObject.GetComponent<Unit>();
-                if (collision == null || collision.CurrentState == EUnitState.Parking)
+                if (collision == null || collision.CurrentState == EUnitState.Parking 
+                                      || collision.CurrentState == EUnitState.Battle)
                 {
                     return;
                 }

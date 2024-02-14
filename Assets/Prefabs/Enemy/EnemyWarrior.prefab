@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 3935580951667045659}
   - component: {fileID: 4726104130174416664}
   - component: {fileID: 4905514530812327644}
-  - component: {fileID: 4344740402969639676}
+  - component: {fileID: 6677447792913004978}
   m_Layer: 8
   m_Name: EnemyWarrior
   m_TagString: Untagged
@@ -110,7 +110,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 124
   m_CollisionDetection: 0
 --- !u!114 &4905514530812327644
 MonoBehaviour:
@@ -127,10 +127,9 @@ MonoBehaviour:
   _rotateObject: {fileID: 3663563118909227853}
   _healthBar: {fileID: 2493907281459013390}
   _animator: {fileID: 2684128493577537944}
-  _rigidbody: {fileID: 4726104130174416664}
   _bloodColor: {r: 1, g: 0, b: 0, a: 1}
-  _obstacleAvoidance: {fileID: 4344740402969639676}
---- !u!114 &4344740402969639676
+  _obstacleAvoidance: {fileID: 6677447792913004978}
+--- !u!114 &6677447792913004978
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,11 +138,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5875295441954857583}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 661e745aecfe42f7bcdfcc84f2870e7d, type: 3}
+  m_Script: {fileID: 11500000, guid: ffb7490b85694a79a1f06b7f48db00e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRadius: 0.5
-  _moveSpeed: 2
+  _rayDistance: 0.5
+  _moveSpeed: 3
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 256
