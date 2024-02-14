@@ -73,7 +73,7 @@ namespace Gameplay.Windows.Cards
             _priceValue.text = $"{data.CurrencyReqired}";
             var isEnoughCurrency = data.CurrencyValue >= data.CurrencyReqired;
             _priceValue.color = isEnoughCurrency ? Color.white : Color.red;
-            _upgradeButton.interactable = isEnoughCurrency;
+            _upgradeButton.interactable = data.IsCanUpgrade;
         }
 
         private void InitializeParameters(CardPopUpData data)

@@ -1,4 +1,6 @@
-﻿using Gameplay.Enums;
+﻿using System.Threading.Tasks;
+using Gameplay.CinemachineCamera;
+using Gameplay.Enums;
 using Gameplay.Level;
 using Gameplay.Shop;
 using Gameplay.Windows.Gameplay;
@@ -118,14 +120,22 @@ namespace Gameplay.Windows
             Restart();
         }
 
-        private void Restart()
+        private async void Restart()
         {
-            SceneManager.LoadScene($"Gameplay");
-
-            _windowService.Close(WindowType.Died);
-            _windowService.Open(WindowType.MainMenu);
-            _windowService.Open(WindowType.Footer);
             _gameplayModel.StopWave();
+
+            SceneManager.LoadScene($"Gameplay");
+            await Task.Delay(50);
+
+            if (_windowService.IsOpen(WindowType.Died))
+            {
+                _windowService.Close(WindowType.Died);
+            }
+
+            var cameraSelector = FindObjectOfType<CameraSelector>();
+            cameraSelector.ChangeCamera(ECameraType.Park);
+            
+            _gameplayModel.StartWave();
         }
 
         private void SetPatrolContent()

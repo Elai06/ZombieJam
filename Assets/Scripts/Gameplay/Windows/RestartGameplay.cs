@@ -1,4 +1,5 @@
-﻿using Gameplay.Tutorial;
+﻿using System;
+using Gameplay.Tutorial;
 using Gameplay.Windows.Gameplay;
 using Infrastructure.Windows;
 using UnityEngine;
@@ -18,6 +19,11 @@ namespace Gameplay.Windows
 
         private void OnEnable()
         {
+            if (_button == null)
+            {
+                _button = gameObject.GetComponent<Button>();
+            }
+
             _button.onClick.AddListener(Restart);
         }
 
