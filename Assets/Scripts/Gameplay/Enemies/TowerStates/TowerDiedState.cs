@@ -5,7 +5,7 @@ namespace Gameplay.Enemies.States
 {
     public class TowerDiedState : EnemyState
     {
-        public TowerDiedState(EnemyTower enemyTower) : base(enemyTower, EEnemyState.Died)
+        public TowerDiedState(UnSafeEnemyTower unSafeEnemyTower) : base(unSafeEnemyTower, EEnemyState.Died)
         {
         }
 
@@ -18,8 +18,8 @@ namespace Gameplay.Enemies.States
         {
             base.Enter();
             
-            EnemyTower.IsDied = true;
-            EnemyTower.gameObject.SetActive(false);
+            UnSafeEnemyTower.IsDied = true;
+            UnSafeEnemyTower.gameObject.SetActive(false);
         }
     }
 }

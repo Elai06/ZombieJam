@@ -7,13 +7,14 @@ using Gameplay.Enemies.TowerStates;
 using Gameplay.Enums;
 using Gameplay.Parameters;
 using Gameplay.Units;
+using Gameplay.Units.Mover;
 using Infrastructure.StateMachine;
 using Infrastructure.UnityBehaviours;
 using UnityEngine;
 
 namespace Gameplay.Enemies
 {
-    public class EnemyTower : MonoBehaviour, IEnemy
+    public class UnSafeEnemyTower : MonoBehaviour, IEnemy
     {
         public event Action<EEnemyType> Died;
         public event Action TakeDamage;
@@ -21,10 +22,9 @@ namespace Gameplay.Enemies
         [SerializeField] private EEnemyType _type;
         [SerializeField] private HealthBar _healthBar;
         [SerializeField] private CircleRenderer _circleRenderer;
-        [SerializeField] private int _unitsCount = 12;
+        [SerializeField] private RotateObject _rotateObject;
         [SerializeField] private Animator _animator;
         [SerializeField] private BulletSpawner _bullet;
-        [SerializeField] private bool _isSafe;
         [SerializeField] private Color _bloodColor;
 
         private ICoroutineService _coroutineService;
@@ -32,7 +32,6 @@ namespace Gameplay.Enemies
         private readonly StateMachine _stateMachine = new();
 
         public Unit Target { get; set; }
-        private readonly List<Unit> _attackedUnits = new();
         private readonly List<EnemyUnit> _defenceUnits = new();
 
         public float Health { get; private set; }
@@ -41,7 +40,6 @@ namespace Gameplay.Enemies
 
         public EEnemyType EnemyType => _type;
 
-        public bool IsSafe => _isSafe;
         public Transform Transform => transform;
 
         public Dictionary<EParameter, float> Parameters { get; private set; }
@@ -64,7 +62,7 @@ namespace Gameplay.Enemies
         private void InitializeStates()
         {
             var idleState = new TowerIdleState(this, _targetManager, _coroutineService);
-            var battleState = new TowerBattleState(this, _coroutineService);
+            var battleState = new TowerBattleState(this, _coroutineService, _rotateObject);
             var diedState = new TowerDiedState(this);
 
             _stateMachine.AddState(idleState);
@@ -91,14 +89,6 @@ namespace Gameplay.Enemies
             TakeDamage?.Invoke();
         }
 
-        public Vector3 GetPositionForUnit(Unit unit, float radiusAttack)
-        {
-            var angle = _unitsCount - _attackedUnits.Count * Mathf.PI * 2 / _unitsCount;
-            _attackedUnits.Add(unit);
-            return new Vector3(Mathf.Cos(angle) * radiusAttack, 0, Mathf.Sin(angle) * radiusAttack) +
-                   gameObject.transform.position;
-        }
-
         public Vector3 GetPositionForEnemyUnit(EnemyUnit unit, float radiusAttack, int enemyUnitsCount)
         {
             var angle = enemyUnitsCount - _defenceUnits.Count * Mathf.PI * 2 / enemyUnitsCount;
@@ -107,24 +97,12 @@ namespace Gameplay.Enemies
                    gameObject.transform.position;
         }
 
-        public void DamageToTarget(Unit unit)
-        {
-            if (unit == null) return;
-            var attack = Parameters[EParameter.Damage];
-            unit.GetDamage(attack);
-        }
-
         public void ShoteBullet(Transform target, float speedAttack)
         {
             if (Target.IsDied) return;
 
-            //   _animator.SetTrigger("Attack");
+            _animator.SetTrigger("Attack");
             _bullet.Shot(target, speedAttack, Target.BloodColor);
-        }
-
-        public void RemoveAttackingUnit(Unit unit)
-        {
-            _attackedUnits.Remove(unit);
         }
     }
 }

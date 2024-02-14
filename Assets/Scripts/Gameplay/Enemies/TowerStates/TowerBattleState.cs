@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Gameplay.Enemies.States;
 using Gameplay.Enums;
 using Gameplay.Parameters;
+using Gameplay.Units.Mover;
 using Infrastructure.UnityBehaviours;
 using UnityEngine;
 
@@ -11,21 +12,23 @@ namespace Gameplay.Enemies.TowerStates
     public class TowerBattleState : EnemyState
     {
         private readonly ICoroutineService _coroutineService;
+        private readonly RotateObject _rotateObject;
         private Coroutine _coroutine;
 
-        private Queue _shotsQueue = new Queue();
+        private Queue _shotsQueue = new();
 
-        public TowerBattleState(EnemyTower enemyTower, ICoroutineService coroutineService)
-            : base(enemyTower, EEnemyState.Battle)
+        public TowerBattleState(UnSafeEnemyTower unSafeEnemyTower, ICoroutineService coroutineService,
+            RotateObject rotateObject) : base(unSafeEnemyTower, EEnemyState.Battle)
         {
             _coroutineService = coroutineService;
-            EnemyTower = enemyTower;
+            UnSafeEnemyTower = unSafeEnemyTower;
+            _rotateObject = rotateObject;
         }
 
         public override void Enter()
         {
             base.Enter();
-            var attackRate = EnemyTower.Parameters[EParameter.AttackRate];
+            var attackRate = UnSafeEnemyTower.Parameters[EParameter.AttackRate];
             _coroutine = _coroutineService.StartCoroutine(Attack(attackRate));
         }
 
@@ -39,34 +42,34 @@ namespace Gameplay.Enemies.TowerStates
 
         private IEnumerator Attack(float attackRate)
         {
-            var speedAttack = EnemyTower.Parameters[EParameter.AttackSpeed];
+            var speedAttack = UnSafeEnemyTower.Parameters[EParameter.AttackSpeed];
 
             while (true)
             {
-                if (EnemyTower.IsDied)
+                if (UnSafeEnemyTower.IsDied)
                 {
                     _stateMachine.Enter<TowerDiedState>();
                     yield break;
                 }
 
-                if (EnemyTower.IsSafe) yield break;
+                _rotateObject.Rotate(UnSafeEnemyTower.Target.transform.position);
 
                 var distanceToTarget =
-                    Vector3.Distance(EnemyTower.transform.position, EnemyTower.Target.transform.position);
+                    Vector3.Distance(UnSafeEnemyTower.transform.position, UnSafeEnemyTower.Target.transform.position);
                 var duration = distanceToTarget / speedAttack;
 
                 yield return new WaitForSeconds(1 / attackRate);
 
                 if (IsAvailableDistance(distanceToTarget))
                 {
-                    EnemyTower.ShoteBullet(EnemyTower.Target.transform, speedAttack);
-                    var bullet = new TowerBulletModel(_coroutineService, EnemyTower.Target,
-                        EnemyTower.Parameters, duration);
+                    UnSafeEnemyTower.ShoteBullet(UnSafeEnemyTower.Target.transform, speedAttack);
+                    var bullet = new TowerBulletModel(_coroutineService, UnSafeEnemyTower.Target,
+                        UnSafeEnemyTower.Parameters, duration);
                     bullet.Attacked += OnAttacked;
                     _shotsQueue.Enqueue(bullet);
                 }
 
-                if (EnemyTower.Target == null || EnemyTower.Target.IsDied)
+                if (UnSafeEnemyTower.Target == null || UnSafeEnemyTower.Target.IsDied)
                 {
                     _stateMachine.Enter<TowerIdleState>();
                     yield break;
@@ -76,7 +79,7 @@ namespace Gameplay.Enemies.TowerStates
 
         private bool IsAvailableDistance(float distance)
         {
-            var radiusAttack = EnemyTower.Parameters[EParameter.RadiusAttack];
+            var radiusAttack = UnSafeEnemyTower.Parameters[EParameter.RadiusAttack];
             if (distance > radiusAttack)
             {
                 _stateMachine.Enter<TowerIdleState>();

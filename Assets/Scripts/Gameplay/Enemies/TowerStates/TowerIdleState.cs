@@ -15,11 +15,11 @@ namespace Gameplay.Enemies.TowerStates
 
         private Coroutine _coroutine;
 
-        public TowerIdleState(EnemyTower enemyTower, ITargetManager targetManager, ICoroutineService coroutineService) : base(enemyTower, EEnemyState.Idle)
+        public TowerIdleState(UnSafeEnemyTower unSafeEnemyTower, ITargetManager targetManager, ICoroutineService coroutineService) : base(unSafeEnemyTower, EEnemyState.Idle)
         {
             _targetManager = targetManager;
             _coroutineService = coroutineService;
-            EnemyTower = enemyTower;
+            UnSafeEnemyTower = unSafeEnemyTower;
         }
 
         public override void Exit()
@@ -40,13 +40,13 @@ namespace Gameplay.Enemies.TowerStates
 
         private IEnumerator FindTarget()
         {
-            var radiusAttack = EnemyTower.Parameters[EParameter.RadiusAttack];
+            var radiusAttack = UnSafeEnemyTower.Parameters[EParameter.RadiusAttack];
             while (true)
             {
-                if (EnemyTower == null) yield break;
-                EnemyTower.Target = _targetManager.GetTargetUnit(EnemyTower.transform, radiusAttack);
+                if (UnSafeEnemyTower == null) yield break;
+                UnSafeEnemyTower.Target = _targetManager.GetTargetUnit(UnSafeEnemyTower.transform, radiusAttack);
 
-                if (EnemyTower.Target != null)
+                if (UnSafeEnemyTower.Target != null)
                 {
                     _stateMachine.Enter<TowerBattleState>();
                     yield break;

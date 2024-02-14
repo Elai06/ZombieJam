@@ -15,6 +15,7 @@ namespace Gameplay.Enemies
     public class EnemyUnit : MonoBehaviour, IEnemy
     {
         public event Action<EEnemyType> OnDied;
+        public event Action TakeDamage;
 
         [SerializeField] private RotateObject _rotateObject;
         [SerializeField] private HealthBar _healthBar;
@@ -92,6 +93,8 @@ namespace Gameplay.Enemies
             {
                 Died();
             }
+
+            TakeDamage?.Invoke();
         }
 
         public void PlayAttackAnimation()

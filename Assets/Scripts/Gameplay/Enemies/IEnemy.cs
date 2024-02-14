@@ -1,7 +1,5 @@
 ﻿using System;
-using Gameplay.Units;
 using UnityEngine;
-using Utils.CurveBezier;
 
 namespace Gameplay.Enemies
 {
@@ -11,5 +9,6 @@ namespace Gameplay.Enemies
         Transform Transform { get; }
         bool IsDied { get; }
          Color BloodColor { get; }
+         event Action TakeDamage;
     }
 }

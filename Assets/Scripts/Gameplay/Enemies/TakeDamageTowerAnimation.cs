@@ -5,17 +5,18 @@ namespace Gameplay.Enemies
 {
     public class TakeDamageTowerAnimation : MonoBehaviour
     {
-        [SerializeField] private EnemyTower _enemyTower;
         private Tween _tween;
+        private IEnemy _enemy;
 
-        private void OnEnable()
+        private void Start()
         {
-            _enemyTower.TakeDamage += OnTakeDamage;
+            _enemy = gameObject.GetComponent<IEnemy>();
+            _enemy.TakeDamage += OnTakeDamage;
         }
 
         private void OnDisable()
         {
-            _enemyTower.TakeDamage -= OnTakeDamage;
+            _enemy.TakeDamage -= OnTakeDamage;
         }
 
         private void OnTakeDamage()

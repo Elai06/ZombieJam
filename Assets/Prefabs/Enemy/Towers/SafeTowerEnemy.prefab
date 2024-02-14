@@ -163,9 +163,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2625871721960994530}
   - component: {fileID: 2625871721960994533}
-  - component: {fileID: 2625871721960994534}
-  - component: {fileID: 5045112723148441695}
   - component: {fileID: -1692663477359889793}
+  - component: {fileID: -7952017611972595651}
   m_Layer: 8
   m_Name: SafeTowerEnemy
   m_TagString: Untagged
@@ -208,40 +207,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2625871721960994534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2625871721960994531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 997eff0344fa42cba115a6b0db4da139, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _type: 0
-  _healthBar: {fileID: 6246972279302597229}
-  _circleRenderer: {fileID: 428072595}
-  _unitsCount: 12
-  _animator: {fileID: 468304810808818383}
-  _bullet: {fileID: 5045112723148441695}
-  _isSafe: 1
-  _bloodColor: {r: 0.38823533, g: 0.3137255, b: 0.22352943, a: 1}
---- !u!114 &5045112723148441695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2625871721960994531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7678fe4e3a446299f5893e9d91c6c39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bullet: {fileID: 2392649937357707323, guid: 6a4ef35ae55992942930e115c3d36e5a, type: 3}
-  _spawnPosition: {fileID: 3736078480909523280}
 --- !u!114 &-1692663477359889793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,7 +219,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c85143c7d5d4f74b3c10f572685cc34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyTower: {fileID: 2625871721960994534}
+--- !u!114 &-7952017611972595651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2625871721960994531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d5d2f18a2c41fe938636bc72a5d897, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthBar: {fileID: 6246972279302597229}
+  _animator: {fileID: 468304810808818383}
+  _type: 0
+  _bloodColor: {r: 0.38823533, g: 0.3137255, b: 0.22352943, a: 1}
 --- !u!1001 &517385781349238173
 PrefabInstance:
   m_ObjectHideFlags: 0
