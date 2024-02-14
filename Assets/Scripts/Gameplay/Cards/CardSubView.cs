@@ -1,9 +1,7 @@
 ﻿using System;
 using Gameplay.Configs.Zombies;
-using Gameplay.Enums;
 using Infrastructure.Windows.MVVM.SubView;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
