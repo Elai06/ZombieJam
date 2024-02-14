@@ -36,7 +36,7 @@ namespace Gameplay.Cards
             _type = data.ProgressData.Name;
 
             _leveText.text = $"{data.ProgressData.Level + 1}";
-            
+
             if (data.ProgressData.IsOpen)
             {
                 _icon.sprite = data.Icon;
@@ -58,7 +58,7 @@ namespace Gameplay.Cards
             _tutorialFinger.gameObject.SetActive(data.IsTutorial);
             _classIcon.sprite = data.ClassIcon;
 
-            var sliderFillSprite = data.IsCanUpgrade ? _fillGreen : _fillDefoult;
+            var sliderFillSprite = data.ProgressData.CardsValue >= data.ReqiredCards ? _fillGreen : _fillDefoult;
             _sliderFill.sprite = sliderFillSprite;
 
             _valueCardsText.text = data.IsCanUpgrade ? "Upgrade!" : _valueCardsText.text;

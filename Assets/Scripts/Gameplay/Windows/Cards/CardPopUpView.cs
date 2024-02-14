@@ -20,6 +20,7 @@ namespace Gameplay.Windows.Cards
         [SerializeField] private Image _background;
         [SerializeField] private Image _classIcon;
         [SerializeField] private Image _labelBackground;
+        [SerializeField] private Image _sliderFill;
         [SerializeField] private TextMeshProUGUI _nameText;
         [SerializeField] private TextMeshProUGUI _priceValue;
         [SerializeField] private TextMeshProUGUI _sliderValue;
@@ -27,6 +28,8 @@ namespace Gameplay.Windows.Cards
         [SerializeField] private Slider _slider;
         [SerializeField] private TextMeshProUGUI _notCurrencyText;
         [SerializeField] private Image _tutorialFinger;
+        [SerializeField] private Sprite _fillGreen;
+        [SerializeField] private Sprite _fillDefoult;
 
         [SerializeField] private ParameterSubViewContainer _parameterSubViewContainer;
 
@@ -47,6 +50,8 @@ namespace Gameplay.Windows.Cards
             _type = data.ProgressData.Name;
             _slider.value = data.ProgressData.CardsValue / (float)data.CardsReqired;
             _sliderValue.text = $"{data.ProgressData.CardsValue}/{data.CardsReqired}";
+            var sliderFillSprite = data.ProgressData.CardsValue >= data.CardsReqired ? _fillGreen : _fillDefoult;
+            _sliderFill.sprite = sliderFillSprite;
             _isCanUpgrade = data.IsCanUpgrade;
             _unitIcon.sprite = data.Icon;
             _background.color = data.CardSprites.CardsPopUpBGColor;
