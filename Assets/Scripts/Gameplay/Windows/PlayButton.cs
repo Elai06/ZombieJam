@@ -48,20 +48,29 @@ namespace Gameplay.Windows
                 _button.interactable = false;
                 StartPlay();
             }
-            
+
             OnChangedState(_tutorialService.CurrentState);
         }
 
         private void OnEnable()
         {
             _button.onClick.AddListener(Play);
-            _button.interactable = true;
             _tutorialService.СhangedState += OnChangedState;
 
             if (_tutorialService.CurrentState == ETutorialState.StartCard)
             {
                 var waveIndex = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion().CurrentWaweIndex;
                 _button.interactable = waveIndex < 2;
+            }
+
+            else if (_tutorialService.CurrentState == ETutorialState.PlayButton 
+                     || _tutorialService.CurrentState == ETutorialState.Completed)
+            {
+                _button.interactable = true;
+            }
+            else
+            {
+                _button.interactable = false;
             }
         }
 
@@ -74,8 +83,6 @@ namespace Gameplay.Windows
 
         private void Play()
         {
-            if (_tutorialService.CurrentState != ETutorialState.PlayButton) return;
-
             if (_gameplayModel.GetCurrentRegionProgress().RegionIndex > 0)
             {
                 if (_adsService.ShowAds(EAdsType.Interstitial))

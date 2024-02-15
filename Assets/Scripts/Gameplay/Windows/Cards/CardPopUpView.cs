@@ -161,6 +161,7 @@ namespace Gameplay.Windows.Cards
         public void Close()
         {
             gameObject.SetActive(false);
+            _closeTutorialFinger.gameObject.SetActive(false);
             PopUpClosed?.Invoke();
         }
 

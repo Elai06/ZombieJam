@@ -49,7 +49,7 @@ namespace Gameplay.Windows
             _adImage.gameObject.SetActive(true);
 
             var progress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
-            var waveIndex = progress.CurrentWaweIndex == 0 ? 0 : progress.CurrentWaweIndex - 1;
+            var waveIndex = progress.CurrentWaweIndex;
             SetWave(progress.ERegionType, waveIndex);
             _gameplayModel.LooseWave();
             SetLevel();
