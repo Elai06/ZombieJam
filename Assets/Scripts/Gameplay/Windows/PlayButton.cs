@@ -13,6 +13,8 @@ namespace Gameplay.Windows
 {
     public class PlayButton : MonoBehaviour
     {
+        [SerializeField] private Image _tutorialFinger;
+
         private Button _button;
 
         private CameraSelector _cameraSelector;
@@ -46,6 +48,8 @@ namespace Gameplay.Windows
                 _button.interactable = false;
                 StartPlay();
             }
+            
+            OnChangedState(_tutorialService.CurrentState);
         }
 
         private void OnEnable()
@@ -54,7 +58,7 @@ namespace Gameplay.Windows
             _button.interactable = true;
             _tutorialService.СhangedState += OnChangedState;
 
-            if (_tutorialService.CurrentState == ETutorialState.Card)
+            if (_tutorialService.CurrentState == ETutorialState.StartCard)
             {
                 var waveIndex = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion().CurrentWaweIndex;
                 _button.interactable = waveIndex < 2;
@@ -70,7 +74,7 @@ namespace Gameplay.Windows
 
         private void Play()
         {
-            if (_tutorialService.CurrentState != ETutorialState.Completed) return;
+            if (_tutorialService.CurrentState != ETutorialState.PlayButton) return;
 
             if (_gameplayModel.GetCurrentRegionProgress().RegionIndex > 0)
             {
@@ -100,14 +104,21 @@ namespace Gameplay.Windows
             _windowService.Close(WindowType.Footer);
             _windowService.Open(WindowType.Gameplay);
             _gameplayModel.StartWave();
+
+            _tutorialFinger.gameObject.SetActive(false);
         }
 
         private void OnChangedState(ETutorialState state)
         {
-            if (state != ETutorialState.Completed && state != ETutorialState.Card)
+            if (state != ETutorialState.Completed && state != ETutorialState.PlayButton)
             {
                 _button.interactable = false;
                 return;
+            }
+
+            if (state == ETutorialState.PlayButton)
+            {
+                _tutorialFinger.gameObject.SetActive(true);
             }
 
             _button.interactable = true;

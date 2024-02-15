@@ -27,10 +27,16 @@ namespace Gameplay.Cards
         [SerializeField] private Sprite _fillGreen;
         [SerializeField] private Sprite _fillDefoult;
 
+        private Canvas _canvas;
+
         private EZombieNames _type;
+
+        private bool _isTutorial;
 
         public override void Initialize(CardSubViewData data)
         {
+            _isTutorial = data.IsTutorial;
+            
             _cardSlider.value = (float)data.ProgressData.CardsValue / data.ReqiredCards;
             _valueCardsText.text = $"{data.ProgressData.CardsValue}/{data.ReqiredCards}";
             _type = data.ProgressData.Name;
@@ -62,8 +68,17 @@ namespace Gameplay.Cards
             _sliderFill.sprite = sliderFillSprite;
 
             _valueCardsText.text = data.IsCanUpgrade ? "Upgrade!" : _valueCardsText.text;
-        }
 
+            if (data.IsTutorial)
+            {
+                _canvas = gameObject.AddComponent<Canvas>();
+                gameObject.AddComponent<GraphicRaycaster>();
+                _canvas.overrideSorting = true;
+
+                _canvas.sortingOrder = 5;
+            }
+        }
+        
         private void OnDisable()
         {
             _clickButton.onClick.RemoveListener(OnClick);
@@ -73,6 +88,11 @@ namespace Gameplay.Cards
         {
             _tutorialFinger.gameObject.SetActive(false);
             Click?.Invoke(_type);
+
+            if (_isTutorial)
+            {
+                _canvas.overrideSorting = false;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Gameplay.Cards;
 using Gameplay.Enums;
 using Gameplay.Shop;
@@ -56,21 +57,27 @@ namespace Gameplay.Tutorial
             СhangedState?.Invoke(tutorialState);
         }
 
-        private void InitializeStates()
+        private async void InitializeStates()
         {
             if (CurrentState == ETutorialState.Completed) return;
 
             var swipe = new SwipeTutorialState(this, _windowService, _eventsManager, _gameplayModel);
             var shopBoxTutorialState = new ShopBoxTutorialState(this, _windowService, _shopModel, _eventsManager);
-           // var shopCurrency = new ShopCurrencyTutorialState(this, _windowService, _shopModel, _eventsManager);
-            var card = new CardTutorialState(this, _windowService, _cardsModel, _eventsManager);
+            // var shopCurrency = new ShopCurrencyTutorialState(this, _windowService, _shopModel, _eventsManager);
+            var startCardTutorialState = new StartCardTutorialState(this, _windowService, _cardsModel, _eventsManager);
+            var finishCard = new FinishCardTutorialState(this, _windowService, _eventsManager);
             var completed = new CompletedTutorialState(this, _windowService, _eventsManager);
+            var play = new PlayButtonTutorialState(this, _windowService, _eventsManager, _gameplayModel);
             _stateMachine.AddState(swipe);
             _stateMachine.AddState(shopBoxTutorialState);
-          //  _stateMachine.AddState(shopCurrency);
-            _stateMachine.AddState(card);
+            //  _stateMachine.AddState(shopCurrency);
+            _stateMachine.AddState(startCardTutorialState);
+            _stateMachine.AddState(finishCard);
+            _stateMachine.AddState(finishCard);
+            _stateMachine.AddState(play);
             _stateMachine.AddState(completed);
 
+            await Task.Delay(250);
             RunState();
         }
 
@@ -87,8 +94,14 @@ namespace Gameplay.Tutorial
                 case ETutorialState.ShopCurrency:
                     _stateMachine.Enter<ShopCurrencyTutorialState>();
                     break;
-                case ETutorialState.Card:
-                    _stateMachine.Enter<CardTutorialState>();
+                case ETutorialState.StartCard:
+                    _stateMachine.Enter<StartCardTutorialState>();
+                    break;
+                case ETutorialState.FinishCard:
+                    _stateMachine.Enter<FinishCardTutorialState>();
+                    break;
+                case ETutorialState.PlayButton:
+                    _stateMachine.Enter<PlayButtonTutorialState>();
                     break;
             }
         }
@@ -97,6 +110,11 @@ namespace Gameplay.Tutorial
         public void OpenCardPopUp(EUnitClass unitClass)
         {
             OnOpenCardPopUp?.Invoke(unitClass);
+        }
+
+        public void StartFinishCardTutorial()
+        {
+            _stateMachine.Enter<FinishCardTutorialState>();
         }
     }
 }

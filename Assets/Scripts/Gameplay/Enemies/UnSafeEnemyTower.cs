@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Gameplay.Battle;
+﻿using Gameplay.Battle;
 using Gameplay.Bullets;
 using Gameplay.Enemies.States;
 using Gameplay.Enemies.TowerStates;
@@ -8,7 +6,6 @@ using Gameplay.Enums;
 using Gameplay.Parameters;
 using Gameplay.Units;
 using Gameplay.Units.Mover;
-using Infrastructure.StateMachine;
 using Infrastructure.UnityBehaviours;
 using UnityEngine;
 

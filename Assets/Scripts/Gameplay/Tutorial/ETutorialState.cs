@@ -5,7 +5,9 @@
         Swipe,
         ShopBox,
         ShopCurrency,
-        Card,
+        StartCard,
+        FinishCard,
+        PlayButton,
         Completed
     }
 }

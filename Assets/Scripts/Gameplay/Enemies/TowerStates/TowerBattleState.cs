@@ -30,6 +30,7 @@ namespace Gameplay.Enemies.TowerStates
             base.Enter();
             var attackRate = UnSafeEnemyTower.Parameters[EParameter.AttackRate];
             _coroutine = _coroutineService.StartCoroutine(Attack(attackRate));
+            _coroutine = _coroutineService.StartCoroutine(LookToTarget());
         }
 
         public override void Exit()
@@ -51,8 +52,6 @@ namespace Gameplay.Enemies.TowerStates
                     _stateMachine.Enter<TowerDiedState>();
                     yield break;
                 }
-
-                _rotateObject.Rotate(UnSafeEnemyTower.Target.transform.position);
 
                 var distanceToTarget =
                     Vector3.Distance(UnSafeEnemyTower.transform.position, UnSafeEnemyTower.Target.transform.position);
@@ -92,6 +91,21 @@ namespace Gameplay.Enemies.TowerStates
         private void OnAttacked()
         {
             _shotsQueue.Dequeue();
+        }
+        
+        private IEnumerator LookToTarget()
+        {
+            while (true)
+            {
+                yield return new WaitForFixedUpdate();
+
+                if (UnSafeEnemyTower.Target == null)
+                {
+                    continue;
+                }
+
+                _rotateObject.Rotate(UnSafeEnemyTower.Target.transform.position);
+            }
         }
     }
 }

@@ -11,5 +11,6 @@ namespace Gameplay.Tutorial
         void Initalize();
         event Action<EUnitClass> OnOpenCardPopUp;
         void OpenCardPopUp(EUnitClass unitClass);
+        void StartFinishCardTutorial();
     }
 }

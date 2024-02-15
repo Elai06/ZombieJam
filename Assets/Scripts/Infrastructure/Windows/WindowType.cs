@@ -15,6 +15,7 @@
         Shop,
         Ads,
         InApp,
-        LevelUp
+        LevelUp,
+        Tutorial
     }
 }

@@ -70,8 +70,10 @@ namespace Gameplay.Windows.LevelUp
                             _gameStaticData.SpritesConfig.GetCurrencySprite(currencyType)));
                         continue;
                     case EResourceType.Card:
-                        rewardSubViewDatas.Add(CreateSubView(reward,
-                            _gameStaticData.SpritesConfig.GetZombieIcon(Model.CardNameReward).HalfHeighSprite));
+                        var subViewData = CreateSubView(reward, _gameStaticData.SpritesConfig
+                            .GetZombieIcon(Model.CardNameReward).HalfHeighSprite);
+                        subViewData.isUnit = true;
+                        rewardSubViewDatas.Add(subViewData);
                         continue;
                     default:
                         throw new ArgumentOutOfRangeException();

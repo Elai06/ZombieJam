@@ -4,6 +4,7 @@ using Gameplay.Cards;
 using Gameplay.Configs.Zombies;
 using Gameplay.Tutorial;
 using Infrastructure.StaticData;
+using Infrastructure.Windows;
 using Infrastructure.Windows.MVVM;
 
 namespace Gameplay.Windows.Cards
@@ -12,13 +13,15 @@ namespace Gameplay.Windows.Cards
     {
         private GameStaticData _gameStaticData;
         private ITutorialService _tutorialService;
+        private IWindowService _windowService;
 
         public CardsViewModel(ICardsModel model, CardsView view, GameStaticData gameStaticData,
-            ITutorialService tutorialService)
+            ITutorialService tutorialService, IWindowService windowService)
             : base(model, view)
         {
             _gameStaticData = gameStaticData;
             _tutorialService = tutorialService;
+            _windowService = windowService;
         }
 
         public override void Show()
@@ -33,6 +36,7 @@ namespace Gameplay.Windows.Cards
             View.Upgrade += OnUpgrade;
             Model.UpgradeSucced += UpdateCard;
             View.OnClickCard += ShowPopUp;
+            View.PopUpClosed += OnPopUpClosed;
         }
 
         public override void Unsubscribe()
@@ -42,6 +46,15 @@ namespace Gameplay.Windows.Cards
             View.Upgrade -= OnUpgrade;
             Model.UpgradeSucced -= UpdateCard;
             View.OnClickCard -= ShowPopUp;
+            View.PopUpClosed -= OnPopUpClosed;
+        }
+
+        private void OnPopUpClosed()
+        {
+            if (_tutorialService.CurrentState == ETutorialState.StartCard)
+            {
+                _tutorialService.StartFinishCardTutorial();
+            }
         }
 
         private void InitializeCards()
@@ -73,7 +86,7 @@ namespace Gameplay.Windows.Cards
                     ClassIcon = _gameStaticData.SpritesConfig.GetClassIcon(zombieData.ConfigData.ZombieData.Type)
                 };
 
-                if (_tutorialService.CurrentState == ETutorialState.Card)
+                if (_tutorialService.CurrentState == ETutorialState.StartCard)
                 {
                     if (viewData.IsCanUpgrade)
                     {
@@ -108,14 +121,25 @@ namespace Gameplay.Windows.Cards
             };
 
             View.CardsSubViewContainer.UpdateView(viewData, type.ToString());
-            ShowPopUp(type);
+            View.UpgradeShowPopUp(GetCardPopUpData(type, progress));
         }
 
         private void ShowPopUp(EZombieNames type)
         {
             var progress = Model.CardsProgress.GetOrCreate(type);
-            if (_tutorialService.CurrentState == ETutorialState.Card && progress.CardsValue == 0) return;
+            if (_tutorialService.CurrentState == ETutorialState.StartCard && progress.CardsValue == 0) return;
 
+            var viewData = GetCardPopUpData(type, progress);
+            if (viewData.IsTutorial)
+            {
+                _windowService.Close(WindowType.Tutorial);
+            }
+
+            View.ShowPopUp(viewData);
+        }
+
+        private CardPopUpData GetCardPopUpData(EZombieNames type, CardProgressData progress)
+        {
             var currencyType = Model.GetCurrencyType(type);
             var config = Model.CardsConfig.Cards.Find(x => x.ZombieData.Name == type);
             var viewData = new CardPopUpData
@@ -128,14 +152,14 @@ namespace Gameplay.Windows.Cards
                 CurrencyReqired = Model.GetCurrencyPrice(type, currencyType),
                 ParameterData = config.ZombieData.Parameters.Parameters,
                 IsCanUpgrade = Model.IsCanUpgrade(type, progress),
-                IsTutorial = _tutorialService.CurrentState == ETutorialState.Card,
+                IsTutorial = _tutorialService.CurrentState == ETutorialState.StartCard,
                 Icon = _gameStaticData.SpritesConfig.GetZombieIcon(type).FullHeighSprite,
                 CardSprites = _gameStaticData.SpritesConfig.GetCardsBackground(config.ZombieData.Type),
                 ClassIcon = _gameStaticData.SpritesConfig.GetClassIcon(config.ZombieData.Type),
                 SpritesConfig = _gameStaticData.SpritesConfig,
             };
 
-            View.ShowPopUp(viewData);
+            return viewData;
         }
     }
 }

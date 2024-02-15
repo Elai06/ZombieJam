@@ -30,13 +30,19 @@ namespace Gameplay.Tutorial
             {
                 canvas.overrideSorting = true;
             }
+            
+            StartAnimation();
         }
 
         private void OnEnable()
         {
+        }
+
+        private void StartAnimation()
+        {
             if (_positionAnimation)
             {
-                _tween = gameObject.transform.DOLocalMoveY(gameObject.transform.localPosition.y + _distance, _duration)
+                _tween = gameObject.transform.DOMoveY(gameObject.transform.position.y + _distance, _duration)
                     .SetLoops(-1, LoopType.Restart);
             }
 

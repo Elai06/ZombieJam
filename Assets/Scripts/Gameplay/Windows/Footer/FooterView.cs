@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Gameplay.Cards;
-using Gameplay.Configs.Region;
-using Gameplay.Enums;
-using Gameplay.Level;
 using Gameplay.Tutorial;
-using Gameplay.Windows.Gameplay;
 using Infrastructure.Windows;
 using UnityEngine;
-using UnityEngine.UI;
 using Utils.ZenjectInstantiateUtil;
 using Zenject;
 
@@ -18,9 +12,6 @@ namespace Gameplay.Windows.Footer
     public class FooterView : MonoBehaviour
     {
         [SerializeField] private List<FooterTab> _footerTabs = new();
-        [SerializeField] private Transform _shopTutorial;
-        [SerializeField] private Transform _cardTutorial;
-
         [SerializeField] private Sprite _selectedImage;
         [SerializeField] private Sprite _idleImage;
         [SerializeField] private Sprite _disabledImage;
@@ -39,9 +30,6 @@ namespace Gameplay.Windows.Footer
 
         private void Start()
         {
-            _cardTutorial.gameObject.SetActive(false);
-            _shopTutorial.gameObject.SetActive(false);
-
             InjectService.Instance.Inject(this);
 
             _windowService.OnOpen += OnOpenedView;
@@ -74,7 +62,7 @@ namespace Gameplay.Windows.Footer
 
         private void SelectedTab(FooterTab selected)
         {
-            if (_tutorialService.CurrentState == ETutorialState.Card && 
+            if (_tutorialService.CurrentState == ETutorialState.StartCard &&
                 selected.WindowType == WindowType.Shop) return;
 
             foreach (var footerTab in _footerTabs.Where(x => x.IsInteractable))
@@ -88,18 +76,10 @@ namespace Gameplay.Windows.Footer
 
                 selected.Selected(true);
                 selected.SetImage(_selectedImage);
-            }
 
-            if (_tutorialService.CurrentState != ETutorialState.Completed)
-            {
-                if (selected.WindowType == WindowType.Shop)
+                if (_tutorialService.CurrentState != ETutorialState.Completed)
                 {
-                    _shopTutorial.gameObject.SetActive(false);
-                }
-
-                if (selected.WindowType == WindowType.Cards)
-                {
-                    _cardTutorial.gameObject.SetActive(false);
+                    selected.SetActiveTutorialFinger(false);
                 }
             }
 
@@ -112,12 +92,12 @@ namespace Gameplay.Windows.Footer
 
             foreach (var footerTab in _footerTabs)
             {
-                SetInteractableTab(footerTab, false);
-
+                SetTutorialInteractableTab(footerTab, false);
+                footerTab.SetActiveTutorialFinger(false);
                 switch (tutorialState)
                 {
                     case ETutorialState.Completed:
-                        SetInteractableTab(footerTab, true);
+                        SetTutorialInteractableTab(footerTab, true);
                         //  OpenRegionTabButton();
                         continue;
 
@@ -127,32 +107,45 @@ namespace Gameplay.Windows.Footer
                     case ETutorialState.ShopBox:
                         if (footerTab.WindowType == WindowType.Shop)
                         {
-                            SetInteractableTab(footerTab, true);
-                            _shopTutorial.gameObject.SetActive(true);
+                            SetTutorialInteractableTab(footerTab, true);
+                            footerTab.SetActiveTutorialFinger(true);
                         }
 
                         continue;
 
-                    case ETutorialState.ShopCurrency:
+                    /*case ETutorialState.ShopCurrency:
                         if (footerTab.WindowType == WindowType.Shop)
                         {
-                            SetInteractableTab(footerTab, true);
-                            _shopTutorial.gameObject.SetActive(true);
+                            SetTutorialInteractableTab(footerTab, true);
+                            footerTab.SetActiveTutorialFinger(true);
                         }
 
-                        continue;
+                        continue;*/
 
-                    case ETutorialState.Card:
+                    case ETutorialState.StartCard:
                         if (footerTab.WindowType == WindowType.Cards)
                         {
-                            SetInteractableTab(footerTab, true);
-                            _cardTutorial.gameObject.SetActive(true);
+                            SetTutorialInteractableTab(footerTab, true);
+                            footerTab.SetActiveTutorialFinger(true);
                         }
 
                         if (footerTab.WindowType == WindowType.Shop)
                         {
-                            SetInteractableTab(footerTab, true);
+                            SetTutorialInteractableTab(footerTab, true);
                         }
+
+                        continue;
+
+                    case ETutorialState.FinishCard:
+                        if (footerTab.WindowType == WindowType.Lobby)
+                        {
+                            SetTutorialInteractableTab(footerTab, true);
+                            footerTab.SetActiveTutorialFinger(true);
+                        }
+
+                        continue;
+
+                    case ETutorialState.PlayButton:
 
                         continue;
 
@@ -162,7 +155,7 @@ namespace Gameplay.Windows.Footer
             }
         }
 
-        private void SetInteractableTab(FooterTab footerTab, bool isInteractable)
+        private void SetTutorialInteractableTab(FooterTab footerTab, bool isInteractable)
         {
             footerTab.SetInteractable(isInteractable);
 

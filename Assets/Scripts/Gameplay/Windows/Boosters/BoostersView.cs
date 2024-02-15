@@ -1,5 +1,6 @@
 ﻿using System;
 using Gameplay.Boosters;
+using Gameplay.Configs.Region;
 using Gameplay.Level;
 using TMPro;
 using UnityEngine;
@@ -27,7 +28,7 @@ namespace Gameplay.Windows.Boosters
         [SerializeField] private TextMeshProUGUI _increaseHPText;
         [SerializeField] private Button _increaseHPBooster;
 
-        [Inject] private ILevelModel _levelModel;
+        [Inject] private IRegionManager _regionManager;
 
         private void Start()
         {
@@ -41,7 +42,9 @@ namespace Gameplay.Windows.Boosters
             _increaseAttackSpeedBooster.onClick.AddListener(ActivateIncreaseAttackSpeed);
             _increaseHPBooster.onClick.AddListener(ActivateIncreaseHP);
 
-            _content.gameObject.SetActive(_levelModel.CurrentLevel > 0);
+            var waves = _regionManager.ProgressData.CurrentWaweIndex;
+            var region = _regionManager.Progress.RegionIndex;
+            _content.gameObject.SetActive(waves >= 1 && region >= 1);
         }
 
         private void OnDisable()

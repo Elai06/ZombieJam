@@ -13,6 +13,7 @@ namespace Gameplay.Windows.Footer
 
         [SerializeField] private WindowType _windowType;
         [SerializeField] private Image _lockImage;
+        [SerializeField] private Image _tutorialFinger;
 
         public bool IsInteractable;
         public bool IsSelected;
@@ -71,6 +72,11 @@ namespace Gameplay.Windows.Footer
         public void SetImage(Sprite image)
         {
             _button.image.sprite = image;
+        }
+
+        public void SetActiveTutorialFinger(bool isActive)
+        {
+            _tutorialFinger.gameObject.SetActive(isActive);
         }
     }
 }

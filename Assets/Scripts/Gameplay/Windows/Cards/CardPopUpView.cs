@@ -4,6 +4,7 @@ using Gameplay.Cards;
 using Gameplay.Configs.Zombies;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Gameplay.Windows.Cards
@@ -11,6 +12,7 @@ namespace Gameplay.Windows.Cards
     public class CardPopUpView : MonoBehaviour
     {
         public event Action<EZombieNames> Upgrade;
+        public event Action PopUpClosed;
 
         [SerializeField] private Button _upgradeButton;
         [SerializeField] private Button _closeButtonBG;
@@ -27,14 +29,17 @@ namespace Gameplay.Windows.Cards
         [SerializeField] private TextMeshProUGUI _levelText;
         [SerializeField] private Slider _slider;
         [SerializeField] private TextMeshProUGUI _notCurrencyText;
-        [SerializeField] private Image _tutorialFinger;
+        [SerializeField] private Image _upgradeTutorialFinger;
+        [SerializeField] private Image _closeTutorialFinger;
         [SerializeField] private Sprite _fillGreen;
         [SerializeField] private Sprite _fillDefoult;
 
         [SerializeField] private ParameterSubViewContainer _parameterSubViewContainer;
 
         private EZombieNames _type;
+
         private bool _isCanUpgrade;
+        private bool _isTutorial;
 
         private Vector3 _startNotCurrencyPosition;
 
@@ -42,8 +47,9 @@ namespace Gameplay.Windows.Cards
 
         public void Initialize(CardPopUpData data)
         {
+            _isTutorial = data.IsTutorial;
             _data = data;
-            
+
             _currencyImage.sprite = data.CurrencySprite;
             _nameText.text = $"{data.ProgressData.Name}";
             _levelText.text = $"{data.ProgressData.Level + 1}";
@@ -60,12 +66,57 @@ namespace Gameplay.Windows.Cards
 
             SetPrice(data);
 
-            _tutorialFinger.gameObject.SetActive(data.IsTutorial);
+            _upgradeTutorialFinger.gameObject.SetActive(data.IsTutorial);
             _notCurrencyText.gameObject.SetActive(false);
 
             InitializeParameters(data);
 
             _startNotCurrencyPosition = _notCurrencyText.transform.position;
+        }
+
+        public void UpgradeView(CardPopUpData data)
+        {
+            _currencyImage.sprite = data.CurrencySprite;
+            _nameText.text = $"{data.ProgressData.Name}";
+            _levelText.text = $"{data.ProgressData.Level + 1}";
+            _type = data.ProgressData.Name;
+            _slider.value = data.ProgressData.CardsValue / (float)data.CardsReqired;
+            _sliderValue.text = $"{data.ProgressData.CardsValue}/{data.CardsReqired}";
+            var sliderFillSprite = data.ProgressData.CardsValue >= data.CardsReqired ? _fillGreen : _fillDefoult;
+            _sliderFill.sprite = sliderFillSprite;
+            _isCanUpgrade = data.IsCanUpgrade;
+            _unitIcon.sprite = data.Icon;
+            _background.color = data.CardSprites.CardsPopUpBGColor;
+            _classIcon.sprite = data.ClassIcon;
+            _labelBackground.sprite = data.CardSprites.LabelBackground;
+
+            SetPrice(data);
+
+            _upgradeTutorialFinger.gameObject.SetActive(false);
+           _closeTutorialFinger.gameObject.SetActive(_isTutorial);
+            _notCurrencyText.gameObject.SetActive(false);
+
+            UpdateParameters(data);
+
+            _startNotCurrencyPosition = _notCurrencyText.transform.position;
+        }
+
+        private void UpdateParameters(CardPopUpData data)
+        {
+            foreach (var parameter in data.ParameterData)
+            {
+                if (!_parameterSubViewContainer.SubViews.ContainsKey(parameter.Type.ToString())) return;
+
+                var subView = _parameterSubViewContainer.SubViews[parameter.Type.ToString()];
+                var parameterSubViewData = new ParameterSubViewData
+                {
+                    Type = parameter.Type,
+                    Value = parameter.Value,
+                    Icon = data.SpritesConfig.GetParameterIcon(parameter.Type)
+                };
+
+                subView.UpdateParameter(parameterSubViewData);
+            }
         }
 
         private void SetPrice(CardPopUpData data)
@@ -110,6 +161,7 @@ namespace Gameplay.Windows.Cards
         public void Close()
         {
             gameObject.SetActive(false);
+            PopUpClosed?.Invoke();
         }
 
         private void UpgradeCard()
@@ -127,7 +179,7 @@ namespace Gameplay.Windows.Cards
                 return;
             }
 
-            _tutorialFinger.gameObject.SetActive(false);
+            _closeTutorialFinger.gameObject.SetActive(false);
 
             Upgrade?.Invoke(_type);
         }

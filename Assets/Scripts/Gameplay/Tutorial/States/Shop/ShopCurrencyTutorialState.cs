@@ -46,7 +46,7 @@ namespace Gameplay.Tutorial.States.Shop
                 _windowService.Close(WindowType.Shop);
                 _windowService.Open(WindowType.Lobby);
 
-                _stateMachine.Enter<CardTutorialState>();
+                _stateMachine.Enter<StartCardTutorialState>();
             }
         }
     }

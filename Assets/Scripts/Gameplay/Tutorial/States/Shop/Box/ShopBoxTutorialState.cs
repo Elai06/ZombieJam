@@ -43,7 +43,7 @@ namespace Gameplay.Tutorial.States.Shop.Box
                 await Task.Delay(2000);
                 _windowService.Close(WindowType.Shop);
 
-                _stateMachine.Enter<CardTutorialState>();
+                _stateMachine.Enter<StartCardTutorialState>();
             }
         }
 

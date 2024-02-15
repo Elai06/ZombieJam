@@ -9,6 +9,7 @@ namespace Gameplay.Windows.Cards
 {
     public class CardsView : MonoBehaviour
     {
+        public event Action PopUpClosed; 
         public event Action<EZombieNames> Upgrade;
         public event Action<EZombieNames> OnClickCard;
 
@@ -19,6 +20,7 @@ namespace Gameplay.Windows.Cards
         private void OnEnable()
         {
             _popUpView.Upgrade += OnUpgrade;
+            _popUpView.PopUpClosed += OnPopUpClosed;
         }
 
         public void InitializeCards(List<CardSubViewData> subViewDatas)
@@ -39,6 +41,9 @@ namespace Gameplay.Windows.Cards
             {
                 subView.Click -= OnClick;
             }
+            
+            _popUpView.PopUpClosed -= OnPopUpClosed;
+
             _popUpView.Close();
         }
 
@@ -56,6 +61,16 @@ namespace Gameplay.Windows.Cards
         {
             _popUpView.gameObject.SetActive(true);
             _popUpView.Initialize(popUpData);
+        }
+
+        public void UpgradeShowPopUp(CardPopUpData popUpData)
+        {
+            _popUpView.UpgradeView(popUpData);
+        }
+
+        public void OnPopUpClosed()
+        {
+            PopUpClosed?.Invoke();
         }
     }
 }
