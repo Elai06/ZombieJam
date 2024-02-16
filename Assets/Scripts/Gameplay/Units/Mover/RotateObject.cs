@@ -9,7 +9,8 @@ namespace Gameplay.Units.Mover
         public void Rotate(BezierCurve curve, float t)
         {
             var direction = Direction(curve, t);
-            var deltaX = direction.x - transform.position.x;
+            Rotate(direction);
+            /*var deltaX = direction.x - transform.position.x;
             switch (deltaX)
             {
                 case > 0.05f:
@@ -29,7 +30,7 @@ namespace Gameplay.Units.Mover
                 case < -0.05f:
                     transform.eulerAngles = Vector3.down * 180;
                     return;
-            }
+            }*/
         }
 
         private Vector3 Direction(BezierCurve curve, float t)
@@ -51,6 +52,8 @@ namespace Gameplay.Units.Mover
             Vector3 directionToTarget = target - transform.position;
             Quaternion rotationToTarget = Quaternion.LookRotation(directionToTarget);
             var rotation = Quaternion.Lerp(transform.rotation, rotationToTarget, 10 * Time.fixedDeltaTime);
+            rotation.x = 0;
+            rotation.z = 0;
             transform.rotation = rotation;
         }
     }
