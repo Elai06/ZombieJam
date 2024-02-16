@@ -22,6 +22,7 @@ namespace Gameplay.Tutorial.States.SwipeState
             base.Enter();
 
             _gameplayModel.OnWaveCompleted += WaveCompleted;
+         //   _windowService.Open(WindowType.Tutorial);
         }
 
         public override void Exit()

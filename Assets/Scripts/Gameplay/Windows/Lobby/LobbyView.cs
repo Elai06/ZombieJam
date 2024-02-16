@@ -25,11 +25,11 @@ namespace Gameplay.Windows.Lobby
         [Inject] private IWindowService _windowService;
         [Inject] private IGameplayModel _gameplayModel;
 
+        private bool _isFirstOpen = true;
+
         private void Start()
         {
-            InjectService.Instance.Inject(this);
-
-            Restart();
+            //    Restart();
 
             var progress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
             UpdateWave(progress.ERegionType, progress.CurrentWaweIndex);
@@ -41,7 +41,14 @@ namespace Gameplay.Windows.Lobby
         {
             if (_windowService != null)
             {
-                Restart();
+                if (_isFirstOpen)
+                {
+                    _isFirstOpen = false;
+                }
+                else
+                {
+                    Restart();
+                }
             }
 
             if (_gameplayModel != null)
