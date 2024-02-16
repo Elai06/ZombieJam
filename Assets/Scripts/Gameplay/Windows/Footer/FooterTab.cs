@@ -13,6 +13,7 @@ namespace Gameplay.Windows.Footer
 
         [SerializeField] private WindowType _windowType;
         [SerializeField] private Image _lockImage;
+        [SerializeField] private Image _alphaBg;
         [SerializeField] private Image _tutorialFinger;
 
         public bool IsInteractable;
@@ -25,6 +26,7 @@ namespace Gameplay.Windows.Footer
             _button = gameObject.GetComponent<Button>();
 
             _button.interactable = IsInteractable;
+            _lockImage.gameObject.SetActive(!IsInteractable);
         }
 
         private void OnEnable()
@@ -66,7 +68,7 @@ namespace Gameplay.Windows.Footer
             if (IsInteractable == false) return;
 
             _button.interactable = isInteractable;
-            _lockImage.gameObject.SetActive(!isInteractable);
+            _alphaBg.gameObject.SetActive(!isInteractable);
         }
 
         public void SetImage(Sprite image)

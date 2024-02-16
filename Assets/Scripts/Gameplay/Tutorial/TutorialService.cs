@@ -13,6 +13,7 @@ using Infrastructure.Events;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.StateMachine;
 using Infrastructure.Windows;
+using UnityEngine;
 
 namespace Gameplay.Tutorial
 {
@@ -20,6 +21,7 @@ namespace Gameplay.Tutorial
     {
         public event Action<ETutorialState> СhangedState;
         public event Action<EUnitClass> OnOpenCardPopUp;
+        public event Action<string, Vector2, bool> Message; 
 
         private readonly StateMachine _stateMachine = new();
         private readonly IProgressService _progressService;
@@ -41,7 +43,6 @@ namespace Gameplay.Tutorial
         }
 
         public ETutorialState CurrentState => _progressService.PlayerProgress.CurrentTutorialState;
-
 
         public void Initalize()
         {
@@ -115,6 +116,11 @@ namespace Gameplay.Tutorial
         public void StartFinishCardTutorial()
         {
             _stateMachine.Enter<FinishCardTutorialState>();
+        }
+
+        public void ShowMessage(string message, Vector2 messagePosition, bool isActiveBg)
+        {
+            Message?.Invoke(message, messagePosition,isActiveBg);
         }
     }
 }

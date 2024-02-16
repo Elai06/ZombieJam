@@ -73,8 +73,22 @@ namespace Gameplay.Windows.Cards
 
             _startNotCurrencyPosition = _notCurrencyText.transform.position;
         }
+        
+        private void OnEnable()
+        {
+            _upgradeButton.onClick.AddListener(UpgradeCard);
+            _closeButton.onClick.AddListener(Close);
+            _closeButtonBG.onClick.AddListener(Close);
+        }
 
-        public void UpgradeView(CardPopUpData data)
+        private void OnDisable()
+        {
+            _upgradeButton.onClick.RemoveListener(UpgradeCard);
+            _closeButton.onClick.RemoveListener(Close);
+            _closeButtonBG.onClick.RemoveListener(Close);
+        }
+
+        public void UpdateView(CardPopUpData data)
         {
             _currencyImage.sprite = data.CurrencySprite;
             _nameText.text = $"{data.ProgressData.Name}";
@@ -144,22 +158,10 @@ namespace Gameplay.Windows.Cards
             }
         }
 
-        private void OnEnable()
-        {
-            _upgradeButton.onClick.AddListener(UpgradeCard);
-            _closeButton.onClick.AddListener(Close);
-            _closeButtonBG.onClick.AddListener(Close);
-        }
-
-        private void OnDisable()
-        {
-            _upgradeButton.onClick.RemoveListener(UpgradeCard);
-            _closeButton.onClick.RemoveListener(Close);
-            _closeButtonBG.onClick.RemoveListener(Close);
-        }
-
         public void Close()
         {
+            if(_upgradeTutorialFinger.gameObject.activeSelf) return;
+            
             gameObject.SetActive(false);
             _closeTutorialFinger.gameObject.SetActive(false);
             PopUpClosed?.Invoke();
@@ -170,7 +172,6 @@ namespace Gameplay.Windows.Cards
             if (!_isCanUpgrade)
             {
                 var isEnoughCurrency = _data.CurrencyValue >= _data.CurrencyReqired;
-                var isEnoughCards = _data.CardsReqired >= _data.ProgressData.CardsValue;
 
                 _notCurrencyText.text = !isEnoughCurrency ? "Not enough currencies" : "Not enough cards";
                 _notCurrencyText.gameObject.SetActive(true);

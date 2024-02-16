@@ -65,7 +65,7 @@ namespace Gameplay.Windows.Cards
 
         public void UpgradeShowPopUp(CardPopUpData popUpData)
         {
-            _popUpView.UpgradeView(popUpData);
+            _popUpView.UpdateView(popUpData);
         }
 
         public void OnPopUpClosed()

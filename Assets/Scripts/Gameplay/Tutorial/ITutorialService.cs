@@ -1,5 +1,6 @@
 ﻿using System;
 using Gameplay.Enums;
+using UnityEngine;
 
 namespace Gameplay.Tutorial
 {
@@ -12,5 +13,7 @@ namespace Gameplay.Tutorial
         event Action<EUnitClass> OnOpenCardPopUp;
         void OpenCardPopUp(EUnitClass unitClass);
         void StartFinishCardTutorial();
+        event Action<string, Vector2, bool> Message;
+        void ShowMessage(string message, Vector2 messagePosition,bool isActiveBg);
     }
 }
