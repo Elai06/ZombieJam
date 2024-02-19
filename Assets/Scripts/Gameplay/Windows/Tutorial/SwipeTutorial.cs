@@ -1,5 +1,7 @@
-﻿using DG.Tweening;
+﻿using System.Threading.Tasks;
+using DG.Tweening;
 using Gameplay.Enums;
+using Gameplay.Parking;
 using Gameplay.Tutorial.States.SwipeState;
 using Infrastructure.Input;
 using UnityEngine;
@@ -19,6 +21,8 @@ namespace Gameplay.Windows.Tutorial
 
         [SerializeField] private GameObject _tutorialContent;
 
+        [SerializeField] private ZombieSpawner _zombieSpawner;
+
         [Inject] private SwipeManager _swipeManager;
 
         private readonly Vector3 _firstUnitPosition = new(1.5f, 0.5f, 0.5f);
@@ -28,27 +32,92 @@ namespace Gameplay.Windows.Tutorial
 
         private Tween _tween;
 
+        private int _unitIndex;
+
         private void Start()
         {
             InjectService.Instance.Inject(this);
             StartAnimation();
 
             _swipeManager.OnSwipe += OnSwipe;
+            
+            foreach (var zombie in _zombieSpawner.Zombies)
+            {
+                zombie.OnInitializePath += OnInitializePathfinder;
+            }
         }
 
         private void OnEnable()
         {
-            _horizontalArrow.gameObject.SetActive(true);
-            _horizontalFieldIllumination.gameObject.SetActive(true);
+            _horizontalArrow.gameObject.SetActive(false);
+            _horizontalFieldIllumination.gameObject.SetActive(false);
 
             _verticalArrow.gameObject.SetActive(false);
             _verticalFieldIllumination.gameObject.SetActive(false);
+            _tutorialContent.gameObject.SetActive(false);
         }
 
-        private void StartAnimation()
+        private void OnDisable()
         {
+            foreach (var zombie in _zombieSpawner.Zombies)
+            {
+                zombie.OnInitializePath -= OnInitializePathfinder;
+            }
+        }
+
+        private void OnInitializePathfinder()
+        {
+            _tween?.Kill();
+            _unitIndex++;
+
+            if (_unitIndex == 1)
+            {
+                _verticalArrow.gameObject.SetActive(true);
+                _verticalFieldIllumination.gameObject.SetActive(true);
+                _tween = _verticalArrow.transform
+                    .DOLocalMoveZ(_verticalArrow.transform.position.z + 1.75f, 1.75f)
+                    .SetLoops(-1, LoopType.Restart);
+
+                _isFirstSwipeCompleted = true;
+            }
+            else if (_unitIndex == 2)
+            {
+                _tutorialContent.SetActive(false);
+                _swipeManager.IsSwipeTutorialCompleted = true;
+            }
+        }
+
+        private async void StartAnimation()
+        {
+            await Task.Delay(1500);
+
+            _tutorialContent.gameObject.SetActive(true);
+            _horizontalArrow.gameObject.SetActive(true);
+            _horizontalFieldIllumination.gameObject.SetActive(true);
+
             _tween = _horizontalArrow.transform.DOLocalMoveX(_horizontalArrow.transform.position.x - 1.75f, 1.75f)
                 .SetLoops(-1, LoopType.Restart);
+        }
+
+        private void OnUnitRoadCompleted(int unitIndex)
+        {
+            _tween?.Kill();
+
+            if (unitIndex == 1)
+            {
+                _verticalArrow.gameObject.SetActive(true);
+                _verticalFieldIllumination.gameObject.SetActive(true);
+                _tween = _verticalArrow.transform
+                    .DOLocalMoveZ(_verticalArrow.transform.position.z + 1.75f, 1.75f)
+                    .SetLoops(-1, LoopType.Restart);
+
+                _isFirstSwipeCompleted = true;
+            }
+            else if (unitIndex == 2)
+            {
+                _tutorialContent.SetActive(false);
+                _swipeManager.IsSwipeTutorialCompleted = true;
+            }
         }
 
         private void OnSwipe(TutorialSwipeInfo swipeObject)
@@ -73,14 +142,10 @@ namespace Gameplay.Windows.Tutorial
                 {
                     if (swipeObject.SwipeGameObject.transform.position == _secondUnitPosition)
                     {
-                        _tween?.Kill();
                         swipeObject.UnitSwipe.Swipe(swipeObject.SwipeSide);
 
                         _verticalArrow.gameObject.SetActive(false);
                         _verticalFieldIllumination.SetActive(false);
-
-                        _tutorialContent.SetActive(false);
-                        _swipeManager.IsSwipeTutorialCompleted = true;
                     }
                 }
             }
@@ -94,20 +159,10 @@ namespace Gameplay.Windows.Tutorial
                 {
                     if (swipeObject.SwipeGameObject.transform.position == _firstUnitPosition)
                     {
-                        _tween?.Kill();
-
                         swipeObject.UnitSwipe.Swipe(swipeObject.SwipeSide);
 
                         _horizontalArrow.gameObject.SetActive(false);
                         _horizontalFieldIllumination.SetActive(false);
-
-                        _verticalArrow.gameObject.SetActive(true);
-                        _verticalFieldIllumination.gameObject.SetActive(true);
-                        _tween = _verticalArrow.transform
-                            .DOLocalMoveZ(_verticalArrow.transform.position.z + 1.75f, 1.75f)
-                            .SetLoops(-1, LoopType.Restart);
-
-                        _isFirstSwipeCompleted = true;
                     }
                 }
             }

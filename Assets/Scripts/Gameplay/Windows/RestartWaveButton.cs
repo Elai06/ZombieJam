@@ -6,7 +6,6 @@ using Infrastructure.Windows;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Utils.ZenjectInstantiateUtil;
 using Zenject;
 
 namespace Gameplay.Windows
@@ -25,14 +24,11 @@ namespace Gameplay.Windows
             _button = gameObject.GetComponent<Button>();
         }
 
-        private void Start()
-        {
-            InjectService.Instance.Inject(this);
-        }
-
         private void OnEnable()
         {
             _button.onClick.AddListener(Restart);
+
+            _button.interactable = _tutorialService.CurrentState != ETutorialState.Swipe;
         }
 
         private void OnDisable()
@@ -43,7 +39,6 @@ namespace Gameplay.Windows
         private async void Restart()
         {
             _gameplayModel.StopWave();
-            if (_tutorialService.CurrentState == ETutorialState.Swipe) return;
 
             SceneManager.LoadScene($"Gameplay");
             await Task.Delay(50);

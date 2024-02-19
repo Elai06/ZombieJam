@@ -9,7 +9,7 @@ namespace Gameplay.Tutorial.States.Card
     {
         private readonly ICardsModel _cardsModel;
 
-        private Vector2 _messagePosition = new(-235, -900);
+        private Vector2 _messagePosition = new(0, -900);
 
         private const string MESSAGE =
             "Collect zombie parts to level them up. Leveling up increases parameters and unlocks new zombie abilities.";

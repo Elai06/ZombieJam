@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using Gameplay.CinemachineCamera;
 using Gameplay.Parking;
 using Gameplay.Windows.Gameplay;
@@ -11,11 +12,12 @@ namespace Gameplay
 {
     public class Finish : MonoBehaviour
     {
+        public event Action<int> UnitRoadCompleted; 
+
         private const int UNIT_LAYER = 3;
         [SerializeField] private ZombieSpawner _zombieSpawner;
 
         [Inject] private IWindowService _windowService;
-        [Inject] private IGameplayModel _gameplayModel;
 
         [SerializeField] private CameraSelector _cameraSelector;
 
@@ -32,6 +34,8 @@ namespace Gameplay
             {
                 _zombieCount++;
 
+                UnitRoadCompleted?.Invoke(_zombieCount);
+                
                 DOVirtual.DelayedCall(0.5f, () => other.gameObject.SetActive(false));
 
                 if (_zombieCount == _zombieSpawner.Zombies.Count)
