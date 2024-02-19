@@ -62,6 +62,8 @@ namespace Gameplay.Windows
         {
             _isShowedAd = false;
 
+            _claimButton.enabled = true;
+
             var progress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
             var waveIndex = progress.CurrentWaweIndex + 1;
 
@@ -88,6 +90,7 @@ namespace Gameplay.Windows
         private void OnAdShowed()
         {
             _isShowedAd = true;
+            _claimButton.enabled = false;
             CreateRewardSubView(true);
             StartAnimation();
         }

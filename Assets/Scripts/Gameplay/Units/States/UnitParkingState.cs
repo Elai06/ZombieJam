@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Gameplay.Enums;
 using Gameplay.Parameters;
 using Gameplay.Units.Mover;
@@ -19,11 +20,12 @@ namespace Gameplay.Units.States
         private float _speed;
 
         private bool _isMove;
+        private bool _isBash;
 
         private Coroutine _coroutine;
 
         public UnitParkingState(Unit unit, Dictionary<EParameter, float> parametersConfig,
-            ICoroutineService coroutineService , ArrowDirection arrowDirection) : base(EUnitState.Parking, unit)
+            ICoroutineService coroutineService, ArrowDirection arrowDirection) : base(EUnitState.Parking, unit)
         {
             _unit = unit;
             _speed = parametersConfig[EParameter.TravelSpeed];
@@ -83,7 +85,7 @@ namespace Gameplay.Units.States
 
         private void Swipe(ESwipeSide swipe)
         {
-            if (_isMove || swipe == ESwipeSide.None || !IsAvailableSwipe(swipe)) return;
+            if (_isMove || _isBash || swipe == ESwipeSide.None || !IsAvailableSwipe(swipe)) return;
 
             _eSwipeSide = swipe;
             _arrowDirection.SetSwipeRotate(swipe);
@@ -145,8 +147,9 @@ namespace Gameplay.Units.States
             }
         }
 
-        private void Bash(ESwipeSide eSwipeSide, float bashBackWard)
+        private async void Bash(ESwipeSide eSwipeSide, float bashBackWard)
         {
+            _isBash = true;
             switch (eSwipeSide)
             {
                 case ESwipeSide.Back:
@@ -162,6 +165,10 @@ namespace Gameplay.Units.States
                     _unit.transform.position -= Vector3.right * bashBackWard;
                     break;
             }
+
+            await Task.Delay(1000);
+
+            _isBash = false;
         }
 
         private bool IsAvailableSwipe(ESwipeSide eSwipeSide)
