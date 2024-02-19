@@ -43,7 +43,9 @@ namespace Gameplay.Parking
             }
 
 
-            Gizmos.DrawCube(transform.position, new Vector3(0.9f, 0.2f, 0.9f));
+            var gizmosPosition = transform.position;
+            gizmosPosition.y += 0.1f;
+            Gizmos.DrawCube(gizmosPosition, new Vector3(0.9f, 0.2f, 0.9f));
         }
 
         private void CooperativePosition()
