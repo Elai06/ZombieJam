@@ -97,7 +97,7 @@ namespace Gameplay.Configs.Region
             NextWave();
         }
 
-        public void GetReward()
+        public void GetRewardForWave(bool isShowedAds)
         {
             var currencyReward = RegionConfig.Waves[_regionProgressData.CurrentWaweIndex];
 
@@ -105,22 +105,25 @@ namespace Gameplay.Configs.Region
             {
                 if (reward.RewardType == EResourceType.Booster)
                 {
+                    var rewardValue = isShowedAds ? reward.Value * 2 : reward.Value;
                     Enum.TryParse<EBoosterType>(reward.GetId(), out var boosterType);
-                    _boostersManager.AddBooster(boosterType, reward.Value);
+                    _boostersManager.AddBooster(boosterType, rewardValue);
                     continue;
                 }
 
                 if (reward.RewardType == EResourceType.Currency)
                 {
+                    var rewardValue = isShowedAds ? reward.Value * 2 : reward.Value;
                     Enum.TryParse<ECurrencyType>(reward.GetId(), out var currencyType);
-                    _currenciesModel.Add(currencyType, reward.Value);
+                    _currenciesModel.Add(currencyType, rewardValue);
                     continue;
                 }
 
                 if (reward.RewardType == EResourceType.Card)
                 {
+                    var rewardValue = isShowedAds ? reward.Value * 2 : reward.Value;
                     Enum.TryParse<EZombieNames>(reward.GetId(), out var currencyType);
-                    _cardsModel.AddCards(currencyType, reward.Value);
+                    _cardsModel.AddCards(currencyType, rewardValue);
                 }
             }
         }

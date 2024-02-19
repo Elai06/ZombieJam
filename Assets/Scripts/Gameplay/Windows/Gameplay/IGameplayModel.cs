@@ -20,6 +20,6 @@ namespace Gameplay.Windows.Gameplay
         void StartWave();
         event Action<int> OnStartWave;
         void StopWave();
-        void GetRewardForWave();
+        void GetRewardForWave(bool isShowedAds);
     }
 }

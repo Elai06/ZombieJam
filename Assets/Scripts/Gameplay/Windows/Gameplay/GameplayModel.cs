@@ -94,9 +94,9 @@ namespace Gameplay.Windows.Gameplay
             IsStartWave = false;
         }
 
-        public void GetRewardForWave()
+        public void GetRewardForWave(bool isShowedAds)
         {
-            _regionManager.GetReward();
+            _regionManager.GetRewardForWave(isShowedAds);
         }
     }
 }

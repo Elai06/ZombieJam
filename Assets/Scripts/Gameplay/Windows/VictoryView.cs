@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Gameplay.Ad;
 using Gameplay.Boosters;
 using Gameplay.Configs.Rewards;
 using Gameplay.Configs.Zombies;
@@ -37,15 +38,19 @@ namespace Gameplay.Windows
         private IWindowService _windowService;
         private GameStaticData _gameStaticData;
         private ILevelModel _levelModel;
+        private IAdsService _adsService;
+
+        private bool _isShowedAd;
 
         [Inject]
         public void Construct(IGameplayModel gameplayModel, IWindowService windowService,
-            GameStaticData gameStaticData, ILevelModel levelModel)
+            GameStaticData gameStaticData, ILevelModel levelModel, IAdsService adsService)
         {
             _gameplayModel = gameplayModel;
             _windowService = windowService;
             _gameStaticData = gameStaticData;
             _levelModel = levelModel;
+            _adsService = adsService;
         }
 
         public void Start()
@@ -55,33 +60,49 @@ namespace Gameplay.Windows
 
         public void OnEnable()
         {
+            _isShowedAd = false;
+
             var progress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
             var waveIndex = progress.CurrentWaweIndex + 1;
 
             SetWave(progress.ERegionType, waveIndex);
             SetLevelInfo();
-            CreateRewardSubView();
+            CreateRewardSubView(false);
 
             _lobbyButton.onClick.AddListener(StartAnimation);
-            _claimButton.onClick.AddListener(StartAnimation);
-            
+            _claimButton.onClick.AddListener(ShowRewardAd);
+
             _currencyAnimation.AnimationFinish += Restart;
+            _adsService.Showed += OnAdShowed;
         }
 
         private void OnDisable()
         {
             _lobbyButton.onClick.RemoveListener(StartAnimation);
-            _claimButton.onClick.RemoveListener(StartAnimation);
-            
+            _claimButton.onClick.RemoveListener(ShowRewardAd);
+
             _currencyAnimation.AnimationFinish -= Restart;
+            _adsService.Showed -= OnAdShowed;
+        }
+
+        private void OnAdShowed()
+        {
+            _isShowedAd = true;
+            CreateRewardSubView(true);
+            StartAnimation();
+        }
+
+        private void ShowRewardAd()
+        {
+            _adsService.ShowAds(EAdsType.Reward);
         }
 
         private void StartAnimation()
         {
             _gameplayModel.WaveCompleted();
-            _gameplayModel.GetRewardForWave();
+            _gameplayModel.GetRewardForWave(_isShowedAd);
 
-            _claimButton.onClick.RemoveListener(StartAnimation);
+            _claimButton.onClick.RemoveListener(ShowRewardAd);
             _lobbyButton.onClick.RemoveListener(StartAnimation);
 
             var rewardSubView = _rewardSubViewContainer.SubViews
@@ -107,7 +128,7 @@ namespace Gameplay.Windows
             _regionName.text = regionType.ToString();
         }
 
-        private void CreateRewardSubView()
+        private void CreateRewardSubView(bool isX2)
         {
             _rewardSubViewContainer.CleanUp();
 
@@ -115,18 +136,18 @@ namespace Gameplay.Windows
             var config = _gameplayModel.GetRegionConfig();
             foreach (var data in config.Waves[progress.CurrentWaweIndex].RewardConfig.Rewards)
             {
-                var subViewData = CreateSubView(data);
+                var subViewData = CreateSubView(data, isX2);
                 _rewardSubViewContainer.Add(subViewData.ID, subViewData);
             }
         }
 
-        private RewardSubViewData CreateSubView(RewardConfigData rewardConfigData)
+        private RewardSubViewData CreateSubView(RewardConfigData rewardConfigData, bool isX2)
         {
             return new RewardSubViewData
             {
                 Sprite = GetSprite(rewardConfigData),
                 ID = rewardConfigData.GetId(),
-                Value = rewardConfigData.Value
+                Value = isX2 ? rewardConfigData.Value * 2 : rewardConfigData.Value,
             };
         }
 

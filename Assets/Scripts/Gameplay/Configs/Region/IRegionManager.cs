@@ -10,6 +10,6 @@ namespace Gameplay.Configs.Region
         RegionProgressData ProgressData { get; }
         RegionProgress Progress { get; }
         RegionConfigData RegionConfig { get; }
-        void GetReward();
+        void GetRewardForWave(bool isShowedAds);
     }
 }
