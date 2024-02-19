@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Gameplay.Enums;
 using Gameplay.Units.States;
 using Infrastructure.UnityBehaviours;
@@ -17,6 +18,7 @@ namespace Gameplay.Units.ArcherStates
         private float _speed;
 
         private bool _isMove;
+        private bool _isBash;
 
         private Coroutine _coroutine;
 
@@ -80,7 +82,7 @@ namespace Gameplay.Units.ArcherStates
 
         private void Swipe(ESwipeSide swipe)
         {
-            if (_isMove || swipe == ESwipeSide.None || !IsAvailableSwipe(swipe)) return;
+            if (_isMove || _isBash || swipe == ESwipeSide.None || !IsAvailableSwipe(swipe)) return;
 
             _eSwipeSide = swipe;
 
@@ -141,8 +143,9 @@ namespace Gameplay.Units.ArcherStates
             }
         }
 
-        private void Bash(ESwipeSide eSwipeSide, float bashBackWard)
+        private async void Bash(ESwipeSide eSwipeSide, float bashBackWard)
         {
+            _isBash = true;
             switch (eSwipeSide)
             {
                 case ESwipeSide.Back:
@@ -158,6 +161,10 @@ namespace Gameplay.Units.ArcherStates
                     _unit.transform.position -= Vector3.right * bashBackWard;
                     break;
             }
+
+            _unit.Bash(1000);
+            await Task.Delay(1000);
+            _isBash = false;
         }
 
         private bool IsAvailableSwipe(ESwipeSide eSwipeSide)

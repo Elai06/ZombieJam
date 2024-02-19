@@ -165,7 +165,8 @@ namespace Gameplay.Units.States
                     _unit.transform.position -= Vector3.right * bashBackWard;
                     break;
             }
-
+            
+            _unit.Bash(750);
             await Task.Delay(1000);
 
             _isBash = false;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Gameplay.Battle;
 using Gameplay.Cards;
 using Gameplay.Configs.Zombies;
@@ -9,7 +10,6 @@ using Gameplay.Units.Mover;
 using Gameplay.Units.States;
 using Infrastructure.UnityBehaviours;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Utils.CurveBezier;
 using StateMachine = Infrastructure.StateMachine.StateMachine;
 
@@ -34,6 +34,8 @@ namespace Gameplay.Units
         [SerializeField] private UnitSwipe _unitSwipe;
         [SerializeField] protected Color _bloodColor;
 
+        [SerializeField] private ParticleSystem _stunnedEffect;
+        
         protected CardModel _cardModel;
 
         protected readonly StateMachine _stateMachine = new();
@@ -198,6 +200,15 @@ namespace Gameplay.Units
         {
             _stateMachine.Enter<UnitKickState>();
             Kicked?.Invoke(this);
+        }
+
+        public async void Bash(int duration)
+        {
+            _stunnedEffect.Play();
+
+            await Task.Delay(duration);
+            
+            _stunnedEffect.Stop();
         }
     }
 }

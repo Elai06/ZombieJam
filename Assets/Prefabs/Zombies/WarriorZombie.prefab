@@ -59,6 +59,7 @@ MonoBehaviour:
   _eSwipeDirection: 0
   _unitSwipe: {fileID: 707652144651503894}
   _bloodColor: {r: 0.24705884, g: 0.35686275, b: 0.14509805, a: 1}
+  _stunnedEffect: {fileID: 4929456138835244463}
   _obstacleAvoidance: {fileID: 4383629456142121353}
 --- !u!136 &6426492554983713376
 CapsuleCollider:
@@ -168,6 +169,7 @@ Transform:
   - {fileID: 4016984375261158836}
   - {fileID: 4398752807829357495}
   - {fileID: 2675317948979394794}
+  - {fileID: 5091028650967400189}
   m_Father: {fileID: 4357167992388958569}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -360,6 +362,61 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 450fd3fa756dc4243997a848bfe069b7, type: 3}
+--- !u!1001 &809247483292939474
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7072100477582876302}
+    m_Modifications:
+    - target: {fileID: 5590360717923452097, guid: fa767717f3aaecf4bb2f4ecbc0ce4d35, type: 3}
+      propertyPath: m_Name
+      value: StunnedCirclingStarsSimple
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592892229849090607, guid: fa767717f3aaecf4bb2f4ecbc0ce4d35, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592892229849090607, guid: fa767717f3aaecf4bb2f4ecbc0ce4d35, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592892229849090607, guid: fa767717f3aaecf4bb2f4ecbc0ce4d35, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.196
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592892229849090607, guid: fa767717f3aaecf4bb2f4ecbc0ce4d35, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592892229849090607, guid: fa767717f3aaecf4bb2f4ecbc0ce4d35, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592892229849090607, guid: fa767717f3aaecf4bb2f4ecbc0ce4d35, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592892229849090607, guid: fa767717f3aaecf4bb2f4ecbc0ce4d35, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592892229849090607, guid: fa767717f3aaecf4bb2f4ecbc0ce4d35, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fa767717f3aaecf4bb2f4ecbc0ce4d35, type: 3}
+--- !u!198 &4929456138835244463 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5716181121489256829, guid: fa767717f3aaecf4bb2f4ecbc0ce4d35, type: 3}
+  m_PrefabInstance: {fileID: 809247483292939474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5091028650967400189 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5592892229849090607, guid: fa767717f3aaecf4bb2f4ecbc0ce4d35, type: 3}
+  m_PrefabInstance: {fileID: 809247483292939474}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2675317948979222714
 PrefabInstance:
   m_ObjectHideFlags: 0
