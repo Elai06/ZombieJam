@@ -66,12 +66,12 @@ namespace Gameplay.Parking
                 unit.StateMachine.OnStateChange += OnZombieStateChanged;
             }
 
-            _gameplayModel.OnRevive += ResurectionUnits;
+            _gameplayModel.OnRevive += ReviveUnits;
         }
 
         private void OnDisable()
         {
-            _gameplayModel.OnRevive -= ResurectionUnits;
+            _gameplayModel.OnRevive -= ReviveUnits;
         }
 
         private void Spawn()
@@ -127,7 +127,7 @@ namespace Gameplay.Parking
             _cameraSelector.ChangeCamera(ECameraType.Enemies);
         }
 
-        private void ResurectionUnits()
+        private void ReviveUnits()
         {
             foreach (var zombie in _zombies)
             {
@@ -140,7 +140,7 @@ namespace Gameplay.Parking
 
         private void OnUnitDoDamage()
         {
-            if (!_gameplayModel.IsWasFirstDamage)
+            if (!_gameplayModel.IsWasFirstDamage && this != null)
             {
                 _gameplayModel.FirstDamage();
             }

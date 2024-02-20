@@ -70,7 +70,7 @@ namespace Gameplay.Windows.Gameplay
             var progress = GetCurrentRegionProgress();
             OnWaveCompleted?.Invoke(progress.CurrentRegionType, progress.GetCurrentRegion().CurrentWaweIndex);
 
-            await Task.Delay(4000);
+            await Task.Delay(3000);
 
             if (IsWaveCompleted)
             {
@@ -110,6 +110,8 @@ namespace Gameplay.Windows.Gameplay
         private void CreateTimerOnFirstDamage()
         {
             OnUnitFirstDoDamage -= CreateTimerOnFirstDamage;
+            
+            if(!IsWasFirstDamage) return;
 
             var config = _regionManager.RegionConfig.Waves[_regionManager.ProgressData.CurrentWaweIndex];
             CreateTimer(config);

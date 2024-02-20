@@ -89,6 +89,8 @@ namespace Gameplay.Units.States
 
             while (true)
             {
+                if(_unit == null) yield break;
+                
                 if (_unit.Target == null || _unit.IsDied || !IsAvailableDistance())
                 {
                     InitializeTarget();

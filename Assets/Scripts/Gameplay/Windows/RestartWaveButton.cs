@@ -41,16 +41,9 @@ namespace Gameplay.Windows
             _gameplayModel.StopWave();
 
             SceneManager.LoadScene($"Gameplay");
-            await Task.Delay(50);
-            if (_windowService.IsOpen(WindowType.Victory))
-            {
-                _windowService.Close(WindowType.Victory);
-            }
+            _windowService.Close(WindowType.Gameplay);
 
-            if (_windowService.IsOpen(WindowType.Died))
-            {
-                _windowService.Close(WindowType.Died);
-            }
+            await Task.Delay(50);
 
             _cameraSelector = FindObjectOfType<CameraSelector>();
             _cameraSelector.ChangeCamera(ECameraType.Park);

@@ -15,6 +15,15 @@ namespace Gameplay.Effects
         private void Start()
         {
             _gameplayModel.OnWaveCompleted += WaveCompleted;
+            _gameplayModel.OnToTheNextWave += ToTheNextWave;
+        }
+
+        private void ToTheNextWave(ERegionType arg1, int arg2)
+        {
+            foreach (var particle in _particles)
+            {
+                particle.Stop();
+            }
         }
 
         private void WaveCompleted(ERegionType arg1, int arg2)
