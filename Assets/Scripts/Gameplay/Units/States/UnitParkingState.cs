@@ -59,6 +59,8 @@ namespace Gameplay.Units.States
 
         private void StopMove()
         {
+            if (!_isMove) return;
+
             _isMove = false;
             _unit.Animator.SetTrigger("StopMove");
             if (_coroutine != null)
@@ -95,7 +97,6 @@ namespace Gameplay.Units.States
 
         private void OnCollisionEnter(GameObject other)
         {
-            if (!_isMove) return;
             StopMove();
 
             var collision = other.GetComponent<Unit>();
@@ -165,7 +166,7 @@ namespace Gameplay.Units.States
                     _unit.transform.position -= Vector3.right * bashBackWard;
                     break;
             }
-            
+
             _unit.Bash(750);
             await Task.Delay(1000);
 
