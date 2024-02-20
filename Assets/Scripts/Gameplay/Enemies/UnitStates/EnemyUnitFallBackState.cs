@@ -45,6 +45,7 @@ namespace Gameplay.Enemies.UnitStates
 
             _unit.IsOnSpawnPosition = true;
             
+            _unit.Animator.SetTrigger("StopMove");
             _stateMachine.Enter<EnemyUnitIdleState>();
         }
     }
