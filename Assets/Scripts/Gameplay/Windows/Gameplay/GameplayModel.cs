@@ -3,55 +3,103 @@ using Gameplay.Ad;
 using Gameplay.Configs.Region;
 using Gameplay.Enums;
 using Gameplay.Level;
-using Infrastructure.StaticData;
+using Gameplay.Tutorial;
+using Infrastructure.Timer;
+using Infrastructure.Windows;
 
 namespace Gameplay.Windows.Gameplay
 {
     public class GameplayModel : IGameplayModel
     {
-        public event Action OnResurection;
+        public event Action OnRevive;
+        public event Action OnUnitFirstDoDamage;
         public event Action<ERegionType, int> OnWaveCompleted;
         public event Action<ERegionType, int> OnWaveLoose;
         public event Action<int> OnStartWave;
+        public event Action CreatedTimer;
 
         private readonly IRegionManager _regionManager;
         private readonly ILevelModel _levelModel;
         private readonly IAdsService _adsService;
+        private readonly TimerService _timerService;
+        private readonly ITutorialService _tutorialService;
+        private readonly IWindowService _windowService;
 
-        public bool IsAvailableRessuraction { get; set; } = true;
-
-        public bool IsStartWave { get; set; }
-
-        public GameplayModel(IRegionManager regionManager, ILevelModel levelModel, IAdsService adsService)
+        public GameplayModel(IRegionManager regionManager, ILevelModel levelModel,
+            IAdsService adsService, ITutorialService tutorialService, TimerService timerService,
+            IWindowService windowService)
         {
             _regionManager = regionManager;
             _levelModel = levelModel;
             _adsService = adsService;
+            _tutorialService = tutorialService;
+            _timerService = timerService;
+            _windowService = windowService;
         }
 
+        public bool IsAvailableRevive { get; set; } = true;
+        public bool IsStartWave { get; set; }
+        public bool IsWasFirstDamage { get; set; }
+        public TimeModel Timer { get; set; }
         public EWaveType WaveType { get; set; }
+        public ETutorialState TutorialState => _tutorialService.CurrentState;
 
         public void WaveCompleted()
         {
             var progress = GetCurrentRegionProgress();
             _regionManager.WaveCompleted();
             _levelModel.AddExperience(true);
-            IsAvailableRessuraction = true;
+            IsAvailableRevive = true;
             StopWave();
             OnWaveCompleted?.Invoke(progress.CurrentRegionType, progress.GetCurrentRegion().CurrentWaweIndex);
         }
 
         public void StartWave()
         {
+            _windowService.Open(WindowType.Gameplay);
+
             IsStartWave = true;
+            IsWasFirstDamage = false;
+
+            InitializeTimer();
             OnStartWave?.Invoke(_regionManager.ProgressData.CurrentWaweIndex);
+        }
+
+        private void InitializeTimer()
+        {
+            RemoveTimer();
+
+            if (_tutorialService.CurrentState == ETutorialState.Swipe) return;
+
+            var config = _regionManager.RegionConfig.Waves[_regionManager.ProgressData.CurrentWaweIndex];
+            if (config.WaveTimerType == EWaveTimerType.Beginning)
+            {
+                CreateTimer(config);
+            }
+            else if (config.WaveTimerType == EWaveTimerType.FirstDamage)
+            {
+                OnUnitFirstDoDamage += CreateTimerOnFirstDamage;
+            }
+        }
+
+        private void CreateTimerOnFirstDamage()
+        {
+            OnUnitFirstDoDamage -= CreateTimerOnFirstDamage;
+
+            var config = _regionManager.RegionConfig.Waves[_regionManager.ProgressData.CurrentWaweIndex];
+            CreateTimer(config);
+        }
+
+        private void CreateTimer(WaveConfigData config)
+        {
+            Timer = _timerService.CreateTimer(config.WaveTimerType.ToString(), config.TimerDuration);
+            CreatedTimer?.Invoke();
         }
 
         public void LooseWave()
         {
             var progress = GetCurrentRegionProgress();
             OnWaveLoose?.Invoke(progress.CurrentRegionType, progress.GetCurrentRegion().CurrentWaweIndex);
-            //   _levelModel.AddExperience(false);
         }
 
         public int GetExperience(bool isWin)
@@ -69,7 +117,7 @@ namespace Gameplay.Windows.Gameplay
             return _regionManager.RegionConfig;
         }
 
-        public void RessurectionUnits()
+        public void StartReviveForAds()
         {
             if (_adsService.ShowAds(EAdsType.Reward))
             {
@@ -80,13 +128,13 @@ namespace Gameplay.Windows.Gameplay
         private void OnShowedAds()
         {
             _adsService.Showed -= OnShowedAds;
-            Resurection();
+            ReviveUnits();
         }
 
-        private void Resurection()
+        private void ReviveUnits()
         {
-            IsAvailableRessuraction = false;
-            OnResurection?.Invoke();
+            IsAvailableRevive = false;
+            OnRevive?.Invoke();
         }
 
         public void StopWave()
@@ -97,6 +145,21 @@ namespace Gameplay.Windows.Gameplay
         public void GetRewardForWave(bool isShowedAds)
         {
             _regionManager.GetRewardForWave(isShowedAds);
+        }
+
+        public void FirstDamage()
+        {
+            IsWasFirstDamage = true;
+            OnUnitFirstDoDamage?.Invoke();
+        }
+
+        private void RemoveTimer()
+        {
+            if (Timer != null)
+            {
+                _timerService.RemoveTimer(Timer);
+                Timer = null;
+            }
         }
     }
 }

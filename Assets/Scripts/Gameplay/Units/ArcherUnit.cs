@@ -13,7 +13,7 @@ namespace Gameplay.Units
 
         public BulletSpawner Bullet => _bullet;
 
-        public override void InitializeStates()
+        protected override void InitializeStates()
         {
             base.InitializeStates();
 

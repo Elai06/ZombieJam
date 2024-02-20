@@ -12,7 +12,6 @@ namespace Infrastructure.Input
     {
         public event Action<TutorialSwipeInfo> OnSwipe;
 
-        private ITutorialService _tutorialService;
         private IGameplayModel _gameplayModel;
 
         private Vector3 _startPosition;
@@ -26,16 +25,15 @@ namespace Infrastructure.Input
         public bool IsSwipeTutorialCompleted { get; set; }
 
         [Inject]
-        public void Construct(ITutorialService tutorialService, IGameplayModel gameplayModel)
+        public void Construct(IGameplayModel gameplayModel)
         {
-            _tutorialService = tutorialService;
             _gameplayModel = gameplayModel;
         }
 
         public void Initialize()
         {
             _raycastDetector = new RaycastDetector();
-            IsSwipeTutorialCompleted = _tutorialService.CurrentState != ETutorialState.Swipe;
+            IsSwipeTutorialCompleted = _gameplayModel.TutorialState != ETutorialState.Swipe;
         }
 
         private void Update()
@@ -71,7 +69,7 @@ namespace Infrastructure.Input
                 {
                     _isWasSwipe = true;
 
-                    if (_tutorialService.CurrentState == ETutorialState.Swipe && !IsSwipeTutorialCompleted)
+                    if (_gameplayModel.TutorialState == ETutorialState.Swipe && !IsSwipeTutorialCompleted)
                     {
                         _tutorialSwipeInfo.SwipeSide = swipe;
                         OnSwipe?.Invoke(_tutorialSwipeInfo);

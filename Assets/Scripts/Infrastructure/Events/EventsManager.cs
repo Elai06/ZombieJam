@@ -1,6 +1,7 @@
 ﻿using Gameplay.Ad;
 using Gameplay.Boosters;
 using Gameplay.Cards;
+using Gameplay.Configs.Region;
 using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
 using Gameplay.Level;
@@ -17,14 +18,14 @@ namespace Infrastructure.Events
         private readonly IWindowService _windowService;
         private readonly IPlayerTimesService _playerTimesService;
         private readonly ILevelModel _levelModel;
-        private readonly IGameplayModel _gameplayModel;
+        private readonly IRegionManager _gameplayModel;
         private readonly IShopModel _shopModel;
         private readonly ICardsModel _cardsModel;
         private readonly IAdsService _adsService;
         private readonly IBoostersManager _boostersManager;
 
         public EventsManager(IWindowService windowService, IPlayerTimesService playerTimesService,
-            ILevelModel levelModel, IGameplayModel gameplayModel, IShopModel shopModel, ICardsModel cardsModel,
+            ILevelModel levelModel, IRegionManager gameplayModel, IShopModel shopModel, ICardsModel cardsModel,
             IAdsService adsService, IBoostersManager boostersManager)
         {
             _windowService = windowService;
@@ -56,7 +57,7 @@ namespace Infrastructure.Events
 
         private void OnStartAds(EAdsType adsType)
         {
-            var regionProgress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
+            var regionProgress = _gameplayModel.ProgressData;
             var parameters =
                 $"{{\"Ads\":\"{adsType}\", " +
                 $"\"RegionType\":\"{regionProgress.ERegionType}\", " +
@@ -67,7 +68,7 @@ namespace Infrastructure.Events
 
         private void OnAdsShowed()
         {
-            var regionProgress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
+            var regionProgress = _gameplayModel.ProgressData;
             var parameters =
                 $"{{\"Ads\":\"{_adsService.AdsType}\", " +
                 $"\"RegionType\":\"{regionProgress.ERegionType}\", " +
@@ -97,7 +98,7 @@ namespace Infrastructure.Events
 
         private void OnStartUpgrade(EZombieNames unitClass)
         {
-            var regionProgress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
+            var regionProgress = _gameplayModel.ProgressData;
             var parameters =
                 $"{{\"UnitType\":\"{unitClass}\", " +
                 $"\"RegionType\":\"{regionProgress.ERegionType}\", " +
@@ -108,7 +109,7 @@ namespace Infrastructure.Events
 
         private void OnUpgradeCard(EZombieNames unitClass)
         {
-            var regionProgress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
+            var regionProgress = _gameplayModel.ProgressData;
             var parameters =
                 $"{{\"UnitType\":\"{unitClass}\", " +
                 $"\"RegionType\":\"{regionProgress.ERegionType}\", " +
@@ -118,7 +119,7 @@ namespace Infrastructure.Events
 
         private void OnLevelUp(LevelProgress levelProgress)
         {
-            var regionProgress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
+            var regionProgress = _gameplayModel.ProgressData;
             var parametrs =
                 $"{{\"RegionType\":\"{regionProgress.ERegionType}\", " +
                 $"\"WaveIndex\":\"{regionProgress.CurrentWaweIndex}\"}}";

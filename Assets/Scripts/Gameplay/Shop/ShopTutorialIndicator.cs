@@ -14,14 +14,14 @@ namespace Gameplay.Shop
         [Inject] private ITutorialService _tutorialService;
         [Inject] private IWindowService _windowService;
 
-        private void Start()
-        {
-            
-        }
-
         private void OnEnable()
         {
-            if(_tutorialService.CurrentState == ETutorialState.Completed) return;
+            if (_tutorialService.CurrentState == ETutorialState.Completed)
+            {
+                _image.gameObject.SetActive(false);
+                return;
+            }
+
             _tutorialService.СhangedState += OnChangedTutorialState;
             _windowService.OnOpen += OpenedWindow;
         }

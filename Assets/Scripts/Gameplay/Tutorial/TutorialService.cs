@@ -29,23 +29,23 @@ namespace Gameplay.Tutorial
         private readonly IShopModel _shopModel;
         private readonly ICardsModel _cardsModel;
         private readonly IEventsManager _eventsManager;
-        private readonly IGameplayModel _gameplayModel;
+        private IGameplayModel _gameplayModel;
 
         public TutorialService(IProgressService progressService, IWindowService windowService,
-            IShopModel shopModel, ICardsModel cardsModel, IEventsManager eventsManager, IGameplayModel gameplayModel)
+            IShopModel shopModel, ICardsModel cardsModel, IEventsManager eventsManager)
         {
             _windowService = windowService;
             _progressService = progressService;
             _shopModel = shopModel;
             _cardsModel = cardsModel;
             _eventsManager = eventsManager;
-            _gameplayModel = gameplayModel;
         }
 
         public ETutorialState CurrentState => _progressService.PlayerProgress.CurrentTutorialState;
 
-        public void Initalize()
+        public void Initalize(IGameplayModel gameplayModel)
         {
+            _gameplayModel = gameplayModel;
             SetState(_progressService.PlayerProgress.CurrentTutorialState);
             InitializeStates();
         }

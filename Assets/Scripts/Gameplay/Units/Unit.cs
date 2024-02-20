@@ -24,6 +24,7 @@ namespace Gameplay.Units
         public event Action<GameObject> OnCollision;
         public event Action OnInitializePath;
         public event Action TakeDamage;
+        public event Action DoDamage; 
 
         [SerializeField] protected RotateObject _rotateObject;
         [SerializeField] protected ArrowDirection _arrowDirection;
@@ -47,24 +48,15 @@ namespace Gameplay.Units
         public EUnitClass UnitClass { get; set; }
         public BezierCurve Curve { get; private set; }
         public IEnemy Target { get; set; }
-
         public float Health { get; private set; }
         public bool IsDied { get; private set; }
-
         public ZombieData Config { get; set; }
         public StateMachine StateMachine => _stateMachine;
-
         public Transform Prefab => _prefab;
-
         public ESwipeDirection SwipeDirection => _eSwipeDirection;
-
-        public Dictionary<EParameter, float> Parameters { get; private set; } = new();
-
+        public Dictionary<EParameter, float> Parameters { get; } = new();
         public Animator Animator => _animator;
-
         public Color BloodColor => _bloodColor;
-
-        protected List<IEnemy> _attackedEnemies = new();
 
         public void Initialize(CardModel cardModel, ICoroutineService coroutineService,
             ITargetManager targetManager, ZombieData zombieData)
@@ -91,7 +83,7 @@ namespace Gameplay.Units
             _healthBar.Initialize(Health);
         }
 
-        public virtual void InitializeStates()
+        protected virtual void InitializeStates()
         {
             var kickState = new UnitKickState(this);
             _stateMachine.AddState(kickState);
@@ -129,6 +121,7 @@ namespace Gameplay.Units
 
             var attack = Parameters[EParameter.Damage];
             enemy.GetDamage(attack);
+            DoDamage?.Invoke();
         }
 
         public void GetDamage(float damage)
@@ -187,15 +180,7 @@ namespace Gameplay.Units
             _animator.SetTrigger("Died");
             OnDied?.Invoke(this);
         }
-
-        public Vector3 GetPosition(IEnemy enemy, float radiusAttack)
-        {
-            _attackedEnemies.Add(enemy);
-            var angle = _attackedEnemies.Count - 12 * Mathf.PI * 2 / 12;
-            return new Vector3(Mathf.Cos(angle) * radiusAttack, 0, Mathf.Sin(angle) * radiusAttack) +
-                   gameObject.transform.position;
-        }
-
+        
         public void Kick()
         {
             _stateMachine.Enter<UnitKickState>();

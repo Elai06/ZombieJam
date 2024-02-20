@@ -22,15 +22,9 @@ namespace Infrastructure.Timer
             var progress = new TimeProgress(id, duration);
             var model = new TimeModel(progress, duration);
             TimeModels.Add(id, model);
-            return model;
-        }
+            model.Stopped += OnStop;
 
-        private void OnEnable()
-        {
-            foreach (var model in TimeModels.Values)
-            {
-                model.Stopped += OnStop;
-            }
+            return model;
         }
 
         private void OnDisable()
@@ -60,6 +54,14 @@ namespace Infrastructure.Timer
         {
             model.Stopped -= OnStop;
             TimeModels.Remove(model.TimeProgress.ID);
+        }
+
+        public void RemoveTimer(TimeModel timeModel)
+        {
+            if (TimeModels.TryGetValue(timeModel.TimeProgress.ID, out var timerModel))
+            {
+                TimeModels.Remove(timerModel.TimeProgress.ID);
+            }
         }
     }
 }

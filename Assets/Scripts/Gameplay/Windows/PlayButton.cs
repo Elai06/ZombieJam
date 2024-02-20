@@ -109,7 +109,6 @@ namespace Gameplay.Windows
             _cameraSelector = FindObjectOfType<CameraSelector>();
             _cameraSelector.ChangeCamera(ECameraType.Park);
             _windowService.Close(WindowType.Footer);
-            _windowService.Open(WindowType.Gameplay);
             _gameplayModel.StartWave();
 
             _tutorialFinger.gameObject.SetActive(false);

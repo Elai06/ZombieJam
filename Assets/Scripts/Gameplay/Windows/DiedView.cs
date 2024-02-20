@@ -61,7 +61,7 @@ namespace Gameplay.Windows
             }
             else
             {
-                if (_gameplayModel.IsAvailableRessuraction)
+                if (_gameplayModel.IsAvailableRevive)
                 {
                     SetReviveContent();
                     _reviveButton.onClick.AddListener(Revive);
@@ -81,7 +81,7 @@ namespace Gameplay.Windows
 
         private void Revive()
         {
-            _gameplayModel.RessurectionUnits();
+            _gameplayModel.StartReviveForAds();
         }
 
         private void SetWave(ERegionType regionType, int index)

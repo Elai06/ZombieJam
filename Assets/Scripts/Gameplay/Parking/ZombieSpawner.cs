@@ -62,15 +62,16 @@ namespace Gameplay.Parking
             {
                 unit.OnDied += OnUnitDied;
                 unit.Kicked += OnKicked;
+                unit.DoDamage += OnUnitDoDamage;
                 unit.StateMachine.OnStateChange += OnZombieStateChanged;
             }
 
-            _gameplayModel.OnResurection += ResurectionUnits;
+            _gameplayModel.OnRevive += ResurectionUnits;
         }
 
         private void OnDisable()
         {
-            _gameplayModel.OnResurection -= ResurectionUnits;
+            _gameplayModel.OnRevive -= ResurectionUnits;
         }
 
         private void Spawn()
@@ -103,6 +104,11 @@ namespace Gameplay.Parking
         private void OnKicked(Unit unit)
         {
             unit.OnDied -= OnUnitDied;
+            unit.DoDamage -= OnUnitDoDamage;
+            unit.OnDied -= OnUnitDied;
+            unit.Kicked -= OnKicked;
+            unit.DoDamage -= OnUnitDoDamage;
+            unit.StateMachine.OnStateChange -= OnZombieStateChanged;
 
             if (_gameplayModel.WaveType == EWaveType.Logic)
             {
@@ -130,6 +136,14 @@ namespace Gameplay.Parking
 
             _windowService.Open(WindowType.Gameplay);
             _windowService.Close(WindowType.Died);
+        }
+
+        private void OnUnitDoDamage()
+        {
+            if (!_gameplayModel.IsWasFirstDamage)
+            {
+                _gameplayModel.FirstDamage();
+            }
         }
     }
 }

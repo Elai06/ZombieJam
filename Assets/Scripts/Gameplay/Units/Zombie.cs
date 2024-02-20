@@ -6,7 +6,8 @@ namespace Gameplay.Units
     public class Zombie : Unit
     {
         [SerializeField] private ObstacleAvoidance _obstacleAvoidance;
-        public override void InitializeStates()
+
+        protected override void InitializeStates()
         {
             base.InitializeStates();
             
