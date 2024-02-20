@@ -22,6 +22,7 @@ namespace Gameplay.Windows.Gameplay
 
         [SerializeField] private GameObject _targetContent;
         [SerializeField] private TextMeshProUGUI _targetCountText;
+        [SerializeField] private TextMeshProUGUI _targetDescription;
         [SerializeField] private Image _targetImage;
 
         [Inject] private IGameplayModel _gameplayModel;
@@ -72,10 +73,13 @@ namespace Gameplay.Windows.Gameplay
                 _finish = FindObjectOfType<Finish>();
 
                 _finish.UnitRoadCompleted += SetTarget;
+                _targetDescription.text = $"Withdraw Zombie: ";
+
             }
             else
             {
                 _gameplayModel.OnEnemyDied += SetTarget;
+                _targetDescription.text = $"Destroy the enemy: ";
             }
         }
 
@@ -99,7 +103,7 @@ namespace Gameplay.Windows.Gameplay
                 _timerText.transform.DOScale(scale, 1);
             }
 
-            _timerText.text = FormatTime.MinutesStringFormat(duration);
+            _timerText.text = $"{duration}s";
         }
 
         private void OnStopTimer(TimeModel timeModel)
