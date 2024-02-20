@@ -22,13 +22,16 @@ namespace Gameplay.Windows.Gameplay
         TimeModel Timer { get; set; }
         ETutorialState TutorialState { get; }
         bool IsWasFirstDamage { get; set; }
+        int TargetsCount { get; set; }
         void StartWave();
         event Action<int> OnStartWave;
+        event Action<int> OnEnemyDied;
         void StopWave();
         void GetRewardForWave(bool isShowedAds);
         void FirstDamage();
         event Action CreatedTimer;
         void WaveCompleted();
         event Action<ERegionType, int> OnWaveCompleted;
+        void EnemyDied(int index);
     }
 }

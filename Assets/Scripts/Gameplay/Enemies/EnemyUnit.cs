@@ -102,7 +102,7 @@ namespace Gameplay.Enemies
             _animator.SetTrigger("Attack");
         }
 
-        public void Resurection()
+        public void Revive()
         {
             IsDied = false;
             Health = Parameters[EParameter.Health];

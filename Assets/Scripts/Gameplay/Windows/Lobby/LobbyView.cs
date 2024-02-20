@@ -5,6 +5,7 @@ using Infrastructure.Windows;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Utils.ZenjectInstantiateUtil;
 using Zenject;
@@ -14,7 +15,8 @@ namespace Gameplay.Windows.Lobby
     public class LobbyView : MonoBehaviour
     {
         [SerializeField] private Slider _slider;
-        [SerializeField] private TextMeshProUGUI _waveText;
+         [SerializeField] private TextMeshProUGUI _regionText;
+         [SerializeField] private TextMeshProUGUI _waveText;
 
         [SerializeField] private Sprite _completedWave;
         [SerializeField] private Sprite _notCompletedWave;
@@ -29,7 +31,7 @@ namespace Gameplay.Windows.Lobby
 
         private void Start()
         {
-            //    Restart();
+            _waveText.gameObject.SetActive(false);
 
             var progress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
             UpdateWave(progress.ERegionType, progress.CurrentWaweIndex);
@@ -62,7 +64,8 @@ namespace Gameplay.Windows.Lobby
         {
             var config = _gameplayModel.GetRegionConfig();
             _slider.value = waveIndex / ((float)config.Waves.Count - 1);
-            _waveText.text = $"{regionType}";
+            _regionText.text = $"{regionType}";
+            _waveText.text = $"Wave{waveIndex + 1}";
 
             UpdateSliderWavesImage(waveIndex);
         }
@@ -111,9 +114,11 @@ namespace Gameplay.Windows.Lobby
             {
                 case WindowType.Gameplay:
                     _slider.gameObject.SetActive(false);
+                    _waveText.gameObject.SetActive(true);
                     break;
                 case WindowType.MainMenu:
                     _slider.gameObject.SetActive(true);
+                    _waveText.gameObject.SetActive(false);
                     break;
             }
         }

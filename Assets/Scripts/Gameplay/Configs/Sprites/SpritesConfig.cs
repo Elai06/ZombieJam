@@ -16,6 +16,7 @@ namespace Gameplay.Configs.Sprites
         [SerializeField] private List<ClassIcon> _classIcons;
         [SerializeField] private List<ParameterIcon> _parameterIcons;
         [SerializeField] private List<BoosterIcon> _boosterIcons;
+        [SerializeField] private List<TargetIcons> _targetIcons;
 
         public Sprite GetCurrencySprite(ECurrencyType type)
         {
@@ -36,20 +37,25 @@ namespace Gameplay.Configs.Sprites
         {
             return _cardsBackgrounds.Find(x => x.Class == type);
         }
-        
+
         public Sprite GetClassIcon(EUnitClass type)
         {
             return _classIcons.Find(x => x.Class == type).Sprite;
         }
-        
+
         public Sprite GetParameterIcon(EParameter type)
         {
             return _parameterIcons.Find(x => x.ParameterType == type).Icon;
         }
-        
+
         public Sprite GetBoosterIcon(EBoosterType boosterType)
         {
             return _boosterIcons.Find(x => x.BoosterType == boosterType).Sprite;
+        }
+
+        public Sprite GetTargetIcon(EWaveType waveType)
+        {
+            return _targetIcons.Find(x => x.WaveType == waveType).Icon;
         }
     }
 }

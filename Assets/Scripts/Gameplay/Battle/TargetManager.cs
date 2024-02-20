@@ -18,11 +18,27 @@ namespace Gameplay.Battle
         [SerializeField] private EnemyManager _enemyManager;
         [Inject] private IGameplayModel _gameplayModel;
 
+        private int _enemiesDied;
+
         private void Start()
         {
             InjectService.Instance.Inject(this);
 
+            InitializeWaveType();
+        }
+
+        private void InitializeWaveType()
+        {
             _gameplayModel.WaveType = _enemyManager.Enemies.Count >= 1 ? EWaveType.Battle : EWaveType.Logic;
+
+            if (_gameplayModel.WaveType == EWaveType.Battle)
+            {
+                _gameplayModel.TargetsCount = _enemyManager.Enemies.Count;
+            }
+            else
+            {
+                _gameplayModel.TargetsCount = _zombieSpawner.Zombies.Count;
+            }
         }
 
         private void OnEnable()
@@ -88,6 +104,8 @@ namespace Gameplay.Battle
 
         private void OnDiedEnemy(EEnemyType eEnemyType)
         {
+            _enemiesDied++;
+            _gameplayModel.EnemyDied(_enemiesDied);
             if (_enemyManager.Enemies.Any(enemy => !enemy.IsDied)) return;
 
             AllEnemyDied();

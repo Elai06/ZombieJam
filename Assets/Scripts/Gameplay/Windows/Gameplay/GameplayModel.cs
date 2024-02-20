@@ -16,8 +16,10 @@ namespace Gameplay.Windows.Gameplay
         public event Action OnUnitFirstDoDamage;
         public event Action<ERegionType, int> OnToTheNextWave;
         public event Action<ERegionType, int> OnWaveCompleted;
+
         public event Action<ERegionType, int> OnWaveLoose;
         public event Action<int> OnStartWave;
+        public event Action<int> OnEnemyDied;
         public event Action CreatedTimer;
 
         private readonly IRegionManager _regionManager;
@@ -43,6 +45,7 @@ namespace Gameplay.Windows.Gameplay
         public bool IsStartWave { get; set; }
         public bool IsWasFirstDamage { get; set; }
         public bool IsWaveCompleted { get; set; }
+        public int TargetsCount { get; set; }
         public TimeModel Timer { get; set; }
         public EWaveType WaveType { get; set; }
         public ETutorialState TutorialState => _tutorialService.CurrentState;
@@ -81,7 +84,7 @@ namespace Gameplay.Windows.Gameplay
         public void StartWave()
         {
             _windowService.Open(WindowType.Gameplay);
-            
+
             IsWaveCompleted = false;
             IsStartWave = true;
             IsWasFirstDamage = false;
@@ -110,8 +113,8 @@ namespace Gameplay.Windows.Gameplay
         private void CreateTimerOnFirstDamage()
         {
             OnUnitFirstDoDamage -= CreateTimerOnFirstDamage;
-            
-            if(!IsWasFirstDamage) return;
+
+            if (!IsWasFirstDamage) return;
 
             var config = _regionManager.RegionConfig.Waves[_regionManager.ProgressData.CurrentWaweIndex];
             CreateTimer(config);
@@ -187,6 +190,11 @@ namespace Gameplay.Windows.Gameplay
                 _timerService.RemoveTimer(Timer);
                 Timer = null;
             }
+        }
+        
+        public void EnemyDied(int index)
+        {
+            OnEnemyDied?.Invoke(index);
         }
     }
 }
