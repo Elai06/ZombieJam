@@ -21,7 +21,7 @@ namespace Gameplay.Tutorial.States.SwipeState
         {
             base.Enter();
 
-            _gameplayModel.OnWaveCompleted += WaveCompleted;
+            _gameplayModel.OnToTheNextWave += WaveCompleted;
          //   _windowService.Open(WindowType.Tutorial);
         }
 
@@ -29,7 +29,7 @@ namespace Gameplay.Tutorial.States.SwipeState
         {
             base.Exit();
 
-            _gameplayModel.OnWaveCompleted -= WaveCompleted;
+            _gameplayModel.OnToTheNextWave -= WaveCompleted;
         }
 
         private void WaveCompleted(ERegionType regionType, int waveIndex)

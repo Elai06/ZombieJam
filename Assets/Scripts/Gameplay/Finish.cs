@@ -12,12 +12,12 @@ namespace Gameplay
 {
     public class Finish : MonoBehaviour
     {
-        public event Action<int> UnitRoadCompleted; 
+        public event Action<int> UnitRoadCompleted;
 
         private const int UNIT_LAYER = 3;
         [SerializeField] private ZombieSpawner _zombieSpawner;
 
-        [Inject] private IWindowService _windowService;
+        [Inject] private IGameplayModel _gameplayModel;
 
         [SerializeField] private CameraSelector _cameraSelector;
 
@@ -35,21 +35,20 @@ namespace Gameplay
                 _zombieCount++;
 
                 UnitRoadCompleted?.Invoke(_zombieCount);
-                
+
                 DOVirtual.DelayedCall(0.5f, () => other.gameObject.SetActive(false));
+
 
                 if (_zombieCount == _zombieSpawner.Zombies.Count)
                 {
+                    _gameplayModel.WaveCompleted();
+
                     if (_cameraSelector == null)
                     {
                         _cameraSelector = FindObjectOfType<CameraSelector>();
                     }
 
-                    DOVirtual.DelayedCall(1, () =>
-                    {
-                        _cameraSelector.ChangeCamera(ECameraType.Enemies);
-                        _windowService.Open(WindowType.Victory);
-                    });
+                    DOVirtual.DelayedCall(2f, () => { _cameraSelector.ChangeCamera(ECameraType.Enemies); });
                 }
             }
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Gameplay.Ad;
 using Gameplay.Configs.Region;
 using Gameplay.Enums;
@@ -13,6 +14,7 @@ namespace Gameplay.Windows.Gameplay
     {
         public event Action OnRevive;
         public event Action OnUnitFirstDoDamage;
+        public event Action<ERegionType, int> OnToTheNextWave;
         public event Action<ERegionType, int> OnWaveCompleted;
         public event Action<ERegionType, int> OnWaveLoose;
         public event Action<int> OnStartWave;
@@ -40,24 +42,47 @@ namespace Gameplay.Windows.Gameplay
         public bool IsAvailableRevive { get; set; } = true;
         public bool IsStartWave { get; set; }
         public bool IsWasFirstDamage { get; set; }
+        public bool IsWaveCompleted { get; set; }
         public TimeModel Timer { get; set; }
         public EWaveType WaveType { get; set; }
         public ETutorialState TutorialState => _tutorialService.CurrentState;
 
-        public void WaveCompleted()
+        public void ToTheNextWave()
         {
+            IsWaveCompleted = false;
+
             var progress = GetCurrentRegionProgress();
             _regionManager.WaveCompleted();
             _levelModel.AddExperience(true);
             IsAvailableRevive = true;
             StopWave();
+            OnToTheNextWave?.Invoke(progress.CurrentRegionType, progress.GetCurrentRegion().CurrentWaweIndex);
+        }
+
+        public async void WaveCompleted()
+        {
+            IsWaveCompleted = true;
+            if (Timer != null)
+            {
+                Timer.IsWork = false;
+            }
+
+            var progress = GetCurrentRegionProgress();
             OnWaveCompleted?.Invoke(progress.CurrentRegionType, progress.GetCurrentRegion().CurrentWaweIndex);
+
+            await Task.Delay(4000);
+
+            if (IsWaveCompleted)
+            {
+                _windowService.Open(WindowType.Victory);
+            }
         }
 
         public void StartWave()
         {
             _windowService.Open(WindowType.Gameplay);
-
+            
+            IsWaveCompleted = false;
             IsStartWave = true;
             IsWasFirstDamage = false;
 

@@ -17,7 +17,6 @@ namespace Gameplay.Battle
         [SerializeField] private ZombieSpawner _zombieSpawner;
         [SerializeField] private EnemyManager _enemyManager;
         [Inject] private IGameplayModel _gameplayModel;
-        [Inject] private IWindowService _windowService;
 
         private void Start()
         {
@@ -91,12 +90,12 @@ namespace Gameplay.Battle
         {
             if (_enemyManager.Enemies.Any(enemy => !enemy.IsDied)) return;
 
-            WaveCompleted();
+            AllEnemyDied();
         }
 
-        private void WaveCompleted()
+        private void AllEnemyDied()
         {
-            DOVirtual.DelayedCall(1, () => { _windowService.Open(WindowType.Victory); });
+            _gameplayModel.WaveCompleted();
         }
     }
 }

@@ -9,8 +9,8 @@ namespace Gameplay.Windows.Gameplay
     public interface IGameplayModel
     {
         EWaveType WaveType { get; set; }
-        void WaveCompleted();
-        event Action<ERegionType, int> OnWaveCompleted;
+        void ToTheNextWave();
+        event Action<ERegionType, int> OnToTheNextWave;
         RegionProgress GetCurrentRegionProgress();
         RegionConfigData GetRegionConfig();
         void LooseWave();
@@ -28,5 +28,7 @@ namespace Gameplay.Windows.Gameplay
         void GetRewardForWave(bool isShowedAds);
         void FirstDamage();
         event Action CreatedTimer;
+        void WaveCompleted();
+        event Action<ERegionType, int> OnWaveCompleted;
     }
 }
