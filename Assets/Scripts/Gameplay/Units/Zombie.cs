@@ -1,4 +1,5 @@
-﻿using Gameplay.Units.States;
+﻿using Gameplay.Enums;
+using Gameplay.Units.States;
 using UnityEngine;
 
 namespace Gameplay.Units
@@ -10,7 +11,7 @@ namespace Gameplay.Units
         protected override void InitializeStates()
         {
             base.InitializeStates();
-            
+
             var parkingState = new UnitParkingState(this, Parameters, _coroutineService, _arrowDirection);
             var roadState = new UnitRoadState(this, _coroutineService, _rotateObject);
             var battleState = new UnitBattleState(this, _targetManager, _coroutineService, _obstacleAvoidance);
@@ -26,7 +27,8 @@ namespace Gameplay.Units
         public override void Revive()
         {
             base.Revive();
-            
+            if (CurrentState != EUnitState.Died) return;
+
             _stateMachine.Enter<UnitBattleState>();
         }
     }

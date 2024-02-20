@@ -1,5 +1,6 @@
 ﻿using Gameplay.Bullets;
 using Gameplay.Enemies;
+using Gameplay.Enums;
 using Gameplay.Units.ArcherStates;
 using Gameplay.Units.States;
 using UnityEngine;
@@ -32,6 +33,8 @@ namespace Gameplay.Units
         public override void Revive()
         {
             base.Revive();
+            
+            if (CurrentState != EUnitState.Died) return;
             
             _stateMachine.Enter<ArcherBattleState>();
         }
