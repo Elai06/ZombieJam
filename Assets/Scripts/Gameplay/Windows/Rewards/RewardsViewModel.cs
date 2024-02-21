@@ -46,7 +46,7 @@ namespace Gameplay.Windows.Rewards
                 rewardsViewData.Add(viewData);
             }
 
-            View.InititializeReward(rewardsViewData, Model.Description);
+            View.InitializeReward(rewardsViewData, Model.Description);
         }
     }
 }

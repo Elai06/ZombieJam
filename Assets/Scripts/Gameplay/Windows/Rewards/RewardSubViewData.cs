@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Gameplay.Enums;
+using UnityEngine;
 
 namespace Gameplay.Windows.Rewards
 {
@@ -7,6 +8,7 @@ namespace Gameplay.Windows.Rewards
         public Sprite Sprite;
         public int Value;
         public string ID;
-        public bool isUnit;
+        public EResourceType ResourceType;
+        public bool isRandomCard;
     }
 }

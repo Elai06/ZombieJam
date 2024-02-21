@@ -72,7 +72,6 @@ namespace Gameplay.Windows.LevelUp
                     case EResourceType.Card:
                         var subViewData = CreateSubView(reward, _gameStaticData.SpritesConfig
                             .GetZombieIcon(Model.CardNameReward).HalfHeighSprite);
-                        subViewData.isUnit = true;
                         rewardSubViewDatas.Add(subViewData);
                         continue;
                     default:
@@ -89,7 +88,8 @@ namespace Gameplay.Windows.LevelUp
             {
                 Sprite = sprite,
                 ID = rewardConfigData.GetId(),
-                Value = rewardConfigData.Value
+                Value = rewardConfigData.Value,
+                ResourceType = rewardConfigData.RewardType
             };
         }
 

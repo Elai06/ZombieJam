@@ -87,7 +87,8 @@ namespace Gameplay.Windows.Shop
                     ID = reward.GetId(),
                     Value = reward.Value,
                     Sprite = GetResourceSprite(reward.RewardType, reward.GetId()),
-                    isUnit = reward.RewardType == EResourceType.Card,
+                    isRandomCard = reward.RewardType == EResourceType.Card,
+                    ResourceType = reward.RewardType
                 };
 
                 _container.Add(viewData.ID, viewData);

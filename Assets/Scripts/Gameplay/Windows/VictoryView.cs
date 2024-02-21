@@ -151,6 +151,7 @@ namespace Gameplay.Windows
                 Sprite = GetSprite(rewardConfigData),
                 ID = rewardConfigData.GetId(),
                 Value = isX2 ? rewardConfigData.Value * 2 : rewardConfigData.Value,
+                ResourceType = rewardConfigData.RewardType
             };
         }
 

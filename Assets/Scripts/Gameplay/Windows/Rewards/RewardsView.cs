@@ -30,7 +30,7 @@ namespace Gameplay.Windows.Rewards
             _boxButton.onClick.RemoveListener(ShowRewards);
         }
 
-        public void InititializeReward(List<RewardSubViewData> rewardSubViewDatas, string desription)
+        public void InitializeReward(List<RewardSubViewData> rewardSubViewDatas, string desription)
         {
             RewardSubViewContainer.Content.gameObject.SetActive(true);
             _descriptionText.text = desription;
