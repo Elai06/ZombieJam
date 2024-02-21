@@ -106,7 +106,6 @@ namespace Gameplay.Enemies
         {
             IsDied = false;
             Health = Parameters[EParameter.Health];
-            gameObject.SetActive(true);
             _healthBar.ChangeHealth(Health, 0);
             _healthBar.SwitchDisplay(false);
             gameObject.transform.position = SpawnPosition;

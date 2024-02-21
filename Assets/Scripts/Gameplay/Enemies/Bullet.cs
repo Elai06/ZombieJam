@@ -12,11 +12,15 @@ namespace Gameplay.Enemies
         [SerializeField] private float _height;
         [SerializeField] private ParticleSystem _bloodFX;
         [SerializeField] private ParticleSystem _dropletsFX;
+        [SerializeField] private GameObject _bulletModel;
 
         private Coroutine _coroutine;
 
+        public GameObject BulletModel => _bulletModel;
+
         public void Shot(Transform spawnPosition, Transform target, float speed, Color bloodColor)
         {
+            _bulletModel.gameObject.SetActive(true);
             transform.position = spawnPosition.position;
             _coroutine = StartCoroutine(MoveBullet(target, speed));
 
@@ -41,6 +45,13 @@ namespace Gameplay.Enemies
                     time += Time.fixedDeltaTime;
                     var curveHeight = _curve.Evaluate(time) * _height;
                     position.y = curveHeight;
+                }
+
+                if (!target.gameObject.activeSelf)
+                {
+                    gameObject.SetActive(false);
+                    StopCoroutine(_coroutine);
+                    yield break;
                 }
 
                 transform.position = position;

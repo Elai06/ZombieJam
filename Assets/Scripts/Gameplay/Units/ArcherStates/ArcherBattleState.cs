@@ -86,7 +86,7 @@ namespace Gameplay.Units.ArcherStates
 
             while (true)
             {
-                if (_unit.Target == null || _unit.IsDied) yield break;
+                if (_unit.Target == null || _unit.IsDied || _unit == null) yield break;
 
                 if (!IsAvailableDistance())
                 {
