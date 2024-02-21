@@ -66,7 +66,7 @@ namespace Gameplay.Parking
 
         public Vector3 GetSpawnPosition()
         {
-            if (Name == EZombieNames.WalkingCoffin)
+            if (ZombieSize == EZombieSize.TwoCells)
             {
                 return (transform.position + _cooperativePosition[^1].transform.position) / 2;
             }
