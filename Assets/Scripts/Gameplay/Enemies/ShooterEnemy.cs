@@ -1,7 +1,6 @@
 ﻿using Gameplay.Battle;
 using Gameplay.Bullets;
 using Gameplay.Enemies.TowerStates;
-using Gameplay.Enums;
 using Gameplay.Parameters;
 using Gameplay.Units;
 using Gameplay.Units.Mover;
@@ -16,7 +15,7 @@ namespace Gameplay.Enemies
         [SerializeField] protected RotateObject _rotateObject;
         [SerializeField] protected Animator _animator;
         
-        public Unit Target { get;}
+        public Unit Target { get; set; }
 
         public override void Initialize(ParametersConfig parametersConfig, ICoroutineService coroutineService,
             ITargetManager targetManager)
@@ -30,11 +29,9 @@ namespace Gameplay.Enemies
         {
             var idleState = new ShooterIdleState(this, _targetManager, _coroutineService);
             var battleState = new ShooterBattleState(this, _coroutineService, _rotateObject);
-            var diedState = new EnemyDiedState(this, EEnemyState.Died);
 
             _stateMachine.AddState(idleState);
             _stateMachine.AddState(battleState);
-            _stateMachine.AddState(diedState);
 
             _stateMachine.Enter<ShooterIdleState>();
         }

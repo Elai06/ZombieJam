@@ -86,8 +86,6 @@ namespace Gameplay.Units.ArcherStates
 
             while (true)
             {
-                if (_unit.Target == null || _unit.IsDied || _unit == null) yield break;
-
                 if (!IsAvailableDistance())
                 {
                     InitializeTarget();
@@ -98,6 +96,8 @@ namespace Gameplay.Units.ArcherStates
 
                 yield return new WaitForSeconds(1 / attackRate);
 
+                if (_unit.Target == null || _unit.IsDied || _unit == null) yield break;
+                
                 var shot = new ArcherBulletModel(_coroutineService, _unit.Target, _parametersConfig, duration);
                 _unit.Bullet.Shot(_unit.Target.Transform, attackSpeed, _unit.Target.BloodColor);
                 shot.Attacked += OnAttacked;

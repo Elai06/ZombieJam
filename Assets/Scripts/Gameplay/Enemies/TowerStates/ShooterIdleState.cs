@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Gameplay.Enemies.TowerStates
 {
-    public class ShooterIdleState : TowerState
+    public class ShooterIdleState : ShooterState
     {
         private ITargetManager _targetManager;
         private ICoroutineService _coroutineService;
@@ -43,8 +43,8 @@ namespace Gameplay.Enemies.TowerStates
             while (true)
             {
                 if (ShooterEnemy == null) yield break;
-                ShooterEnemy.IsDied = _targetManager.GetTargetUnit(ShooterEnemy.transform, radiusAttack);
-
+                
+                ShooterEnemy.Target = _targetManager.GetTargetUnit(ShooterEnemy.transform, radiusAttack);
                 if (ShooterEnemy.Target != null)
                 {
                     _stateMachine.Enter<ShooterBattleState>();

@@ -64,7 +64,8 @@ namespace Gameplay.Enemies
 
                 enemyUnit.transform.position = _unSafeEnemy
                     .GetPositionForEnemyUnit(enemyUnit, _radiusSpawn, _enemyUnits.Count);
-                enemyUnit.Initialize(_coroutineService, _targetManager, enemyConfig.ParametersConfig, index, _diedZone);
+                
+                enemyUnit.Initialize(enemyConfig.ParametersConfig, _coroutineService, _targetManager);
                 enemyUnit.OnDied += UnitDied;
                 _spawnedUnits.Add(enemyUnit);
             }

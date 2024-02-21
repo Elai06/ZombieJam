@@ -62,7 +62,7 @@ namespace Gameplay.Enemies.UnitStates
         {
             var radiusAttack = _parametersConfig[EParameter.RadiusAttack];
 
-            _obstacleAvoidance.StartMovement(target, radiusAttack, _unit.DiedZone);
+            _obstacleAvoidance.StartMovement(target, radiusAttack);
 
             if (_unit.Target.IsDied)
             {

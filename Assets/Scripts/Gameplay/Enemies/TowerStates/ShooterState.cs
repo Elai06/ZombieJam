@@ -4,14 +4,14 @@ using Infrastructure.StateMachine.States;
 
 namespace Gameplay.Enemies.TowerStates
 {
-    public class TowerState : IState
+    public class ShooterState : IState
     {
         protected ShooterEnemy ShooterEnemy;
         protected IStateMachine _stateMachine;
 
         private EEnemyState _enemyState;
 
-        protected TowerState(ShooterEnemy shooterEnemy, EEnemyState state = EEnemyState.Died)
+        protected ShooterState(ShooterEnemy shooterEnemy, EEnemyState state = EEnemyState.Died)
         {
             ShooterEnemy = shooterEnemy;
             _enemyState = state;

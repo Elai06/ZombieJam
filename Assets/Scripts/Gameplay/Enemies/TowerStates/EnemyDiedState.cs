@@ -11,9 +11,9 @@ namespace Gameplay.Enemies.TowerStates
 
         private EEnemyState _enemyState;
 
-        public EnemyDiedState(Enemy _enemy, EEnemyState eEnemyState)
+        public EnemyDiedState(Enemy enemy, EEnemyState eEnemyState = EEnemyState.Died)
         {
-            this._enemy = _enemy;
+            _enemy = enemy;
             _enemyState = eEnemyState;
         }
 

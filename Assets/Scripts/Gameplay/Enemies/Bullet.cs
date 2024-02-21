@@ -20,6 +20,8 @@ namespace Gameplay.Enemies
 
         public void Shot(Transform spawnPosition, Transform target, float speed, Color bloodColor)
         {
+            if(!spawnPosition.gameObject.activeSelf) return;
+            
             _bulletModel.gameObject.SetActive(true);
             transform.position = spawnPosition.position;
             _coroutine = StartCoroutine(MoveBullet(target, speed));
@@ -50,7 +52,6 @@ namespace Gameplay.Enemies
                 if (!target.gameObject.activeSelf)
                 {
                     gameObject.SetActive(false);
-                    StopCoroutine(_coroutine);
                     yield break;
                 }
 

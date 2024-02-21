@@ -18,7 +18,6 @@ namespace Gameplay.Enemies
 
         [SerializeField] protected EEnemyType _type;
         [SerializeField] protected HealthBar _healthBar;
-        [SerializeField] protected CircleRenderer _circleRenderer;
         [SerializeField] protected Color _bloodColor;
 
         protected readonly StateMachine _stateMachine = new();
@@ -42,10 +41,12 @@ namespace Gameplay.Enemies
             Parameters = parametersConfig.GetDictionaryTypeFloat();
             _coroutineService = coroutineService;
             _targetManager = targetManager;
-            _circleRenderer.Initialize(Parameters[EParameter.RadiusAttack]);
+           // _circleRenderer.Initialize(Parameters[EParameter.RadiusAttack]);
 
             Health = Parameters[EParameter.Health];
             _healthBar.Initialize(Health);
+            
+            _stateMachine.AddState(new EnemyDiedState(this));
         }
 
         public virtual void GetDamage(float damage)
@@ -75,8 +76,8 @@ namespace Gameplay.Enemies
         {
             Health = 0;
             IsDied = true;
-            OnDied?.Invoke(_type);
             _stateMachine.Enter<EnemyDiedState>();
+            OnDied?.Invoke(_type);
         }
     }
 }

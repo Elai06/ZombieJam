@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Gameplay.Enemies.TowerStates
 {
-    public class TowerBulletModel
+    public class ShooterBulletModel
     {
         public event Action Attacked;
 
@@ -17,7 +17,7 @@ namespace Gameplay.Enemies.TowerStates
         private float _duration;
         private Dictionary<EParameter, float> _parameters;
 
-        public TowerBulletModel(ICoroutineService coroutineService, Unit target,
+        public ShooterBulletModel(ICoroutineService coroutineService, Unit target,
             Dictionary<EParameter, float> parameters, float duration)
         {
             _coroutineService = coroutineService;

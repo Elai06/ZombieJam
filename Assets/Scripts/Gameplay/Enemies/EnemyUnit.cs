@@ -16,27 +16,17 @@ namespace Gameplay.Enemies
         [SerializeField] private Animator _animator;
         [SerializeField] private EnemyUnitObstacleAvoidance _obstacleAvoidance;
 
-        public Transform DiedZone { get; private set; }
-        public Dictionary<EParameter, float> Parameters { get; private set; }
         public Unit Target { get; set; }
-        public int Index { get; set; }
-        public bool IsOnSpawnPosition { get; set; }
+        public bool IsOnSpawnPosition { get; set; } = true;
         public Vector3 SpawnPosition { get; set; }
         public Animator Animator => _animator;
-        public Color BloodColor => _bloodColor;
 
-        public void Initialize(ICoroutineService coroutineService, ITargetManager targetManager,
-            ParametersConfig parametersConfig, int index, Transform diedZone)
+        public override void Initialize(ParametersConfig parametersConfig, ICoroutineService coroutineService,
+            ITargetManager targetManager)
         {
-            SpawnPosition = transform.position;
-            DiedZone = diedZone;
-            _coroutineService = coroutineService;
-            _targetManager = targetManager;
-            Index = index;
-            Parameters = parametersConfig.GetDictionaryTypeFloat();
-            Health = Parameters[EParameter.Health];
+            base.Initialize(parametersConfig, coroutineService, targetManager);
+            SpawnPosition = gameObject.transform.position;
 
-            _healthBar.Initialize(Health);
             InitializeStates();
         }
 
@@ -45,12 +35,10 @@ namespace Gameplay.Enemies
             var idleState = new EnemyUnitIdleState(this, _coroutineService, _targetManager);
             var battleState = new EnemyUnitBattleState(this, _coroutineService, _rotateObject, _obstacleAvoidance);
             var fallBackState = new EnemyUnitFallBackState(this, _coroutineService, _rotateObject);
-            var diedState = new EnemyUnitDiedState(this);
 
             _stateMachine.AddState(idleState);
             _stateMachine.AddState(battleState);
             _stateMachine.AddState(fallBackState);
-            _stateMachine.AddState(diedState);
             _stateMachine.Enter<EnemyUnitIdleState>();
         }
 

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Gameplay.Enemies.TowerStates
 {
-    public class ShooterBattleState : TowerState
+    public class ShooterBattleState : ShooterState
     {
         private readonly ICoroutineService _coroutineService;
         private readonly RotateObject _rotateObject;
@@ -61,7 +61,7 @@ namespace Gameplay.Enemies.TowerStates
                 if (IsAvailableDistance(distanceToTarget))
                 {
                     ShooterEnemy.ShotBullet(ShooterEnemy.Target.transform, speedAttack);
-                    var bullet = new TowerBulletModel(_coroutineService, ShooterEnemy.Target,
+                    var bullet = new ShooterBulletModel(_coroutineService, ShooterEnemy.Target,
                         ShooterEnemy.Parameters, duration);
                     bullet.Attacked += OnAttacked;
                     _shotsQueue.Enqueue(bullet);
