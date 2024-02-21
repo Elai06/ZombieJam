@@ -1,6 +1,6 @@
 ﻿namespace Gameplay.Enemies
 {
-    public class SafeTower : EnemyTower
+    public class BarricadeEnemy : Enemy
     {
         public override void GetDamage(float damage)
         {

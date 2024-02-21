@@ -2,8 +2,8 @@
 {
     public enum EEnemyType
     {
-        UnSafeTower,
-        SafeTower,
+        ShooterEnemy,
+        Barricade,
         Warrior,
     }
 }

@@ -11,7 +11,7 @@ namespace Gameplay.Enemies
 {
     public class EnemyUnitsSpawner : MonoBehaviour
     {
-        public event Action<EEnemyType> Died;
+        public event Action<EEnemyType> OnDied;
 
         private const string TIMER_KEY = "EnemyUnits";
 
@@ -23,7 +23,7 @@ namespace Gameplay.Enemies
 
         [SerializeField] private Transform _diedZone;
 
-        private EnemyTower _unSafeEnemyTower;
+        private Enemy _unSafeEnemy;
 
         private ICoroutineService _coroutineService;
         private TimerService _timerService;
@@ -40,13 +40,13 @@ namespace Gameplay.Enemies
             _coroutineService = coroutineService;
             _timerService = timerService;
 
-            _unSafeEnemyTower = gameObject.GetComponent<EnemyTower>();
-            _unSafeEnemyTower.Died += TowerDied;
+            _unSafeEnemy = gameObject.GetComponent<Enemy>();
+            _unSafeEnemy.OnDied += Died;
 
             SpawnEnemyUnits();
         }
 
-        private void TowerDied(EEnemyType eEnemyType)
+        private void Died(EEnemyType eEnemyType)
         {
             if (_timeModel != null)
             {
@@ -62,10 +62,9 @@ namespace Gameplay.Enemies
                 var enemyConfig = _enemyUnitsConfig.GetConfigData(enemy);
                 var enemyUnit = Instantiate(enemyConfig.EnemyUnit, transform.parent);
 
-                enemyUnit.transform.position = _unSafeEnemyTower
+                enemyUnit.transform.position = _unSafeEnemy
                     .GetPositionForEnemyUnit(enemyUnit, _radiusSpawn, _enemyUnits.Count);
-                enemyUnit.Initialize(_coroutineService, _targetManager, enemyConfig.ParametersConfig,
-                    enemy, index, _diedZone);
+                enemyUnit.Initialize(_coroutineService, _targetManager, enemyConfig.ParametersConfig, index, _diedZone);
                 enemyUnit.OnDied += UnitDied;
                 _spawnedUnits.Add(enemyUnit);
             }
@@ -79,7 +78,7 @@ namespace Gameplay.Enemies
                 _timeModel.Stopped += OnStopTimer;
             }
 
-            Died?.Invoke(eEnemyType);
+            OnDied?.Invoke(eEnemyType);
         }
 
         private void OnStopTimer(TimeModel timeModel)

@@ -1,6 +1,5 @@
 ﻿using Gameplay.Battle;
 using Gameplay.Bullets;
-using Gameplay.Enemies.States;
 using Gameplay.Enemies.TowerStates;
 using Gameplay.Enums;
 using Gameplay.Parameters;
@@ -11,14 +10,13 @@ using UnityEngine;
 
 namespace Gameplay.Enemies
 {
-    public class UnSafeEnemyTower : EnemyTower
+    public class ShooterEnemy : Enemy
     {
         [SerializeField] private BulletSpawner _bullet;
         [SerializeField] protected RotateObject _rotateObject;
         [SerializeField] protected Animator _animator;
-
-
-        public Unit Target { get; set; }
+        
+        public Unit Target { get;}
 
         public EEnemyState CurrentState { get; set; }
 
@@ -32,15 +30,15 @@ namespace Gameplay.Enemies
 
         private void InitializeStates()
         {
-            var idleState = new TowerIdleState(this, _targetManager, _coroutineService);
-            var battleState = new TowerBattleState(this, _coroutineService, _rotateObject);
-            var diedState = new TowerDiedState(this);
+            var idleState = new ShooterIdleState(this, _targetManager, _coroutineService);
+            var battleState = new ShooterBattleState(this, _coroutineService, _rotateObject);
+            var diedState = new EnemyDiedState(this, EEnemyState.Died);
 
             _stateMachine.AddState(idleState);
             _stateMachine.AddState(battleState);
             _stateMachine.AddState(diedState);
 
-            _stateMachine.Enter<TowerIdleState>();
+            _stateMachine.Enter<ShooterIdleState>();
         }
 
         public void ShotBullet(Transform target, float speedAttack)

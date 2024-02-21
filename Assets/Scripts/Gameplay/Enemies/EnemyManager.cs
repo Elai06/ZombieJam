@@ -51,22 +51,22 @@ namespace Gameplay.Enemies
                 _enemies.Add(enemy);
             }
 
-            _enemyUnitsSpawner.Died += Died;
+            _enemyUnitsSpawner.OnDied += OnDied;
         }
 
         private void InitializeTowers()
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                var tower = transform.GetChild(i).GetComponent<EnemyTower>();
+                var tower = transform.GetChild(i).GetComponent<Enemy>();
                 _enemies.Add(tower);
                 var configData = _config.GetBuildingConfig(tower.EnemyType).Parameters;
                 tower.Initialize(configData, _coroutineService, _targetManager);
-                tower.Died += Died;
+                tower.OnDied += OnDied;
             }
         }
 
-        private void Died(EEnemyType eEnemyType)
+        private void OnDied(EEnemyType eEnemyType)
         {
             EnemyDied?.Invoke(eEnemyType);
         }

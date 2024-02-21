@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using Gameplay.Battle;
-using Gameplay.Enemies.States;
 using Gameplay.Enums;
 using Gameplay.Parameters;
 using Infrastructure.UnityBehaviours;
@@ -8,18 +7,18 @@ using UnityEngine;
 
 namespace Gameplay.Enemies.TowerStates
 {
-    public class TowerIdleState : EnemyState
+    public class ShooterIdleState : TowerState
     {
         private ITargetManager _targetManager;
         private ICoroutineService _coroutineService;
 
         private Coroutine _coroutine;
 
-        public TowerIdleState(UnSafeEnemyTower unSafeEnemyTower, ITargetManager targetManager, ICoroutineService coroutineService) : base(unSafeEnemyTower, EEnemyState.Idle)
+        public ShooterIdleState(ShooterEnemy shooterEnemy, ITargetManager targetManager, ICoroutineService coroutineService) : base(shooterEnemy, EEnemyState.Idle)
         {
             _targetManager = targetManager;
             _coroutineService = coroutineService;
-            UnSafeEnemyTower = unSafeEnemyTower;
+            ShooterEnemy = shooterEnemy;
         }
 
         public override void Exit()
@@ -40,15 +39,15 @@ namespace Gameplay.Enemies.TowerStates
 
         private IEnumerator FindTarget()
         {
-            var radiusAttack = UnSafeEnemyTower.Parameters[EParameter.RadiusAttack];
+            var radiusAttack = ShooterEnemy.Parameters[EParameter.RadiusAttack];
             while (true)
             {
-                if (UnSafeEnemyTower == null) yield break;
-                UnSafeEnemyTower.Target = _targetManager.GetTargetUnit(UnSafeEnemyTower.transform, radiusAttack);
+                if (ShooterEnemy == null) yield break;
+                ShooterEnemy.IsDied = _targetManager.GetTargetUnit(ShooterEnemy.transform, radiusAttack);
 
-                if (UnSafeEnemyTower.Target != null)
+                if (ShooterEnemy.Target != null)
                 {
-                    _stateMachine.Enter<TowerBattleState>();
+                    _stateMachine.Enter<ShooterBattleState>();
                     yield break;
                 }
 

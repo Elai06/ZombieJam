@@ -2,19 +2,19 @@
 using Infrastructure.StateMachine;
 using Infrastructure.StateMachine.States;
 
-namespace Gameplay.Enemies.States
+namespace Gameplay.Enemies.TowerStates
 {
-    public class EnemyState : IState
+    public class TowerState : IState
     {
-        protected UnSafeEnemyTower UnSafeEnemyTower;
+        protected ShooterEnemy ShooterEnemy;
         protected IStateMachine _stateMachine;
 
         private EEnemyState _enemyState;
 
-        public EnemyState(UnSafeEnemyTower unSafeEnemyTower, EEnemyState eEnemyState)
+        protected TowerState(ShooterEnemy shooterEnemy, EEnemyState state = EEnemyState.Died)
         {
-            UnSafeEnemyTower = unSafeEnemyTower;
-            _enemyState = eEnemyState;
+            ShooterEnemy = shooterEnemy;
+            _enemyState = state;
         }
 
         public void Initialize(IStateMachine stateMachine)
@@ -28,7 +28,7 @@ namespace Gameplay.Enemies.States
 
         public virtual void Enter()
         {
-            UnSafeEnemyTower.CurrentState = _enemyState;
+            ShooterEnemy.CurrentState = _enemyState;
         }
     }
 }
