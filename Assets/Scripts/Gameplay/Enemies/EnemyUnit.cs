@@ -18,7 +18,6 @@ namespace Gameplay.Enemies
 
         public Transform DiedZone { get; private set; }
         public Dictionary<EParameter, float> Parameters { get; private set; }
-        public EEnemyUnitState CurrentState { get; set; }
         public Unit Target { get; set; }
         public int Index { get; set; }
         public bool IsOnSpawnPosition { get; set; }

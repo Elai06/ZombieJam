@@ -1,11 +1,11 @@
-﻿
+﻿using Gameplay.Enums;
 using UnityEngine;
 
 namespace Gameplay.Enemies.UnitStates
 {
     public class EnemyUnitDiedState : EnemyUnitState
     {
-        public EnemyUnitDiedState(EnemyUnit unit) : base(unit, EEnemyUnitState.Died)
+        public EnemyUnitDiedState(EnemyUnit unit) : base(unit, EEnemyState.Died)
         {
         }
 

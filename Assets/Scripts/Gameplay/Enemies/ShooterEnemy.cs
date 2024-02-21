@@ -18,8 +18,6 @@ namespace Gameplay.Enemies
         
         public Unit Target { get;}
 
-        public EEnemyState CurrentState { get; set; }
-
         public override void Initialize(ParametersConfig parametersConfig, ICoroutineService coroutineService,
             ITargetManager targetManager)
         {

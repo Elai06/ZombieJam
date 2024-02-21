@@ -27,8 +27,8 @@ namespace Gameplay.Windows.Tutorial
 
         [Inject] private SwipeManager _swipeManager;
 
-        private readonly Vector3 _firstUnitPosition = new(1.5f, 0.5f, 0.5f);
-        private readonly Vector3 _secondUnitPosition = new(-1.5f, 0.5f, -.5f);
+        private readonly Vector3 _firstUnitPosition = new(-1.5f, 0.5f, 0.5f);
+        private readonly Vector3 _secondUnitPosition = new(0.49999994f, 0.5f, 0.49999994f);
         private readonly Vector3 _thirdUnitPosition = new(0.5f, 0.5f, -1.5f);
         private readonly Vector3 _fourthUnitPosition = new(2.5f, 0.5f, -1.5f);
 
@@ -77,7 +77,7 @@ namespace Gameplay.Windows.Tutorial
             _tutorialBG.gameObject.SetActive(true);
             _firstArrow.gameObject.SetActive(true);
             _firstFieldIllumination.gameObject.SetActive(true);
-            _tween = _firstArrow.transform.DOLocalMoveX(_firstArrow.transform.position.x - 1.75f, 1.75f)
+            _tween = _firstArrow.transform.DOLocalMoveZ(_firstArrow.transform.position.z + 1.75f, 1.75f)
                 .SetLoops(-1, LoopType.Restart);
         }
 
@@ -92,7 +92,7 @@ namespace Gameplay.Windows.Tutorial
                 _secondArrow.gameObject.SetActive(true);
                 _secondFieldIllumination.gameObject.SetActive(true);
                 _tween = _secondArrow.transform
-                    .DOLocalMoveZ(_secondArrow.transform.position.z + 1.75f, 1.75f)
+                    .DOLocalMoveX(_secondArrow.transform.position.x - 1.75f, 1.75f)
                     .SetLoops(-1, LoopType.Restart);
             }
             else if (_unitIndex == 2)

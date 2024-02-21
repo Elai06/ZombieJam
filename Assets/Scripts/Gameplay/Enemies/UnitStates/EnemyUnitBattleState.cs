@@ -19,7 +19,7 @@ namespace Gameplay.Enemies.UnitStates
 
         public EnemyUnitBattleState(EnemyUnit unit, ICoroutineService coroutineService,
             RotateObject rotateObject, EnemyUnitObstacleAvoidance obstacleAvoidance)
-            : base(unit, EEnemyUnitState.Battle)
+            : base(unit, EEnemyState.Battle)
         {
             _unit = unit;
             _parametersConfig = unit.Parameters;

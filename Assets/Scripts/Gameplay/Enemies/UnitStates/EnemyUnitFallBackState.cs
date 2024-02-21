@@ -13,7 +13,7 @@ namespace Gameplay.Enemies.UnitStates
 
         public EnemyUnitFallBackState(EnemyUnit unit, ICoroutineService coroutineService,
             RotateObject rotateObject)
-            : base(unit, EEnemyUnitState.FallBack)
+            : base(unit, EEnemyState.FallBack)
         {
             _coroutine = coroutineService;
             _rotateObject = rotateObject;

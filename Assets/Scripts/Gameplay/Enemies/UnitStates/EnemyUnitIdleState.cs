@@ -13,7 +13,7 @@ namespace Gameplay.Enemies.UnitStates
 
         public EnemyUnitIdleState(EnemyUnit unit, ICoroutineService coroutineService, ITargetManager targetManager)
             :
-            base(unit, EEnemyUnitState.Idle)
+            base(unit, EEnemyState.Idle)
         {
             _coroutineService = coroutineService;
             _targetManager = targetManager;
