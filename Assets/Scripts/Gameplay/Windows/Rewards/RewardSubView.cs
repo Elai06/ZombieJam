@@ -25,13 +25,14 @@ namespace Gameplay.Windows.Rewards
         private bool _isRandomCard;
         private EResourceType _eResourceType;
 
+        private Tween _tween;
 
         public override void Initialize(RewardSubViewData data)
         {
             _eResourceType = data.ResourceType;
             _id = data.ID;
             _isRandomCard = data.isRandomCard;
-            
+
             Value = data.Value;
             _valueText.text = data.Value.ToString();
             _sprite.sprite = data.Sprite;
@@ -55,8 +56,11 @@ namespace Gameplay.Windows.Rewards
         private void ShowTooltip()
         {
             _tooltip.SetActive(!_tooltip.gameObject.activeSelf);
+            _tween?.Kill();
+            
+            if (!_tooltip.activeSelf) return;
 
-            DOVirtual.DelayedCall(3, () => { _tooltip.SetActive(false); });
+            _tween = DOVirtual.DelayedCall(3, () => { _tooltip.SetActive(false); });
         }
 
         private string GetTooltipText()
@@ -72,7 +76,7 @@ namespace Gameplay.Windows.Rewards
 
                 case EResourceType.Card:
                     Enum.TryParse<EZombieNames>(_id, out var card);
-                    return _isRandomCard ? "A random Zombie from among already opened Zombies" :GetCardText(card);
+                    return _isRandomCard ? "A random Zombie from among already opened Zombies" : GetCardText(card);
 
                 default:
                     return null;
