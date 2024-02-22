@@ -89,7 +89,7 @@ namespace Gameplay.Windows.Boosters
             _increaseAttackText.text = value <= 0 ? "→" : $"{value}";
         }
 
-        public void SetBoosterAttackSpeedValue(int value)
+        public void SetBoosterTravelSpeedValue(int value)
         {
             _increaseAttackSpeedText.text = $"{value}";
             _increaseAttackSpeedBooster.image.color = value > 0 ? Color.white : Color.yellow;

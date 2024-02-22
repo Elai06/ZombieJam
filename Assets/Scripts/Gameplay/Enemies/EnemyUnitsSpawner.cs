@@ -90,6 +90,7 @@ namespace Gameplay.Enemies
 
                 if (unit.IsDied)
                 {
+                    if(unit == null || gameObject == null) continue;
                     unit.gameObject.SetActive(true);
                     unit.Revive();
                 }

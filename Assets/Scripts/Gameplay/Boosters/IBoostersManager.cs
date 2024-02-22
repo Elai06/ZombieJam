@@ -1,4 +1,5 @@
 ﻿using System;
+using Gameplay.Windows.Gameplay;
 
 namespace Gameplay.Boosters
 {
@@ -9,5 +10,6 @@ namespace Gameplay.Boosters
         event Action<EBoosterType> Activate;
         void ConsumeBooster(EBoosterType boosterType, int value);
         void AddBooster(EBoosterType boosterType, int value);
+        void Initialize(IGameplayModel gameplayModel);
     }
 }

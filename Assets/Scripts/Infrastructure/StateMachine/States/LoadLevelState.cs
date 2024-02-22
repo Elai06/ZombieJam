@@ -1,3 +1,4 @@
+using Gameplay.Boosters;
 using Gameplay.Cards;
 using Gameplay.PlayerTimes;
 using Gameplay.RegionMap;
@@ -22,9 +23,11 @@ namespace Infrastructure.StateMachine.States
         private readonly ITutorialService _tutorialService;
         private readonly SwipeManager _swipeManager;
         private readonly IGameplayModel _gameplayModel;
+        private readonly IBoostersManager _boostersManager;
 
         public LoadLevelState(ISceneLoader sceneLoader, ICardsModel cardsModel, IPlayerTimesService playerTimesService,
-            IEventsManager eventsManager, ITutorialService tutorialService, SwipeManager swipeManager, IGameplayModel gameplayModel)
+            IEventsManager eventsManager, ITutorialService tutorialService, SwipeManager swipeManager,
+            IGameplayModel gameplayModel, IBoostersManager boostersManager)
         {
             _sceneLoader = sceneLoader;
             _cardsModel = cardsModel;
@@ -33,6 +36,7 @@ namespace Infrastructure.StateMachine.States
             _tutorialService = tutorialService;
             _swipeManager = swipeManager;
             _gameplayModel = gameplayModel;
+            _boostersManager = boostersManager;
         }
 
         public void Enter()
@@ -52,6 +56,7 @@ namespace Infrastructure.StateMachine.States
             _cardsModel.Initialize();
             _tutorialService.Initalize(_gameplayModel);
             _swipeManager.Initialize();
+            _boostersManager.Initialize(_gameplayModel);
 
             AppMetrica.Instance.ReportEvent("Game started",
                 $"{{\"Project version\":\"{Application.version}\\, Day\":\"{_playerTimesService.GetDaysInPlay()}\"}}");

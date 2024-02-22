@@ -1,5 +1,4 @@
-﻿using Gameplay.Enums;
-using Gameplay.Parking;
+﻿using Gameplay.Parking;
 
 namespace Gameplay.Boosters
 {

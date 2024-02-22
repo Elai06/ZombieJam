@@ -14,7 +14,7 @@ namespace Gameplay.Windows.Boosters
         {
             View.SetBoosterRelocationValue(Model.GetBoosterProgressData(EBoosterType.Relocation).Value);
             View.SetBoosterAttackValue(Model.GetBoosterProgressData(EBoosterType.IncreaseAttack).Value);
-            View.SetBoosterAttackSpeedValue(Model.GetBoosterProgressData(EBoosterType.IncreaseAttackSpeed).Value);
+            View.SetBoosterTravelSpeedValue(Model.GetBoosterProgressData(EBoosterType.IncreaseTravelSpeed).Value);
             View.SetBoosterHPValue(Model.GetBoosterProgressData(EBoosterType.IncreaseHP).Value);
         }
 
@@ -45,7 +45,7 @@ namespace Gameplay.Windows.Boosters
                     View.SetBoosterAttackValue(Model.GetBoosterProgressData(type).Value);
                     break;
                 case EBoosterType.IncreaseTravelSpeed:
-                    View.SetBoosterAttackSpeedValue(Model.GetBoosterProgressData(type).Value);
+                    View.SetBoosterTravelSpeedValue(Model.GetBoosterProgressData(type).Value);
                     break;
                 case EBoosterType.IncreaseHP:
                     View.SetBoosterHPValue(Model.GetBoosterProgressData(type).Value);

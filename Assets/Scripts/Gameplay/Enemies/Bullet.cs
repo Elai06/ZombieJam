@@ -18,7 +18,7 @@ namespace Gameplay.Enemies
 
         public void Shot(Transform spawnPosition, Transform target, float speed)
         {
-            if(!spawnPosition.gameObject.activeSelf) return;
+            if(!spawnPosition.gameObject.activeSelf || !gameObject.activeSelf) return;
             
             _bulletModel.gameObject.SetActive(true);
             transform.position = spawnPosition.position;
