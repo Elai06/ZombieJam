@@ -18,7 +18,8 @@ namespace Gameplay.Enemies
 
         [SerializeField] protected EEnemyType _type;
         [SerializeField] protected HealthBar _healthBar;
-        [SerializeField] protected Color _bloodColor;
+
+        [SerializeField] private ParticleSystem _getDamageEffect;
 
         protected readonly StateMachine _stateMachine = new();
 
@@ -30,10 +31,9 @@ namespace Gameplay.Enemies
         public bool IsDied { get; set; }
         public Transform Transform => transform;
         public EEnemyType EnemyType => _type;
-        public Color BloodColor => _bloodColor;
 
         public Dictionary<EParameter, float> Parameters { get; private set; }
-        public EEnemyState CurrentState { get; set; } 
+        public EEnemyState CurrentState { get; set; }
 
         public virtual void Initialize(ParametersConfig parametersConfig, ICoroutineService coroutineService,
             ITargetManager targetManager)
@@ -41,20 +41,23 @@ namespace Gameplay.Enemies
             Parameters = parametersConfig.GetDictionaryTypeFloat();
             _coroutineService = coroutineService;
             _targetManager = targetManager;
-           // _circleRenderer.Initialize(Parameters[EParameter.RadiusAttack]);
 
             Health = Parameters[EParameter.Health];
             _healthBar.Initialize(Health);
-            
             _stateMachine.AddState(new EnemyDiedState(this));
         }
 
-        public virtual void GetDamage(float damage)
+        public virtual void GetDamage(float damage, bool isNeedBlood = true)
         {
             if (IsDied) return;
 
             Health -= damage;
             _healthBar.ChangeHealth(Health, (int)damage);
+
+            if (isNeedBlood)
+            {
+                _getDamageEffect.Play();
+            }
 
             if (Health <= 0)
             {
@@ -71,7 +74,7 @@ namespace Gameplay.Enemies
             return new Vector3(Mathf.Cos(angle) * radiusAttack, 0, Mathf.Sin(angle) * radiusAttack) +
                    gameObject.transform.position;
         }
-        
+
         private void Died()
         {
             Health = 0;

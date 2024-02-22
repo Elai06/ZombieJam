@@ -13,29 +13,28 @@ namespace Gameplay.Bullets
 
         private List<Bullet> _bullets = new();
 
-        public void Shot(Transform target, float speed, Color bloodColor)
+        public void Shot(Transform target, float speed)
         {
             foreach (var bullet in _bullets.Where(bullet => !bullet.gameObject.activeSelf))
             {
                 bullet.gameObject.SetActive(true);
-                bullet.Shot(_spawnPosition, target, speed, bloodColor);
+                bullet.Shot(_spawnPosition, target, speed);
                 return;
             }
 
-            CreateBullet(target, speed, bloodColor);
+            CreateBullet(target, speed);
         }
 
-        private void CreateBullet(Transform target, float speed, Color bloodColor)
+        private void CreateBullet(Transform target, float speed)
         {
             var newBullet = Instantiate(_bullet, transform);
-            newBullet.Shot(_spawnPosition, target, speed, bloodColor);
+            newBullet.Shot(_spawnPosition, target, speed);
             newBullet.Hit += OnHit;
             _bullets.Add(newBullet);
         }
 
         private async void OnHit(Bullet bullet)
         {
-            bullet.BulletModel.gameObject.SetActive(false);
             await Task.Delay(250);
             bullet.transform.localPosition = Vector3.zero;
             bullet.gameObject.SetActive(false);

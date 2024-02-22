@@ -24,19 +24,19 @@ namespace Gameplay.Units
         public event Action<GameObject> OnCollision;
         public event Action OnInitializePath;
         public event Action TakeDamage;
-        public event Action DoDamage; 
+        public event Action DoDamage;
 
         [SerializeField] protected RotateObject _rotateObject;
         [SerializeField] protected ArrowDirection _arrowDirection;
         [SerializeField] protected HealthBar _healthBar;
         [SerializeField] protected Animator _animator;
-        [SerializeField] protected Transform _prefab;
         [SerializeField] protected ESwipeDirection _eSwipeDirection;
         [SerializeField] private UnitSwipe _unitSwipe;
-        [SerializeField] protected Color _bloodColor;
 
+        [Header("Effects")] 
         [SerializeField] private ParticleSystem _stunnedEffect;
-        
+        [SerializeField] private ParticleSystem _getDamageEffect;
+
         protected CardModel _cardModel;
 
         protected readonly StateMachine _stateMachine = new();
@@ -52,11 +52,10 @@ namespace Gameplay.Units
         public bool IsDied { get; private set; }
         public ZombieData Config { get; set; }
         public StateMachine StateMachine => _stateMachine;
-        public Transform Prefab => _prefab;
+        public Transform Prefab => transform;
         public ESwipeDirection SwipeDirection => _eSwipeDirection;
         public Dictionary<EParameter, float> Parameters { get; } = new();
         public Animator Animator => _animator;
-        public Color BloodColor => _bloodColor;
 
         public void Initialize(CardModel cardModel, ICoroutineService coroutineService,
             ITargetManager targetManager, ZombieData zombieData)
@@ -66,7 +65,7 @@ namespace Gameplay.Units
             _targetManager = targetManager;
             Config = zombieData;
             UnitClass = zombieData.Type;
-
+            
             InitializeParameters();
             InitializeStates();
         }
@@ -124,12 +123,17 @@ namespace Gameplay.Units
             DoDamage?.Invoke();
         }
 
-        public void GetDamage(float damage)
+        public void GetDamage(float damage, bool isNeedBlood = true)
         {
             if (Health <= 0) return;
 
             Health -= damage;
             _healthBar.ChangeHealth(Health, (int)damage);
+
+            if (isNeedBlood)
+            {
+                _getDamageEffect.Play();
+            }
 
             if (Health <= 0)
             {
@@ -180,7 +184,7 @@ namespace Gameplay.Units
             _animator.SetTrigger("Died");
             OnDied?.Invoke(this);
         }
-        
+
         public void Kick()
         {
             _stateMachine.Enter<UnitKickState>();
@@ -192,7 +196,7 @@ namespace Gameplay.Units
             _stunnedEffect.Play();
 
             await Task.Delay(duration);
-            
+
             _stunnedEffect.Stop();
         }
     }

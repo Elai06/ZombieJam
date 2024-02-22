@@ -5,10 +5,9 @@ namespace Gameplay.Enemies
 {
     public interface IEnemy
     {
-        void GetDamage(float damage);
+        void GetDamage(float damage, bool isNeedBlood = true);
         Transform Transform { get; }
         bool IsDied { get; }
-         Color BloodColor { get; }
          event Action TakeDamage;
     }
 }

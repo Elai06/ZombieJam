@@ -10,27 +10,19 @@ namespace Gameplay.Enemies
 
         [SerializeField] private AnimationCurve _curve;
         [SerializeField] private float _height;
-        [SerializeField] private ParticleSystem _bloodFX;
-        [SerializeField] private ParticleSystem _dropletsFX;
+        [SerializeField] private bool _isNeedParticle;
+        [SerializeField] private ParticleSystem _hitEffect;
         [SerializeField] private GameObject _bulletModel;
 
         private Coroutine _coroutine;
 
-        public GameObject BulletModel => _bulletModel;
-
-        public void Shot(Transform spawnPosition, Transform target, float speed, Color bloodColor)
+        public void Shot(Transform spawnPosition, Transform target, float speed)
         {
             if(!spawnPosition.gameObject.activeSelf) return;
             
             _bulletModel.gameObject.SetActive(true);
             transform.position = spawnPosition.position;
             _coroutine = StartCoroutine(MoveBullet(target, speed));
-
-            if (_bloodFX != null && _dropletsFX != null)
-            {
-                _bloodFX.startColor = bloodColor;
-                _dropletsFX.startColor = bloodColor;
-            }
         }
 
         private IEnumerator MoveBullet(Transform target, float speed)
@@ -60,9 +52,10 @@ namespace Gameplay.Enemies
 
                 if (distance <= 0.1f)
                 {
-                    if (_bloodFX != null)
+                    _bulletModel.SetActive(false);
+                    if (_hitEffect != null && _isNeedParticle)
                     {
-                        _bloodFX.Play();
+                        _hitEffect.Play();
                     }
 
                     StopCoroutine(_coroutine);

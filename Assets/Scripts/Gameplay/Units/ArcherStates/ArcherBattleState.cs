@@ -97,12 +97,11 @@ namespace Gameplay.Units.ArcherStates
                 yield return new WaitForSeconds(1 / attackRate);
 
                 if (_unit.Target == null || _unit.IsDied || _unit == null) yield break;
-                
+
                 var shot = new ArcherBulletModel(_coroutineService, _unit.Target, _parametersConfig, duration);
-                _unit.Bullet.Shot(_unit.Target.Transform, attackSpeed, _unit.Target.BloodColor);
+                _unit.Bullet.Shot(_unit.Target.Transform, attackSpeed);
                 shot.Attacked += OnAttacked;
                 _shotsQueue.Enqueue(shot);
-
 
                 if (_unit.Target == null || _unit.IsDied) yield break;
 

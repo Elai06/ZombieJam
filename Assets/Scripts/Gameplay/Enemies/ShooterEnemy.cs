@@ -41,7 +41,7 @@ namespace Gameplay.Enemies
             if (Target.IsDied) return;
 
             _animator.SetTrigger("Attack");
-            _bullet.Shot(target, speedAttack, Target.BloodColor);
+            _bullet.Shot(target, speedAttack);
         }
     }
 }
