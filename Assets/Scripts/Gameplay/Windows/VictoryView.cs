@@ -28,6 +28,7 @@ namespace Gameplay.Windows
         [SerializeField] private TextMeshProUGUI _levelText;
         [SerializeField] private TextMeshProUGUI _currentExperienceSlider;
         [SerializeField] private Slider _levelSlider;
+        [SerializeField] private Image _victoryExperienceFill;
         [SerializeField] private Button _lobbyButton;
         [SerializeField] private Button _claimButton;
 
@@ -117,12 +118,16 @@ namespace Gameplay.Windows
         private void SetLevelInfo()
         {
             var currentLevel = _levelModel.CurrentLevel;
-            var reqiredExperience = _levelModel.ReqiredExperienceForUp();
+            var requiredExperience = _levelModel.ReqiredExperienceForUp();
             var currentExperience = _levelModel.CurrentExperience;
-            _increaseExperienceText.text = $" +{_gameplayModel.GetExperience(true)} experience";
+            var experience = _gameplayModel.GetExperience(true);
+            _increaseExperienceText.text = $" +{experience} experience";
             _levelText.text = $"{currentLevel + 1}";
-            _levelSlider.value = (float)currentExperience / reqiredExperience;
-            _currentExperienceSlider.text = $"{currentExperience}/{reqiredExperience}";
+            _levelSlider.value = (float)currentExperience / requiredExperience;
+            _victoryExperienceFill.rectTransform.anchorMax =
+                new Vector2(((float)currentExperience + experience) / requiredExperience, 1);
+            _victoryExperienceFill.rectTransform.anchorMin = new Vector2(0, 0);
+            _currentExperienceSlider.text = $"{currentExperience}/{requiredExperience}";
         }
 
         private void SetWave(ERegionType regionType, int index)
