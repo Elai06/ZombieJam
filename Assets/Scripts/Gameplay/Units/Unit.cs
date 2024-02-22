@@ -36,7 +36,7 @@ namespace Gameplay.Units
         [Header("Effects")] 
         [SerializeField] private ParticleSystem _stunnedEffect;
         [SerializeField] private ParticleSystem _getDamageEffect;
-
+        
         protected CardModel _cardModel;
 
         protected readonly StateMachine _stateMachine = new();
@@ -56,6 +56,7 @@ namespace Gameplay.Units
         public ESwipeDirection SwipeDirection => _eSwipeDirection;
         public Dictionary<EParameter, float> Parameters { get; } = new();
         public Animator Animator => _animator;
+        public CapsuleCollider Collider { get; private set; }
 
         public void Initialize(CardModel cardModel, ICoroutineService coroutineService,
             ITargetManager targetManager, ZombieData zombieData)
@@ -68,6 +69,8 @@ namespace Gameplay.Units
             
             InitializeParameters();
             InitializeStates();
+
+            Collider = gameObject.GetComponent<CapsuleCollider>();
         }
 
         private void InitializeParameters()

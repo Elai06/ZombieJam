@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Gameplay.Battle;
+using Gameplay.Configs.Zombies;
 using Gameplay.Enemies;
 using Gameplay.Enums;
 using Gameplay.Parameters;
@@ -33,6 +34,11 @@ namespace Gameplay.Units.States
         {
             base.Enter();
 
+            if (_unit.Config.Name == EZombieNames.Hitchhiker && _unit.Collider != null)
+            {
+                _unit.Collider.direction = 1;
+            }
+            
             InitializeTarget();
 
             _obstacleAvoidance.ReachedToTarget += OnReachedToTarget;
