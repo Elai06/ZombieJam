@@ -38,7 +38,7 @@ namespace Gameplay.Enemies
 
         public void ShotBullet(Transform target, float speedAttack)
         {
-            if (Target.IsDied) return;
+            if (Target.IsDied || IsDied) return;
 
             _animator.SetTrigger("Attack");
             _bullet.Shot(target, speedAttack);
