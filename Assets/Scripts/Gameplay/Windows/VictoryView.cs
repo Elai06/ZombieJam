@@ -124,8 +124,10 @@ namespace Gameplay.Windows
             _increaseExperienceText.text = $" +{experience} experience";
             _levelText.text = $"{currentLevel + 1}";
             _levelSlider.value = (float)currentExperience / requiredExperience;
+            var increasedExperienceAnchor = (float)(currentExperience + experience) / requiredExperience;
+
             _victoryExperienceFill.rectTransform.anchorMax =
-                new Vector2(((float)currentExperience + experience) / requiredExperience, 1);
+                new Vector2(increasedExperienceAnchor > 1 ? 1 : increasedExperienceAnchor, 1);
             _victoryExperienceFill.rectTransform.anchorMin = new Vector2(0, 0);
             _currentExperienceSlider.text = $"{currentExperience}/{requiredExperience}";
         }
