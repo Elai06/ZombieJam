@@ -11,7 +11,7 @@ namespace Gameplay.Level
         int CurrentExperience { get; }
         LevelConfig LevelConfig { get; set; }
         EZombieNames CardNameReward { get; }
-        int ReqiredExperienceForUp();
+        int RequiredExperienceForUp();
         void AddExperience(bool isWin);
         int GetExperience(bool isWin);
         event Action<int> OnLevelUp;

@@ -17,12 +17,23 @@ namespace Gameplay.Configs.Rewards
 
         [SerializeField, ShowIf("ShowBooster")]
         private EBoosterType _boosterType;
+        
+        [SerializeField, ShowIf("RandomCard")]
+        private EZombieNames _zombieNames;
+        
+        [SerializeField, ShowIf("ShowZombie")]
+        private bool _isRandomCard;
 
         public int Value;
 
         private bool ShowZombie()
         {
             return RewardType == EResourceType.Card;
+        }
+
+        private bool RandomCard()
+        {
+            return !_isRandomCard && RewardType == EResourceType.Card;
         }
 
         private bool ShowCurrency()
@@ -41,6 +52,7 @@ namespace Gameplay.Configs.Rewards
             {
                 EResourceType.Booster => _boosterType.ToString(),
                 EResourceType.Currency => _currencyType.ToString(),
+                EResourceType.Card => _zombieNames.ToString(),
                 _ => ""
             };
         }

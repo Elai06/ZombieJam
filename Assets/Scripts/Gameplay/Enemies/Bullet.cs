@@ -33,6 +33,8 @@ namespace Gameplay.Enemies
                 var distance = Vector3.Distance(transform.position, target.position);
                 var position = Vector3.MoveTowards(transform.position, target.position,
                     speed * Time.fixedDeltaTime);
+                
+                if(!gameObject.activeSelf) yield break;
 
                 if (_height > 0)
                 {

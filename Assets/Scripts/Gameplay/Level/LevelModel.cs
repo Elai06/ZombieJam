@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Gameplay.Boosters;
 using Gameplay.Cards;
 using Gameplay.Configs.Level;
@@ -57,9 +58,9 @@ namespace Gameplay.Level
 
             _levelProgress.Experience += value;
 
-            if (CurrentExperience >= ReqiredExperienceForUp())
+            if (CurrentExperience >= RequiredExperienceForUp())
             {
-                var residue = _levelProgress.Experience - ReqiredExperienceForUp();
+                var residue = _levelProgress.Experience - RequiredExperienceForUp();
                 LevelUp();
                 _levelProgress.Experience += residue;
             }
@@ -69,11 +70,28 @@ namespace Gameplay.Level
 
         private void LevelUp()
         {
+            SetCardReward();
             _levelProgress.Level++;
             _levelProgress.Experience = 0;
-            CardNameReward = _cardsModel.GetRandomCard(false);
             OpenWindow();
             OnLevelUp?.Invoke(CurrentLevel);
+        }
+
+        private void SetCardReward()
+        {
+            if (CurrentLevel >= LevelConfig.LevelRewards.Count)
+            {
+                CardNameReward = _cardsModel.GetRandomCard(true);
+            }
+            else
+            {
+                foreach (var reward in LevelConfig.LevelRewards[CurrentLevel].Rewards
+                             .Where(reward => reward.RewardType == EResourceType.Card))
+                {
+                    CardNameReward = Enum.Parse<EZombieNames>(reward.GetId());
+                    return;
+                }
+            }
         }
 
         public int GetExperience(bool isWin)
@@ -82,16 +100,17 @@ namespace Gameplay.Level
                          * LevelConfig.MultiplierExperience);
         }
 
-        public int ReqiredExperienceForUp()
+        public int RequiredExperienceForUp()
         {
-            var reqiredExperience = (int)(LevelConfig.ReqiredExperienceForUp *
-                                          (CurrentLevel * LevelConfig.MultiplierExperience));
-            return reqiredExperience > 0 ? reqiredExperience : LevelConfig.ReqiredExperienceForUp;
+            var requiredExperience = (int)(LevelConfig.ReqiredExperienceForUp *
+                                           (CurrentLevel * LevelConfig.MultiplierExperience));
+            return requiredExperience > 0 ? requiredExperience : LevelConfig.ReqiredExperienceForUp;
         }
 
         public void GetRewards()
         {
-            foreach (var reward in LevelConfig.LevelRewards.Rewards)
+            var rewards = LevelConfig.LevelRewards[CurrentLevel];
+            foreach (var reward in rewards.Rewards)
             {
                 if (reward.RewardType == EResourceType.Booster)
                 {

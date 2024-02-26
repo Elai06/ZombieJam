@@ -27,7 +27,7 @@ namespace Gameplay.Windows.LevelUp
 
         public override void Show()
         {
-            CreateRewards();
+            CreateRewardsView();
         }
 
         public override void Subscribe()
@@ -51,11 +51,14 @@ namespace Gameplay.Windows.LevelUp
             Model.GetRewards();
         }
 
-        private void CreateRewards()
+        private void CreateRewardsView()
         {
             List<RewardSubViewData> rewardSubViewDatas = new List<RewardSubViewData>();
-
-            foreach (var reward in Model.LevelConfig.LevelRewards.Rewards)
+            
+            
+            var rewards = Model.LevelConfig.LevelRewards[Model.CurrentLevel - 1];
+            
+            foreach (var reward in rewards.Rewards)
             {
                 switch (reward.RewardType)
                 {

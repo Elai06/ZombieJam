@@ -118,7 +118,7 @@ namespace Gameplay.Windows
         private void SetLevelInfo()
         {
             var currentLevel = _levelModel.CurrentLevel;
-            var requiredExperience = _levelModel.ReqiredExperienceForUp();
+            var requiredExperience = _levelModel.RequiredExperienceForUp();
             var currentExperience = _levelModel.CurrentExperience;
             var experience = _gameplayModel.GetExperience(true);
             _increaseExperienceText.text = $" +{experience} experience";
