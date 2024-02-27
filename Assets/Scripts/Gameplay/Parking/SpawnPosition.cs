@@ -7,7 +7,7 @@ namespace Gameplay.Parking
 {
     public class SpawnPosition : MonoBehaviour
     {
-        [SerializeField] private bool _isAvailable = true;
+        [SerializeField] private bool _isAvailable;
         [SerializeField] private ESwipeDirection _eSwipeDirection;
         [SerializeField] private ESwipeSide _eSwipeSide;
         public EZombieNames Name;

@@ -1241,8 +1241,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isAvailable: 1
-  _eSwipeDirection: 2
-  _eSwipeSide: 0
+  _eSwipeDirection: 1
+  _eSwipeSide: 3
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -2925,10 +2925,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 1
-  _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
-  _cooperativePosition: []
+  _eSwipeSide: 3
+  Name: 3
+  ZombieSize: 1
+  _cooperativePosition:
+  - {fileID: 7877320878263465145}
   _cubePrefab: {fileID: 1180089586774024599}
 --- !u!1 &1957229309901946688
 GameObject:
@@ -3090,7 +3091,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1975486664623739908}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.94, y: 0.5354842, z: 16.86451}
+  m_LocalPosition: {x: 0.94, y: 0.25, z: 16.86451}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3871,11 +3872,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isAvailable: 1
+  _isAvailable: 0
   _eSwipeDirection: 1
   _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
+  Name: 3
+  ZombieSize: 1
   _cooperativePosition: []
   _cubePrefab: {fileID: 6051454219452605781}
 --- !u!1 &2334260872082668355
@@ -5009,7 +5010,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2672922665638408545}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -8.224316, y: 0.5354842, z: 16.86451}
+  m_LocalPosition: {x: -8.224316, y: 0.25, z: 16.86451}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6662,7 +6663,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3735627303920509647}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -5.29, y: 0.5354842, z: 16.88}
+  m_LocalPosition: {x: -5.29, y: 0.25, z: 16.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6828,8 +6829,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isAvailable: 1
-  _eSwipeDirection: 1
-  _eSwipeSide: 0
+  _eSwipeDirection: 2
+  _eSwipeSide: 2
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -7520,7 +7521,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4067702383501202771}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 2.5, y: 0.5354842, z: 18.54451}
+  m_LocalPosition: {x: 2.5, y: 0.25, z: 18.54451}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7821,7 +7822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isAvailable: 1
-  _eSwipeDirection: 1
+  _eSwipeDirection: 2
   _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
@@ -7852,7 +7853,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4331654874834724383}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 4.1156845, y: 0.5354842, z: 16.88}
+  m_LocalPosition: {x: 4.1156845, y: 0.25, z: 16.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8402,7 +8403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isAvailable: 1
-  _eSwipeDirection: 1
+  _eSwipeDirection: 2
   _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
@@ -9128,11 +9129,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isAvailable: 1
-  _eSwipeDirection: 1
+  _isAvailable: 0
+  _eSwipeDirection: 2
   _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
+  Name: 3
+  ZombieSize: 1
   _cooperativePosition: []
   _cubePrefab: {fileID: 8013527835750674672}
 --- !u!1 &5236768870611105694
@@ -9845,11 +9846,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isAvailable: 1
-  _eSwipeDirection: 1
-  _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
-  _cooperativePosition: []
+  _eSwipeDirection: 2
+  _eSwipeSide: 2
+  Name: 3
+  ZombieSize: 1
+  _cooperativePosition:
+  - {fileID: 1471180428649730083}
   _cubePrefab: {fileID: 3296862447522722214}
 --- !u!1 &5620351419363086897
 GameObject:
@@ -11408,11 +11410,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isAvailable: 1
-  _eSwipeDirection: 2
+  _isAvailable: 0
+  _eSwipeDirection: 1
   _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
+  Name: 3
+  ZombieSize: 1
   _cooperativePosition: []
   _cubePrefab: {fileID: 7052227943878610200}
 --- !u!1 &6803835370892219510
@@ -14559,7 +14561,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7889757635539942466}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -6.7, y: 0.5354842, z: 18.54451}
+  m_LocalPosition: {x: -6.7, y: 0.25, z: 18.54451}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14726,7 +14728,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
-  _eSwipeSide: 0
+  _eSwipeSide: 2
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -15719,8 +15721,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isAvailable: 1
-  _eSwipeDirection: 1
-  _eSwipeSide: 0
+  _eSwipeDirection: 2
+  _eSwipeSide: 1
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -16270,7 +16272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 1
-  _eSwipeSide: 0
+  _eSwipeSide: 3
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -16592,7 +16594,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8738487861495150101}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.72}
+  m_LocalPosition: {x: 0, y: -0.4, z: -0.72}
   m_LocalScale: {x: 1.75, y: 1.75, z: 1.75}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18517,11 +18519,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isAvailable: 1
-  _eSwipeDirection: 2
-  _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
-  _cooperativePosition: []
+  _eSwipeDirection: 1
+  _eSwipeSide: 4
+  Name: 3
+  ZombieSize: 1
+  _cooperativePosition:
+  - {fileID: 736307538695998680}
   _cubePrefab: {fileID: 1692028964275925097}
 --- !u!1 &9206780200887748831
 GameObject:
