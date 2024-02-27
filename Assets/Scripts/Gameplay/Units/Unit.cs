@@ -101,11 +101,11 @@ namespace Gameplay.Units
             OnSwipe?.Invoke(swipe);
         }
 
-        public void SetSwipeDirection(ESwipeDirection swipeDirection)
+        public void SetSwipeDirection(ESwipeDirection swipeDirection, ESwipeSide swipeSide = ESwipeSide.None)
         {
             _eSwipeDirection = swipeDirection;
             _unitSwipe.SwipeDirection = _eSwipeDirection;
-            _arrowDirection.SetArrowDirection(SwipeDirection);
+            _arrowDirection.SetArrowDirection(SwipeDirection, swipeSide);
         }
 
         public void InitializePath(BezierCurve bezierCurve)

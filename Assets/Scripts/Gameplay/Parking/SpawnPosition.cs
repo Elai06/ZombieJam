@@ -9,6 +9,7 @@ namespace Gameplay.Parking
     {
         [SerializeField] private bool _isAvailable = true;
         [SerializeField] private ESwipeDirection _eSwipeDirection;
+        [SerializeField] private ESwipeSide _eSwipeSide;
         public EZombieNames Name;
         public EZombieSize ZombieSize;
         [SerializeField] private List<SpawnPosition> _cooperativePosition = new();
@@ -19,6 +20,10 @@ namespace Gameplay.Parking
         public bool IsCooperative { get; private set; }
 
         public List<SpawnPosition> CooperativePositions => _cooperativePosition;
+
+        public ESwipeDirection SwipeDirection => _eSwipeDirection;
+
+        public ESwipeSide SwipeSide => _eSwipeSide;
 
 #if UNITY_EDITOR
         private void OnDrawGizmos()
@@ -57,11 +62,6 @@ namespace Gameplay.Parking
         public bool IsAvailablePosition()
         {
             return _isAvailable;
-        }
-
-        public ESwipeDirection GetSwipeDirection()
-        {
-            return _eSwipeDirection;
         }
 
         public Vector3 GetSpawnPosition()
