@@ -114,7 +114,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6425321545421433702}
-  m_RootOrder: 15
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3569119063749129556
 MeshFilter:
@@ -213,6 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -511,89 +512,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &417964366841810033
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5439345344415978040}
-  - component: {fileID: 8861859910530543240}
-  - component: {fileID: 6366107474951535397}
-  m_Layer: 0
-  m_Name: fence_element_2_LOD0 (11)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5439345344415978040
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 417964366841810033}
-  m_LocalRotation: {x: -0, y: -0.000000119209275, z: -0, w: 1}
-  m_LocalPosition: {x: 4.8099995, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6425321545421433702}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8861859910530543240
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 417964366841810033}
-  m_Mesh: {fileID: 4300000, guid: 1650a7c8645633e45992f87ec91bc9ef, type: 3}
---- !u!23 &6366107474951535397
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 417964366841810033}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 773904c17f692744880a9da6a2f7afd0, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &422216405433811079
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,6 +559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 1
+  _eSwipeSide: 0
   Name: 3
   ZombieSize: 1
   _cooperativePosition:
@@ -677,7 +596,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6425321545421433702}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8765286801360511202
 MeshFilter:
@@ -1179,6 +1098,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -2262,6 +2182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -2313,6 +2234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -2447,6 +2369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -2498,6 +2421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -2936,7 +2860,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6425321545421433702}
-  m_RootOrder: 13
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4711343809405643994
 MeshFilter:
@@ -3206,6 +3130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -3340,6 +3265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -3557,6 +3483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 2
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -3762,7 +3689,7 @@ Transform:
   - {fileID: 5389787262222840762}
   - {fileID: 7613825260479874516}
   m_Father: {fileID: 6425321545421433702}
-  m_RootOrder: 17
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &2492607556419453307
 LODGroup:
@@ -3988,7 +3915,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6425321545421433702}
-  m_RootOrder: 11
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5029546717212155864
 MeshFilter:
@@ -4336,6 +4263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -4387,6 +4315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -4521,6 +4450,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -4803,7 +4733,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3716643523308396885}
-  - {fileID: 1147686175767504383}
   - {fileID: 9148262164556827494}
   - {fileID: 5066157938180864647}
   - {fileID: 6587147883871086618}
@@ -4811,7 +4740,6 @@ Transform:
   - {fileID: 8004165874380033968}
   - {fileID: 3233242511160534557}
   - {fileID: 2622917281422563147}
-  - {fileID: 5439345344415978040}
   - {fileID: 3140236975886639712}
   - {fileID: 8747685886455926700}
   - {fileID: 342457914920350814}
@@ -5497,7 +5425,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6425321545421433702}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4677671010507841103
 MeshFilter:
@@ -5857,6 +5785,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -6074,6 +6003,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 1
+  _eSwipeSide: 0
   Name: 3
   ZombieSize: 1
   _cooperativePosition:
@@ -6126,6 +6056,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -6177,6 +6108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -6228,6 +6160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -6899,6 +6832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -7116,6 +7050,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -7167,6 +7102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -7479,6 +7415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
+  _eSwipeSide: 0
   Name: 3
   ZombieSize: 1
   _cooperativePosition:
@@ -7847,7 +7784,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6425321545421433702}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8337951490122713709
 MeshFilter:
@@ -7930,7 +7867,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6425321545421433702}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4445659416484506257
 MeshFilter:
@@ -8096,7 +8033,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6425321545421433702}
-  m_RootOrder: 12
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5236388640148989405
 MeshFilter:
@@ -8278,6 +8215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -8495,6 +8433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 1
+  _eSwipeSide: 0
   Name: 3
   ZombieSize: 1
   _cooperativePosition: []
@@ -8546,6 +8485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -8581,7 +8521,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6425321545421433702}
-  m_RootOrder: 10
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5127271975127780163
 MeshFilter:
@@ -8680,6 +8620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -8814,6 +8755,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -8932,7 +8874,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6425321545421433702}
-  m_RootOrder: 16
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2227673591025198289
 MeshFilter:
@@ -9114,6 +9056,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -9912,6 +9855,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -11429,89 +11373,6 @@ MonoBehaviour:
   _spawnPositionPrefab: {fileID: 7312766874275574779, guid: 7cec7d8fddd62514eb84bb96dd05c93e, type: 3}
   _square: 36
   _startPosition: {fileID: 7037340585614744901}
---- !u!1 &7051470845010159720
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1147686175767504383}
-  - component: {fileID: 4251827976120955364}
-  - component: {fileID: 467175197780406320}
-  m_Layer: 0
-  m_Name: fence_element_2_LOD0 (7)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1147686175767504383
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7051470845010159720}
-  m_LocalRotation: {x: -0, y: -0.000000119209275, z: -0, w: 1}
-  m_LocalPosition: {x: 1.0320001, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6425321545421433702}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &4251827976120955364
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7051470845010159720}
-  m_Mesh: {fileID: 4300000, guid: 1650a7c8645633e45992f87ec91bc9ef, type: 3}
---- !u!23 &467175197780406320
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7051470845010159720}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 773904c17f692744880a9da6a2f7afd0, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &7065178686378107771
 GameObject:
   m_ObjectHideFlags: 0
@@ -11559,6 +11420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 1
+  _eSwipeSide: 0
   Name: 3
   ZombieSize: 1
   _cooperativePosition: []
@@ -12187,7 +12049,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6425321545421433702}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5356730816652905339
 MeshFilter:
@@ -12286,6 +12148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _eSwipeDirection: 2
+  _eSwipeSide: 0
   Name: 3
   ZombieSize: 1
   _cooperativePosition:
@@ -12421,6 +12284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 2
+  _eSwipeSide: 0
   Name: 3
   ZombieSize: 1
   _cooperativePosition: []
@@ -12456,7 +12320,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6425321545421433702}
-  m_RootOrder: 14
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6375770460218804970
 MeshFilter:
@@ -13343,6 +13207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -13394,6 +13259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -13445,6 +13311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -13612,6 +13479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 2
+  _eSwipeSide: 0
   Name: 3
   ZombieSize: 1
   _cooperativePosition: []
@@ -13967,7 +13835,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6425321545421433702}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8398362691602451948
 MeshFilter:
@@ -14315,6 +14183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 0
   _eSwipeDirection: 0
+  _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -14350,7 +14219,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6425321545421433702}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2473901333701614361
 MeshFilter:
@@ -15798,7 +15667,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4690586328809720, guid: 30970780107b92349bf1a4ca675c9858, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.65
       objectReference: {fileID: 0}
     - target: {fileID: 4690586328809720, guid: 30970780107b92349bf1a4ca675c9858, type: 3}
       propertyPath: m_LocalRotation.w
