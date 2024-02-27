@@ -60,7 +60,7 @@ namespace Gameplay.Enemies
             {
                 var tower = transform.GetChild(i).GetComponent<Enemy>();
                 _enemies.Add(tower);
-                var configData = _config.GetBuildingConfig(tower.EnemyType).Parameters;
+                var configData = _config.GetEnemyConfig(tower.EnemyType).Parameters;
                 tower.Initialize(configData, _coroutineService, _targetManager);
                 tower.OnDied += OnDied;
             }
