@@ -1,4 +1,5 @@
 ﻿using System;
+using Gameplay.Enums;
 using UnityEngine;
 
 namespace Gameplay.Enemies
@@ -9,5 +10,6 @@ namespace Gameplay.Enemies
         Transform Transform { get; }
         bool IsDied { get; }
          event Action TakeDamage;
+         EEnemyType EnemyType { get; }
     }
 }

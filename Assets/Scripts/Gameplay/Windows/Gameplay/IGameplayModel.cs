@@ -32,6 +32,7 @@ namespace Gameplay.Windows.Gameplay
         event Action CreatedTimer;
         void WaveCompleted();
         event Action<ERegionType, int> OnWaveCompleted;
-        void EnemyDied(int index);
+        void EnemyDied(int index, EEnemyType eEnemyType);
+        void SetWaveType(EWaveType destroyEnemies);
     }
 }

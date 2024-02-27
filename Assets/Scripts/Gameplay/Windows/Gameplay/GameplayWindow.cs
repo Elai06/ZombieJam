@@ -66,7 +66,7 @@ namespace Gameplay.Windows.Gameplay
 
         private void InitializeTarget()
         {
-            SetTarget();
+            SetTarget(0);
 
             if (_gameplayModel.WaveType == EWaveType.Logic)
             {
@@ -76,10 +76,16 @@ namespace Gameplay.Windows.Gameplay
                 _targetDescription.text = $"Withdraw Zombie: ";
 
             }
-            else
+            else if(_gameplayModel.WaveType == EWaveType.DestroyEnemies)
             {
                 _gameplayModel.OnEnemyDied += SetTarget;
                 _targetDescription.text = $"Destroy the enemy: ";
+            }
+            
+            else if(_gameplayModel.WaveType == EWaveType.DestroyBarricade)
+            {
+                _gameplayModel.OnEnemyDied += SetTarget;
+                _targetDescription.text = $"Destroy the barricade: ";
             }
         }
 
@@ -111,7 +117,7 @@ namespace Gameplay.Windows.Gameplay
             _windowService.Open(WindowType.Died);
         }
 
-        private void SetTarget(int count = 0)
+        private void SetTarget(int count)
         {
             if (count == _gameplayModel.TargetsCount)
             {

@@ -29,14 +29,28 @@ namespace Gameplay.Battle
 
         private void InitializeWaveType()
         {
-            _gameplayModel.WaveType = _enemyManager.Enemies.Count >= 1 ? EWaveType.Battle : EWaveType.Logic;
-
-            if (_gameplayModel.WaveType == EWaveType.Battle)
+            if (_enemyManager.Enemies.Count > 0)
             {
-                _gameplayModel.TargetsCount = _enemyManager.Enemies.Count;
+                foreach (var enemy in _enemyManager.Enemies)
+                {
+                    if (enemy.EnemyType != EEnemyType.Barricade)
+                    {
+                        _gameplayModel.SetWaveType(EWaveType.DestroyEnemies);
+                        _gameplayModel.TargetsCount =
+                            _enemyManager.Enemies.FindAll(x => x.EnemyType != EEnemyType.Barricade).Count;
+                        return;
+                    }
+
+                    if (enemy.EnemyType == EEnemyType.Barricade)
+                    {
+                        _gameplayModel.SetWaveType(EWaveType.DestroyBarricade);
+                        _gameplayModel.TargetsCount = _enemyManager.Enemies.Count;
+                    }
+                }
             }
             else
             {
+                _gameplayModel.SetWaveType(EWaveType.Logic);
                 _gameplayModel.TargetsCount = _zombieSpawner.Zombies.Count;
             }
         }
@@ -104,8 +118,18 @@ namespace Gameplay.Battle
 
         private void OnDiedEnemy(EEnemyType eEnemyType)
         {
+            if (_gameplayModel.WaveType == EWaveType.DestroyBarricade)
+            {
+                if(eEnemyType != EEnemyType.Barricade) return;
+            }
+
+            if (_gameplayModel.WaveType == EWaveType.DestroyEnemies)
+            {
+                if(eEnemyType == EEnemyType.Barricade) return;
+            }
+            
             _enemiesDied++;
-            _gameplayModel.EnemyDied(_enemiesDied);
+            _gameplayModel.EnemyDied(_enemiesDied, eEnemyType);
             if (_enemyManager.Enemies.Any(enemy => !enemy.IsDied)) return;
 
             AllEnemyDied();

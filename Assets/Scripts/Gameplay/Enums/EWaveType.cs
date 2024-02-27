@@ -3,6 +3,7 @@
     public enum EWaveType
     {
         Logic,
-        Battle
+        DestroyEnemies,
+        DestroyBarricade
     }
 }

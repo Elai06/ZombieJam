@@ -192,9 +192,14 @@ namespace Gameplay.Windows.Gameplay
             }
         }
         
-        public void EnemyDied(int index)
+        public void EnemyDied(int index, EEnemyType eEnemyType)
         {
             OnEnemyDied?.Invoke(index);
+        }
+
+        public void SetWaveType(EWaveType waveType)
+        {
+            WaveType = waveType;
         }
     }
 }
