@@ -1,11 +1,9 @@
 ﻿using System.Linq;
-using DG.Tweening;
 using Gameplay.Enemies;
 using Gameplay.Enums;
 using Gameplay.Parking;
 using Gameplay.Units;
 using Gameplay.Windows.Gameplay;
-using Infrastructure.Windows;
 using UnityEngine;
 using Utils.ZenjectInstantiateUtil;
 using Zenject;

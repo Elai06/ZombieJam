@@ -7,7 +7,6 @@ namespace Gameplay.Parking
 {
     public class SpawnPosition : MonoBehaviour
     {
-        [SerializeField] private bool _isAvailable;
         [SerializeField] private ESwipeDirection _eSwipeDirection;
         [SerializeField] private ESwipeSide _eSwipeSide;
         public EZombieNames Name;
@@ -28,7 +27,7 @@ namespace Gameplay.Parking
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            Gizmos.color = _isAvailable && _eSwipeDirection != ESwipeDirection.None ? Color.green : Color.red;
+            Gizmos.color = _eSwipeDirection != ESwipeDirection.None ? Color.green : Color.red;
 
             if (_cooperativePosition.Count > 0 && ZombieSize == EZombieSize.TwoCells)
             {
@@ -61,7 +60,7 @@ namespace Gameplay.Parking
 
         public bool IsAvailablePosition()
         {
-            return _isAvailable;
+            return _eSwipeDirection != ESwipeDirection.None;
         }
 
         public Vector3 GetSpawnPosition()

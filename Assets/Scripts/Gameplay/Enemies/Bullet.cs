@@ -18,8 +18,8 @@ namespace Gameplay.Enemies
 
         public void Shot(Transform spawnPosition, Transform target, float speed)
         {
-            if(!spawnPosition.gameObject.activeSelf || !enabled) return;
-            
+            if (!spawnPosition.gameObject.activeSelf || !enabled) return;
+
             _bulletModel.gameObject.SetActive(true);
             transform.position = spawnPosition.position;
             _coroutine = StartCoroutine(MoveBullet(target, speed));
@@ -27,7 +27,10 @@ namespace Gameplay.Enemies
 
         private void OnDisable()
         {
-            StopCoroutine(_coroutine);
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
+            }
         }
 
         private IEnumerator MoveBullet(Transform target, float speed)
@@ -38,7 +41,7 @@ namespace Gameplay.Enemies
                 var distance = Vector3.Distance(transform.position, target.position);
                 var position = Vector3.MoveTowards(transform.position, target.position,
                     speed * Time.fixedDeltaTime);
-                
+
                 if (_height > 0)
                 {
                     time += Time.fixedDeltaTime;
