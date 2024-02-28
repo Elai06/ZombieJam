@@ -154,8 +154,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _height: 0
-  _bloodFX: {fileID: 602408559770832410}
-  _dropletsFX: {fileID: 602984521031987680}
+  _isNeedParticle: 0
+  _hitEffect: {fileID: 602408559770832410}
   _bulletModel: {fileID: 2977660080475960551}
 --- !u!1001 &586689203444647600
 PrefabInstance:
@@ -237,11 +237,6 @@ PrefabInstance:
 --- !u!198 &602408559770832410 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 33910984786282666, guid: cd6c5422c959f904c8e28b9a08e88200, type: 3}
-  m_PrefabInstance: {fileID: 586689203444647600}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &602984521031987680 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 34460356462753616, guid: cd6c5422c959f904c8e28b9a08e88200, type: 3}
   m_PrefabInstance: {fileID: 586689203444647600}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &760579651479882892 stripped
