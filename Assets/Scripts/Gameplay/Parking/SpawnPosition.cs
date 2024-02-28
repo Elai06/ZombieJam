@@ -32,6 +32,7 @@ namespace Gameplay.Parking
             if (_cooperativePosition.Count > 0 && ZombieSize == EZombieSize.TwoCells)
             {
                 CooperativePosition();
+                Gizmos.color = Color.blue;
 
                 foreach (var position in _cooperativePosition)
                 {
@@ -41,11 +42,10 @@ namespace Gameplay.Parking
                 }
             }
 
-            if (IsCooperative && ZombieSize == EZombieSize.TwoCells)
+            if (ZombieSize == EZombieSize.TwoCells)
             {
                 Gizmos.color = Color.blue;
             }
-
 
             var gizmosPosition = transform.position;
             gizmosPosition.y += 0.1f;
@@ -54,6 +54,11 @@ namespace Gameplay.Parking
 
         private void CooperativePosition()
         {
+            if (_cooperativePosition.Count == 0 && ZombieSize == EZombieSize.TwoCells)
+            {
+                _eSwipeDirection = ESwipeDirection.None;
+            }
+            
             IsCooperative = true;
         }
 #endif
