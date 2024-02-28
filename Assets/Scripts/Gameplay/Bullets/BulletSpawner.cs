@@ -35,6 +35,7 @@ namespace Gameplay.Bullets
 
         private async void OnHit(Bullet bullet)
         {
+            if(!bullet.gameObject.activeSelf) return;
             await Task.Delay(250);
             bullet.transform.localPosition = Vector3.zero;
             bullet.gameObject.SetActive(false);

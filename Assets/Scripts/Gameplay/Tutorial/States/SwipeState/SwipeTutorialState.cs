@@ -34,7 +34,7 @@ namespace Gameplay.Tutorial.States.SwipeState
 
         private void WaveCompleted(ERegionType regionType, int waveIndex)
         {
-            if (regionType == ERegionType.SurvivorsHaven && waveIndex == 1)
+            if (regionType == ERegionType.Awakening && waveIndex == 1)
             {
                 _stateMachine.Enter<ShopBoxTutorialState>();
             }

@@ -2,11 +2,10 @@
 {
     public enum ERegionType
     {
-        SurvivorsHaven,
-        SafeOasis,
-        ResistanceStronghold, 
-        HopeSettlement,
-        SurvivorShelter,
-        RescueBase
+        Awakening,
+        Cemetery,
+        Park, 
+        Parking,
+        ResidentialAreas,
     }
 }
