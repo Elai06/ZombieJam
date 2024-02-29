@@ -144,13 +144,13 @@ namespace Gameplay.Windows.Cards
             var config = Model.CardsConfig.Cards.Find(x => x.ZombieData.Name == type);
             var viewData = new CardPopUpData
             {
-                ParametersConfig = Model.GetParameters(type),
+                UnitParameters = Model.GetParameters(type),
                 CardsReqired = Model.GetReqiredCardsValue(type),
                 ProgressData = progress,
                 CurrencySprite = _gameStaticData.SpritesConfig.GetCurrencySprite(currencyType),
                 CurrencyValue = Model.GetCurrencyValue(currencyType),
                 CurrencyReqired = Model.GetCurrencyPrice(type, currencyType),
-                ParameterData = config.ZombieData.Parameters.Parameters,
+                ParameterConfig = config.ZombieData.Parameters.Parameters,
                 IsCanUpgrade = Model.IsCanUpgrade(type, progress),
                 IsTutorial = _tutorialService.CurrentState == ETutorialState.StartCard,
                 Icon = _gameStaticData.SpritesConfig.GetZombieIcon(type).FullHeighSprite,

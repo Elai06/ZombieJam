@@ -13,14 +13,14 @@ namespace Gameplay.Windows.Cards
     public class CardPopUpData
     {
         public CardProgressData ProgressData;
-        public Dictionary<EParameter, float> ParametersConfig;
+        public Dictionary<EParameter, float> UnitParameters;
         public int CardsReqired;
         public int CurrencyReqired;
         public int CurrencyValue;
         public Sprite CurrencySprite;
         public Sprite ClassIcon;
         public Sprite Icon;
-        public List<ParameterData> ParameterData;
+        [FormerlySerializedAs("ParameterData1")] [FormerlySerializedAs("ParameterData")] public List<ParameterData> ParameterConfig;
         public bool IsCanUpgrade;
         public bool IsTutorial;
         public SpritesConfig SpritesConfig;

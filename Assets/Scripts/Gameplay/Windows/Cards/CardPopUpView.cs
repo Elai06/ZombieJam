@@ -117,15 +117,16 @@ namespace Gameplay.Windows.Cards
 
         private void UpdateParameters(CardPopUpData data)
         {
-            foreach (var parameter in data.ParameterData)
+            foreach (var parameter in data.ParameterConfig)
             {
                 if (!_parameterSubViewContainer.SubViews.ContainsKey(parameter.Type.ToString())) return;
 
                 var subView = _parameterSubViewContainer.SubViews[parameter.Type.ToString()];
+                var unitParameters = data.UnitParameters[parameter.Type];
                 var parameterSubViewData = new ParameterSubViewData
                 {
                     Type = parameter.Type,
-                    Value = parameter.Value,
+                    Value = unitParameters,
                     Icon = data.SpritesConfig.GetParameterIcon(parameter.Type)
                 };
 
@@ -144,9 +145,9 @@ namespace Gameplay.Windows.Cards
         private void InitializeParameters(CardPopUpData data)
         {
             _parameterSubViewContainer.CleanUp();
-            foreach (var parameter in data.ParametersConfig)
+            foreach (var parameter in data.UnitParameters)
             {
-                if (!data.ParameterData.Find(x => x.Type == parameter.Key).IsShowInUI) continue;
+                if (!data.ParameterConfig.Find(x => x.Type == parameter.Key).IsShowInUI) continue;
                 var parameterSubViewData = new ParameterSubViewData
                 {
                     Type = parameter.Key,
