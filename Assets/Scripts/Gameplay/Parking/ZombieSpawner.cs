@@ -114,11 +114,14 @@ namespace Gameplay.Parking
 
             if (_gameplayModel.WaveType == EWaveType.Logic)
             {
+                _windowService.Open(WindowType.Died);
+                _windowService.Close(WindowType.Died);
+
+                var diedView = _windowService.CashedWindows[WindowType.Died].GetComponent<DiedView>();
+                diedView.DiedFromPatrol = true;
+                
                 DOVirtual.DelayedCall(1, () =>
                 {
-                    var diedView = _windowService.CashedWindows[WindowType.Died].GetComponent<DiedView>();
-                    diedView.DiedFromPatrol = true;
-                    
                     _windowService.Open(WindowType.Died);
                 });
             }
