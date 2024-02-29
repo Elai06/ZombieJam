@@ -7,6 +7,7 @@ using Gameplay.CinemachineCamera;
 using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
 using Gameplay.Units;
+using Gameplay.Windows;
 using Gameplay.Windows.Gameplay;
 using Infrastructure.StaticData;
 using Infrastructure.UnityBehaviours;
@@ -57,6 +58,7 @@ namespace Gameplay.Parking
         private void Initialize()
         {
             Spawn();
+            _gameplayModel.InitializeZombieSpawner(this);
 
             foreach (var unit in Zombies)
             {
@@ -112,7 +114,13 @@ namespace Gameplay.Parking
 
             if (_gameplayModel.WaveType == EWaveType.Logic)
             {
-                DOVirtual.DelayedCall(1, () => { _windowService.Open(WindowType.Died); });
+                DOVirtual.DelayedCall(1, () =>
+                {
+                    var diedView = _windowService.CashedWindows[WindowType.Died].GetComponent<DiedView>();
+                    diedView.DiedFromPatrol = true;
+                    
+                    _windowService.Open(WindowType.Died);
+                });
             }
         }
 

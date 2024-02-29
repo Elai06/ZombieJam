@@ -1,7 +1,9 @@
 ﻿using System;
 using Gameplay.Configs.Region;
 using Gameplay.Enums;
+using Gameplay.Parking;
 using Gameplay.Tutorial;
+using Gameplay.Units;
 using Infrastructure.Timer;
 
 namespace Gameplay.Windows.Gameplay
@@ -34,5 +36,7 @@ namespace Gameplay.Windows.Gameplay
         event Action<ERegionType, int> OnWaveCompleted;
         void EnemyDied(int index, EEnemyType eEnemyType);
         void SetWaveType(EWaveType destroyEnemies);
+        void InitializeZombieSpawner(ZombieSpawner zombieSpawner);
+        Unit IsHaveTank();
     }
 }

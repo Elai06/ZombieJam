@@ -4,7 +4,9 @@ using Gameplay.Ad;
 using Gameplay.Configs.Region;
 using Gameplay.Enums;
 using Gameplay.Level;
+using Gameplay.Parking;
 using Gameplay.Tutorial;
+using Gameplay.Units;
 using Infrastructure.Timer;
 using Infrastructure.Windows;
 
@@ -29,6 +31,8 @@ namespace Gameplay.Windows.Gameplay
         private readonly ITutorialService _tutorialService;
         private readonly IWindowService _windowService;
 
+        private ZombieSpawner _zombieSpawner;
+
         public GameplayModel(IRegionManager regionManager, ILevelModel levelModel,
             IAdsService adsService, ITutorialService tutorialService, TimerService timerService,
             IWindowService windowService)
@@ -50,6 +54,11 @@ namespace Gameplay.Windows.Gameplay
         public EWaveType WaveType { get; set; }
         public ETutorialState TutorialState => _tutorialService.CurrentState;
 
+        public void InitializeZombieSpawner(ZombieSpawner zombieSpawner)
+        {
+            _zombieSpawner = zombieSpawner;
+        }
+        
         public void ToTheNextWave()
         {
             IsWaveCompleted = false;
@@ -200,6 +209,11 @@ namespace Gameplay.Windows.Gameplay
         public void SetWaveType(EWaveType waveType)
         {
             WaveType = waveType;
+        }
+
+        public Unit IsHaveTank()
+        {
+            return _zombieSpawner.Zombies.Find(x => x.Config.Type == EUnitClass.Tank);
         }
     }
 }

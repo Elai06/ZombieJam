@@ -4,6 +4,7 @@ using Gameplay.Enums;
 using Gameplay.Level;
 using Gameplay.Shop;
 using Gameplay.Windows.Gameplay;
+using Infrastructure.StaticData;
 using Infrastructure.Windows;
 using TMPro;
 using UnityEngine;
@@ -30,22 +31,29 @@ namespace Gameplay.Windows
         [SerializeField] private Transform _inAppContent;
         [SerializeField] private Transform _reviveContent;
         [SerializeField] private Transform _patrolContent;
+        [SerializeField] private Transform _tankHintContent;
+
+        [SerializeField] private Image _unitIcon;
 
         [Inject] private IGameplayModel _gameplayModel;
         [Inject] private ILevelModel _levelModel;
         [Inject] private IShopModel _shopModel;
         [Inject] private IWindowService _windowService;
+        [Inject] private GameStaticData _gameStaticData;
 
         public void Start()
         {
             InjectService.Instance.Inject(this);
         }
 
+        public bool DiedFromPatrol { get; set; }
+
         public void OnEnable()
         {
             _reviveContent.gameObject.SetActive(false);
             _inAppContent.gameObject.SetActive(false);
             _patrolContent.gameObject.SetActive(false);
+            _tankHintContent.gameObject.SetActive(false);
             _adImage.gameObject.SetActive(true);
 
             var progress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
@@ -56,19 +64,33 @@ namespace Gameplay.Windows
 
             if (_gameplayModel.WaveType == EWaveType.Logic)
             {
-                SetPatrolContent();
                 _reviveButton.onClick.AddListener(Restart);
+
+                if (DiedFromPatrol)
+                {
+                    SetPatrolContent();
+                }
+                else
+                {
+                    SetInAppHintContent();
+                }
             }
             else
             {
-                if (_gameplayModel.IsAvailableRevive)
+                var zombieTank = _gameplayModel.IsHaveTank();
+                if (zombieTank != null)
                 {
-                    SetReviveContent();
+                    var sprite = _gameStaticData.SpritesConfig.GetZombieIcon(zombieTank.Config.Name).HalfHeighSprite;
+                    SetTankHintContent(sprite);
+                }
+                else if (_gameplayModel.IsAvailableRevive)
+                {
+                    SetReviveHintContent();
                     _reviveButton.onClick.AddListener(Revive);
                 }
                 else
                 {
-                    SetInAppContent();
+                    SetInAppHintContent();
                     _reviveButton.onClick.AddListener(ClaimSimpleBox);
                 }
             }
@@ -77,6 +99,7 @@ namespace Gameplay.Windows
         private void OnDisable()
         {
             _reviveButton.onClick.RemoveAllListeners();
+            DiedFromPatrol = false;
         }
 
         private void Revive()
@@ -101,16 +124,23 @@ namespace Gameplay.Windows
             _currentExperienceSlider.text = $"{currentExperience}/{reqiredExperience}";
         }
 
-        private void SetReviveContent()
+        private void SetReviveHintContent()
         {
             _reviveTextButton.text = "Revive";
             _reviveContent.gameObject.SetActive(true);
         }
 
-        private void SetInAppContent()
+        private void SetInAppHintContent()
         {
             _inAppContent.gameObject.SetActive(true);
             _reviveTextButton.text = "Claim";
+        }
+
+        private void SetPatrolContent()
+        {
+            _adImage.gameObject.SetActive(false);
+            _reviveTextButton.text = "Restart";
+            _patrolContent.gameObject.SetActive(true);
         }
 
         private void ClaimSimpleBox()
@@ -118,6 +148,13 @@ namespace Gameplay.Windows
             _shopModel.BuyProduct(EShopProductType.SimpleBox);
 
             Restart();
+        }
+
+        private void SetTankHintContent(Sprite sprite)
+        {
+            _reviveTextButton.text = "Revive";
+            _tankHintContent.gameObject.SetActive(true);
+            _unitIcon.sprite = sprite;
         }
 
         private async void Restart()
@@ -134,15 +171,8 @@ namespace Gameplay.Windows
 
             var cameraSelector = FindObjectOfType<CameraSelector>();
             cameraSelector.ChangeCamera(ECameraType.Park);
-            
-            _gameplayModel.StartWave();
-        }
 
-        private void SetPatrolContent()
-        {
-            _adImage.gameObject.SetActive(false);
-            _reviveTextButton.text = "Restart";
-            _patrolContent.gameObject.SetActive(true);
+            _gameplayModel.StartWave();
         }
     }
 }

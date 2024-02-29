@@ -25,7 +25,6 @@ namespace Gameplay.Enemies.EnemyPatrol
 
         private void Start()
         {
-            InjectService.Instance.Inject(this);
             _patrolDetection.Initialize(_agressiveRadius);
 
             _workSpeed = _idleSpeed;
