@@ -1,5 +1,4 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -27,7 +26,7 @@ namespace Gameplay
             transform.localPosition = _startPosition;
 
             _canvas.enabled = true;
-            _text.text = $"{Math.Round(damage, 1)}";
+            _text.text = $"{(int)damage}";
             _tween?.Kill();
             _tween = transform.DOLocalMoveY(transform.localPosition.y + 0.25f, 0.5f)
                 .OnComplete(() => _canvas.enabled = false);
