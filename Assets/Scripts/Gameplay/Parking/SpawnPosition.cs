@@ -39,6 +39,7 @@ namespace Gameplay.Parking
                     Gizmos.color = Color.blue;
                     position.CooperativePosition();
                     position.ZombieSize = ZombieSize;
+                    position.Name = Name;
                 }
             }
 
