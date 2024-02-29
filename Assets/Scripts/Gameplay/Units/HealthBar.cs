@@ -22,7 +22,7 @@ namespace Gameplay.Units
             _maxHealth = health;
         }
 
-        public void ChangeHealth(float health, int damage)
+        public void ChangeHealth(float health, float damage)
         {
             if(_canvas == null) return;
             

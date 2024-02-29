@@ -52,7 +52,7 @@ namespace Gameplay.Enemies
             if (IsDied) return;
 
             Health -= damage;
-            _healthBar.ChangeHealth(Health, (int)damage);
+            _healthBar.ChangeHealth(Health, damage);
 
             if (isNeedBlood)
             {

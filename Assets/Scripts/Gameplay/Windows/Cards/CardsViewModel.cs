@@ -110,7 +110,7 @@ namespace Gameplay.Windows.Cards
             var progress = Model.CardsProgress.GetOrCreate(type);
             var zombieData = Model.CardsConfig.Cards.Find(x => x.ZombieData.Name == type);
 
-            var viewData = new CardSubViewData()
+            var viewData = new CardSubViewData
             {
                 ProgressData = progress,
                 ReqiredCards = Model.GetReqiredCardsValue(zombieData.ZombieData.Name),

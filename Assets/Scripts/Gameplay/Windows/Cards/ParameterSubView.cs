@@ -24,7 +24,7 @@ namespace Gameplay.Windows.Cards
         {
             _value = data.Value;
             _nameText.text = $"{data.Type}";
-            _valueText.text = $"{(int)data.Value}";
+            _valueText.text = $"{Math.Round(data.Value, 1)}";
             _icon.sprite = data.Icon;
         }
 

@@ -20,7 +20,7 @@ namespace Gameplay.Windows.Cards
         public Sprite CurrencySprite;
         public Sprite ClassIcon;
         public Sprite Icon;
-        [FormerlySerializedAs("ParameterData1")] [FormerlySerializedAs("ParameterData")] public List<ParameterData> ParameterConfig;
+        public List<ParameterData> ParameterConfig;
         public bool IsCanUpgrade;
         public bool IsTutorial;
         public SpritesConfig SpritesConfig;

@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -19,14 +20,14 @@ namespace Gameplay
             _startPosition = transform.localPosition;
         }
 
-        public void Damage(int damage)
+        public void Damage(float damage)
         {
             if (damage == 0) return;
 
             transform.localPosition = _startPosition;
 
             _canvas.enabled = true;
-            _text.text = $"{damage}";
+            _text.text = $"{Math.Round(damage, 1)}";
             _tween?.Kill();
             _tween = transform.DOLocalMoveY(transform.localPosition.y + 0.25f, 0.5f)
                 .OnComplete(() => _canvas.enabled = false);
