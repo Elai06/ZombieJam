@@ -40,7 +40,7 @@ namespace Gameplay.Windows.Cards
 
             DOVirtual.Float(_value, data.Value, durationAnimation, delta =>
             {
-                _valueText.text = $"{((int)delta).ToFormattedBigNumber()}";
+                _valueText.text = $"{Math.Round(delta, 1)}";
             }).OnComplete(() =>
             {
                 _tween = _valueText.transform.DOScale(1, durationAnimation);
