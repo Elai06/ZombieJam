@@ -4,9 +4,7 @@ using Gameplay.Cards;
 using Infrastructure.Windows.MVVM.SubView;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
-using Utils;
 
 namespace Gameplay.Windows.Cards
 {
