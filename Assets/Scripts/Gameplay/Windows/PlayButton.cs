@@ -19,16 +19,15 @@ namespace Gameplay.Windows
 
         private CameraSelector _cameraSelector;
         private IWindowService _windowService;
-        private IAdsService _adsService;
+   //     private IAdsService _adsService;
         private IGameplayModel _gameplayModel;
         private ITutorialService _tutorialService;
 
         [Inject]
-        private void Construct(IWindowService windowService, IAdsService adsService, IGameplayModel gameplayModel,
+        private void Construct(IWindowService windowService, IGameplayModel gameplayModel,
             ITutorialService tutorialService)
         {
             _windowService = windowService;
-            _adsService = adsService;
             _gameplayModel = gameplayModel;
             _tutorialService = tutorialService;
         }
@@ -83,7 +82,7 @@ namespace Gameplay.Windows
 
         private void Play()
         {
-            if (_gameplayModel.GetCurrentRegionProgress().RegionIndex > 0)
+            /*if (_gameplayModel.GetCurrentRegionProgress().RegionIndex > 0)
             {
                 if (_adsService.ShowAds(EAdsType.Interstitial))
                 {
@@ -91,18 +90,18 @@ namespace Gameplay.Windows
                     _adsService.OnSkipAds += OnShowedAds;
                     return;
                 }
-            }
+            }*/
 
             StartPlay();
         }
 
-        private void OnShowedAds()
+        /*private void OnShowedAds()
         {
             _adsService.Showed -= OnShowedAds;
             _adsService.OnSkipAds -= OnShowedAds;
 
             StartPlay();
-        }
+        }*/
 
         private void StartPlay()
         {
