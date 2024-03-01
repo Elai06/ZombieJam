@@ -63,6 +63,8 @@ namespace Gameplay.Units.States
             if (_unit.IsDied || _unit == null) return;
 
             _unit.Target = _targetManager.GetTargetEnemy(_unit.transform);
+            _unit.Animator.SetTrigger("StopMove");
+
             if (_unit.Target == null) return;
 
             MoveToTarget(_unit.Target.Transform);

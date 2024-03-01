@@ -3552,7 +3552,10 @@ MonoBehaviour:
   m_AnimatedTarget: {fileID: 4942352017568509309}
   m_LayerIndex: 0
   m_ShowDebugText: 0
-  m_ChildCameras: []
+  m_ChildCameras:
+  - {fileID: 5770417316850788173}
+  - {fileID: 2203298043855535374}
+  - {fileID: 7750470178643122693}
   m_Instructions:
   - m_FullHash: 1586013606
     m_VirtualCamera: {fileID: 5770417316850788173}
@@ -9721,8 +9724,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7037340585695076743}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1, y: 0, z: 2.5}
-  m_LocalScale: {x: 1, y: 0.01, z: 4}
+  m_LocalPosition: {x: -0.544, y: 0, z: 2.5}
+  m_LocalScale: {x: 1, y: 0.01, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7037340585819673734}
@@ -9739,7 +9742,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.05, y: 25, z: 0.75}
+  m_Size: {x: 0.05, y: 25, z: 1}
   m_Center: {x: 0, y: 25, z: 0}
 --- !u!114 &7037340585695076738
 MonoBehaviour:
@@ -10264,7 +10267,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.05, y: 25, z: 0.75}
+  m_Size: {x: 0.05, y: 25, z: 1}
   m_Center: {x: 0, y: 25, z: 0}
 --- !u!114 &7037340586105722438
 MonoBehaviour:
@@ -14533,18 +14536,6 @@ PrefabInstance:
     - target: {fileID: 5103886513915004247, guid: 7280be7fa7408d842b3064b69c809e96, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5103886514456274448, guid: 7280be7fa7408d842b3064b69c809e96, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5103886514456274448, guid: 7280be7fa7408d842b3064b69c809e96, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.081
-      objectReference: {fileID: 0}
-    - target: {fileID: 5103886515228320082, guid: 7280be7fa7408d842b3064b69c809e96, type: 3}
-      propertyPath: m_Value
-      value: 0.814
       objectReference: {fileID: 0}
     - target: {fileID: 5640605150483031020, guid: 7280be7fa7408d842b3064b69c809e96, type: 3}
       propertyPath: m_RootOrder

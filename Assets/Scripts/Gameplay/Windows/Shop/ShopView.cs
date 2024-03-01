@@ -37,7 +37,7 @@ namespace Gameplay.Windows.Shop
             _boxContainer.CleanUp();
             _hardContainer.CleanUp();
             _softContainer.CleanUp();
-            _noAdsContainer.CleanUp();
+            //_noAdsContainer.CleanUp();
 
             foreach (var data in productSubViewData)
             {

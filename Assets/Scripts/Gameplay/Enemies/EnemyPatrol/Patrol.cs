@@ -73,19 +73,5 @@ namespace Gameplay.Enemies.EnemyPatrol
                 wheel.transform.Rotate(Vector3.right * (1.5f * _workSpeed));
             }
         }
-
-        private Vector3 Direction(BezierCurve curve, float t)
-        {
-            try
-            {
-                var value = curve.GetPointAt(t + 0.01f);
-                return value;
-            }
-            catch (Exception e)
-            {
-                Debug.Log(e);
-                return Vector3.zero;
-            }
-        }
     }
 }
