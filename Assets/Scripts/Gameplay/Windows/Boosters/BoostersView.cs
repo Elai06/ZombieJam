@@ -79,28 +79,28 @@ namespace Gameplay.Windows.Boosters
         {
             _relocationValueText.text = $"{value}";
             _relocationButton.image.color = value > 0 ? Color.white : Color.yellow;
-            _relocationValueText.text = value <= 0 ? "→" : $"{value}";
+            _relocationValueText.text = value <= 0 ? "+" : $"{value}";
         }
 
         public void SetBoosterAttackValue(int value)
         {
             _increaseAttackText.text = $"{value}";
             _increaseAttackBooster.image.color = value > 0 ? Color.white : Color.yellow;
-            _increaseAttackText.text = value <= 0 ? "→" : $"{value}";
+            _increaseAttackText.text = value <= 0 ? "+" : $"{value}";
         }
 
         public void SetBoosterTravelSpeedValue(int value)
         {
             _increaseAttackSpeedText.text = $"{value}";
             _increaseAttackSpeedBooster.image.color = value > 0 ? Color.white : Color.yellow;
-            _increaseAttackSpeedText.text = value <= 0 ? "→" : $"{value}";
+            _increaseAttackSpeedText.text = value <= 0 ? "+" : $"{value}";
         }
 
         public void SetBoosterHPValue(int value)
         {
             _increaseHPText.text = $"{value}";
             _increaseAttackBooster.image.color = value > 0 ? Color.white : Color.yellow;
-            _increaseHPText.text = value <= 0 ? "→" : $"{value}";
+            _increaseHPText.text = value <= 0 ? "+" : $"{value}";
         }
     }
 }

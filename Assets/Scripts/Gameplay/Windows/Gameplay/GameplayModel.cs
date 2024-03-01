@@ -168,7 +168,7 @@ namespace Gameplay.Windows.Gameplay
                 _adsService.Showed += OnShowedAds;
             }*/
 
-            var hardCurrencyProgress = _currenciesModel.GetCurrencyProgress().GetOrCreate(ECurrencyType.HardCurrency);
+            var hardCurrencyProgress = _currenciesModel.CurrenciesProgress.GetOrCreate(ECurrencyType.HardCurrency);
 
             if (hardCurrencyProgress.Value >= PRICE_REVIVE)
             {

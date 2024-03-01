@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Gameplay.Ad;
 using Gameplay.Configs.Boosters;
+using Gameplay.Curencies;
+using Gameplay.Enums;
 using Gameplay.Windows.Gameplay;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.StaticData;
@@ -12,22 +14,25 @@ namespace Gameplay.Boosters
 {
     public class BoostersManager : IBoostersManager
     {
+        private const int PRICE_BOOSTER = 5;
+
         public event Action<EBoosterType> Activate;
 
         private readonly IProgressService _progressService;
-        private readonly IAdsService _adsService;
         private IGameplayModel _gameplayModel;
+        private ICurrenciesModel _currenciesModel;
 
         private BoostersProgress _boostersProgress;
         private BoostersConfig _boostersConfig;
 
         private Dictionary<EBoosterType, bool> _boosters = new Dictionary<EBoosterType, bool>();
 
-        public BoostersManager(IProgressService progressService, IAdsService adsService, GameStaticData gameStaticData)
+        public BoostersManager(IProgressService progressService, GameStaticData gameStaticData,
+            ICurrenciesModel currenciesModel)
         {
-            _adsService = adsService;
             _progressService = progressService;
             _boostersConfig = gameStaticData.BoostersConfig;
+            _currenciesModel = currenciesModel;
 
             progressService.OnLoaded += Loaded;
         }
@@ -49,7 +54,7 @@ namespace Gameplay.Boosters
             {
                 _boosters.Add(boosterProgressData.BoosterType, false);
             }
-            
+
             _boosters.Add(EBoosterType.Relocation, false);
         }
 
@@ -60,9 +65,21 @@ namespace Gameplay.Boosters
             var progress = _boostersProgress.GetOrCreate(boosterType);
             if (progress.Value <= 0)
             {
-                if (_adsService.ShowAds(EAdsType.Reward))
+                var hardCurrencyProgress =
+                    _currenciesModel.CurrenciesProgress.GetOrCreate(ECurrencyType.HardCurrency);
+                /*if (_adsService.ShowAds(EAdsType.Reward))
                 {
                     _adsService.Showed += () => OnShowedAds(boosterType);
+                    return;
+                }*/
+
+
+                if (hardCurrencyProgress.Value >= PRICE_BOOSTER)
+                {
+                    _currenciesModel.Consume(ECurrencyType.HardCurrency, PRICE_BOOSTER);
+                    AddBooster(boosterType, 1);
+                    _boosters[boosterType] = true;
+                    Activate?.Invoke(boosterType);
                     return;
                 }
 
@@ -77,7 +94,7 @@ namespace Gameplay.Boosters
 
         private void OnShowedAds(EBoosterType type)
         {
-            _adsService.Showed -= () => OnShowedAds(type);
+            // _adsService.Showed -= () => OnShowedAds(type);
 
             AddBooster(type, 1);
 

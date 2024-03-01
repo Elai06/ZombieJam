@@ -50,7 +50,7 @@ namespace Gameplay.Windows.Header
         {
             var currenciesSubViewData = new List<CurrencySubViewData>();
 
-            foreach (var currency in _currenciesModel.GetCurrencyProgress().CurrenciesProgresses)
+            foreach (var currency in _currenciesModel.CurrenciesProgress.CurrenciesProgresses)
             {
                 var viewData = new CurrencySubViewData()
                 {

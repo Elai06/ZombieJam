@@ -164,7 +164,7 @@ namespace Gameplay.Shop
 
         public bool IsCanConsume(ECurrencyType currencyType, int price)
         {
-            var currencyProgress = _currenciesModel.GetCurrencyProgress().GetOrCreate(currencyType);
+            var currencyProgress = _currenciesModel.CurrenciesProgress.GetOrCreate(currencyType);
             return _currenciesModel.IsCanConsume(currencyProgress, price);
         }
 

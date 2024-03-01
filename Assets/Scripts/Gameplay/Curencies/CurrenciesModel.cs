@@ -11,6 +11,7 @@ namespace Gameplay.Curencies
         private CurrenciesProgress _currenciesProgress;
         private readonly IProgressService _progressService;
 
+
         public CurrenciesModel(IProgressService progressService)
         {
             _progressService = progressService;
@@ -22,6 +23,9 @@ namespace Gameplay.Curencies
 
             progressService.OnLoaded += Loaded;
         }
+
+        public CurrenciesProgress CurrenciesProgress => _progressService.PlayerProgress.CurrenciesProgress;
+
 
         private void Loaded()
         {
@@ -52,15 +56,10 @@ namespace Gameplay.Curencies
 
             return false;
         }
-
+        
         public bool IsCanConsume(CurrencyProgressData currencyProgressData, int value)
         {
             return currencyProgressData.Value >= value;
-        }
-
-        public CurrenciesProgress GetCurrencyProgress()
-        {
-            return _currenciesProgress;
         }
     }
 }

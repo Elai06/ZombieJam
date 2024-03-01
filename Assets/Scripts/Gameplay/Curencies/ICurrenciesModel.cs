@@ -7,7 +7,7 @@ namespace Gameplay.Curencies
     {
         void Add(ECurrencyType currencyType, int value);
         bool Consume(ECurrencyType currencyType, int value);
-        CurrenciesProgress GetCurrencyProgress();
+        CurrenciesProgress CurrenciesProgress { get; }
         event Action<ECurrencyType, int, int> Update;
         bool IsCanConsume(CurrencyProgressData currencyProgressData, int value);
     }

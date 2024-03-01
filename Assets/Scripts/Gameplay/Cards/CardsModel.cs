@@ -82,7 +82,7 @@ namespace Gameplay.Cards
         {
             var currencyType = GetCurrencyType(unitClass);
             var currencyPrice = GetCurrencyPrice(unitClass, currencyType);
-            var currencyProgress = _currenciesModel.GetCurrencyProgress().GetOrCreate(currencyType);
+            var currencyProgress = _currenciesModel.CurrenciesProgress.GetOrCreate(currencyType);
 
             return IsCanConsumeCards(cardProgressData, GetReqiredCardsValue(unitClass)) &&
                    _currenciesModel.IsCanConsume(currencyProgress, currencyPrice);
@@ -131,7 +131,7 @@ namespace Gameplay.Cards
             {
                 var progress = CardsProgress.GetOrCreate(configData.ZombieData.Name);
                 var reqiredCards = GetReqiredCardsValue(configData.ZombieData.Name);
-                var currency = _currenciesModel.GetCurrencyProgress().GetOrCreate(GetCurrencyType(progress.Name));
+                var currency = _currenciesModel.CurrenciesProgress.GetOrCreate(GetCurrencyType(progress.Name));
                 var currencyPrice = GetCurrencyPrice(progress.Name, currency.CurrencyType);
 
                 if (progress.CardsValue >= reqiredCards && _currenciesModel.IsCanConsume(currency, currencyPrice))
@@ -164,7 +164,7 @@ namespace Gameplay.Cards
 
         public int GetCurrencyValue(ECurrencyType currencyType)
         {
-            return _currenciesModel.GetCurrencyProgress().GetOrCreate(currencyType).Value;
+            return _currenciesModel.CurrenciesProgress.GetOrCreate(currencyType).Value;
         }
 
         public CardModel GetCardModel(EZombieNames unitClass)
