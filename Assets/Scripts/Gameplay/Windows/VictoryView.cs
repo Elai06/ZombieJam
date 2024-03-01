@@ -76,7 +76,7 @@ namespace Gameplay.Windows
             _claimButton.onClick.AddListener(ShowRewardAd);
 
             _currencyAnimation.AnimationFinish += Restart;
-            _adsService.Showed += OnAdShowed;
+           // _adsService.Showed += OnAdShowed;
         }
 
         private void OnDisable()
@@ -85,7 +85,7 @@ namespace Gameplay.Windows
             _claimButton.onClick.RemoveListener(ShowRewardAd);
 
             _currencyAnimation.AnimationFinish -= Restart;
-            _adsService.Showed -= OnAdShowed;
+           // _adsService.Showed -= OnAdShowed;
         }
 
         private void OnAdShowed()
@@ -98,7 +98,11 @@ namespace Gameplay.Windows
 
         private void ShowRewardAd()
         {
-            _adsService.ShowAds(EAdsType.Reward);
+            // _adsService.ShowAds(EAdsType.Reward);
+            
+            _claimButton.enabled = false;
+            CreateRewardSubView(true);
+            StartAnimation();
         }
 
         private void StartAnimation()

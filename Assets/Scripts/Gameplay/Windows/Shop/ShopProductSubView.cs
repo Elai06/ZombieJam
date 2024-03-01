@@ -91,6 +91,7 @@ namespace Gameplay.Windows.Shop
         {
             if (!_isCanBuy && !_productType.ToString().Contains("Box"))
             {
+                _arrowTutorial.gameObject.SetActive(false);
                 PlayAnimationNotEnoughCurrency();
                 return;
             }

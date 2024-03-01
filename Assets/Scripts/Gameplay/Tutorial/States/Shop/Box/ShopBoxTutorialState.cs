@@ -36,13 +36,10 @@ namespace Gameplay.Tutorial.States.Shop.Box
             _shopModel.Purchased -= OnPurchase;
         }
 
-        private async void OnPurchase(EShopProductType shopProductType)
+        private void OnPurchase(EShopProductType shopProductType)
         {
             if (shopProductType == EShopProductType.SimpleBox)
             {
-                await Task.Delay(2000);
-                _windowService.Close(WindowType.Shop);
-
                 _stateMachine.Enter<StartCardTutorialState>();
             }
         }

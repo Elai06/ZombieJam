@@ -126,21 +126,22 @@ namespace Gameplay.Windows
 
         private void SetReviveHintContent()
         {
-            _reviveTextButton.text = "Revive";
             _reviveContent.gameObject.SetActive(true);
+            _reviveTextButton.text = "5 Revive";
         }
 
         private void SetInAppHintContent()
         {
             _inAppContent.gameObject.SetActive(true);
-            _reviveTextButton.text = "Claim";
+            _adImage.gameObject.SetActive(false);
+            _reviveTextButton.text = "Restart";
         }
 
         private void SetPatrolContent()
         {
+            _patrolContent.gameObject.SetActive(true);
             _adImage.gameObject.SetActive(false);
             _reviveTextButton.text = "Restart";
-            _patrolContent.gameObject.SetActive(true);
         }
 
         private void ClaimSimpleBox()

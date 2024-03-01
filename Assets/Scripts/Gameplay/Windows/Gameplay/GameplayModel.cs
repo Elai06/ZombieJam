@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Gameplay.Ad;
 using Gameplay.Configs.Region;
+using Gameplay.Curencies;
 using Gameplay.Enums;
 using Gameplay.Level;
 using Gameplay.Parking;
@@ -14,6 +15,8 @@ namespace Gameplay.Windows.Gameplay
 {
     public class GameplayModel : IGameplayModel
     {
+        private const int PRICE_REVIVE = 5;
+        
         public event Action OnRevive;
         public event Action OnUnitFirstDoDamage;
         public event Action<ERegionType, int> OnToTheNextWave;
@@ -30,12 +33,13 @@ namespace Gameplay.Windows.Gameplay
         private readonly TimerService _timerService;
         private readonly ITutorialService _tutorialService;
         private readonly IWindowService _windowService;
+        private readonly ICurrenciesModel _currenciesModel;
 
         private ZombieSpawner _zombieSpawner;
 
         public GameplayModel(IRegionManager regionManager, ILevelModel levelModel,
             IAdsService adsService, ITutorialService tutorialService, TimerService timerService,
-            IWindowService windowService)
+            IWindowService windowService, ICurrenciesModel currenciesModel)
         {
             _regionManager = regionManager;
             _levelModel = levelModel;
@@ -43,6 +47,7 @@ namespace Gameplay.Windows.Gameplay
             _tutorialService = tutorialService;
             _timerService = timerService;
             _windowService = windowService;
+            _currenciesModel = currenciesModel;
         }
 
         public bool IsAvailableRevive { get; set; } = true;
@@ -93,7 +98,7 @@ namespace Gameplay.Windows.Gameplay
         public void StartWave()
         {
             _windowService.Open(WindowType.Gameplay);
-
+            
             IsWaveCompleted = false;
             IsStartWave = true;
             IsWasFirstDamage = false;
@@ -158,9 +163,17 @@ namespace Gameplay.Windows.Gameplay
 
         public void StartReviveForAds()
         {
-            if (_adsService.ShowAds(EAdsType.Reward))
+            /*if (_adsService.ShowAds(EAdsType.Reward))
             {
                 _adsService.Showed += OnShowedAds;
+            }*/
+
+            var hardCurrencyProgress = _currenciesModel.GetCurrencyProgress().GetOrCreate(ECurrencyType.HardCurrency);
+
+            if (hardCurrencyProgress.Value >= PRICE_REVIVE)
+            {
+                _currenciesModel.Consume(ECurrencyType.HardCurrency, PRICE_REVIVE);
+                ReviveUnits();
             }
         }
 
