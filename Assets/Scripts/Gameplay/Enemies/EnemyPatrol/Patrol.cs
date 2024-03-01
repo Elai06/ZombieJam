@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using Gameplay.Units;
+using Gameplay.Units.Mover;
 using UnityEngine;
 using Utils.CurveBezier;
-using Utils.ZenjectInstantiateUtil;
 
 namespace Gameplay.Enemies.EnemyPatrol
 {
@@ -14,7 +14,8 @@ namespace Gameplay.Enemies.EnemyPatrol
 
         [SerializeField] private BezierCurve _bezierCurve;
         [SerializeField] private PatrolDetection _patrolDetection;
-
+        [SerializeField] private RotateObject _rotateObject;
+        
         [SerializeField] private float _idleSpeed = 1;
         [SerializeField] private float _agressiveSpeed = 3;
         [SerializeField] private float _agressiveRadius = 2;
@@ -60,7 +61,7 @@ namespace Gameplay.Enemies.EnemyPatrol
         {
             _time += Time.fixedDeltaTime * _workSpeed / 25;
             transform.position = _bezierCurve.GetPointAt(_time);
-            Rotate();
+           _rotateObject.Rotate(_bezierCurve, _time);
 
             if (_time >= 1)
             {
@@ -70,32 +71,6 @@ namespace Gameplay.Enemies.EnemyPatrol
             foreach (var wheel in _wheels)
             {
                 wheel.transform.Rotate(Vector3.right * (1.5f * _workSpeed));
-            }
-        }
-
-        private void Rotate()
-        {
-            var direction = Direction(_bezierCurve, _time);
-            var deltaX = direction.x - transform.position.x;
-            switch (deltaX)
-            {
-                case > 0.05f:
-                    transform.eulerAngles = Vector3.up * 90;
-                    break;
-                case < -0.05f:
-                    transform.eulerAngles = Vector3.down * 90;
-                    return;
-            }
-
-            var deltaZ = direction.z - transform.position.z;
-            switch (deltaZ)
-            {
-                case > 0.05f:
-                    transform.eulerAngles = Vector3.zero;
-                    break;
-                case < -0.05f:
-                    transform.eulerAngles = Vector3.up * 180;
-                    return;
             }
         }
 

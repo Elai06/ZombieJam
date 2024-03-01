@@ -10,27 +10,6 @@ namespace Gameplay.Units.Mover
         {
             var direction = Direction(curve, t);
             Rotate(direction);
-            /*var deltaX = direction.x - transform.position.x;
-            switch (deltaX)
-            {
-                case > 0.05f:
-                    transform.eulerAngles =  Vector3.up * 90;
-                    break;
-                case < -0.05f:
-                    transform.eulerAngles = Vector3.down * 90;
-                    return;
-            }
-
-            var deltaZ = direction.z - transform.position.z;
-            switch (deltaZ)
-            {
-                case > 0.05f:
-                    transform.eulerAngles = Vector3.zero;
-                    break;
-                case < -0.05f:
-                    transform.eulerAngles = Vector3.down * 180;
-                    return;
-            }*/
         }
 
         private Vector3 Direction(BezierCurve curve, float t)
