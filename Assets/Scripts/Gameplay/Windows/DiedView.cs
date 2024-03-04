@@ -82,6 +82,7 @@ namespace Gameplay.Windows
                 {
                     var sprite = _gameStaticData.SpritesConfig.GetZombieIcon(zombieTank.Config.Name).HalfHeighSprite;
                     SetTankHintContent(sprite);
+                    _reviveButton.onClick.AddListener(Revive);
                 }
                 else if (_gameplayModel.IsAvailableRevive)
                 {
@@ -153,7 +154,7 @@ namespace Gameplay.Windows
 
         private void SetTankHintContent(Sprite sprite)
         {
-            _reviveTextButton.text = "Revive";
+            _reviveTextButton.text = "5 Revive";
             _tankHintContent.gameObject.SetActive(true);
             _unitIcon.sprite = sprite;
         }

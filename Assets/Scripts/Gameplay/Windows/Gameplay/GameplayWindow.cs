@@ -8,7 +8,6 @@ using Infrastructure.Windows;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Utils.Extensions;
 using Zenject;
 
 namespace Gameplay.Windows.Gameplay
