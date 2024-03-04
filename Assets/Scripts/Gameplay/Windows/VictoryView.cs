@@ -101,7 +101,7 @@ namespace Gameplay.Windows
             // _adsService.ShowAds(EAdsType.Reward);
             
             _claimButton.enabled = false;
-            CreateRewardSubView(true);
+            //CreateRewardSubView(true);
             StartAnimation();
         }
 
