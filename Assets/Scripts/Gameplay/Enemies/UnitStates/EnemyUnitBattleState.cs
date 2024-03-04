@@ -101,6 +101,8 @@ namespace Gameplay.Enemies.UnitStates
                 if (_unit.Target.IsDied)
                 {
                     EnterIdleState();
+                    _unit.Animator.SetTrigger("StopMove");
+
                     yield break;
                 }
             }
