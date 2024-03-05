@@ -41,6 +41,11 @@ namespace Gameplay.Units
                 return;
             }
 
+            if (!_target.gameObject.activeSelf)
+            {
+                StopMove();
+            }
+
             // Вычисляем направление движения к целевой точке
             Vector3 directionToTarget = _target.position - transform.position;
 
@@ -97,6 +102,7 @@ namespace Gameplay.Units
 
         protected virtual void StopMove()
         {
+            _animator.SetTrigger("StopMove");
             _isCanMove = false;
             StopMoved?.Invoke();
             _time = 0;
