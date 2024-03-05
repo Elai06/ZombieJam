@@ -94,7 +94,6 @@ GameObject:
   - component: {fileID: 6980636544619742286}
   - component: {fileID: 6959825619871594818}
   - component: {fileID: 6970143529736054582}
-  - component: {fileID: 7042609210790318686}
   m_Layer: 0
   m_Name: dumpster
   m_TagString: Untagged
@@ -109,7 +108,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6984265504170242644}
-  m_LocalRotation: {x: 0.05788726, y: 0.8987955, z: -0.4163224, w: -0.124464534}
+  m_LocalRotation: {x: -0.057887614, y: -0.898796, z: 0.41632178, w: 0.12446268}
   m_LocalPosition: {x: -154.50029, y: -1.470108, z: 253.45613}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -118,7 +117,7 @@ Transform:
   - {fileID: 6980910226583329618}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 47.22, y: -156.398, z: 17.806}
 --- !u!33 &6959825619871594818
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -169,27 +168,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &7042609210790318686
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6984265504170242644}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 9d59675cbeedf4249880e17f06ae9c36, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6984276095892659676
 GameObject:
   m_ObjectHideFlags: 0

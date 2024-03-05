@@ -31,15 +31,15 @@ namespace Gameplay.Battle
             {
                 foreach (var enemy in _enemyManager.Enemies)
                 {
-                    if (enemy.EnemyType != EEnemyType.Barricade)
+                    if (enemy.EnemyType != EEnemyType.Barricade300Hp)
                     {
                         _gameplayModel.SetWaveType(EWaveType.DestroyEnemies);
                         _gameplayModel.TargetsCount =
-                            _enemyManager.Enemies.FindAll(x => x.EnemyType != EEnemyType.Barricade).Count;
+                            _enemyManager.Enemies.FindAll(x => x.EnemyType != EEnemyType.Barricade300Hp).Count;
                         return;
                     }
 
-                    if (enemy.EnemyType == EEnemyType.Barricade)
+                    if (enemy.EnemyType == EEnemyType.Barricade300Hp)
                     {
                         _gameplayModel.SetWaveType(EWaveType.DestroyBarricade);
                         _gameplayModel.TargetsCount = _enemyManager.Enemies.Count;
@@ -118,12 +118,12 @@ namespace Gameplay.Battle
         {
             if (_gameplayModel.WaveType == EWaveType.DestroyBarricade)
             {
-                if(eEnemyType != EEnemyType.Barricade) return;
+                if(eEnemyType != EEnemyType.Barricade300Hp) return;
             }
 
             if (_gameplayModel.WaveType == EWaveType.DestroyEnemies)
             {
-                if(eEnemyType == EEnemyType.Barricade) return;
+                if(eEnemyType == EEnemyType.Barricade300Hp) return;
             }
             
             _enemiesDied++;

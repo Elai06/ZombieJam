@@ -3,7 +3,8 @@
     public enum EEnemyType
     {
         ShooterEnemy,
-        Barricade,
+        Barricade300Hp,
         Warrior,
+        Barricade500Hp
     }
 }
