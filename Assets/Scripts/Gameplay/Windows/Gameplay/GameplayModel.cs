@@ -16,14 +16,14 @@ namespace Gameplay.Windows.Gameplay
     public class GameplayModel : IGameplayModel
     {
         private const int PRICE_REVIVE = 5;
-        
+
         public event Action OnRevive;
         public event Action OnUnitFirstDoDamage;
         public event Action<ERegionType, int> OnToTheNextWave;
         public event Action<ERegionType, int> OnWaveCompleted;
 
         public event Action<ERegionType, int> OnWaveLoose;
-        public event Action<int> OnStartWave;
+        public event Action<ERegionType, int> OnStartWave;
         public event Action<int> OnEnemyDied;
         public event Action CreatedTimer;
 
@@ -63,7 +63,7 @@ namespace Gameplay.Windows.Gameplay
         {
             _zombieSpawner = zombieSpawner;
         }
-        
+
         public void ToTheNextWave()
         {
             IsWaveCompleted = false;
@@ -98,13 +98,13 @@ namespace Gameplay.Windows.Gameplay
         public void StartWave()
         {
             _windowService.Open(WindowType.Gameplay);
-            
+
             IsWaveCompleted = false;
             IsStartWave = true;
             IsWasFirstDamage = false;
 
             InitializeTimer();
-            OnStartWave?.Invoke(_regionManager.ProgressData.CurrentWaweIndex);
+            OnStartWave?.Invoke(_regionManager.ProgressData.ERegionType, _regionManager.ProgressData.CurrentWaweIndex);
         }
 
         private void InitializeTimer()
@@ -213,7 +213,7 @@ namespace Gameplay.Windows.Gameplay
                 Timer = null;
             }
         }
-        
+
         public void EnemyDied(int index, EEnemyType eEnemyType)
         {
             OnEnemyDied?.Invoke(index);

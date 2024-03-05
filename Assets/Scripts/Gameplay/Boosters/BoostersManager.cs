@@ -120,7 +120,7 @@ namespace Gameplay.Boosters
             return _boostersProgress.GetOrCreate(eBoosterType);
         }
 
-        private void ResetBoosters(int waveIndex)
+        private void ResetBoosters(ERegionType regionType ,int waveIndex)
         {
             for (int i = 0; i < _boosters.Count; i++)
             {

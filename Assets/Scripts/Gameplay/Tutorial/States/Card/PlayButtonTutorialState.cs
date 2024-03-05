@@ -1,4 +1,5 @@
-﻿using Gameplay.Windows.Gameplay;
+﻿using Gameplay.Enums;
+using Gameplay.Windows.Gameplay;
 using Infrastructure.Events;
 using Infrastructure.Windows;
 using UnityEngine;
@@ -37,7 +38,7 @@ namespace Gameplay.Tutorial.States.Card
             _gameplayModel.OnStartWave -= OnStartWave;
         }
 
-        private void OnStartWave(int index)
+        private void OnStartWave(ERegionType regionType ,int index)
         {
             _windowService.Close(WindowType.Tutorial);
             _stateMachine.Enter<CompletedTutorialState>();

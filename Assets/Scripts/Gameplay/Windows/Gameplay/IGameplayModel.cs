@@ -26,7 +26,7 @@ namespace Gameplay.Windows.Gameplay
         bool IsWasFirstDamage { get; set; }
         int TargetsCount { get; set; }
         void StartWave();
-        event Action<int> OnStartWave;
+        event Action<ERegionType,int> OnStartWave;
         event Action<int> OnEnemyDied;
         void StopWave();
         void GetRewardForWave(bool isShowedAds);
@@ -38,5 +38,6 @@ namespace Gameplay.Windows.Gameplay
         void SetWaveType(EWaveType destroyEnemies);
         void InitializeZombieSpawner(ZombieSpawner zombieSpawner);
         Unit IsHaveTank();
+        event Action<ERegionType, int> OnWaveLoose;
     }
 }

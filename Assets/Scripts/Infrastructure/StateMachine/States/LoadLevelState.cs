@@ -51,7 +51,7 @@ namespace Infrastructure.StateMachine.States
 
         private void OnLoaded()
         {
-            _eventsManager.Initialize();
+            _eventsManager.Initialize(_gameplayModel);
             _playerTimesService.SetDaysInPlay();
             _cardsModel.Initialize();
             _tutorialService.Initalize(_gameplayModel);

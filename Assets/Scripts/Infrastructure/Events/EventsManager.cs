@@ -18,36 +18,42 @@ namespace Infrastructure.Events
         private readonly IWindowService _windowService;
         private readonly IPlayerTimesService _playerTimesService;
         private readonly ILevelModel _levelModel;
-        private readonly IRegionManager _gameplayModel;
+        private readonly IRegionManager _regionManager;
         private readonly IShopModel _shopModel;
         private readonly ICardsModel _cardsModel;
         private readonly IAdsService _adsService;
         private readonly IBoostersManager _boostersManager;
+        private  IGameplayModel _gameplayModel;
 
         public EventsManager(IWindowService windowService, IPlayerTimesService playerTimesService,
-            ILevelModel levelModel, IRegionManager gameplayModel, IShopModel shopModel, ICardsModel cardsModel,
+            ILevelModel levelModel, IRegionManager regionManager, IShopModel shopModel, ICardsModel cardsModel,
             IAdsService adsService, IBoostersManager boostersManager)
         {
             _windowService = windowService;
             _playerTimesService = playerTimesService;
             _levelModel = levelModel;
-            _gameplayModel = gameplayModel;
+            _regionManager = regionManager;
             _shopModel = shopModel;
             _cardsModel = cardsModel;
             _adsService = adsService;
             _boostersManager = boostersManager;
         }
 
-        public void Initialize()
+        public void Initialize(IGameplayModel gameplayModel)
         {
+            _gameplayModel = gameplayModel;
+
             _windowService.OnOpen += OpenWindow;
-            _levelModel.UpdateExperience += OnLevelUp;
+            _levelModel.OnLevelUp += OnLevelUp;
             _shopModel.Purchased += OnPurchase;
             _cardsModel.UpgradeSucced += OnUpgradeCard;
             _cardsModel.StartUpgrade += OnStartUpgrade;
             _adsService.StartShow += OnStartAds;
             _adsService.Showed += OnAdsShowed;
             _boostersManager.Activate += OnBoosterActivate;
+            _gameplayModel.OnStartWave += WaveStarted;
+            _gameplayModel.OnWaveCompleted += WaveCompleted;
+            _gameplayModel.OnWaveLoose += WaveLoosed;
 
             //GameLoaded
             AppMetrica.Instance.ReportEvent("Game Loaded",
@@ -55,24 +61,45 @@ namespace Infrastructure.Events
                 $"Day\":\"{_playerTimesService.GetDaysInPlay()}\"}}");
         }
 
+        private void WaveLoosed(ERegionType regionType, int index)
+        {
+            var parameters =
+                $"{{\"RegionType\":\"{regionType}\", " + $"\"WaveIndex\":\"{index + 1}\"}}";
+            SendEventWithLevelDay("Wave finish", parameters);
+        }
+
+        private void WaveCompleted(ERegionType regionType, int index)
+        {
+            var parameters =
+                $"{{\"RegionType\":\"{regionType}\", " + $"\"WaveIndex\":\"{index + 1}\"}}";
+            SendEventWithLevelDay("Wave finish", parameters);
+        }
+
+        private void WaveStarted(ERegionType regionType ,int index)
+        {
+            var parameters = $"{{\"RegionType\":\"{regionType}\", " +
+                             $"\"WaveIndex\":\"{index + 1}\"}}";
+            SendEventWithLevelDay("Wave started", parameters);
+        }
+
         private void OnStartAds(EAdsType adsType)
         {
-            var regionProgress = _gameplayModel.ProgressData;
+            var regionProgress = _regionManager.ProgressData;
             var parameters =
                 $"{{\"Ads\":\"{adsType}\", " +
                 $"\"RegionType\":\"{regionProgress.ERegionType}\", " +
-                $"\"WaveIndex\":\"{regionProgress.CurrentWaweIndex}\"}}";
+                $"\"WaveIndex\":\"{regionProgress.CurrentWaweIndex + 1}\"}}";
 
             SendEventWithLevelDay("AdsStarted", parameters);
         }
 
         private void OnAdsShowed()
         {
-            var regionProgress = _gameplayModel.ProgressData;
+            var regionProgress = _regionManager.ProgressData;
             var parameters =
                 $"{{\"Ads\":\"{_adsService.AdsType}\", " +
                 $"\"RegionType\":\"{regionProgress.ERegionType}\", " +
-                $"\"WaveIndex\":\"{regionProgress.CurrentWaweIndex}\"}}";
+                $"\"WaveIndex\":\"{regionProgress.CurrentWaweIndex + 1}\"}}";
 
             SendEventWithLevelDay("AdsCompleted", parameters);
         }
@@ -81,7 +108,7 @@ namespace Infrastructure.Events
         public void SendEventWithLevelDay(string eventName, string parameters = "")
         {
             parameters +=
-                $"{{\"Level\":\"{_levelModel.CurrentLevel}\", \"Day\":\"{_playerTimesService.GetDaysInPlay()}\"}}";
+                $"{{\"Level\":\"{_levelModel.CurrentLevel + 1}\", \"Day\":\"{_playerTimesService.GetDaysInPlay()}\"}}";
 
             AppMetrica.Instance.ReportEvent(eventName, parameters);
             Debug.Log($"Send appmetrica event {eventName}");
@@ -98,31 +125,31 @@ namespace Infrastructure.Events
 
         private void OnStartUpgrade(EZombieNames unitClass)
         {
-            var regionProgress = _gameplayModel.ProgressData;
+            var regionProgress = _regionManager.ProgressData;
             var parameters =
                 $"{{\"UnitType\":\"{unitClass}\", " +
                 $"\"RegionType\":\"{regionProgress.ERegionType}\", " +
-                $"\"WaveIndex\":\"{regionProgress.CurrentWaweIndex}\"}}";
+                $"\"WaveIndex\":\"{regionProgress.CurrentWaweIndex + 1}\"}}";
 
             SendEventWithLevelDay("Button unit upgrade", parameters);
         }
 
         private void OnUpgradeCard(EZombieNames unitClass)
         {
-            var regionProgress = _gameplayModel.ProgressData;
+            var regionProgress = _regionManager.ProgressData;
             var parameters =
                 $"{{\"UnitType\":\"{unitClass}\", " +
                 $"\"RegionType\":\"{regionProgress.ERegionType}\", " +
-                $"\"WaveIndex\":\"{regionProgress.CurrentWaweIndex}\"}}";
+                $"\"WaveIndex\":\"{regionProgress.CurrentWaweIndex + 1}\"}}";
             SendEventWithLevelDay("Unit upgrade", parameters);
         }
 
-        private void OnLevelUp(LevelProgress levelProgress)
+        private void OnLevelUp(int level)
         {
-            var regionProgress = _gameplayModel.ProgressData;
+            var regionProgress = _regionManager.ProgressData;
             var parametrs =
                 $"{{\"RegionType\":\"{regionProgress.ERegionType}\", " +
-                $"\"WaveIndex\":\"{regionProgress.CurrentWaweIndex}\"}}";
+                $"\"WaveIndex\":\"{regionProgress.CurrentWaweIndex + 1}\"}}";
 
             SendEventWithLevelDay("Player levelup", parametrs);
         }
