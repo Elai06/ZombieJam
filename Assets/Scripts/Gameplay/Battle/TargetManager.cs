@@ -39,7 +39,7 @@ namespace Gameplay.Battle
                         return;
                     }
 
-                    if (enemy.EnemyType == EEnemyType.Barricade300Hp)
+                    if (enemy.EnemyType == EEnemyType.Barricade300Hp || enemy.EnemyType == EEnemyType.Barricade500Hp)
                     {
                         _gameplayModel.SetWaveType(EWaveType.DestroyBarricade);
                         _gameplayModel.TargetsCount = _enemyManager.Enemies.Count;
