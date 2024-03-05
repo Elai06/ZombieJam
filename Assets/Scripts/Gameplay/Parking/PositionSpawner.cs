@@ -9,6 +9,7 @@ namespace Gameplay.Parking
     {
         [SerializeField] private List<SpawnPosition> _spawnGrid = new();
         [SerializeField] private Material _cubeMaterial;
+        [SerializeField] private GameObject _cubePrefab;
         [SerializeField] private SpawnPosition _spawnPositionPrefab;
         [SerializeField] private int _square = 25;
         [SerializeField] private Transform _startPosition;
@@ -17,7 +18,7 @@ namespace Gameplay.Parking
         public void CreateSpawnPosition()
         {
             var startPosition = _startPosition.position;
-            for (int i = 0; i <= _square; i++)
+            for (int i = 1; i <= _square; i++)
             {
                 var spawnPrefab = Instantiate(_spawnPositionPrefab, startPosition, Quaternion.identity, transform);
                 _spawnGrid.Add(spawnPrefab);
@@ -53,15 +54,15 @@ namespace Gameplay.Parking
             _spawnGrid.Clear();
         }
 
-        [Button("FixedSize")]
-        private void Size()
+        [Button("RemoveMissingGridElements")]
+        private void RemoveMissingGridElements()
         {
             for (int i = 0; i < _spawnGrid.Count; i++)
             {
                 var element = _spawnGrid[i];
-                if (element.CooperativePositions.Count > 0)
+                if (element == null)
                 {
-                    element.ZombieSize = EZombieSize.TwoCells;
+                    _spawnGrid.Remove(element);
                 }
             }
         }
@@ -76,19 +77,6 @@ namespace Gameplay.Parking
                 if (spawnPosition != null)
                 {
                     spawnPosition.material = _cubeMaterial;
-                }
-            }
-        }
-
-        [Button("ClearCoopPosition")]
-        private void ClearCoopPosition()
-        {
-            for (int i = 0; i < _spawnGrid.Count; i++)
-            {
-                var positionSpawner = _spawnGrid[i];
-                if (positionSpawner.CooperativePositions.Count == 0 && positionSpawner.IsCooperative)
-                {
-                    _spawnGrid.Remove(positionSpawner);
                 }
             }
         }
