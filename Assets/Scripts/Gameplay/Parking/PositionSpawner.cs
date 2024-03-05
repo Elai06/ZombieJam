@@ -8,7 +8,7 @@ namespace Gameplay.Parking
     public class PositionSpawner : MonoBehaviour
     {
         [SerializeField] private List<SpawnPosition> _spawnGrid = new();
-        [SerializeField] private GameObject _cubePrefab;
+        [SerializeField] private Material _cubeMaterial;
         [SerializeField] private SpawnPosition _spawnPositionPrefab;
         [SerializeField] private int _square = 25;
         [SerializeField] private Transform _startPosition;
@@ -66,19 +66,17 @@ namespace Gameplay.Parking
             }
         }
 
-        [Button("SpawnCube")]
+        [Button("SwitchMaterial")]
         private void SpawnCubes()
         {
             for (int i = 0; i < _spawnGrid.Count; i++)
             {
-                var spawnPosition = _spawnGrid[i];
-                if (spawnPosition.CubePrefab == null)
+                var spawnPosition = _spawnGrid[i].transform.GetChild(0).GetComponent<MeshRenderer>();
+
+                if (spawnPosition != null)
                 {
-                    DestroyImmediate(spawnPosition.CubePrefab);
-                    _spawnGrid[i].SetCubePrefab(Instantiate(_cubePrefab, Vector3.zero, Quaternion.identity,
-                        _spawnGrid[i].transform));
+                    spawnPosition.material = _cubeMaterial;
                 }
-                spawnPosition.CubePrefab.transform.localPosition = Vector3.zero;
             }
         }
 
