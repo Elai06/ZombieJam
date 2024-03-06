@@ -130,7 +130,8 @@ namespace Gameplay.Parking
 
         private void OnZombieStateChanged()
         {
-            if (_zombies.Any(zombie => zombie.CurrentState != EUnitState.Battle))
+            if (_zombies.Any(zombie => zombie.CurrentState == EUnitState.Parking 
+                                       || zombie.CurrentState == EUnitState.Road))
             {
                 return;
             }
