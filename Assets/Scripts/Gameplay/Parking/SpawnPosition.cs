@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
@@ -12,7 +13,9 @@ namespace Gameplay.Parking
         public EZombieNames Name;
         public EZombieSize ZombieSize;
         [SerializeField] private List<SpawnPosition> _cooperativePosition = new();
-        
+
+        private Color _color;
+
         public bool IsCooperative { get; private set; }
 
         public List<SpawnPosition> CooperativePositions => _cooperativePosition;
@@ -24,8 +27,6 @@ namespace Gameplay.Parking
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            Gizmos.color = _eSwipeDirection != ESwipeDirection.None ? Color.green : Color.red;
-
             if (_cooperativePosition.Count > 0 && ZombieSize == EZombieSize.TwoCells)
             {
                 CooperativePosition();
@@ -40,14 +41,22 @@ namespace Gameplay.Parking
                 }
             }
 
-            if (ZombieSize == EZombieSize.TwoCells)
-            {
-                Gizmos.color = Color.blue;
-            }
+            SetColor();
 
             var gizmosPosition = transform.position;
+            var gizmosScale = ZombieSize == EZombieSize.SingleCell
+                ? new Vector3(0.9f, 0.2f, 0.9f)
+                : new Vector3(1f, 0.2f, 1f);
             gizmosPosition.y += 0.1f;
-            Gizmos.DrawCube(gizmosPosition, new Vector3(0.9f, 0.2f, 0.9f));
+            Gizmos.DrawCube(gizmosPosition, gizmosScale);
+
+            if (_cooperativePosition.Count > 0)
+            {
+                var coopPos = _cooperativePosition[0].transform.position;
+                coopPos.y += 0.25f;
+                gizmosPosition.y += 0.15f;
+                Gizmos.DrawLine(gizmosPosition, coopPos);
+            }
         }
 
         private void CooperativePosition()
@@ -56,7 +65,7 @@ namespace Gameplay.Parking
             {
                 _eSwipeDirection = ESwipeDirection.None;
             }
-            
+
             IsCooperative = true;
         }
 #endif
@@ -74,6 +83,39 @@ namespace Gameplay.Parking
             }
 
             return transform.position;
+        }
+
+        private void SetColor()
+        {
+            if (_eSwipeDirection == ESwipeDirection.None && ZombieSize == EZombieSize.SingleCell)
+            {
+                _color = Color.red;
+                Gizmos.color = _color;
+                return;
+            }
+
+            switch (Name)
+            {
+                case EZombieNames.Hitchhiker:
+                    _color = Color.cyan;
+                    break;
+                case EZombieNames.Zombie:
+                    _color = Color.cyan;
+                    break;
+                case EZombieNames.BrainThrower:
+                    _color = Color.blue;
+                    break;
+                case EZombieNames.WalkingCoffin:
+                    _color = Color.green;
+                    break;
+                case EZombieNames.ArmoredZombie:
+                    _color = Color.green;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            Gizmos.color = _color;
         }
     }
 }
