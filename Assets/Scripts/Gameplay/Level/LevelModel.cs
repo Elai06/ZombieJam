@@ -10,6 +10,7 @@ using Gameplay.Reward;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.StaticData;
 using Infrastructure.Windows;
+using Random = UnityEngine.Random;
 
 namespace Gameplay.Level
 {
@@ -109,8 +110,11 @@ namespace Gameplay.Level
 
         public void GetRewards()
         {
-            var rewards = LevelConfig.LevelRewards[CurrentLevel];
-            foreach (var reward in rewards.Rewards)
+            var rewards = LevelConfig.LevelRewards;
+            var rewardIndex = rewards.Count >= CurrentLevel ? CurrentLevel - 1 : Random.Range(0, rewards.Count);
+            var rewarded = rewards[rewardIndex];
+
+            foreach (var reward in rewarded.Rewards)
             {
                 if (reward.RewardType == EResourceType.Booster)
                 {

@@ -10,6 +10,7 @@ using Infrastructure.StaticData;
 using Infrastructure.Windows;
 using Infrastructure.Windows.MVVM;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Gameplay.Windows.LevelUp
 {
@@ -56,9 +57,11 @@ namespace Gameplay.Windows.LevelUp
             List<RewardSubViewData> rewardSubViewDatas = new List<RewardSubViewData>();
             
             
-            var rewards = Model.LevelConfig.LevelRewards[Model.CurrentLevel - 1];
-            
-            foreach (var reward in rewards.Rewards)
+            var rewards = Model.LevelConfig.LevelRewards;
+            var rewardIndex = rewards.Count >= Model.CurrentLevel ? Model.CurrentLevel - 1 : Random.Range(0, rewards.Count);
+            var rewarded = rewards[rewardIndex];
+
+            foreach (var reward in rewarded.Rewards)
             {
                 switch (reward.RewardType)
                 {
