@@ -52,7 +52,6 @@ namespace Gameplay.Windows.Gameplay
             if (_gameplayModel.Timer != null)
             {
                 _gameplayModel.Timer.Tick -= OnTick;
-                _gameplayModel.Timer.Stopped -= OnStopTimer;
             }
 
             if (_finish != null)
@@ -96,7 +95,6 @@ namespace Gameplay.Windows.Gameplay
             OnTick(_gameplayModel.Timer.TimeProgress.Time);
 
             _gameplayModel.Timer.Tick += OnTick;
-            _gameplayModel.Timer.Stopped += OnStopTimer;
         }
 
         private void OnTick(int duration)
@@ -111,10 +109,7 @@ namespace Gameplay.Windows.Gameplay
             _timerText.text = $"{duration}s";
         }
 
-        private void OnStopTimer(TimeModel timeModel)
-        {
-            _windowService.Open(WindowType.Died);
-        }
+       
 
         private void SetTarget(int count)
         {

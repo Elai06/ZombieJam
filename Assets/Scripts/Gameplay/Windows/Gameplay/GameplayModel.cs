@@ -137,6 +137,7 @@ namespace Gameplay.Windows.Gameplay
         private void CreateTimer(WaveConfigData config)
         {
             Timer = _timerService.CreateTimer(config.WaveTimerType.ToString(), config.TimerDuration);
+            Timer.Stopped += OnStopTimer;
             CreatedTimer?.Invoke();
         }
 
@@ -227,6 +228,11 @@ namespace Gameplay.Windows.Gameplay
         public Unit IsHaveTank()
         {
             return _zombieSpawner.Zombies.Find(x => x.Config.Type == EUnitClass.Tank);
+        }
+        
+        private void OnStopTimer(TimeModel timeModel)
+        {
+            _windowService.Open(WindowType.Died);
         }
     }
 }

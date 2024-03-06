@@ -32,6 +32,7 @@ namespace Gameplay.Windows
         [SerializeField] private Transform _reviveContent;
         [SerializeField] private Transform _patrolContent;
         [SerializeField] private Transform _tankHintContent;
+        [SerializeField] private Transform _timeContent;
 
         [SerializeField] private Image _unitIcon;
 
@@ -54,6 +55,8 @@ namespace Gameplay.Windows
             _inAppContent.gameObject.SetActive(false);
             _patrolContent.gameObject.SetActive(false);
             _tankHintContent.gameObject.SetActive(false);
+            _timeContent.gameObject.SetActive(false);
+
             _adImage.gameObject.SetActive(true);
 
             var progress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
@@ -62,6 +65,17 @@ namespace Gameplay.Windows
             _gameplayModel.LooseWave();
             SetLevel();
 
+            ActivateDiedContent();
+        }
+
+        private void ActivateDiedContent()
+        {
+            if (_gameplayModel.Timer != null && _gameplayModel.Timer.TimeProgress.Time <= 0)
+            {
+                SetHintTime();
+                return;
+            }
+            
             if (_gameplayModel.WaveType == EWaveType.Logic)
             {
                 _reviveButton.onClick.AddListener(Restart);
@@ -95,6 +109,14 @@ namespace Gameplay.Windows
                     _reviveButton.onClick.AddListener(ClaimSimpleBox);
                 }
             }
+        }
+
+        private void SetHintTime()
+        {
+            _reviveButton.onClick.AddListener(Restart);
+            _timeContent.gameObject.SetActive(true);
+            _adImage.gameObject.SetActive(false);
+            _reviveTextButton.text = "Restart";
         }
 
         private void OnDisable()
