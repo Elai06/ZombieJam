@@ -643,7 +643,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 4786494562328339739}
 --- !u!1 &440327738604967283
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,7 +694,6 @@ MonoBehaviour:
   ZombieSize: 1
   _cooperativePosition:
   - {fileID: 4018945854378875876}
-  _cubePrefab: {fileID: 2636985983712004811}
 --- !u!1 &473517738853632784
 GameObject:
   m_ObjectHideFlags: 0
@@ -1078,7 +1076,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 6624669089006328482}
 --- !u!1 &868946160850895888
 GameObject:
   m_ObjectHideFlags: 0
@@ -1793,7 +1790,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 1698522377784099724}
 --- !u!1 &1402246113925132003
 GameObject:
   m_ObjectHideFlags: 0
@@ -2011,7 +2007,6 @@ MonoBehaviour:
   ZombieSize: 1
   _cooperativePosition:
   - {fileID: 4537019329462633695}
-  _cubePrefab: {fileID: 4394932013618450697}
 --- !u!1 &1493510459720227702
 GameObject:
   m_ObjectHideFlags: 0
@@ -2062,7 +2057,6 @@ MonoBehaviour:
   Name: 3
   ZombieSize: 1
   _cooperativePosition: []
-  _cubePrefab: {fileID: 941558697737647779}
 --- !u!1 &1505857928073581307
 GameObject:
   m_ObjectHideFlags: 0
@@ -2362,7 +2356,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 3068586087538143968}
 --- !u!1 &1667352142429205667
 GameObject:
   m_ObjectHideFlags: 0
@@ -2662,7 +2655,6 @@ MonoBehaviour:
   Name: 3
   ZombieSize: 1
   _cooperativePosition: []
-  _cubePrefab: {fileID: 1667352142429205667}
 --- !u!1 &1781080118123695252
 GameObject:
   m_ObjectHideFlags: 0
@@ -2920,7 +2912,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 4644383886161228787}
 --- !u!1 &2046942473490077194
 GameObject:
   m_ObjectHideFlags: 0
@@ -3221,7 +3212,6 @@ MonoBehaviour:
   ZombieSize: 1
   _cooperativePosition:
   - {fileID: 2817752687838512791}
-  _cubePrefab: {fileID: 2159672652083666742}
 --- !u!1 &2335759223623715940
 GameObject:
   m_ObjectHideFlags: 0
@@ -3506,7 +3496,7 @@ Transform:
   - {fileID: 5298582470593097836}
   - {fileID: 3432189689593614910}
   m_Father: {fileID: 7037340587007066262}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4942352017568509309
 Animator:
@@ -3552,7 +3542,10 @@ MonoBehaviour:
   m_AnimatedTarget: {fileID: 4942352017568509309}
   m_LayerIndex: 0
   m_ShowDebugText: 0
-  m_ChildCameras: []
+  m_ChildCameras:
+  - {fileID: 5770417316850788173}
+  - {fileID: 2203298043855535374}
+  - {fileID: 7750470178643122693}
   m_Instructions:
   - m_FullHash: 1586013606
     m_VirtualCamera: {fileID: 5770417316850788173}
@@ -3646,7 +3639,6 @@ MonoBehaviour:
   Name: 3
   ZombieSize: 1
   _cooperativePosition: []
-  _cubePrefab: {fileID: 5687127806021958818}
 --- !u!1 &2636985983712004811
 GameObject:
   m_ObjectHideFlags: 0
@@ -4151,7 +4143,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 3526898811621414266}
 --- !u!1 &2968894916365456978
 GameObject:
   m_ObjectHideFlags: 0
@@ -5099,7 +5090,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 7515224063992541138}
 --- !u!1 &3824637145075465192
 GameObject:
   m_ObjectHideFlags: 0
@@ -5362,7 +5352,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 3845766038419827903}
 --- !u!1 &4254600986440275508
 GameObject:
   m_ObjectHideFlags: 0
@@ -5497,7 +5486,6 @@ MonoBehaviour:
   ZombieSize: 1
   _cooperativePosition:
   - {fileID: 5135759249769184678}
-  _cubePrefab: {fileID: 2673542909608052469}
 --- !u!1 &4394932013618450697
 GameObject:
   m_ObjectHideFlags: 0
@@ -5809,7 +5797,6 @@ MonoBehaviour:
   Name: 3
   ZombieSize: 1
   _cooperativePosition: []
-  _cubePrefab: {fileID: 8821426549192767256}
 --- !u!1 &4523674922615826557
 GameObject:
   m_ObjectHideFlags: 0
@@ -6390,7 +6377,6 @@ MonoBehaviour:
   Name: 3
   ZombieSize: 1
   _cooperativePosition: []
-  _cubePrefab: {fileID: 920252822924954869}
 --- !u!1 &4944853062500490067
 GameObject:
   m_ObjectHideFlags: 0
@@ -6441,7 +6427,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 2494249582393793315}
 --- !u!1 &4951896429448537449
 GameObject:
   m_ObjectHideFlags: 0
@@ -6575,7 +6560,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 367920123218208594}
 --- !u!1 &5026105049648457569
 GameObject:
   m_ObjectHideFlags: 0
@@ -6626,7 +6610,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 604731838626518912}
 --- !u!1 &5056770651881675000
 GameObject:
   m_ObjectHideFlags: 0
@@ -6926,7 +6909,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 1596400804261514204}
 --- !u!1 &5177450561631112056
 GameObject:
   m_ObjectHideFlags: 0
@@ -7143,7 +7125,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 8024451317469787062}
 --- !u!1 &5486038710406002373
 GameObject:
   m_ObjectHideFlags: 0
@@ -8108,7 +8089,6 @@ MonoBehaviour:
   ZombieSize: 1
   _cooperativePosition:
   - {fileID: 2892815725021689191}
-  _cubePrefab: {fileID: 558934276899186017}
 --- !u!1 &6182007536354448754
 GameObject:
   m_ObjectHideFlags: 0
@@ -8491,7 +8471,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 6099050425301799030}
 --- !u!1 &6465000760962164112
 GameObject:
   m_ObjectHideFlags: 0
@@ -8696,7 +8675,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 8053375319883258069}
 --- !u!1 &6624669089006328482
 GameObject:
   m_ObjectHideFlags: 0
@@ -9079,7 +9057,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 4951896429448537449}
 --- !u!1 &6891809758463252982
 GameObject:
   m_ObjectHideFlags: 0
@@ -9130,7 +9107,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 7176343161359009598}
 --- !u!1 &6904410882737626009
 GameObject:
   m_ObjectHideFlags: 0
@@ -9347,7 +9323,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 8719947213665101866}
 --- !u!1 &7001961798046478853
 GameObject:
   m_ObjectHideFlags: 0
@@ -10717,7 +10692,6 @@ Transform:
   - {fileID: 7037340586911196261}
   - {fileID: 7037340585697550979}
   - {fileID: 7037340586256201247}
-  - {fileID: 8817745221131728834}
   - {fileID: 2305971334804987101}
   - {fileID: 9128869800566496884}
   - {fileID: 7282819148708705790}
@@ -10858,6 +10832,7 @@ MonoBehaviour:
   - {fileID: 56526099133326340}
   - {fileID: 2913584950530048234}
   - {fileID: 6716937249155538035}
+  _cubeMaterial: {fileID: 0}
   _cubePrefab: {fileID: 922804782034217299, guid: f1fcaf33f2fd14e4e8eecf500809da60, type: 3}
   _spawnPositionPrefab: {fileID: 7312766874275574779, guid: 7cec7d8fddd62514eb84bb96dd05c93e, type: 3}
   _square: 36
@@ -11244,7 +11219,6 @@ MonoBehaviour:
   Name: 3
   ZombieSize: 1
   _cooperativePosition: []
-  _cubePrefab: {fileID: 2275204176610094509}
 --- !u!1 &7405540474773750036
 GameObject:
   m_ObjectHideFlags: 0
@@ -11461,7 +11435,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 4058864915801381150}
 --- !u!1 &7628406759834093569
 GameObject:
   m_ObjectHideFlags: 0
@@ -11972,7 +11945,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 6798676216575907178}
 --- !u!1 &7995270993764213654
 GameObject:
   m_ObjectHideFlags: 0
@@ -12568,7 +12540,7 @@ Transform:
   - {fileID: 162741652513943873}
   - {fileID: 2375551194972186359}
   m_Father: {fileID: 7037340587007066262}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8356470325254747295
 GameObject:
@@ -12786,7 +12758,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 6356254951155368027}
 --- !u!1 &8509675168200134603
 GameObject:
   m_ObjectHideFlags: 0
@@ -13169,7 +13140,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 5859720520564054105}
 --- !u!1 &8714642531460154059
 GameObject:
   m_ObjectHideFlags: 0
@@ -13552,7 +13522,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 3598099221748674992}
 --- !u!1 &8943751588778477273
 GameObject:
   m_ObjectHideFlags: 0
@@ -13769,7 +13738,6 @@ MonoBehaviour:
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
-  _cubePrefab: {fileID: 5112278740399284885}
 --- !u!1 &9068471771854882955
 GameObject:
   m_ObjectHideFlags: 0
@@ -13904,7 +13872,6 @@ MonoBehaviour:
   ZombieSize: 1
   _cooperativePosition:
   - {fileID: 5746328768306705568}
-  _cubePrefab: {fileID: 562544212997148020}
 --- !u!1001 &1104502433693926686
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14207,7 +14174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9055703351034474499, guid: ef3744a8abe10944db25e4f2e3fec35f, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9055703351034474499, guid: ef3744a8abe10944db25e4f2e3fec35f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14475,7 +14442,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1825479564031669304, guid: 2b552087dc9013841bf189b71d6f0ff9, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1825479564031669304, guid: 2b552087dc9013841bf189b71d6f0ff9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14487,7 +14454,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1825479564031669304, guid: 2b552087dc9013841bf189b71d6f0ff9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12.57
+      value: 12.11
       objectReference: {fileID: 0}
     - target: {fileID: 1825479564031669304, guid: 2b552087dc9013841bf189b71d6f0ff9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -14763,7 +14730,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8660172636903623418, guid: 2dcff3fc5c589e647800771df192c34c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.8594384
+      value: 2.89
       objectReference: {fileID: 0}
     - target: {fileID: 8660172636903623418, guid: 2dcff3fc5c589e647800771df192c34c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -14771,23 +14738,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8660172636903623418, guid: 2dcff3fc5c589e647800771df192c34c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.6759377
-      objectReference: {fileID: 0}
-    - target: {fileID: 8660172636903623418, guid: 2dcff3fc5c589e647800771df192c34c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.0000029504295
-      objectReference: {fileID: 0}
-    - target: {fileID: 8660172636903623418, guid: 2dcff3fc5c589e647800771df192c34c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8660172636903623418, guid: 2dcff3fc5c589e647800771df192c34c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8660172636903623418, guid: 2dcff3fc5c589e647800771df192c34c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
+      value: 1.26
       objectReference: {fileID: 0}
     - target: {fileID: 8660172636903623418, guid: 2dcff3fc5c589e647800771df192c34c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -15025,74 +14976,4 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 892117119327960640, guid: 1c4afcc2f8c0b36418ba3e23f1dc99ee, type: 3}
   m_PrefabInstance: {fileID: 7045783104536204091}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &8116858491877991792
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 7037340587007066262}
-    m_Modifications:
-    - target: {fileID: 791001053686682290, guid: 079e8704340fd2f42bcb934e82b4a086, type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 791001053686682290, guid: 079e8704340fd2f42bcb934e82b4a086, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 791001053686682290, guid: 079e8704340fd2f42bcb934e82b4a086, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 791001053686682290, guid: 079e8704340fd2f42bcb934e82b4a086, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 791001053686682290, guid: 079e8704340fd2f42bcb934e82b4a086, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 791001053686682290, guid: 079e8704340fd2f42bcb934e82b4a086, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 791001053686682290, guid: 079e8704340fd2f42bcb934e82b4a086, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 791001053686682290, guid: 079e8704340fd2f42bcb934e82b4a086, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 791001053686682290, guid: 079e8704340fd2f42bcb934e82b4a086, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 791001053686682290, guid: 079e8704340fd2f42bcb934e82b4a086, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 791001053686682290, guid: 079e8704340fd2f42bcb934e82b4a086, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932120511515588637, guid: 079e8704340fd2f42bcb934e82b4a086, type: 3}
-      propertyPath: m_Name
-      value: Teleport
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932120511515588637, guid: 079e8704340fd2f42bcb934e82b4a086, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8654733441805087785, guid: 079e8704340fd2f42bcb934e82b4a086, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 079e8704340fd2f42bcb934e82b4a086, type: 3}
---- !u!4 &8817745221131728834 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 791001053686682290, guid: 079e8704340fd2f42bcb934e82b4a086, type: 3}
-  m_PrefabInstance: {fileID: 8116858491877991792}
   m_PrefabAsset: {fileID: 0}
