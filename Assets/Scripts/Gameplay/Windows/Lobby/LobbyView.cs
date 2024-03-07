@@ -17,7 +17,6 @@ namespace Gameplay.Windows.Lobby
         [SerializeField] private WaveSlider _wave8Slider;
         
         [SerializeField] private TextMeshProUGUI _regionText;
-        [SerializeField] private TextMeshProUGUI _waveText;
 
         [Inject] private IWindowService _windowService;
         [Inject] private IGameplayModel _gameplayModel;
@@ -26,8 +25,6 @@ namespace Gameplay.Windows.Lobby
 
         private void Start()
         {
-            _waveText.gameObject.SetActive(false);
-
             var progress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
             GetActualSlider().gameObject.SetActive(true);
             UpdateWave(progress.ERegionType, progress.CurrentWaweIndex);
@@ -70,8 +67,8 @@ namespace Gameplay.Windows.Lobby
             
             slider.UpdateWave(config.Count, waveIndex);
             
-            _regionText.text = $"{regionType}";
-            _waveText.text = $"Wave {waveIndex + 1}";
+            _regionText.text = $"{regionType}: Wave {waveIndex + 1}";
+          //  _waveText.text = $"Wave {waveIndex + 1}";
         }
 
         private void Restart()
@@ -110,16 +107,14 @@ namespace Gameplay.Windows.Lobby
             switch (windowType)
             {
                 case WindowType.Gameplay:
-                    _waveText.gameObject.SetActive(true);
                     _wave4Slider.gameObject.SetActive(false);
                     _wave6Slider.gameObject.SetActive(false);
                     _wave8Slider.gameObject.SetActive(false);
-                    _regionText.gameObject.SetActive(false);
+                    _regionText.gameObject.SetActive(true);
                     break;
                 case WindowType.MainMenu:
                    GetActualSlider().gameObject.SetActive(true);
                     _regionText.gameObject.SetActive(true);
-                    _waveText.gameObject.SetActive(false);
                     break;
             }
         }
