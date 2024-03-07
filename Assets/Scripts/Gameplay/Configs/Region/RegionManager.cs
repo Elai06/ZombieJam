@@ -8,7 +8,6 @@ using Gameplay.RegionMap;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.StaticData;
 using Infrastructure.Windows;
-using UnityEngine.SceneManagement;
 
 namespace Gameplay.Configs.Region
 {
@@ -67,10 +66,14 @@ namespace Gameplay.Configs.Region
             _regionProgress.RegionIndex++;
             _regionProgressData.IsCompleted = true;
             _regionProgressData.IsOpen = false;
+            _regionProgressData.CurrentWaweIndex = 0;
 
-            if (_regionProgress.RegionIndex >= _gameStaticData.RegionConfig.ConfigData.Count)
+            var isFinalBiome = _regionProgress.RegionIndex >= _gameStaticData.RegionConfig.ConfigData.Count;
+
+            if (isFinalBiome)
             {
-                _regionProgress.RegionIndex = 0;
+                ResetBiome();
+                return;
             }
 
             _regionProgress.CurrentRegionType = _gameStaticData.RegionConfig
@@ -80,15 +83,21 @@ namespace Gameplay.Configs.Region
             //   _windowService.Open(WindowType.Region);
         }
 
+        private void ResetBiome()
+        {
+            _regionProgress.RegionIndex = 2;
+            _regionProgress.CurrentRegionType = _gameStaticData.RegionConfig
+                .ConfigData[_regionProgress.RegionIndex].RegionType;
+            _regionProgressData = _regionProgress.GetCurrentRegion();
+        }
+
         private void NextWave()
         {
             if (_regionProgressData.CurrentWaweIndex >= RegionConfig.Waves.Count)
             {
                 _regionProgressData.IsCompleted = true;
                 ChangeRegion();
-                return;
             }
-            //  _windowService.Open(WindowType.MainMenu);
         }
 
         public void WaveCompleted()

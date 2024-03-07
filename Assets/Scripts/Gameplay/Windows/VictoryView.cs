@@ -107,9 +107,9 @@ namespace Gameplay.Windows
 
         private void StartAnimation()
         {
-            _gameplayModel.ToTheNextWave();
             _gameplayModel.GetRewardForWave(_isShowedAd);
-
+            
+            _gameplayModel.ToTheNextWave();
             _claimButton.onClick.RemoveListener(ShowRewardAd);
             _lobbyButton.onClick.RemoveListener(StartAnimation);
 
