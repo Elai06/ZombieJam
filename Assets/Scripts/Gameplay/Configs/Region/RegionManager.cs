@@ -28,6 +28,8 @@ namespace Gameplay.Configs.Region
         public RegionConfigData RegionConfig =>
             _gameStaticData.RegionConfig.GetRegionConfig(_regionProgressData.ERegionType);
 
+        public EZombieNames CardReward { get; private set; }
+
         public RegionManager(IProgressService progressService, GameStaticData gameStaticData,
             IWindowService windowService, ICurrenciesModel currenciesModel, IBoostersManager boostersManager,
             ICardsModel cardsModel, RegionInitializer regionInitializer)
@@ -131,10 +133,15 @@ namespace Gameplay.Configs.Region
                 if (reward.RewardType == EResourceType.Card)
                 {
                     var rewardValue = isShowedAds ? reward.Value * 2 : reward.Value;
-                    Enum.TryParse<EZombieNames>(reward.GetId(), out var currencyType);
-                    _cardsModel.AddCards(currencyType, rewardValue);
+                  //  Enum.TryParse<EZombieNames>(reward.GetId(), out var currencyType);
+                    _cardsModel.AddCards(CardReward, rewardValue);
                 }
             }
+        }
+
+        public void CreateRandomCard()
+        {
+            CardReward = _cardsModel.GetRandomCard(true);
         }
     }
 }

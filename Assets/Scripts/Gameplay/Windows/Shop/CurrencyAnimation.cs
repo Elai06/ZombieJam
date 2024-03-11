@@ -24,6 +24,8 @@ namespace Gameplay.Windows.Shop
         [SerializeField] private int _hardModificator = 5;
         [SerializeField] private GameObject _prefab;
 
+        [SerializeField] private bool _isShopWindow;
+
         [Inject] private IShopModel _shopModel;
         [Inject] private IWindowService _windowService;
         [Inject] private GameStaticData _gameStaticData;
@@ -34,12 +36,18 @@ namespace Gameplay.Windows.Shop
 
         private void OnEnable()
         {
-            _shopModel.Purchased += OnPurchased;
+            if (_isShopWindow)
+            {
+                _shopModel.Purchased += OnPurchased;
+            }
         }
 
         private void OnDisable()
         {
-            _shopModel.Purchased -= OnPurchased;
+            if (_isShopWindow)
+            {
+                _shopModel.Purchased -= OnPurchased;
+            }
 
             CleanUp();
         }

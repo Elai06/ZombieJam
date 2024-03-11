@@ -2,6 +2,7 @@
 using System.Linq;
 using Gameplay.Ad;
 using Gameplay.Boosters;
+using Gameplay.Configs.Region;
 using Gameplay.Configs.Rewards;
 using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
@@ -31,11 +32,11 @@ namespace Gameplay.Windows
         [SerializeField] private Image _victoryExperienceFill;
         [SerializeField] private Button _lobbyButton;
         [SerializeField] private Button _claimButton;
-
         [SerializeField] private RewardSubViewContainer _rewardSubViewContainer;
         [SerializeField] private CurrencyAnimation _currencyAnimation;
 
         private IGameplayModel _gameplayModel;
+        private IRegionManager _regionManager;
         private IWindowService _windowService;
         private GameStaticData _gameStaticData;
         private ILevelModel _levelModel;
@@ -45,13 +46,14 @@ namespace Gameplay.Windows
 
         [Inject]
         public void Construct(IGameplayModel gameplayModel, IWindowService windowService,
-            GameStaticData gameStaticData, ILevelModel levelModel, IAdsService adsService)
+            GameStaticData gameStaticData, ILevelModel levelModel, IAdsService adsService, IRegionManager regionManager)
         {
             _gameplayModel = gameplayModel;
             _windowService = windowService;
             _gameStaticData = gameStaticData;
             _levelModel = levelModel;
             _adsService = adsService;
+            _regionManager = regionManager;
         }
 
         public void Start()
@@ -62,7 +64,6 @@ namespace Gameplay.Windows
         public void OnEnable()
         {
             _isShowedAd = false;
-
             _claimButton.enabled = true;
 
             var progress = _gameplayModel.GetCurrentRegionProgress().GetCurrentRegion();
@@ -113,10 +114,10 @@ namespace Gameplay.Windows
             _claimButton.onClick.RemoveListener(ShowRewardAd);
             _lobbyButton.onClick.RemoveListener(StartAnimation);
 
-            var rewardSubView = _rewardSubViewContainer.SubViews
+            var currencyRewardSubView = _rewardSubViewContainer.SubViews
                 .First(x => x.Key == ECurrencyType.SoftCurrency.ToString());
-            StartCoroutine(_currencyAnimation.StartAnimation(rewardSubView.Value.transform, ECurrencyType.SoftCurrency,
-                rewardSubView.Value.Value));
+            StartCoroutine(_currencyAnimation.StartAnimation(currencyRewardSubView.Value.transform, ECurrencyType.SoftCurrency,
+                currencyRewardSubView.Value.Value));
         }
 
         private void SetLevelInfo()
@@ -157,11 +158,16 @@ namespace Gameplay.Windows
 
         private RewardSubViewData CreateSubView(RewardConfigData rewardConfigData, bool isX2)
         {
+            if (rewardConfigData.RewardType == EResourceType.Card)
+            {
+                _regionManager.CreateRandomCard();
+            }
+            
             return new RewardSubViewData
             {
                 Sprite = GetSprite(rewardConfigData),
                 ID = rewardConfigData.GetId(),
-                Value = isX2 ? rewardConfigData.Value * 2 : rewardConfigData.Value,
+                Value = /*isX2 ? rewardConfigData.Value * 2 :*/ rewardConfigData.Value,
                 ResourceType = rewardConfigData.RewardType
             };
         }
@@ -177,8 +183,8 @@ namespace Gameplay.Windows
                     Enum.TryParse<ECurrencyType>(data.GetId(), out var type);
                     return _gameStaticData.SpritesConfig.GetCurrencySprite(type);
                 case EResourceType.Card:
-                    Enum.TryParse<EZombieNames>(data.GetId(), out var card);
-                    return _gameStaticData.SpritesConfig.GetZombieIcon(card).HalfHeighSprite;
+                    //Enum.TryParse<EZombieNames>(data.GetId(), out var card);
+                    return _gameStaticData.SpritesConfig.GetZombieIcon(_regionManager.CardReward).HalfHeighSprite;
                 default:
                     return null;
             }

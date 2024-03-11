@@ -25,11 +25,11 @@ namespace Gameplay.Windows.Shop
 
         [SerializeField] private float _offsetDuration = 0.05f;
         [SerializeField] private float _durationAnimation = 0.75f;
-
-        private List<GameObject> _spawnedObjects = new();
-
         [SerializeField] private GameObject _prefab;
 
+        [SerializeField] private bool _isShopWindow;
+
+        private List<GameObject> _spawnedObjects = new();
 
         private Tween _tween;
 
@@ -40,12 +40,20 @@ namespace Gameplay.Windows.Shop
 
         private void OnEnable()
         {
-            _shopModel.Purchased += OnPurchase;
+            if (_isShopWindow)
+            {
+                _shopModel.Purchased += OnPurchase;
+            }
         }
 
         private void OnDisable()
         {
-            _shopModel.Purchased -= OnPurchase;
+            if (_isShopWindow)
+            {
+                _shopModel.Purchased -= OnPurchase;
+            }
+
+            CleanUp();
         }
 
         private void OnPurchase(EShopProductType shopProductType)
@@ -65,7 +73,7 @@ namespace Gameplay.Windows.Shop
             }
         }
 
-        private IEnumerator StartAnimation(Transform startPosition, int value)
+        public IEnumerator StartAnimation(Transform startPosition, int value)
         {
             if (_tween != null && _tween.IsPlaying()) yield break;
             var targetObject = GetTargetPosition();

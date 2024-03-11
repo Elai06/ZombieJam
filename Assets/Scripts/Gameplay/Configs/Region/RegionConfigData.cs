@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Gameplay.Configs.Rewards;
 using Gameplay.Enums;
 
 namespace Gameplay.Configs.Region

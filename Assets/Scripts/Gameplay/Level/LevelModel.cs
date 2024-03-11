@@ -71,14 +71,14 @@ namespace Gameplay.Level
 
         private void LevelUp()
         {
-            SetCardReward();
+            CreateRandomCardReward();
             _levelProgress.Level++;
             _levelProgress.Experience = 0;
             OpenWindow();
             OnLevelUp?.Invoke(CurrentLevel);
         }
 
-        private void SetCardReward()
+        private void CreateRandomCardReward()
         {
             if (CurrentLevel >= LevelConfig.LevelRewards.Count)
             {
