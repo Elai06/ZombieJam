@@ -3,7 +3,6 @@ using Gameplay.Boosters;
 using Gameplay.Enums;
 using Gameplay.Windows.Boosters;
 using Infrastructure.StaticData;
-using Infrastructure.Timer;
 using Infrastructure.Windows;
 using TMPro;
 using UnityEngine;

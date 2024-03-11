@@ -65,7 +65,7 @@ namespace Infrastructure.Events
         {
             var parameters =
                 $"{{\"RegionType\":\"{regionType}\", " + $"\"WaveIndex\":\"{index + 1}\"}}";
-            SendEventWithLevelDay("Wave finish", parameters);
+            SendEventWithLevelDay("Wave loose", parameters);
         }
 
         private void WaveCompleted(ERegionType regionType, int index)
