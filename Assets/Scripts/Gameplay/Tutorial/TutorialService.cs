@@ -43,7 +43,7 @@ namespace Gameplay.Tutorial
 
         public ETutorialState CurrentState => _progressService.PlayerProgress.CurrentTutorialState;
 
-        public void Initalize(IGameplayModel gameplayModel)
+        public void Initialize(IGameplayModel gameplayModel)
         {
             _gameplayModel = gameplayModel;
             SetState(_progressService.PlayerProgress.CurrentTutorialState);
@@ -121,6 +121,11 @@ namespace Gameplay.Tutorial
         public void ShowMessage(string message, Vector2 messagePosition, bool isActiveBg)
         {
             Message?.Invoke(message, messagePosition,isActiveBg);
+        }
+
+        public PlayerProgress GetPlayerProgress()
+        {
+            return _progressService.PlayerProgress;
         }
     }
 }

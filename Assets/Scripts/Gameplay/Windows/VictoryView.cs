@@ -110,7 +110,7 @@ namespace Gameplay.Windows
         {
             _gameplayModel.GetRewardForWave(_isShowedAd);
             
-            _gameplayModel.ToTheNextWave();
+            _gameplayModel.NextWave();
             _claimButton.onClick.RemoveListener(ShowRewardAd);
             _lobbyButton.onClick.RemoveListener(StartAnimation);
 

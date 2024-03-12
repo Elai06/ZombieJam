@@ -9,6 +9,8 @@ using Gameplay.Enums;
 using Gameplay.Level;
 using Gameplay.Shop;
 using Gameplay.Tutorial;
+using Infrastructure.Session;
+using UnityEngine.Serialization;
 
 namespace Infrastructure.PersistenceProgress
 {
@@ -22,6 +24,8 @@ namespace Infrastructure.PersistenceProgress
         public CardsProgress CardsProgress = new();
         public ShopProgress ShopProgress = new();
         public ETutorialState CurrentTutorialState;
+        public SessionProgress SessionProgress = new();
+        public int TutorialNumberStep;
 
         public int DaysInPlay;
         public string FirstDate = DateTime.Now.Date.ToString(CultureInfo.CurrentCulture);

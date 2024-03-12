@@ -95,6 +95,7 @@ namespace Gameplay.Configs.Region
 
         private void NextWave()
         {
+            _regionProgress.WaveIndex++;
             if (_regionProgressData.CurrentWaweIndex >= RegionConfig.Waves.Count)
             {
                 _regionProgressData.IsCompleted = true;

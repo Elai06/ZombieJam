@@ -56,15 +56,18 @@ namespace Gameplay.Windows.Gameplay
         public bool IsWaveCompleted { get; set; }
         public int TargetsCount { get; set; }
         public TimeModel Timer { get; set; }
+        public int GameplayTimeDuration { get; set; }
         public EWaveType WaveType { get; set; }
         public ETutorialState TutorialState => _tutorialService.CurrentState;
+
+        private DateTime _startGameplayDateTime;
 
         public void InitializeZombieSpawner(ZombieSpawner zombieSpawner)
         {
             _zombieSpawner = zombieSpawner;
         }
 
-        public void ToTheNextWave()
+        public void NextWave()
         {
             IsWaveCompleted = false;
 
@@ -79,11 +82,14 @@ namespace Gameplay.Windows.Gameplay
         public async void WaveCompleted()
         {
             IsWaveCompleted = true;
+
             if (Timer != null)
             {
                 Timer.IsWork = false;
             }
 
+            GameplayTimeDuration = (DateTime.Now - _startGameplayDateTime).Seconds;
+            
             var progress = GetCurrentRegionProgress();
             OnWaveCompleted?.Invoke(progress.CurrentRegionType, progress.GetCurrentRegion().CurrentWaweIndex);
 
@@ -98,13 +104,20 @@ namespace Gameplay.Windows.Gameplay
         public void StartWave()
         {
             _windowService.Open(WindowType.Gameplay);
-
+            _regionManager.Progress.LevelStartCount++;
+            _startGameplayDateTime = DateTime.Now;
             IsWaveCompleted = false;
             IsStartWave = true;
             IsWasFirstDamage = false;
 
             InitializeTimer();
             OnStartWave?.Invoke(_regionManager.ProgressData.ERegionType, _regionManager.ProgressData.CurrentWaweIndex);
+        }
+
+        public void LooseWave()
+        {
+            var progress = GetCurrentRegionProgress();
+            OnWaveLoose?.Invoke(progress.CurrentRegionType, progress.GetCurrentRegion().CurrentWaweIndex);
         }
 
         private void InitializeTimer()
@@ -141,12 +154,6 @@ namespace Gameplay.Windows.Gameplay
             CreatedTimer?.Invoke();
         }
 
-        public void LooseWave()
-        {
-            var progress = GetCurrentRegionProgress();
-            OnWaveLoose?.Invoke(progress.CurrentRegionType, progress.GetCurrentRegion().CurrentWaweIndex);
-        }
-
         public int GetExperience(bool isWin)
         {
             return _levelModel.GetExperience(isWin);
@@ -178,7 +185,7 @@ namespace Gameplay.Windows.Gameplay
             }
         }
 
-        private void OnShowedAds()
+        private void OnShowedAds(EAdsType adsType)
         {
             _adsService.Showed -= OnShowedAds;
             ReviveUnits();
@@ -229,7 +236,7 @@ namespace Gameplay.Windows.Gameplay
         {
             return _zombieSpawner.Zombies.Find(x => x.Config.Type == EUnitClass.Tank);
         }
-        
+
         private void OnStopTimer(TimeModel timeModel)
         {
             _windowService.Open(WindowType.Died);

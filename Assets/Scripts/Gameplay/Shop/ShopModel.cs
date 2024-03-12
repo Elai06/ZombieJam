@@ -112,7 +112,7 @@ namespace Gameplay.Shop
             PurchaseAfterAdShowed(shopProductType, _currentConfigData);
         }
 
-        private void OnAdsShowed()
+        private void OnAdsShowed(EAdsType adsType)
         {
             _adsService.Showed -= OnAdsShowed;
             PurchaseAfterAdShowed(_currentConfigData.ProductType, _currentConfigData);

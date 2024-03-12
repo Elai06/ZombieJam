@@ -6,6 +6,6 @@ namespace Infrastructure.Events
     {
         void Initialize(IGameplayModel gameplayModel);
         void SendEventDay(string eventName, string parameters = "");
-        void SendEventWithLevelDay(string eventName, string parameters = "");
+        void SendEvent(string eventName, string parameters = "");
     }
 }

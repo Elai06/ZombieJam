@@ -11,7 +11,7 @@ namespace Gameplay.Windows.Gameplay
     public interface IGameplayModel
     {
         EWaveType WaveType { get; set; }
-        void ToTheNextWave();
+        void NextWave();
         event Action<ERegionType, int> OnToTheNextWave;
         RegionProgress GetCurrentRegionProgress();
         RegionConfigData GetRegionConfig();
@@ -25,6 +25,7 @@ namespace Gameplay.Windows.Gameplay
         ETutorialState TutorialState { get; }
         bool IsWasFirstDamage { get; set; }
         int TargetsCount { get; set; }
+        int GameplayTimeDuration { get; set; }
         void StartWave();
         event Action<ERegionType,int> OnStartWave;
         event Action<int> OnEnemyDied;

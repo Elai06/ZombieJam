@@ -12,7 +12,7 @@ namespace Gameplay.Ad
         bool ShowAds(EAdsType type);
         event Action<int> Tick;
         void SkipAds();
-        event Action Showed;
+        event Action<EAdsType> Showed;
         void StopAds();
         event Action OnSkipAds;
         event Action<EAdsType> StartShow;

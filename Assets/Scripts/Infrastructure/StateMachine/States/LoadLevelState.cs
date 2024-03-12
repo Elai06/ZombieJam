@@ -54,7 +54,7 @@ namespace Infrastructure.StateMachine.States
             _eventsManager.Initialize(_gameplayModel);
             _playerTimesService.SetDaysInPlay();
             _cardsModel.Initialize();
-            _tutorialService.Initalize(_gameplayModel);
+            _tutorialService.Initialize(_gameplayModel);
             _swipeManager.Initialize();
             _boostersManager.Initialize(_gameplayModel);
 

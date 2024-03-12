@@ -13,7 +13,7 @@ namespace Gameplay.Ad
     public class AdsService : IAdsService
     {
         public event Action<int> Tick;
-        public event Action Showed;
+        public event Action<EAdsType> Showed;
         public event Action<EAdsType> StartShow;
         public event Action OnSkipAds;
 
@@ -58,7 +58,7 @@ namespace Gameplay.Ad
         private void OnStopTimer(TimeModel timer)
         {
             StopAds();
-            Showed?.Invoke();
+            Showed?.Invoke(AdsType);
         }
 
         public void StopAds()

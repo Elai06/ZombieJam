@@ -26,6 +26,7 @@ using Infrastructure.Input;
 using Infrastructure.PersistenceProgress;
 using Infrastructure.SaveLoads;
 using Infrastructure.SceneManagement;
+using Infrastructure.Session;
 using Infrastructure.StateMachine;
 using Infrastructure.StateMachine.States;
 using Infrastructure.StaticData;
@@ -106,6 +107,7 @@ namespace Infrastructure.Installers
             Container.Bind<IPlayerTimesService>().To<PlayerTimesService>().AsSingle();
             Container.Bind<IEventsManager>().To<EventsManager>().AsSingle();
             Container.Bind<ITutorialService>().To<TutorialService>().AsSingle();
+            Container.Bind<ISessionManager>().To<SessionManager>().AsSingle();
         }
     }
 }

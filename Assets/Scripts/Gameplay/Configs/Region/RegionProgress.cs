@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Gameplay.Enums;
+using UnityEngine;
 
 namespace Gameplay.Configs.Region
 {
@@ -10,6 +11,8 @@ namespace Gameplay.Configs.Region
     {
         public ERegionType CurrentRegionType;
         public int RegionIndex;
+        public int LevelStartCount;
+        public int WaveIndex;
 
         public List<RegionProgressData> RegionProgressData = new();
 

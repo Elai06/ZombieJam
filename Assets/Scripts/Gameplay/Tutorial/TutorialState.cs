@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Events;
+using Infrastructure.PersistenceProgress;
 using Infrastructure.StateMachine;
 using Infrastructure.StateMachine.States;
 using Infrastructure.Windows;
@@ -15,6 +16,8 @@ namespace Gameplay.Tutorial
 
         private IEventsManager _eventsManager;
 
+        private readonly PlayerProgress _progressService;
+
         protected TutorialState(ITutorialService tutorialService, IWindowService windowService,
             IEventsManager eventsManager, ETutorialState state)
         {
@@ -22,6 +25,7 @@ namespace Gameplay.Tutorial
             _tutorialState = state;
             _windowService = windowService;
             _eventsManager = eventsManager;
+            _progressService = tutorialService.GetPlayerProgress();
         }
 
         public virtual void Initialize(IStateMachine stateMachine)
@@ -33,31 +37,17 @@ namespace Gameplay.Tutorial
         {
             if (_tutorialState != ETutorialState.Completed)
             {
-                if (_tutorialState == ETutorialState.Swipe)
-                {
-                    _eventsManager.SendEventDay($"Tutorial {_tutorialState} completed");
-                    return;
-                }
+                _progressService.TutorialNumberStep++;
+                var parameters =
+                    $"{{\"step_name\":\"{_progressService.TutorialNumberStep}_{_tutorialState}\"}}";
                 
-                _eventsManager.SendEventWithLevelDay($"Tutorial {_tutorialState} completed");
+                _eventsManager.SendEvent("tutorial", parameters);
             }
         }
 
         public virtual void Enter()
         {
             _tutorialService.SetState(_tutorialState);
-
-            if (_tutorialState != ETutorialState.Completed)
-            {
-                if (_tutorialState == ETutorialState.Swipe)
-                {
-                    _eventsManager.SendEventDay($"Tutorial {_tutorialState} started");
-                    return;
-                }
-                
-                _eventsManager.SendEventWithLevelDay($"Tutorial {_tutorialState} started");
-
-            }
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Infrastructure.Events
         private readonly ICardsModel _cardsModel;
         private readonly IAdsService _adsService;
         private readonly IBoostersManager _boostersManager;
-        private  IGameplayModel _gameplayModel;
+        private IGameplayModel _gameplayModel;
 
         public EventsManager(IWindowService windowService, IPlayerTimesService playerTimesService,
             ILevelModel levelModel, IRegionManager regionManager, IShopModel shopModel, ICardsModel cardsModel,
@@ -63,53 +63,61 @@ namespace Infrastructure.Events
 
         private void WaveLoosed(ERegionType regionType, int index)
         {
-            var parameters =
-                $"{{\"RegionType\":\"{regionType}\", " + $"\"WaveIndex\":\"{index + 1}\"}}";
-            SendEventWithLevelDay("Wave loose", parameters);
+            var regionProgress = _regionManager.Progress;
+            var parameters = $"{{\"level_number\":\"{regionProgress.WaveIndex + 1}\", " +
+                             $"\"level_name\":\"{regionType}\"," +
+                             $"\"level_count\":\"{regionProgress.LevelStartCount}\"}}";
+            SendEvent("level_failed", parameters);
         }
 
         private void WaveCompleted(ERegionType regionType, int index)
         {
-            var parameters =
-                $"{{\"RegionType\":\"{regionType}\", " + $"\"WaveIndex\":\"{index + 1}\"}}";
-            SendEventWithLevelDay("Wave finish", parameters);
+            var regionProgress = _regionManager.Progress;
+            var parameters = $"{{\"level_number\":\"{regionProgress.WaveIndex + 1}\", " +
+                             $"\"level_name\":\"{regionType}\"," +
+                             $"\"level_count\":\"{regionProgress.LevelStartCount}\", " +                       
+                             $"\"time\":\"{_gameplayModel.GameplayTimeDuration}\"}}";
+            SendEvent("level_finish", parameters);
         }
 
-        private void WaveStarted(ERegionType regionType ,int index)
+        private void WaveStarted(ERegionType regionType, int index)
         {
-            var parameters = $"{{\"RegionType\":\"{regionType}\", " +
-                             $"\"WaveIndex\":\"{index + 1}\"}}";
-            SendEventWithLevelDay("Wave started", parameters);
+            var regionProgress = _regionManager.Progress;
+
+            var parameters = $"{{\"level_number\":\"{regionProgress.WaveIndex + 1}\", " +
+                             $"\"level_name\":\"{regionType}\"," +
+                             $"\"level_count\":\"{regionProgress.LevelStartCount}\"}}";
+            SendEvent("level_start", parameters);
         }
 
         private void OnStartAds(EAdsType adsType)
         {
-            var regionProgress = _regionManager.ProgressData;
             var parameters =
-                $"{{\"Ads\":\"{adsType}\", " +
-                $"\"RegionType\":\"{regionProgress.ERegionType}\", " +
-                $"\"WaveIndex\":\"{regionProgress.CurrentWaweIndex + 1}\"}}";
+                $"{{\"ad_type\":\"{adsType}\", " +
+                $"\"result\":\"{"start"}\", " +
+                $"\"connection\":\"{Application.internetReachability != NetworkReachability.NotReachable}\"}}";
 
-            SendEventWithLevelDay("AdsStarted", parameters);
+            SendEvent("video_ads_started", parameters);
         }
 
-        private void OnAdsShowed()
+        private void OnAdsShowed(EAdsType adsType)
         {
-            var regionProgress = _regionManager.ProgressData;
             var parameters =
-                $"{{\"Ads\":\"{_adsService.AdsType}\", " +
-                $"\"RegionType\":\"{regionProgress.ERegionType}\", " +
-                $"\"WaveIndex\":\"{regionProgress.CurrentWaweIndex + 1}\"}}";
+                $"{{\"ad_type\":\"{adsType}\", " +
+                $"\"result\":\"{"watched"}\", " +
+                $"\"connection\":\"{Application.internetReachability != NetworkReachability.NotReachable}\"}}";
 
-            SendEventWithLevelDay("AdsCompleted", parameters);
+            var regionProgress = _regionManager.ProgressData;
+            parameters += $"{{\"level_number\":\"{regionProgress.CurrentWaweIndex + 1}\", " +
+                          $"\"level_name\":\"{regionProgress.ERegionType},{regionProgress.CurrentWaweIndex + 1}\"," +
+                          $"\"level_count\":\"{_regionManager.Progress.LevelStartCount}\"}}";
+
+            SendEvent("video_ads_watch", parameters);
         }
 
 
-        public void SendEventWithLevelDay(string eventName, string parameters = "")
+        public void SendEvent(string eventName, string parameters = "")
         {
-            parameters +=
-                $"{{\"Level\":\"{_levelModel.CurrentLevel + 1}\", \"Day\":\"{_playerTimesService.GetDaysInPlay()}\"}}";
-
             AppMetrica.Instance.ReportEvent(eventName, parameters);
             Debug.Log($"Send appmetrica event {eventName}");
         }
@@ -131,7 +139,7 @@ namespace Infrastructure.Events
                 $"\"RegionType\":\"{regionProgress.ERegionType}\", " +
                 $"\"WaveIndex\":\"{regionProgress.CurrentWaweIndex + 1}\"}}";
 
-            SendEventWithLevelDay("Button unit upgrade", parameters);
+            SendEvent("Button unit upgrade", parameters);
         }
 
         private void OnUpgradeCard(EZombieNames unitClass)
@@ -141,17 +149,13 @@ namespace Infrastructure.Events
                 $"{{\"UnitType\":\"{unitClass}\", " +
                 $"\"RegionType\":\"{regionProgress.ERegionType}\", " +
                 $"\"WaveIndex\":\"{regionProgress.CurrentWaweIndex + 1}\"}}";
-            SendEventWithLevelDay("Unit upgrade", parameters);
+            SendEvent("Unit upgrade", parameters);
         }
 
         private void OnLevelUp(int level)
         {
-            var regionProgress = _regionManager.ProgressData;
-            var parametrs =
-                $"{{\"RegionType\":\"{regionProgress.ERegionType}\", " +
-                $"\"WaveIndex\":\"{regionProgress.CurrentWaweIndex + 1}\"}}";
-
-            SendEventWithLevelDay("Player levelup", parametrs);
+            var parameters = $"{{\"Level\":\"{_levelModel.CurrentLevel + 1}\"}}";
+            SendEvent("Player levelup", parameters);
         }
 
         private void OpenWindow(WindowType windowType)
@@ -159,30 +163,30 @@ namespace Infrastructure.Events
             switch (windowType)
             {
                 case WindowType.Shop:
-                    SendEventWithLevelDay("Tab Shop");
+                    SendEvent("Tab Shop");
                     break;
                 case WindowType.Region:
-                    SendEventWithLevelDay("Tab Map");
+                    SendEvent("Tab Map");
                     break;
                 case WindowType.Lobby:
-                    SendEventWithLevelDay("Tab Waves");
+                    SendEvent("Tab Waves");
                     break;
                 case WindowType.Cards:
-                    SendEventWithLevelDay("Tab Collection");
+                    SendEvent("Tab Collection");
                     break;
             }
         }
 
         private void OnPurchase(EShopProductType productType)
         {
-            SendEventWithLevelDay(productType.ToString(), $"{{\"ProductType\":\"{productType}\"}}");
+            SendEvent(productType.ToString(), $"{{\"ProductType\":\"{productType}\"}}");
         }
 
         private void OnBoosterActivate(EBoosterType boosterType)
         {
             var parameters =
                 $"{{\"BoosterActivated\":\"{boosterType}\"}}";
-            SendEventWithLevelDay(parameters);
+            SendEvent(parameters);
         }
     }
 }
