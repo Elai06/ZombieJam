@@ -16,6 +16,7 @@
         Ads,
         InApp,
         LevelUp,
-        Tutorial
+        Tutorial,
+        Vignette
     }
 }
