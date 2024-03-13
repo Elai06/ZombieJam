@@ -109,7 +109,8 @@ namespace Gameplay.Windows.Gameplay
             IsWaveCompleted = false;
             IsStartWave = true;
             IsWasFirstDamage = false;
-
+            
+            ActivateVignette(_regionManager.ProgressData);
             InitializeTimer();
             OnStartWave?.Invoke(_regionManager.ProgressData.ERegionType, _regionManager.ProgressData.CurrentWaweIndex);
         }
@@ -240,6 +241,24 @@ namespace Gameplay.Windows.Gameplay
         private void OnStopTimer(TimeModel timeModel)
         {
             _windowService.Open(WindowType.Died);
+        }
+        
+        private void ActivateVignette(RegionProgressData regionProgressData)
+        {
+            if (regionProgressData.CurrentWaweIndex > 3)
+            {
+                if (!_windowService.IsOpen(WindowType.Vignette))
+                {
+                    _windowService.Open(WindowType.Vignette);
+                }
+            }
+            else
+            {
+                if (_windowService.IsOpen(WindowType.Vignette))
+                {
+                    _windowService.Close(WindowType.Vignette);
+                }
+            }
         }
     }
 }
