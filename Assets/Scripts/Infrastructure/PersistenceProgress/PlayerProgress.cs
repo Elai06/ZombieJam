@@ -35,7 +35,7 @@ namespace Infrastructure.PersistenceProgress
             CurrenciesProgress.CurrenciesProgresses = new List<CurrencyProgressData>()
             {
                 new(ECurrencyType.SoftCurrency, 0),
-                new(ECurrencyType.HardCurrency, 10)
+                new(ECurrencyType.HardCurrency, 10000)
             };
         }
     }

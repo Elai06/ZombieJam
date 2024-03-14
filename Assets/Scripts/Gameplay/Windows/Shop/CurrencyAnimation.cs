@@ -23,6 +23,8 @@ namespace Gameplay.Windows.Shop
         [SerializeField] private int _softModificator = 10;
         [SerializeField] private int _hardModificator = 5;
         [SerializeField] private GameObject _prefab;
+        [SerializeField] private Ease _currencyEase;
+        [SerializeField] private float _currencyPulsationDuration;
 
         [SerializeField] private bool _isShopWindow;
 
@@ -33,6 +35,8 @@ namespace Gameplay.Windows.Shop
         private List<GameObject> _spawnedObjects = new();
 
         private Tween _tween;
+        private Tween _currencyImageTween;
+        private Sequence _sequence;
 
         private void OnEnable()
         {
@@ -54,7 +58,7 @@ namespace Gameplay.Windows.Shop
 
         private void OnPurchased(EShopProductType productType)
         {
-            var shopView = transform.GetComponent<ShopView>();
+            var shopView = transform.parent.GetComponent<ShopView>();
             CleanUp();
 
             var config = _shopModel.ShopConfig.ConfigData.Find(x => x.ProductType == productType);
@@ -126,14 +130,35 @@ namespace Gameplay.Windows.Shop
                     (_prefab, startPosition.position, Quaternion.identity, transform);
                 currency.GetComponent<Image>().sprite = sprite;
                 _spawnedObjects.Add(currency);
+
+                StartScaleAnimation(currency);
+
                 _tween = currency.transform.DOMove(targetObject.Image.transform.position, _durationAnimation)
-                    .OnComplete(() => { Destroy(currency); });
+                    .OnComplete(() =>
+                    {
+                        if (_currencyImageTween == null || !_currencyImageTween.IsPlaying())
+                        {
+                            _currencyImageTween = targetObject.Image.transform.DOScale(1.5f, _currencyPulsationDuration)
+                                .SetLoops(2, LoopType.Yoyo).SetEase(_currencyEase);
+                        }
+
+                        Destroy(currency);
+                    });
             }
 
             _tween.OnComplete(() =>
             {
                 CleanUp();
                 AnimationFinish?.Invoke();
+            });
+        }
+
+        private void StartScaleAnimation(GameObject currency)
+        {
+            currency.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            currency.transform.DOScale(1, _durationAnimation / 2).OnComplete(() =>
+            {
+                currency.transform.DOScale(0.5f, _durationAnimation / 2);
             });
         }
 

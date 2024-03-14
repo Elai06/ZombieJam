@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using DG.Tweening;
+using Gameplay.Enums;
 using Infrastructure.Windows.MVVM.SubView;
 using TMPro;
 using UnityEngine;
@@ -17,10 +18,13 @@ namespace Gameplay.Windows.Header
         private Tween _tween;
         public Image Image => _image;
 
+        private ECurrencyType _currencyType;
+
         public override void Initialize(CurrencySubViewData data)
         {
             _image.sprite = data.Sprite;
             _valueText.text = data.Value.ToFormattedBigNumber();
+            _currencyType = data.Type;
         }
 
         public void SetValue(int value, int newValue)
@@ -36,15 +40,21 @@ namespace Gameplay.Windows.Header
             var duration = deltaValue * 0.05f / 15;
             duration = duration < 0.75f ? 0.75f : duration;
             _tween = _valueText.transform.DOScale(1.15f, 0.75f);
-            _tween = _image.transform.DOScale(1.5f, 0.75f);
 
-            DOVirtual.Float(value, newValue, duration, delta =>
-                {
-                    _valueText.text = $"{((int)delta).ToFormattedBigNumber()}";
-                }).OnComplete(() =>
+            /*if (_currencyType == ECurrencyType.HardCurrency)
+            {
+                _tween = _image.transform.DOScale(1.5f, 0.75f);
+            }*/
+
+            DOVirtual.Float(value, newValue, duration,
+                delta => { _valueText.text = $"{((int)delta).ToFormattedBigNumber()}"; }).OnComplete(() =>
             {
                 _tween = _valueText.transform.DOScale(1, 0.75f);
-                _tween = _image.transform.DOScale(1, 0.75f);
+
+                /*if (_currencyType == ECurrencyType.HardCurrency)
+                {
+                    _tween = _image.transform.DOScale(1f, 0.75f);
+                }*/
             });
         }
     }
