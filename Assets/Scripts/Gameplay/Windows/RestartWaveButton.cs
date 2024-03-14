@@ -40,6 +40,7 @@ namespace Gameplay.Windows
         {
             _gameplayModel.StopWave();
 
+            SceneManager.UnloadSceneAsync("Gameplay");
             SceneManager.LoadScene($"Gameplay");
             _windowService.Close(WindowType.Gameplay);
 
