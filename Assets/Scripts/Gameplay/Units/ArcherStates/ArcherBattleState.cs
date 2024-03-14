@@ -54,8 +54,6 @@ namespace Gameplay.Units.ArcherStates
         {
             if (_unit.IsDied || _unit == null) return;
 
-            _unit.Animator.SetTrigger("StopMove");
-
             _unit.Target = _targetManager.GetTargetEnemy(_unit.transform);
             if (_unit.Target == null) return;
 

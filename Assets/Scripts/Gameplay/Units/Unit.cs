@@ -88,7 +88,9 @@ namespace Gameplay.Units
         protected virtual void InitializeStates()
         {
             var kickState = new UnitKickState(this);
+            var victoryState = new UnitVictoryState(this);
             _stateMachine.AddState(kickState);
+            _stateMachine.AddState(victoryState);
         }
 
         protected virtual void OnCollisionEnter(Collision collision)
@@ -201,6 +203,11 @@ namespace Gameplay.Units
             await Task.Delay(duration);
 
             _stunnedEffect.Stop();
+        }
+
+        public void EnterVictoryState()
+        {
+           _stateMachine.Enter<UnitVictoryState>();
         }
     }
 }

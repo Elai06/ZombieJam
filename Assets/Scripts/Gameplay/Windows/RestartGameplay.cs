@@ -32,10 +32,11 @@ namespace Gameplay.Windows
             _button.onClick.RemoveListener(Restart);
         }
 
-        public void Restart()
+        private void Restart()
         {
             if (_tutorialService.CurrentState == ETutorialState.Swipe) return;
 
+            SceneManager.UnloadSceneAsync("Gameplay");
             SceneManager.LoadScene($"Gameplay");
 
             if (_windowService.IsOpen(WindowType.Died))
