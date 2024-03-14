@@ -11,5 +11,6 @@ namespace Gameplay.Configs.Sprites
         public Sprite Sprite;
         public Sprite LabelBackground;
         public Color CardsPopUpBGColor;
+        public Color FrameLightColor;
     }
 }

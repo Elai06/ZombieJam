@@ -1,4 +1,5 @@
 ﻿using System;
+using DG.Tweening;
 using Gameplay.Configs.Zombies;
 using Infrastructure.Windows.MVVM.SubView;
 using TMPro;
@@ -26,6 +27,7 @@ namespace Gameplay.Cards
         [SerializeField] private Image _tutorialFinger;
         [SerializeField] private Sprite _fillGreen;
         [SerializeField] private Sprite _fillDefoult;
+        [SerializeField] private Image _frameLight;
 
         private Canvas _canvas;
 
@@ -36,12 +38,18 @@ namespace Gameplay.Cards
         public override void Initialize(CardSubViewData data)
         {
             _isTutorial = data.IsTutorial;
-            
+
             _cardSlider.value = (float)data.ProgressData.CardsValue / data.ReqiredCards;
             _valueCardsText.text = $"{data.ProgressData.CardsValue}/{data.ReqiredCards}";
             _type = data.ProgressData.Name;
 
             _leveText.text = $"{data.ProgressData.Level + 1}";
+            _frameLight.gameObject.SetActive(data.IsCanUpgrade);
+            _frameLight.color = data.CardSprites.FrameLightColor;
+            if (data.IsCanUpgrade)
+            {
+                _frameLight.DOFade(0.5f, 1).SetLoops(-1, LoopType.Yoyo);
+            }
 
             if (data.ProgressData.IsOpen)
             {
@@ -78,7 +86,7 @@ namespace Gameplay.Cards
                 _canvas.sortingOrder = 5;
             }
         }
-        
+
         private void OnDisable()
         {
             _clickButton.onClick.RemoveListener(OnClick);
