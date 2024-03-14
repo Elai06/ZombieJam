@@ -65,7 +65,7 @@ namespace Gameplay.Windows.Shop
 
                 if (rewardConfig.RewardType != EResourceType.Card) return;
 
-                var shopView = transform.GetComponent<ShopView>();
+                var shopView = transform.parent.GetComponent<ShopView>();
                 var subView = shopView.BoxContainer.SubViews
                     .First(x => x.Key == shopProductType.ToString()).Value;
 
