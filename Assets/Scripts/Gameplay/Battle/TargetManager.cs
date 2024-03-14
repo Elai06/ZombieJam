@@ -135,6 +135,11 @@ namespace Gameplay.Battle
 
         private void AllEnemyDied()
         {
+            foreach (var zombie in _zombieSpawner.Zombies.FindAll(x=> !x.IsDied))
+            {
+                zombie.EnterVictoryState();
+            }
+            
             _gameplayModel.WaveCompleted();
         }
     }

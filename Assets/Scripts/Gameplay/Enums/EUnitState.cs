@@ -6,6 +6,7 @@
         Road,
         Battle,
         Died,
-        Kick
+        Kick,
+        Victory
     }
 }

@@ -114,7 +114,6 @@ namespace Gameplay.Units.States
 
                 if (_unit.Target.IsDied)
                 {
-                    _unit.Animator.SetTrigger("StopMove");
                     InitializeTarget();
                     yield break;
                 }
