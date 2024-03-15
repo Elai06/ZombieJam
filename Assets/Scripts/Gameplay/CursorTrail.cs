@@ -15,6 +15,7 @@ namespace Gameplay
         
         private void Start()
         {
+            _cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
             InjectService.Instance.Inject(this);
         }
 
