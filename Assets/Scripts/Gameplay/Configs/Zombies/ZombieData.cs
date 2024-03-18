@@ -28,5 +28,6 @@ namespace Gameplay.Configs.Zombies
         WalkingCoffin,
         Hitchhiker,
         ArmoredZombie,
+        Zombie_01,
     }
 }
