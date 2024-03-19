@@ -6,5 +6,7 @@ namespace Infrastructure.Input
     {
         void Swipe(ESwipeSide swipe);
         ESwipeDirection SwipeDirection { get;}
+        void SetSwipeObject();
+        void ResetSwipeObject();
     }
 }

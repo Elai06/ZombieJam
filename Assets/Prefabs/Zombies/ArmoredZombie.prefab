@@ -120,6 +120,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unit: {fileID: 8314136072308659269}
+  _outlineMaterial: {fileID: 2100000, guid: 359003367bba4994aafd596dc49be8c5, type: 2}
+  _material: {fileID: 2100000, guid: f6560ae70fe455948b17bfdc85780610, type: 2}
+  _skinnedMeshRenderers:
+  - {fileID: 8694043990317957131}
+  _meshRenderers: []
 --- !u!1 &6686214517064692398
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,6 +375,11 @@ Transform:
 --- !u!95 &6559176991923815304 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: e54c443d1278e3d4daa88ee100a3094d, type: 3}
+  m_PrefabInstance: {fileID: 751103954364431897}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &8694043990317957131 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8271713812635057682, guid: e54c443d1278e3d4daa88ee100a3094d, type: 3}
   m_PrefabInstance: {fileID: 751103954364431897}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1030166306146992562

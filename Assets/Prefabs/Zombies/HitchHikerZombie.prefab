@@ -60,6 +60,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unit: {fileID: 3526283986178969214}
+  _outlineMaterial: {fileID: 2100000, guid: 359003367bba4994aafd596dc49be8c5, type: 2}
+  _material: {fileID: 2100000, guid: f6560ae70fe455948b17bfdc85780610, type: 2}
+  _skinnedMeshRenderers:
+  - {fileID: 3480647713903416858}
+  _meshRenderers: []
 --- !u!1 &4484385641469558036
 GameObject:
   m_ObjectHideFlags: 0
@@ -1156,6 +1161,11 @@ MonoBehaviour:
   lockY: 0
   lockZ: 1
   fixedRotation: {x: -4.163, y: -15, z: -4.764}
+--- !u!137 &3480647713903416858 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5935489229634652272, guid: 69adab96f8a43a248b1c06e8a41fe9dc, type: 3}
+  m_PrefabInstance: {fileID: 7066893998064590442}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3860605968456358361 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6305327596341217203, guid: 69adab96f8a43a248b1c06e8a41fe9dc, type: 3}

@@ -274,6 +274,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unit: {fileID: 7546304547208371758}
+  _outlineMaterial: {fileID: 2100000, guid: 359003367bba4994aafd596dc49be8c5, type: 2}
+  _material: {fileID: 2100000, guid: f6560ae70fe455948b17bfdc85780610, type: 2}
+  _skinnedMeshRenderers:
+  - {fileID: 7991396543996792327}
+  _meshRenderers: []
 --- !u!1001 &1649507258072584807
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -372,6 +377,11 @@ Transform:
 --- !u!95 &5156251816921985014 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 75780d5082d655647a5f75dabce7be93, type: 3}
+  m_PrefabInstance: {fileID: 1649507258072584807}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &7991396543996792327 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8647789577780517984, guid: 75780d5082d655647a5f75dabce7be93, type: 3}
   m_PrefabInstance: {fileID: 1649507258072584807}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3094896985887027858

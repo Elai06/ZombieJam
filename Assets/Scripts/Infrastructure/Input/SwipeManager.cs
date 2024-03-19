@@ -22,6 +22,8 @@ namespace Infrastructure.Input
 
         private bool _isWasSwipe;
 
+        private Material _material;
+
         public bool IsSwipeTutorialCompleted { get; set; }
 
         [Inject]
@@ -53,7 +55,11 @@ namespace Infrastructure.Input
 
             if (UnityEngine.Input.GetMouseButtonUp(0))
             {
-                _swipeObject = null;
+                if (_swipeObject != null)
+                {
+                    _swipeObject.ResetSwipeObject();
+                    _swipeObject = null;
+                }
                 _isWasSwipe = false;
                 _tutorialSwipeInfo.Reset();
             }
@@ -88,6 +94,7 @@ namespace Infrastructure.Input
             if (contactInfo.Collider == null) return;
 
             _swipeObject = contactInfo.Collider.GetComponent<UnitSwipe>();
+            _swipeObject.SetSwipeObject();
             _tutorialSwipeInfo.SwipeGameObject = contactInfo.Collider.gameObject;
             _tutorialSwipeInfo.SwipeDirection = _swipeObject.SwipeDirection;
             _tutorialSwipeInfo.UnitSwipe = _swipeObject;

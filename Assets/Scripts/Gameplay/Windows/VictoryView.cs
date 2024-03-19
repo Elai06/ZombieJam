@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Gameplay.Ad;
 using Gameplay.Boosters;
+using Gameplay.CinemachineCamera;
 using Gameplay.Configs.Region;
 using Gameplay.Configs.Rewards;
 using Gameplay.Configs.Zombies;
@@ -77,7 +79,7 @@ namespace Gameplay.Windows
             _claimButton.onClick.AddListener(ShowRewardAd);
 
             _currencyAnimation.AnimationFinish += Restart;
-           // _adsService.Showed += OnAdShowed;
+            // _adsService.Showed += OnAdShowed;
         }
 
         private void OnDisable()
@@ -86,7 +88,7 @@ namespace Gameplay.Windows
             _claimButton.onClick.RemoveListener(ShowRewardAd);
 
             _currencyAnimation.AnimationFinish -= Restart;
-           // _adsService.Showed -= OnAdShowed;
+            // _adsService.Showed -= OnAdShowed;
         }
 
         private void OnAdShowed()
@@ -100,7 +102,7 @@ namespace Gameplay.Windows
         private void ShowRewardAd()
         {
             // _adsService.ShowAds(EAdsType.Reward);
-            
+
             _claimButton.enabled = false;
             //CreateRewardSubView(true);
             StartAnimation();
@@ -109,14 +111,15 @@ namespace Gameplay.Windows
         private void StartAnimation()
         {
             _gameplayModel.GetRewardForWave(_isShowedAd);
-            
+
             _gameplayModel.NextWave();
             _claimButton.onClick.RemoveListener(ShowRewardAd);
             _lobbyButton.onClick.RemoveListener(StartAnimation);
 
             var currencyRewardSubView = _rewardSubViewContainer.SubViews
                 .First(x => x.Key == ECurrencyType.SoftCurrency.ToString());
-            StartCoroutine(_currencyAnimation.StartAnimation(currencyRewardSubView.Value.transform, ECurrencyType.SoftCurrency,
+            StartCoroutine(_currencyAnimation.StartAnimation(currencyRewardSubView.Value.transform,
+                ECurrencyType.SoftCurrency,
                 currencyRewardSubView.Value.Value));
         }
 
@@ -162,7 +165,7 @@ namespace Gameplay.Windows
             {
                 _regionManager.CreateRandomCard();
             }
-            
+
             return new RewardSubViewData
             {
                 Sprite = GetSprite(rewardConfigData),
@@ -190,18 +193,23 @@ namespace Gameplay.Windows
             }
         }
 
-        private void Restart()
+        private async void Restart()
         {
-            SceneManager.LoadScene($"Gameplay");
+            SceneManager.UnloadSceneAsync("Gameplay");
+
 
             if (_windowService.IsOpen(WindowType.Died))
             {
                 _windowService.Close(WindowType.Died);
             }
 
-            _windowService.Open(WindowType.MainMenu);
-            _windowService.Open(WindowType.Footer);
             _gameplayModel.StopWave();
+            SceneManager.LoadScene($"Gameplay");
+
+            await Task.Delay(50);
+            var cameraSelector = FindObjectOfType<CameraSelector>();
+            cameraSelector.ChangeCamera(ECameraType.Park);
+            _gameplayModel.StartWave();
         }
     }
 }

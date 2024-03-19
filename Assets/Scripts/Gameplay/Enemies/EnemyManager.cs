@@ -35,7 +35,7 @@ namespace Gameplay.Enemies
 
         private void Initialize()
         {
-            InitializeTowers();
+            InitializeEnemies();
 
             if (_enemyUnitsSpawner != null)
             {
@@ -54,15 +54,15 @@ namespace Gameplay.Enemies
             _enemyUnitsSpawner.OnDied += OnDied;
         }
 
-        private void InitializeTowers()
+        private void InitializeEnemies()
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                var tower = transform.GetChild(i).GetComponent<Enemy>();
-                _enemies.Add(tower);
-                var configData = _config.GetEnemyConfig(tower.EnemyType).Parameters;
-                tower.Initialize(configData, _coroutineService, _targetManager);
-                tower.OnDied += OnDied;
+                var enemy = transform.GetChild(i).GetComponent<Enemy>();
+                _enemies.Add(enemy);
+                var configData = _config.GetEnemyConfig(enemy.EnemyType).Parameters;
+                enemy.Initialize(configData, _coroutineService, _targetManager);
+                enemy.OnDied += OnDied;
             }
         }
 

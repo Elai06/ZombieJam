@@ -258,6 +258,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unit: {fileID: 1265571847939611647}
+  _outlineMaterial: {fileID: 2100000, guid: 359003367bba4994aafd596dc49be8c5, type: 2}
+  _material: {fileID: 2100000, guid: f6560ae70fe455948b17bfdc85780610, type: 2}
+  _skinnedMeshRenderers:
+  - {fileID: 7091642729964696111}
+  _meshRenderers: []
 --- !u!1001 &322787995542081092
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -751,6 +756,11 @@ MonoBehaviour:
   lockY: 0
   lockZ: 1
   fixedRotation: {x: -8.183, y: 2.477, z: -1.24}
+--- !u!137 &7091642729964696111 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5935489229634652272, guid: 90db3351b9364ef4faf9e6e585953010, type: 3}
+  m_PrefabInstance: {fileID: 3473836055986256479}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7141377578122390203
 PrefabInstance:
   m_ObjectHideFlags: 0
