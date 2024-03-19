@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Gameplay.Enums;
 using Infrastructure.Input;
 using UnityEngine;
@@ -26,8 +27,9 @@ namespace Gameplay.Units
             SwitchMaterial(_outlineMaterial);
         }
 
-        public void ResetSwipeObject()
+        public async void ResetSwipeObject()
         {
+            await Task.Delay(250);
             SwitchMaterial(_material);
         }
 

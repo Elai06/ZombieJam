@@ -18,7 +18,7 @@ Material:
   - _EMISSION
   m_InvalidKeywords:
   - _METALLICGLOSSMAP
-  m_LightmapFlags: 4
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -28,7 +28,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 8108df389446a2544a59a07264c18bd7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9b967780df11098468bbd71c4d3938e5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -48,7 +48,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 8108df389446a2544a59a07264c18bd7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9b967780df11098468bbd71c4d3938e5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -93,11 +93,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BumpScale: 1
+    - _BumpScale: 0.18
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DirectIntensityOutline: 1
+    - _DirectIntensityOutline: 0.845
     - _DstBlend: 0
     - _EmissionChannel: 4
     - _FresnelMax: 1.5
@@ -106,21 +106,21 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 1
     - _IndirectIntensity: 1
-    - _IndirectIntensityOutline: 0
+    - _IndirectIntensityOutline: 0.845
     - _MatCapMaskChannel: 0
     - _MatCapType: 0
     - _Metallic: 0
     - _Mode: 0
     - _NormalsSource: 0
     - _NormalsUVType: 0
-    - _OcclusionChannel: 0
-    - _OcclusionStrength: 1
+    - _OcclusionChannel: 1
+    - _OcclusionStrength: 0.962
     - _OutlineLightingType: 0
     - _OutlineLightingTypeURP: 0
     - _OutlineMaxWidth: 1
     - _OutlineMinWidth: 1
     - _OutlinePixelSizeType: 1
-    - _OutlineTextureLOD: 5
+    - _OutlineTextureLOD: 5.08
     - _OutlineTextureType: 0
     - _OutlineWidth: 2
     - _Parallax: 0.02
@@ -128,15 +128,15 @@ Material:
     - _RampBandsSmoothing: 0.1
     - _RampOffset: 0
     - _RampScale: 1
-    - _RampSmoothing: 0
-    - _RampThreshold: 0.744
+    - _RampSmoothing: 0.374
+    - _RampThreshold: 0.8
     - _RampType: 0
     - _ReceiveShadowsOff: 1
     - _ReflectionMapType: 0
-    - _ReflectionSmoothness: 0.5
+    - _ReflectionSmoothness: 0.369
     - _RenderingMode: 0
-    - _RimMax: 1
-    - _RimMin: 0.5
+    - _RimMax: 1.746
+    - _RimMin: 0
     - _ShadowColorLightAtten: 1
     - _SingleIndirectColor: 0
     - _SmoothnessTextureChannel: 0

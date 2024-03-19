@@ -9,6 +9,7 @@ using Gameplay.Configs.Rewards;
 using Gameplay.Configs.Zombies;
 using Gameplay.Enums;
 using Gameplay.Level;
+using Gameplay.Tutorial;
 using Gameplay.Windows.Gameplay;
 using Gameplay.Windows.Rewards;
 using Gameplay.Windows.Shop;
@@ -75,37 +76,44 @@ namespace Gameplay.Windows
             SetLevelInfo();
             CreateRewardSubView(false);
 
-            _lobbyButton.onClick.AddListener(StartAnimation);
+            _lobbyButton.onClick.AddListener(OnLobbyDown);
             _claimButton.onClick.AddListener(ShowRewardAd);
 
-            _currencyAnimation.AnimationFinish += Restart;
             // _adsService.Showed += OnAdShowed;
         }
 
         private void OnDisable()
         {
-            _lobbyButton.onClick.RemoveListener(StartAnimation);
+            _lobbyButton.onClick.RemoveListener(OnLobbyDown);
             _claimButton.onClick.RemoveListener(ShowRewardAd);
 
-            _currencyAnimation.AnimationFinish -= Restart;
+            _currencyAnimation.AnimationFinish -= NextLevelButton;
+            _currencyAnimation.AnimationFinish -= ExitToLobby;
             // _adsService.Showed -= OnAdShowed;
         }
 
-        private void OnAdShowed()
+        /*private void OnAdShowed()
         {
             _isShowedAd = true;
             _claimButton.enabled = false;
             CreateRewardSubView(true);
             StartAnimation();
-        }
+        }*/
 
         private void ShowRewardAd()
         {
             // _adsService.ShowAds(EAdsType.Reward);
+            _currencyAnimation.AnimationFinish += NextLevelButton;
 
             _claimButton.enabled = false;
             //CreateRewardSubView(true);
             StartAnimation();
+        }
+
+        private void OnLobbyDown()
+        {
+            StartAnimation();
+            _currencyAnimation.AnimationFinish += ExitToLobby;
         }
 
         private void StartAnimation()
@@ -113,8 +121,8 @@ namespace Gameplay.Windows
             _gameplayModel.GetRewardForWave(_isShowedAd);
 
             _gameplayModel.NextWave();
+            _lobbyButton.onClick.RemoveListener(OnLobbyDown);
             _claimButton.onClick.RemoveListener(ShowRewardAd);
-            _lobbyButton.onClick.RemoveListener(StartAnimation);
 
             var currencyRewardSubView = _rewardSubViewContainer.SubViews
                 .First(x => x.Key == ECurrencyType.SoftCurrency.ToString());
@@ -193,10 +201,11 @@ namespace Gameplay.Windows
             }
         }
 
-        private async void Restart()
+        private async void NextLevelButton()
         {
-            SceneManager.UnloadSceneAsync("Gameplay");
+            _currencyAnimation.AnimationFinish -= NextLevelButton;
 
+            SceneManager.UnloadSceneAsync("Gameplay");
 
             if (_windowService.IsOpen(WindowType.Died))
             {
@@ -206,10 +215,34 @@ namespace Gameplay.Windows
             _gameplayModel.StopWave();
             SceneManager.LoadScene($"Gameplay");
 
+            if (_gameplayModel.TutorialState == ETutorialState.ShopBox)
+            {
+                _windowService.Open(WindowType.Footer);
+                _windowService.Open(WindowType.Gameplay);
+                _windowService.Close(WindowType.MainMenu);
+            }
+
             await Task.Delay(50);
             var cameraSelector = FindObjectOfType<CameraSelector>();
             cameraSelector.ChangeCamera(ECameraType.Park);
             _gameplayModel.StartWave();
+        }
+
+        private void ExitToLobby()
+        {
+            _currencyAnimation.AnimationFinish -= NextLevelButton;
+
+            SceneManager.UnloadSceneAsync("Gameplay");
+            SceneManager.LoadScene($"Gameplay");
+
+            if (_windowService.IsOpen(WindowType.Died))
+            {
+                _windowService.Close(WindowType.Died);
+            }
+
+            _windowService.Open(WindowType.MainMenu);
+            _windowService.Open(WindowType.Footer);
+            _gameplayModel.StopWave();
         }
     }
 }

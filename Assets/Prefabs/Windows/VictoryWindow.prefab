@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 1775402756450529248}
   - component: {fileID: 1775402756450529249}
   m_Layer: 5
-  m_Name: RestartButton
+  m_Name: LobbyButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -606,6 +606,8 @@ MonoBehaviour:
   _softModificator: 10
   _hardModificator: 5
   _prefab: {fileID: 2951856971251326975, guid: b5b4f859039a1c3479154bc54f5e78ad, type: 3}
+  _currencyEase: 0
+  _currencyPulsationDuration: 0
   _isShopWindow: 0
 --- !u!1 &2213154836968793970
 GameObject:
@@ -620,7 +622,7 @@ GameObject:
   - component: {fileID: 1020465489647955381}
   - component: {fileID: 7967386088279071063}
   m_Layer: 5
-  m_Name: GetReward
+  m_Name: NextLevelButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2295,7 +2297,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Claim
+  m_text: Next level
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 50c12c23294124aa48490c44ac65a9e4, type: 2}
   m_sharedMaterial: {fileID: 7746803525459343344, guid: 50c12c23294124aa48490c44ac65a9e4, type: 2}
@@ -2322,7 +2324,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 94.2
+  m_fontSize: 93.55
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
