@@ -87,7 +87,7 @@ namespace Gameplay.Configs.Region
 
         private void ResetBiome()
         {
-            _regionProgress.RegionIndex = 2;
+            _regionProgress.RegionIndex = 1;
             _regionProgress.CurrentRegionType = _gameStaticData.RegionConfig
                 .ConfigData[_regionProgress.RegionIndex].RegionType;
             _regionProgressData = _regionProgress.GetCurrentRegion();
