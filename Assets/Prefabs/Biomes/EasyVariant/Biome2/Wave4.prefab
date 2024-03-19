@@ -461,7 +461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eSwipeDirection: 1
-  _eSwipeSide: 0
+  _eSwipeSide: 4
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -511,7 +511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eSwipeDirection: 1
-  _eSwipeSide: 0
+  _eSwipeSide: 4
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -904,7 +904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 1
+  _eSwipeDirection: 0
   _eSwipeSide: 3
   Name: 0
   ZombieSize: 0
@@ -1785,7 +1785,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eSwipeDirection: 2
-  _eSwipeSide: 0
+  _eSwipeSide: 2
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -1980,7 +1980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eSwipeDirection: 1
-  _eSwipeSide: 0
+  _eSwipeSide: 4
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -6373,7 +6373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 2
+  _eSwipeDirection: 0
   _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
@@ -6506,7 +6506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 2
+  _eSwipeDirection: 0
   _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
@@ -6722,7 +6722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 2
+  _eSwipeDirection: 0
   _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
@@ -7010,7 +7010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eSwipeDirection: 2
-  _eSwipeSide: 0
+  _eSwipeSide: 1
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -7358,7 +7358,7 @@ MonoBehaviour:
   _eSwipeDirection: 0
   _eSwipeSide: 0
   Name: 2
-  ZombieSize: 1
+  ZombieSize: 0
   _cooperativePosition: []
 --- !u!1 &5236768870611105694
 GameObject:
@@ -7903,12 +7903,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 2
+  _eSwipeDirection: 0
   _eSwipeSide: 2
   Name: 2
-  ZombieSize: 1
-  _cooperativePosition:
-  - {fileID: 1471180428649730083}
+  ZombieSize: 0
+  _cooperativePosition: []
 --- !u!1 &5882742032181451468
 GameObject:
   m_ObjectHideFlags: 0
@@ -8286,11 +8285,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 2
-  _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
-  _cooperativePosition: []
+  _eSwipeDirection: 1
+  _eSwipeSide: 3
+  Name: 2
+  ZombieSize: 1
+  _cooperativePosition:
+  - {fileID: 8147094603069999309}
 --- !u!1 &6178929601777342886
 GameObject:
   m_ObjectHideFlags: 0
@@ -8658,10 +8658,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 2
+  _eSwipeDirection: 0
   _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
+  Name: 2
+  ZombieSize: 1
   _cooperativePosition: []
 --- !u!1 &6479195825130825213
 GameObject:
@@ -8958,7 +8958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eSwipeDirection: 1
-  _eSwipeSide: 0
+  _eSwipeSide: 4
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -11566,7 +11566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 2
+  _eSwipeDirection: 0
   _eSwipeSide: 0
   Name: 0
   ZombieSize: 0
@@ -12191,10 +12191,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 2
-  _eSwipeSide: 2
-  Name: 0
-  ZombieSize: 0
+  _eSwipeDirection: 0
+  _eSwipeSide: 0
+  Name: 3
+  ZombieSize: 1
   _cooperativePosition: []
 --- !u!1 &7999301658255739205
 GameObject:
@@ -13059,11 +13059,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 2
-  _eSwipeSide: 1
-  Name: 0
-  ZombieSize: 0
-  _cooperativePosition: []
+  _eSwipeDirection: 1
+  _eSwipeSide: 3
+  Name: 3
+  ZombieSize: 1
+  _cooperativePosition:
+  - {fileID: 380372186993303616}
 --- !u!1 &8530822951888420304
 GameObject:
   m_ObjectHideFlags: 0
