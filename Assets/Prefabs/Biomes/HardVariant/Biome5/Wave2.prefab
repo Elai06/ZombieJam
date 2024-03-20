@@ -361,9 +361,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
-  _eSwipeSide: 0
-  Name: 0
+  _eSwipeSide: 4
+  Name: 1
   ZombieSize: 0
   _cooperativePosition: []
 --- !u!1 &432314284172625526
@@ -494,11 +493,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
-  _eSwipeSide: 0
+  _eSwipeSide: 4
   Name: 3
   ZombieSize: 1
-  _cooperativePosition: []
+  _cooperativePosition:
+  - {fileID: 4691933144659798951}
 --- !u!1 &607941984051122804
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,7 +719,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 2
   _eSwipeSide: 1
   Name: 1
   ZombieSize: 0
@@ -770,10 +768,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
   _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
+  Name: 3
+  ZombieSize: 1
   _cooperativePosition: []
 --- !u!1 &699898766268229465
 GameObject:
@@ -5655,8 +5652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
-  _eSwipeSide: 0
+  _eSwipeSide: 3
   Name: 1
   ZombieSize: 0
   _cooperativePosition: []
@@ -5705,11 +5701,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
-  _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
-  _cooperativePosition: []
+  _eSwipeSide: 4
+  Name: 3
+  ZombieSize: 1
+  _cooperativePosition:
+  - {fileID: 5211343125552302361}
 --- !u!1 &886407760655677875
 GameObject:
   m_ObjectHideFlags: 0
@@ -5921,8 +5917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
-  _eSwipeSide: 0
+  _eSwipeSide: 4
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -6005,10 +6000,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
   _eSwipeSide: 0
   Name: 2
-  ZombieSize: 0
+  ZombieSize: 1
   _cooperativePosition: []
 --- !u!1 &1114563834706480425
 GameObject:
@@ -6055,11 +6049,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
   _eSwipeSide: 4
   Name: 2
   ZombieSize: 1
-  _cooperativePosition: []
+  _cooperativePosition:
+  - {fileID: 2122691265976160747}
 --- !u!1 &1193572488012581039
 GameObject:
   m_ObjectHideFlags: 0
@@ -6105,12 +6099,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 1
   _eSwipeSide: 3
-  Name: 2
-  ZombieSize: 1
-  _cooperativePosition:
-  - {fileID: 3406664029751456294}
+  Name: 0
+  ZombieSize: 0
+  _cooperativePosition: []
 --- !u!1 &1481834327090921606
 GameObject:
   m_ObjectHideFlags: 0
@@ -6239,8 +6231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
-  _eSwipeSide: 0
+  _eSwipeSide: 1
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -6526,8 +6517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
-  _eSwipeSide: 0
+  _eSwipeSide: 2
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -6576,11 +6566,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
-  _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
-  _cooperativePosition: []
+  _eSwipeSide: 1
+  Name: 3
+  ZombieSize: 1
+  _cooperativePosition:
+  - {fileID: 3924593939155248684}
 --- !u!1 &1959831673950822825
 GameObject:
   m_ObjectHideFlags: 0
@@ -6897,10 +6887,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
   _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
+  Name: 3
+  ZombieSize: 1
   _cooperativePosition: []
 --- !u!1 &2409675443096681896
 GameObject:
@@ -7052,10 +7041,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
   _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
+  Name: 3
+  ZombieSize: 1
   _cooperativePosition: []
 --- !u!1 &2596949944137949250
 GameObject:
@@ -12272,8 +12260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
-  _eSwipeSide: 0
+  _eSwipeSide: 3
   Name: 1
   ZombieSize: 0
   _cooperativePosition: []
@@ -17359,8 +17346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 2
-  _eSwipeSide: 1
+  _eSwipeSide: 4
   Name: 0
   ZombieSize: 0
   _cooperativePosition: []
@@ -17409,11 +17395,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
-  _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
-  _cooperativePosition: []
+  _eSwipeSide: 2
+  Name: 3
+  ZombieSize: 1
+  _cooperativePosition:
+  - {fileID: 3907763118432482240}
 --- !u!1 &3852428876063614063
 GameObject:
   m_ObjectHideFlags: 0
@@ -17730,11 +17716,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
-  _eSwipeSide: 0
-  Name: 3
+  _eSwipeSide: 1
+  Name: 2
   ZombieSize: 1
-  _cooperativePosition: []
+  _cooperativePosition:
+  - {fileID: 1208450371832663175}
 --- !u!1 &4758935098050619509
 GameObject:
   m_ObjectHideFlags: 0
@@ -18041,11 +18027,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 2
-  _eSwipeSide: 2
-  Name: 0
-  ZombieSize: 0
-  _cooperativePosition: []
+  _eSwipeSide: 1
+  Name: 2
+  ZombieSize: 1
+  _cooperativePosition:
+  - {fileID: 7285257123708356180}
 --- !u!1 &4956057004808896154
 GameObject:
   m_ObjectHideFlags: 0
@@ -18122,10 +18108,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
-  _eSwipeSide: 0
-  Name: 2
-  ZombieSize: 1
+  _eSwipeSide: 2
+  Name: 1
+  ZombieSize: 0
   _cooperativePosition: []
 --- !u!1 &5716810189045877416
 GameObject:
@@ -18172,10 +18157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
   _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
+  Name: 2
+  ZombieSize: 1
   _cooperativePosition: []
 --- !u!1 &5733837873748945556
 GameObject:
@@ -18336,12 +18320,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 1
-  _eSwipeSide: 3
-  Name: 3
-  ZombieSize: 1
-  _cooperativePosition:
-  - {fileID: 320664940908666124}
+  _eSwipeSide: 4
+  Name: 0
+  ZombieSize: 0
+  _cooperativePosition: []
 --- !u!1 &6055718650019107436
 GameObject:
   m_ObjectHideFlags: 0
@@ -18470,9 +18452,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
-  _eSwipeSide: 0
-  Name: 0
+  _eSwipeSide: 4
+  Name: 1
   ZombieSize: 0
   _cooperativePosition: []
 --- !u!1 &6221414998686135720
@@ -18884,10 +18865,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 2
-  _eSwipeSide: 2
-  Name: 4
-  ZombieSize: 0
+  _eSwipeSide: 0
+  Name: 3
+  ZombieSize: 1
   _cooperativePosition: []
 --- !u!1 &6966751129852382406
 GameObject:
@@ -18934,11 +18914,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
-  _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
-  _cooperativePosition: []
+  _eSwipeSide: 4
+  Name: 2
+  ZombieSize: 1
+  _cooperativePosition:
+  - {fileID: 6214125502240239325}
 --- !u!1 &7037340584927133317
 GameObject:
   m_ObjectHideFlags: 0
@@ -19293,6 +19273,7 @@ Transform:
   m_Children:
   - {fileID: 1399648207576248861}
   - {fileID: 3144037337050220390}
+  - {fileID: 1721215420014856405}
   m_Father: {fileID: 7037340587007066262}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20051,7 +20032,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8838813284117370664}
   m_Father: {fileID: 7037340587007066262}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20456,10 +20438,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
   _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
+  Name: 2
+  ZombieSize: 1
   _cooperativePosition: []
 --- !u!1 &7176536568357424153
 GameObject:
@@ -20506,9 +20487,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 2
   _eSwipeSide: 1
-  Name: 4
+  Name: 0
   ZombieSize: 0
   _cooperativePosition: []
 --- !u!1 &7283905856180393962
@@ -25612,11 +25592,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 2
-  _eSwipeSide: 2
-  Name: 1
-  ZombieSize: 0
-  _cooperativePosition: []
+  _eSwipeSide: 4
+  Name: 2
+  ZombieSize: 1
+  _cooperativePosition:
+  - {fileID: 1457599406018057991}
 --- !u!1 &7791132436814587472
 GameObject:
   m_ObjectHideFlags: 0
@@ -25861,10 +25841,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
   _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
+  Name: 3
+  ZombieSize: 1
   _cooperativePosition: []
 --- !u!1 &8167133262426424460
 GameObject:
@@ -25994,10 +25973,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
   _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
+  Name: 2
+  ZombieSize: 1
   _cooperativePosition: []
 --- !u!1 &8301904842051585189
 GameObject:
@@ -26044,10 +26022,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
   _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
+  Name: 3
+  ZombieSize: 1
   _cooperativePosition: []
 --- !u!1 &8409538348969956060
 GameObject:
@@ -26177,12 +26154,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 1
-  _eSwipeSide: 3
-  Name: 3
+  _eSwipeSide: 0
+  Name: 2
   ZombieSize: 1
-  _cooperativePosition:
-  - {fileID: 4900110234734803008}
+  _cooperativePosition: []
 --- !u!1 &8596216074890661405
 GameObject:
   m_ObjectHideFlags: 0
@@ -26382,11 +26357,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
-  _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
-  _cooperativePosition: []
+  _eSwipeSide: 4
+  Name: 3
+  ZombieSize: 1
+  _cooperativePosition:
+  - {fileID: 1324799319871241907}
 --- !u!1 &8925796382551492835
 GameObject:
   m_ObjectHideFlags: 0
@@ -26432,11 +26407,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 0
-  _eSwipeSide: 0
-  Name: 0
-  ZombieSize: 0
-  _cooperativePosition: []
+  _eSwipeSide: 2
+  Name: 3
+  ZombieSize: 1
+  _cooperativePosition:
+  - {fileID: 4157827695717045866}
 --- !u!1 &8940312380307451401
 GameObject:
   m_ObjectHideFlags: 0
@@ -26648,12 +26623,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3226202668b11ec4294194d9ad2b6e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eSwipeDirection: 1
   _eSwipeSide: 3
-  Name: 2
-  ZombieSize: 1
-  _cooperativePosition:
-  - {fileID: 3981542334500061197}
+  Name: 0
+  ZombieSize: 0
+  _cooperativePosition: []
 --- !u!1001 &440025919668545082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26862,7 +26835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 113835947330897266, guid: f2deb9b2271a24d4b9a77c534477ebbc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.8
+      value: 0.19
       objectReference: {fileID: 0}
     - target: {fileID: 113835947330897266, guid: f2deb9b2271a24d4b9a77c534477ebbc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -26999,6 +26972,83 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7791082999743562591, guid: fb07e32028dd3a9408ea41a22bde8611, type: 3}
   m_PrefabInstance: {fileID: 1425160615135647664}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1618641090611318183
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7037340585697550979}
+    m_Modifications:
+    - target: {fileID: 113835947330897266, guid: f2deb9b2271a24d4b9a77c534477ebbc, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 113835947330897266, guid: f2deb9b2271a24d4b9a77c534477ebbc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 113835947330897266, guid: f2deb9b2271a24d4b9a77c534477ebbc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 113835947330897266, guid: f2deb9b2271a24d4b9a77c534477ebbc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 113835947330897266, guid: f2deb9b2271a24d4b9a77c534477ebbc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 113835947330897266, guid: f2deb9b2271a24d4b9a77c534477ebbc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 113835947330897266, guid: f2deb9b2271a24d4b9a77c534477ebbc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 113835947330897266, guid: f2deb9b2271a24d4b9a77c534477ebbc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 113835947330897266, guid: f2deb9b2271a24d4b9a77c534477ebbc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 113835947330897266, guid: f2deb9b2271a24d4b9a77c534477ebbc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 113835947330897266, guid: f2deb9b2271a24d4b9a77c534477ebbc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 113835947330897267, guid: f2deb9b2271a24d4b9a77c534477ebbc, type: 3}
+      propertyPath: m_Name
+      value: ShooterEnemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2565738855973243231, guid: f2deb9b2271a24d4b9a77c534477ebbc, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'spine1_loResSpine3'\n\tFrom animation clip
+        'Fire'"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8048459064177069467, guid: f2deb9b2271a24d4b9a77c534477ebbc, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8048459064177069467, guid: f2deb9b2271a24d4b9a77c534477ebbc, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f2deb9b2271a24d4b9a77c534477ebbc, type: 3}
+--- !u!4 &1721215420014856405 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 113835947330897266, guid: f2deb9b2271a24d4b9a77c534477ebbc, type: 3}
+  m_PrefabInstance: {fileID: 1618641090611318183}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1892561747850661008
 PrefabInstance:
@@ -28551,6 +28601,76 @@ PrefabInstance:
       objectReference: {fileID: -5678064519248718004, guid: 99a980e3652bfc14789682e2a03ecc07, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f22d0c5fdeafa1e4e8c1caa331ca7c0a, type: 3}
+--- !u!1001 &8559278081947707752
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7037340586768082326}
+    m_Modifications:
+    - target: {fileID: 892117119327960640, guid: 1c4afcc2f8c0b36418ba3e23f1dc99ee, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 892117119327960640, guid: 1c4afcc2f8c0b36418ba3e23f1dc99ee, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 892117119327960640, guid: 1c4afcc2f8c0b36418ba3e23f1dc99ee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 892117119327960640, guid: 1c4afcc2f8c0b36418ba3e23f1dc99ee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 892117119327960640, guid: 1c4afcc2f8c0b36418ba3e23f1dc99ee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 892117119327960640, guid: 1c4afcc2f8c0b36418ba3e23f1dc99ee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 892117119327960640, guid: 1c4afcc2f8c0b36418ba3e23f1dc99ee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 892117119327960640, guid: 1c4afcc2f8c0b36418ba3e23f1dc99ee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 892117119327960640, guid: 1c4afcc2f8c0b36418ba3e23f1dc99ee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 892117119327960640, guid: 1c4afcc2f8c0b36418ba3e23f1dc99ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 892117119327960640, guid: 1c4afcc2f8c0b36418ba3e23f1dc99ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 892117119327960640, guid: 1c4afcc2f8c0b36418ba3e23f1dc99ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 892117119327960642, guid: 1c4afcc2f8c0b36418ba3e23f1dc99ee, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 79559f04f6cb1074fa6990b77b71e773, type: 2}
+    - target: {fileID: 892117119327960668, guid: 1c4afcc2f8c0b36418ba3e23f1dc99ee, type: 3}
+      propertyPath: m_Name
+      value: Obstacle (10)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1c4afcc2f8c0b36418ba3e23f1dc99ee, type: 3}
+--- !u!4 &8838813284117370664 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 892117119327960640, guid: 1c4afcc2f8c0b36418ba3e23f1dc99ee, type: 3}
+  m_PrefabInstance: {fileID: 8559278081947707752}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8606654493282496077
 PrefabInstance:
   m_ObjectHideFlags: 0

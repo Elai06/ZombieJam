@@ -109,7 +109,6 @@ namespace Gameplay.Parking
             unit.DoDamage -= OnUnitDoDamage;
             unit.OnDied -= OnUnitDied;
             unit.Kicked -= OnKicked;
-            unit.DoDamage -= OnUnitDoDamage;
             unit.StateMachine.OnStateChange -= OnZombieStateChanged;
 
             if (_gameplayModel.WaveType == EWaveType.Logic)

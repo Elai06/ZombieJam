@@ -98,7 +98,7 @@ namespace Gameplay.Units.ArcherStates
 
                 if (_unit.Target == null || _unit.IsDied || _unit == null) yield break;
 
-                var shot = new ArcherBulletModel(_coroutineService, _unit.Target, _parametersConfig, duration);
+                var shot = new ArcherBulletModel(_coroutineService, _unit.Target, duration);
                 _unit.Bullet.Shot(_unit.Target.Transform, attackSpeed);
                 shot.Attacked += OnAttacked;
                 _shotsQueue.Enqueue(shot);
@@ -124,6 +124,7 @@ namespace Gameplay.Units.ArcherStates
         private void OnAttacked()
         {
             _shotsQueue.Dequeue();
+            _unit.DamageToTarget(_unit.Target, false);
         }
     }
 }

@@ -119,12 +119,12 @@ namespace Gameplay.Units
             OnInitializePath?.Invoke();
         }
 
-        public void DamageToTarget(IEnemy enemy)
+        public void DamageToTarget(IEnemy enemy, bool isNeedBlood = true)
         {
             if (enemy == null || this == null) return;
 
             var attack = Parameters[EParameter.Damage];
-            enemy.GetDamage(attack);
+            enemy.GetDamage(attack, isNeedBlood);
             DoDamage?.Invoke();
         }
 
