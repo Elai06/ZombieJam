@@ -217,9 +217,8 @@ namespace Gameplay.Windows
 
             if (_gameplayModel.TutorialState == ETutorialState.ShopBox)
             {
-                _windowService.Open(WindowType.Footer);
-                _windowService.Open(WindowType.Gameplay);
-                _windowService.Close(WindowType.MainMenu);
+                ExitToLobby();
+                return;
             }
 
             await Task.Delay(50);
