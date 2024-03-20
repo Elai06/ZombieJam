@@ -19,13 +19,15 @@ namespace Gameplay
 
         [Inject] private IGameplayModel _gameplayModel;
 
-        [SerializeField] private CameraSelector _cameraSelector;
+        private CameraSelector _cameraSelector;
 
         private int _zombieCount;
 
         private void Start()
         {
             InjectService.Instance.Inject(this);
+
+            _cameraSelector = FindObjectOfType<CameraSelector>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -43,10 +45,6 @@ namespace Gameplay
                 {
                     _gameplayModel.WaveCompleted();
 
-                    if (_cameraSelector == null)
-                    {
-                        _cameraSelector = FindObjectOfType<CameraSelector>();
-                    }
 
                     DOVirtual.DelayedCall(2f, () => { _cameraSelector.ChangeCamera(ECameraType.Enemies); });
                 }

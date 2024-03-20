@@ -23,7 +23,6 @@ namespace Gameplay.Parking
         [SerializeField] private PositionSpawner _positionSpawner;
         [SerializeField] private Transform _spawnPosition;
         [SerializeField] private TargetManager _targetManager;
-        [SerializeField] private CameraSelector _cameraSelector;
 
         private readonly List<Unit> _zombies = new();
 
@@ -31,8 +30,9 @@ namespace Gameplay.Parking
         private IWindowService _windowService;
         private ICardsModel _cardsModel;
         private IGameplayModel _gameplayModel;
-
         private ZombieConfig _zombieConfig;
+        private CameraSelector _cameraSelector;
+
 
         [Inject]
         public void Construct(ICoroutineService coroutineService, IWindowService windowService,
@@ -51,6 +51,8 @@ namespace Gameplay.Parking
         private void Start()
         {
             InjectService.Instance.Inject(this);
+
+            _cameraSelector = FindObjectOfType<CameraSelector>();
 
             Initialize();
         }
