@@ -97,6 +97,8 @@ namespace Gameplay.Windows.Rewards
                     return "Walking coffin, increased HP";
                 case EZombieNames.ArmoredZombie:
                     return "Armored Zombie, increased HP";
+                case EZombieNames.ZombieScooter:
+                    return "Zombie scooter, increased attack";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(zombieNames), zombieNames, null);
             }

@@ -14,19 +14,4 @@ namespace Gameplay.Configs.Zombies
         public ParametersConfig Parameters;
         public EZombieSize ZombieSize;
     }
-
-    public enum EZombieSize
-    {
-        SingleCell,
-        TwoCells
-    }
-
-    public enum EZombieNames
-    {
-        Zombie,
-        BrainThrower,
-        WalkingCoffin,
-        Hitchhiker,
-        ArmoredZombie,
-    }
 }

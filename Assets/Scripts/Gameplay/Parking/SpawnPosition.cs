@@ -111,6 +111,9 @@ namespace Gameplay.Parking
                 case EZombieNames.ArmoredZombie:
                     _color = Color.green;
                     break;
+                case EZombieNames.ZombieScooter:
+                    _color = Color.green;
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
