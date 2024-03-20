@@ -87,7 +87,7 @@ namespace Gameplay.Parking
                 var prefab = Instantiate(config.Prefab, spawnPosition.GetSpawnPosition(),
                     Quaternion.identity, _spawnPosition);
                 prefab.transform.localPosition = spawnPosition.GetSpawnPosition();
-                prefab.SetSwipeDirection(spawnPosition.SwipeDirection, spawnPosition.SwipeSide);
+                prefab.SetSwipeDirection(GetSwipeDirection(spawnPosition.SwipeSide), spawnPosition.SwipeSide);
                 prefab.Initialize(_cardsModel.CardModels[config.Name], _coroutineService, _targetManager, config);
                 _zombies.Add(prefab);
             }
@@ -156,6 +156,16 @@ namespace Gameplay.Parking
             {
                 _gameplayModel.FirstDamage();
             }
+        }
+
+        private ESwipeDirection GetSwipeDirection(ESwipeSide eSwipeSide)
+        {
+            if (eSwipeSide == ESwipeSide.Back || eSwipeSide == ESwipeSide.Forward)
+            {
+                return ESwipeDirection.Vertical;
+            }
+
+            return ESwipeDirection.Horizontal;
         }
     }
 }

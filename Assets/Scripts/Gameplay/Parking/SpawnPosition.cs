@@ -8,7 +8,6 @@ namespace Gameplay.Parking
 {
     public class SpawnPosition : MonoBehaviour
     {
-        [SerializeField] private ESwipeDirection _eSwipeDirection;
         [SerializeField] private ESwipeSide _eSwipeSide;
         public EZombieNames Name;
         public EZombieSize ZombieSize;
@@ -20,7 +19,6 @@ namespace Gameplay.Parking
 
         public List<SpawnPosition> CooperativePositions => _cooperativePosition;
 
-        public ESwipeDirection SwipeDirection => _eSwipeDirection;
 
         public ESwipeSide SwipeSide => _eSwipeSide;
 
@@ -45,7 +43,7 @@ namespace Gameplay.Parking
 
             var gizmosPosition = transform.position;
             var gizmosScale = ZombieSize == EZombieSize.SingleCell
-                ? new Vector3(0.9f, 0.2f, 0.9f)
+                ? new Vector3(0.85f, 0.2f, 0.85f)
                 : new Vector3(1f, 0.2f, 1f);
             gizmosPosition.y += 0.1f;
             Gizmos.DrawCube(gizmosPosition, gizmosScale);
@@ -63,7 +61,7 @@ namespace Gameplay.Parking
         {
             if (_cooperativePosition.Count == 0 && ZombieSize == EZombieSize.TwoCells)
             {
-                _eSwipeDirection = ESwipeDirection.None;
+                _eSwipeSide = ESwipeSide.None;
             }
 
             IsCooperative = true;
@@ -72,7 +70,7 @@ namespace Gameplay.Parking
 
         public bool IsAvailablePosition()
         {
-            return _eSwipeDirection != ESwipeDirection.None;
+            return _eSwipeSide != ESwipeSide.None;
         }
 
         public Vector3 GetSpawnPosition()
@@ -87,7 +85,7 @@ namespace Gameplay.Parking
 
         private void SetColor()
         {
-            if (_eSwipeDirection == ESwipeDirection.None && ZombieSize == EZombieSize.SingleCell)
+            if (_eSwipeSide == ESwipeSide.None && (ZombieSize == EZombieSize.SingleCell || _cooperativePosition.Count > 0))
             {
                 _color = Color.red;
                 Gizmos.color = _color;
